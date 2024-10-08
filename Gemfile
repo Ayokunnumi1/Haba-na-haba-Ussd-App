@@ -74,4 +74,4 @@ end
 # Environment variable
 gem 'dotenv-rails', groups: %i[development test]
 
-gem "tailwindcss-rails", "~> 2.7"
+gem 'tailwindcss-rails', '~> 2.7'

@@ -2,10 +2,10 @@ class UssdController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    session_id = params[:sessionId]
-    phone_number = params[:phoneNumber]
+    params[:sessionId]
+    params[:phoneNumber]
     text = params[:text]
-    service_code = params[:serviceCode]
+    params[:serviceCode]
 
     response = process_ussd(text)
 
@@ -16,15 +16,15 @@ class UssdController < ApplicationController
 
   def process_ussd(text)
     case text
-    when ""
-      
+    when ''
+
       "CON Welcome to Haba na haba\n1. Donate Food\n2. Request Food"
-    when "1"
-      "END Thank you for donating food"
-    when "2"
-      "END We would send you food shorthly"
+    when '1'
+      'END Thank you for donating food'
+    when '2'
+      'END We would send you food shorthly'
     else
-      "END Invalid choice"
+      'END Invalid choice'
     end
   end
 end

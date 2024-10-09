@@ -8,7 +8,7 @@ class CreateInventories < ActiveRecord::Migration[7.1]
       t.date :expire_date
       t.references :district, null: false, foreign_key: true
       t.references :county, null: false, foreign_key: true
-      t.references :subcounty, null: false, foreign_key: true
+      t.references :sub_county, null: false, foreign_key: true
       t.string :village_address
       t.string :residence_address
       t.string :phone_number

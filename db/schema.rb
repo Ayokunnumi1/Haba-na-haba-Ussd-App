@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_09_112513) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_09_120121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,31 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_09_112513) do
     t.index ["sub_county_id"], name: "index_events_on_sub_county_id"
   end
 
+  create_table "individual_beneficiaries", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.string "gender"
+    t.string "residence_address"
+    t.string "village"
+    t.string "parish"
+    t.string "phone_number"
+    t.string "case_name"
+    t.text "case_description"
+    t.string "fathers_name"
+    t.string "mothers_name"
+    t.string "sur_name"
+    t.bigint "district_id", null: false
+    t.bigint "county_id", null: false
+    t.bigint "sub_county_id", null: false
+    t.bigint "request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
+    t.index ["district_id"], name: "index_individual_beneficiaries_on_district_id"
+    t.index ["request_id"], name: "index_individual_beneficiaries_on_request_id"
+    t.index ["sub_county_id"], name: "index_individual_beneficiaries_on_sub_county_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
@@ -111,6 +136,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_09_112513) do
   add_foreign_key "events", "counties"
   add_foreign_key "events", "districts"
   add_foreign_key "events", "sub_counties"
+  add_foreign_key "individual_beneficiaries", "counties"
+  add_foreign_key "individual_beneficiaries", "districts"
+  add_foreign_key "individual_beneficiaries", "requests"
+  add_foreign_key "individual_beneficiaries", "sub_counties"
   add_foreign_key "requests", "branches"
   add_foreign_key "requests", "counties"
   add_foreign_key "requests", "districts"

@@ -2,6 +2,8 @@ class Event < ApplicationRecord
   belongs_to :district
   belongs_to :county
   belongs_to :sub_county
+  has_many :event_users
+  has_many :users, through: :event_users
 
   validates :name, presence: true
   validates :start_date, presence: true

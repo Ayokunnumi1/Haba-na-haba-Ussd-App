@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   belongs_to :branch, optional: true
+  has_many :event_users
+  has_many :events, through: :event_users
 
   ROLES = %w[super_admin admin branch_manager volunteer].freeze
 

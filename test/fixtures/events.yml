@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  start_date: 2024-10-09 13:56:49
+  end_date: 2024-10-09 13:56:49
+  district: one
+  county: one
+  sub_county: one
+
+two:
+  name: MyString
+  start_date: 2024-10-09 13:56:49
+  end_date: 2024-10-09 13:56:49
+  district: two
+  county: two
+  sub_county: two

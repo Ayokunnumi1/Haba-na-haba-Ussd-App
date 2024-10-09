@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  phone_number: MyString
+  request_type: MyString
+  residence_address: MyString
+  village: MyString
+  parish: MyString
+  is_selected: false
+  district: one
+  county: one
+  sub_county: one
+  branch: one
+  user: one
+
+two:
+  name: MyString
+  phone_number: MyString
+  request_type: MyString
+  residence_address: MyString
+  village: MyString
+  parish: MyString
+  is_selected: false
+  district: two
+  county: two
+  sub_county: two
+  branch: two
+  user: two

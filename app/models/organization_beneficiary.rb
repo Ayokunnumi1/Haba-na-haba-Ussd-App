@@ -5,6 +5,7 @@ class OrganizationBeneficiary < ApplicationRecord
   belongs_to :request
 
   validates :organization_name, :male, :female, :residence_address, :village, :parish, :phone_number, presence: true
-  validates :case_name, :case_description, :registration_no, :organization_no, :directors_name, :head_of_institution, presence: true
-  validates :phone_number, format: { with: /\A[\d+]+\z/, message: "only allows numbers" }
+  validates :case_name, :case_description, :registration_no, :organization_no, :directors_name, :head_of_institution,
+            presence: true
+  validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
 end

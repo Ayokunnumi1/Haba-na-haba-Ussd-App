@@ -4,5 +4,5 @@ class Branch < ApplicationRecord
   has_many :users
 
   validates :name, :phone_number, presence: true
-  validates :phone_number, format: { with: /\A[\d+]+\z/, message: "only allows numbers" }
+  validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
 end

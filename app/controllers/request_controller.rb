@@ -1,4 +1,4 @@
-class UssdController < ApplicationController
+class RequestController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
@@ -11,9 +11,7 @@ class UssdController < ApplicationController
 
     render plain: response
   end
-
-  private
-
+  
   def process_ussd(text)
     case text
     when ''

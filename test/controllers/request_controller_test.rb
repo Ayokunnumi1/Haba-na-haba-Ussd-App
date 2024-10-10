@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class UssdControllerTest < ActionDispatch::IntegrationTest
+class RequestControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
-    get ussd_index_url
+    get request_index_url
     assert_response :success
   end
 end

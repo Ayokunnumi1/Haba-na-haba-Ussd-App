@@ -74,4 +74,8 @@ end
 # Environment variable
 gem 'dotenv-rails', groups: %i[development test]
 
+# tailwindcss for style
 gem 'tailwindcss-rails', '~> 2.7'
+
+# Devise for user authentication
+gem 'devise'

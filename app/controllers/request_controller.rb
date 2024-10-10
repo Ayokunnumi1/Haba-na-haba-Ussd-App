@@ -11,7 +11,7 @@ class RequestController < ApplicationController
 
     render plain: response
   end
-  
+
   def process_ussd(text)
     case text
     when ''

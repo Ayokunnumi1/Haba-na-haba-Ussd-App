@@ -1,0 +1,47 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_name: MyText
+  male: 1
+  female: 1
+  adult_age_range: MyText
+  children_age_range: MyText
+  district: one
+  county: one
+  sub_county: one
+  residence_address: MyText
+  village: MyText
+  parish: MyText
+  phone_number: MyText
+  case_name: MyText
+  case_description: MyText
+  registration_no: MyText
+  organization_no: MyText
+  directors_name: MyText
+  head_of_institution: MyText
+  number_of_meals_home: 1
+  basic_FEH: MyText
+  request: one
+
+two:
+  organization_name: MyText
+  male: 1
+  female: 1
+  adult_age_range: MyText
+  children_age_range: MyText
+  district: two
+  county: two
+  sub_county: two
+  residence_address: MyText
+  village: MyText
+  parish: MyText
+  phone_number: MyText
+  case_name: MyText
+  case_description: MyText
+  registration_no: MyText
+  organization_no: MyText
+  directors_name: MyText
+  head_of_institution: MyText
+  number_of_meals_home: 1
+  basic_FEH: MyText
+  request: two

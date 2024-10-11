@@ -1,4 +1,13 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#show</h1>
-  <p>Find me in app/views/users/show.html.erb</p>
+<h1 class="text-2xl font-bold mb-6">User Details</h1>
+<div class="bg-white p-6 rounded-lg shadow-lg">
+  <p class="text-gray-700"><strong>First Name:</strong> <%= @user.first_name %></p>
+  <p class="text-gray-700"><strong>Last Name:</strong> <%= @user.last_name %></p>
+  <p class="text-gray-700"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+  <p class="text-gray-700"><strong>Email:</strong> <%= @user.email %></p>
+  <p class="text-gray-700"><strong>Role:</strong> <%= @user.role %></p>
+  <p class="text-gray-700"><strong>Branch:</strong> <%= @user.branch&.name %></p>
+</div>
+<div class="mt-6">
+  <%= link_to 'Edit', edit_user_path(@user), class: 'bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600' %>
+  <%= link_to 'Back to Users', users_path, class: 'bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none' %>
 </div>

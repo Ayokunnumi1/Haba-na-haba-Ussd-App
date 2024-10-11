@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'home/index'
   devise_for :users, skip: [:registrations]
+
+  get 'home/index'
+  resources :users
 
   # Conditional root route
   authenticated :user do
@@ -10,6 +12,4 @@ Rails.application.routes.draw do
   unauthenticated do
     root to: 'home#index', as: :unauthenticated_root
   end
-
-  resources :users
 end

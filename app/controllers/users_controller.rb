@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
@@ -9,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to users_path, notice: "user was successfully created."
+      redirect_to users_path, notice: 'user was successfully created.'
     else
       render :new
     end
@@ -28,9 +32,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+
+    if @user == current_user
+      flash[:alert] = 'You cannot delete your own account.'
+    else
+      @user.destroy
+      flash[:notice] = 'User was successfully deleted.'
+    end
+    redirect_to users_path
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :email, :password, :password_confirmation, :branch_id)
+    params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :email, :password,
+                                 :password_confirmation, :branch_id)
   end
 end

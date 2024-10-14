@@ -79,3 +79,7 @@ gem 'tailwindcss-rails', '~> 2.7'
 
 # Devise for user authentication
 gem 'devise'
+
+# Africastalking-ruby for implement ussd menu
+gem 'africastalking-ruby'
+

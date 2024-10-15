@@ -1,6 +1,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.hosts << "7ec2-41-90-36-115.ngrok-free.app"
+  config.hosts << "7ec2-41-90-36-115.ngrok-free.app"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -73,4 +75,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Default URL option
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

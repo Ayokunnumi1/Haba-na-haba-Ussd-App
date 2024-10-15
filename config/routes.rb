@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-  get 'counties/index'
-  get 'counties/show'
-  get 'counties/new'
-  get 'counties/edit'
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
   resources :users
   resources :districts
+  resources :counties
 
   # Conditional root route
   authenticated :user do

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'counties/index'
+  get 'counties/show'
+  get 'counties/new'
+  get 'counties/edit'
   devise_for :users, skip: [:registrations]
 
   get 'home/index'

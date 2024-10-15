@@ -1,4 +1,24 @@
-<div>
-  <h1 class="font-bold text-4xl">Counties#index</h1>
-  <p>Find me in app/views/counties/index.html.erb</p>
-</div>
+<h1 class="text-2xl font-bold mb-4">Counties</h1>
+<table class="min-w-full table-auto">
+  <thead>
+    <tr>
+      <th class="px-4 py-2 text-left">Name</th>
+      <th class="px-4 py-2 text-left">District</th>
+      <th class="px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @counties.each do |county| %>
+      <tr class="border-b">
+        <td class="px-4 py-2"><%= county.name %></td>
+        <td class="px-4 py-2"><%= county.district.name %></td>
+        <td class="px-4 py-2">
+          <%= link_to 'Show', county, class: "text-blue-500 hover:text-blue-700" %>
+          <%= link_to 'Edit', edit_county_path(county), class: "ml-4 text-green-500 hover:text-green-700" %>
+          <%= link_to 'Delete', county, method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-4 text-red-500 hover:text-red-700" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New County', new_county_path, class: "mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" %>

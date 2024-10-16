@@ -9,6 +9,23 @@ class BranchesController < ApplicationController
 
   def new
     @branch = Branch.new
+    @districts = District.all
+    @counties = County.none
+  end
+
+  def edit
+    @districts = District.all
+    @counties = @branch.district.present? ? County.where(district_id: @branch.district_id) : County.none
+  end
+
+  def load_counties
+    @counties = if params[:district_id].present?
+                  County.where(district_id: params[:district_id])
+                else
+                  County.none
+                end
+
+    render json: @counties.map { |county| { id: county.id, name: county.name } }
   end
 
   def create
@@ -20,8 +37,6 @@ class BranchesController < ApplicationController
       render :new, alert: 'Failed to create branch.'
     end
   end
-
-  def edit; end
 
   def update
     if @branch.update(branch_params)

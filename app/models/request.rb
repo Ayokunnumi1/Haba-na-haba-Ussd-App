@@ -10,6 +10,6 @@ class Request < ApplicationRecord
   has_one :organization_beneficiary, dependent: :destroy
   has_many :inventories, dependent: :nullify
 
-  validates :name, :phone_number, presence: true
+  validates :name, :phone_number, :request_type, presence: true
   validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
 end

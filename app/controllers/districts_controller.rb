@@ -1,4 +1,5 @@
 class DistrictsController < ApplicationController
+  include ErrorHandler
   before_action :set_district, only: %i[show edit update destroy]
 
   def index
@@ -37,14 +38,16 @@ class DistrictsController < ApplicationController
     else
       redirect_to districts_url, alert: @district.errors.full_messages.to_sentence
     end
-  rescue ActiveRecord::RecordNotDestroyed => e
-    redirect_to districts_url, alert: "District could not be deleted: #{e.message}"
+  rescue StandardError => e
+    redirect_to districts_url, alert: handle_destroy_error(e)
   end
 
   private
 
   def set_district
     @district = District.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to districts_url, alert: 'District not found.'
   end
 
   def district_params

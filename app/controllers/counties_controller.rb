@@ -1,12 +1,12 @@
 class CountiesController < ApplicationController
-  before_action :set_county, only: [:show, :edit, :update, :destroy]
+  include ErrorHandler
+  before_action :set_county, only: %i[show edit update destroy]
 
   def index
     @counties = County.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @county = County.new
@@ -22,8 +22,7 @@ class CountiesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @county.update(county_params)
@@ -39,14 +38,16 @@ class CountiesController < ApplicationController
     else
       redirect_to counties_url, alert: @county.errors.full_messages.to_sentence
     end
-  rescue ActiveRecord::RecordNotDestroyed => e
-    redirect_to counties_url, alert: "County could not be deleted: #{e.message}"
+  rescue StandardError => e
+    redirect_to counties_url, alert: handle_destroy_error(e)
   end
 
   private
 
   def set_county
     @county = County.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to counties_url, alert: 'County not found.'
   end
 
   def county_params

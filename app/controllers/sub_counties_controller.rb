@@ -1,12 +1,12 @@
 class SubCountiesController < ApplicationController
+  include ErrorHandler
   before_action :set_sub_county, only: %i[show edit update destroy]
 
   def index
     @sub_counties = SubCounty.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @sub_county = SubCounty.new
@@ -22,8 +22,7 @@ class SubCountiesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @sub_county.update(sub_county_params)
@@ -40,7 +39,7 @@ class SubCountiesController < ApplicationController
       redirect_to sub_counties_url, alert: 'Failed to delete SubCounty.'
     end
   rescue StandardError => e
-    redirect_to sub_counties_url, alert: "Failed to delete SubCounty: #{e.message}"
+    redirect_to sub_counties_url, alert: handle_destroy_error(e)
   end
 
   private

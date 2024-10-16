@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :districts
   resources :counties
   resources :sub_counties
+  resources :branches
 
   # Conditional root route
   authenticated :user do

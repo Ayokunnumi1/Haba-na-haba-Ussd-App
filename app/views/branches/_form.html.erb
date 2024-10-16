@@ -1,0 +1,32 @@
+<%= form_with(model: branch, local: true, class: "space-y-6") do |form| %>
+  <% if branch.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+      <strong class="font-bold"><%= pluralize(branch.errors.count, "error") %> prevented this branch from being saved:</strong>
+      <ul class="mt-2">
+        <% branch.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  <div>
+    <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :phone_number, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  <div>
+    <%= form.label :district_id, 'District', class: "block text-sm font-medium text-gray-700" %>
+    <%= form.collection_select :district_id, District.all, :id, :name, { prompt: "Select District" }, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  <div>
+    <%= form.label :county_id, 'County', class: "block text-sm font-medium text-gray-700" %>
+    <%= form.collection_select :county_id, County.all, :id, :name, { prompt: "Select County" }, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  <div class="flex space-x-4 mt-4">
+    <%= form.submit branch.new_record? ? "Create Branch" : "Update Branch", class: "bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600" %>
+    <%= link_to 'Back to Branches', branches_path, class: "bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600" %>
+  </div>
+<% end %>

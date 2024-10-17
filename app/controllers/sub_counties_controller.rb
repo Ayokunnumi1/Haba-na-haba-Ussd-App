@@ -1,5 +1,6 @@
 class SubCountiesController < ApplicationController
   include ErrorHandler
+  before_action :authenticate_user!
   before_action :set_sub_county, only: %i[show edit update destroy]
 
   def index

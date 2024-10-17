@@ -1,4 +1,3 @@
-// app/javascript/controllers/load_counties.js
 document.addEventListener("turbo:load", function () {
   const districtSelect = document.getElementById("district-select");
   const countySelect = document.getElementById("county-select");
@@ -7,7 +6,6 @@ document.addEventListener("turbo:load", function () {
     districtSelect.addEventListener("change", function () {
       const districtId = districtSelect.value;
 
-      // Clear out the county dropdown
       countySelect.innerHTML = "<option value=''>Select County</option>";
 
       if (districtId) {

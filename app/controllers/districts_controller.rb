@@ -1,5 +1,6 @@
 class DistrictsController < ApplicationController
   include ErrorHandler
+  before_action :authenticate_user!
   before_action :set_district, only: %i[show edit update destroy]
 
   def index

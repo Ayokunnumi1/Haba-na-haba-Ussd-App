@@ -3,3 +3,4 @@ import "@hotwired/turbo-rails";
 import "controllers";
 import "./controllers";
 import "./controllers/load_counties";
+import "./controllers/load_sub_counties";

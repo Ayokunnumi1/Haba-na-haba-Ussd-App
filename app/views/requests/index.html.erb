@@ -1,0 +1,27 @@
+<h1>Requests</h1>
+<table class="min-w-full divide-y divide-gray-200">
+  <thead class="bg-gray-50">
+    <tr>
+      <th>Name</th>
+      <th>Phone Number</th>
+      <th>Request Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <% @requests.each do |request| %>
+      <tr>
+        <td><%= request.name %></td>
+        <td><%= request.phone_number %></td>
+        <td><%= request.request_type %></td>
+        <td>
+          <%= link_to 'Show', request, class: 'text-indigo-600 hover:text-indigo-900' %>
+          <%= link_to 'Edit', edit_request_path(request), class: 'text-blue-600 hover:text-blue-900' %>
+          <%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'New Request', new_request_path, class: 'mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700' %>
+<%= link_to 'Dashboard', users_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>

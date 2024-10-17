@@ -11,6 +11,12 @@ Rails.application.routes.draw do
       get :load_counties
     end
   end
+  resources :requests do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
 
   # Conditional root route
   authenticated :user do

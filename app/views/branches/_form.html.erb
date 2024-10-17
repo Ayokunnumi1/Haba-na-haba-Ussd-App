@@ -23,7 +23,7 @@
   <!-- District Dropdown -->
   <div>
     <%= form.label :district_id, 'District', class: "block text-sm font-medium text-gray-700" %>
-    <%= form.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, class: "mt-1 block w-full", id: "district-select" %>
+    <%= form.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, class: "mt-1 block w-full", id: "district-select", 'data-context-path': 'branches' %>
   </div>
   <!-- County Dropdown (Initially empty or pre-filled for edit) -->
   <div>

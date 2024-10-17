@@ -5,11 +5,12 @@ document.addEventListener("turbo:load", function () {
   if (districtSelect) {
     districtSelect.addEventListener("change", function () {
       const districtId = districtSelect.value;
+      const contextPath = districtSelect.dataset.contextPath || "";
 
       countySelect.innerHTML = "<option value=''>Select County</option>";
 
       if (districtId) {
-        fetch(`/branches/load_counties?district_id=${districtId}`)
+        fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
           .then((response) => response.json())
           .then((data) => {
             data.forEach((county) => {

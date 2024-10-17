@@ -30,10 +30,10 @@ development:
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: haba_na_haba_ussd_app
+  username: postgres
 
   # The password associated with the PostgreSQL role (username).
-  #password:
+  password: Software@007
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -59,6 +59,9 @@ development:
 test:
   <<: *default
   database: haba_na_haba_ussd_app_test
+  username: postgres
+  password: Software@007
+
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

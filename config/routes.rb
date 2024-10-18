@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'individual_beneficiaries/index'
-  get 'individual_beneficiaries/show'
-  get 'individual_beneficiaries/new'
-  get 'individual_beneficiaries/edit'
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
@@ -20,8 +16,9 @@ Rails.application.routes.draw do
       get :load_counties
       get :load_sub_counties
     end
-    resources :individual_beneficiaries
+    resource :individual_beneficiary, only: [:new, :create, :edit, :update]
   end
+  resources :individual_beneficiaries, only: [:index, :show, :destroy]
 
   # Conditional root route
   authenticated :user do

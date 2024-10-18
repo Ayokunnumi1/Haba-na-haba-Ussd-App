@@ -187,7 +187,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.bigint "county_id", null: false
     t.bigint "sub_county_id", null: false
     t.bigint "branch_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_requests_on_branch_id"

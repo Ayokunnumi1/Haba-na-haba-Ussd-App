@@ -1,0 +1,91 @@
+<%= form_with(model: @individual_beneficiary, url: url, local: true) do |form| %>
+  <div class="space-y-6 bg-white p-6 shadow sm:rounded-lg">
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", required: true %>
+      </div>
+
+      <div>
+        <%= form.label :age, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.number_field :age, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", required: true %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <%= form.label :gender, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.select :gender, ["Male", "Female"], { prompt: "Select Gender" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.telephone_field :phone_number, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", placeholder: "e.g. +1234567890" %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <%= form.label :residence_address, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :residence_address, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= form.label :village, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :village, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <%= form.label :parish, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :parish, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= form.label :case_name, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :case_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+    </div>
+
+    <div>
+      <%= form.label :case_description, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_area :case_description, rows: 3, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <%= form.label :fathers_name, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :fathers_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= form.label :mothers_name, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :mothers_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+      <div>
+        <%= form.label :sub_county_id, "Sub County", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.collection_select :sub_county_id, SubCounty.all, :id, :name, { prompt: "Select Sub County" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= form.label :county_id, "County", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.collection_select :county_id, County.all, :id, :name, { prompt: "Select County" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+
+      <div>
+        <%= form.label :district_id, "District", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.collection_select :district_id, District.all, :id, :name, { prompt: "Select District" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <%= form.submit class: "bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700" %>
+    </div>
+
+  </div>
+<% end %>

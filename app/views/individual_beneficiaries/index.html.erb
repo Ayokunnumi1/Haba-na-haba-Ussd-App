@@ -1,4 +1,28 @@
-<div>
-  <h1 class="font-bold text-4xl">IndividualBeneficiaries#index</h1>
-  <p>Find me in app/views/individual_beneficiaries/index.html.erb</p>
-</div>
+<h1 class="text-xl font-bold mb-6">All Individual Beneficiaries</h1>
+
+<table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+  <thead class="bg-gray-50">
+    <tr>
+      <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Name</th>
+      <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Age</th>
+      <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Gender</th>
+      <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Request ID</th>
+      <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Case Name</th>
+      <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Actions</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <% @individual_beneficiaries.each do |beneficiary| %>
+      <tr>
+        <td class="px-4 py-2 text-sm text-gray-700"><%= beneficiary.name %></td>
+        <td class="px-4 py-2 text-sm text-gray-700"><%= beneficiary.age %></td>
+        <td class="px-4 py-2 text-sm text-gray-700"><%= beneficiary.gender %></td>
+        <td class="px-4 py-2 text-sm text-gray-700"><%= beneficiary.request_id %></td>
+        <td class="px-4 py-2 text-sm text-gray-700"><%= beneficiary.case_name %></td>
+        <td class="px-4 py-2 text-sm text-gray-700">
+          <%= link_to "Edit", edit_request_individual_beneficiary_path(beneficiary.request), class: "text-blue-600 hover:text-blue-800" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

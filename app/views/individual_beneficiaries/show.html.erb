@@ -1,4 +1,53 @@
-<div>
-  <h1 class="font-bold text-4xl">IndividualBeneficiaries#show</h1>
-  <p>Find me in app/views/individual_beneficiaries/show.html.erb</p>
+<h1 class="text-xl font-bold mb-6">Beneficiary Details</h1>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <%= @individual_beneficiary.name %>'s Information
+    </h3>
+    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+      Case: <%= @individual_beneficiary.case_name %>
+    </p>
+  </div>
+
+  <div class="border-t border-gray-200">
+    <dl>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @individual_beneficiary.name %>
+        </dd>
+      </div>
+
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Age</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @individual_beneficiary.age %>
+        </dd>
+      </div>
+
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Gender</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @individual_beneficiary.gender %>
+        </dd>
+      </div>
+
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Case Name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @individual_beneficiary.case_name %>
+        </dd>
+      </div>
+
+      <!-- More fields can go here -->
+
+    </dl>
+  </div>
+  
+  <div class="px-4 py-5 sm:px-6">
+    <%= link_to "Edit", edit_request_individual_beneficiary_path(@individual_beneficiary.request), class: "text-blue-600 hover:text-blue-800" %> |
+    <%= link_to "Back to All", individual_beneficiaries_path, class: "text-gray-600 hover:text-gray-800" %> |
+    <%= link_to "Delete", individual_beneficiary_path(@individual_beneficiary), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-800" %>
+  </div>
 </div>

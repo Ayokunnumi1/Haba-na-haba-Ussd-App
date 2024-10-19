@@ -13,6 +13,15 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
+      fontSize: {},
+      colors: {
+        darkBlue: "#302C51",
+        lightGreen: "#6DC13D",
+      },
+      fontFamily: {
+        Paprika: ["Paprika", "sans-serif"],
+        Roboto: ["Roboto, sans-serif"],
+      },
     },
   },
   plugins: [

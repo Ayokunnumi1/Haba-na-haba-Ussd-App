@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+.bg-custom-image {
+  background-image: url('./assets/african-kid.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.red-border {
+  border: 3px solid red;
+}

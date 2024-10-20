@@ -10,17 +10,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
-      },
       fontSize: {},
       colors: {
         darkBlue: "#302C51",
         lightGreen: "#6DC13D",
+        moodyBlue: "#666099",
       },
       fontFamily: {
         Paprika: ["Paprika", "sans-serif"],
-        Roboto: ["Roboto, sans-serif"],
+        Outfit: ["Outfit", "sans-serif"],
       },
     },
   },

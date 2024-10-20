@@ -22,6 +22,27 @@
   position: relative;
 }
 
+.bg-community-image {
+  background-image: url('./assets/community.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  position: relative;
+}
+
 .red-border {
   border: 3px solid red;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 5px;
+  background-color: #666099;
+}
+
+.grid-container>div {
+  gap: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

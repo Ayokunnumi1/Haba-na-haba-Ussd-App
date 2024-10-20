@@ -1,1 +1,168 @@
-<h1>Welcome to the Home Page! This is for common users.</h1>
+<main>
+  <section>
+    <div class="bg-custom-image relative min-h-screen">
+      <nav class="border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
+          <%= image_tag("hnhfoodbank-logo.png", size: "70x70", alt: "Hnh Logo") %>
+          <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+          </button>
+          <div class="hidden absolute top-full left-0 w-full md:block md:w-auto" id="navbar-default">
+            <ul class="font-medium bg-white md:bg-transparent flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <li>
+                <a href="#" class="block py-2 px-3 text-white bg-lightGreen rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
+              </li>
+              <li>
+                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Donate Food</a>
+              </li>
+              <li>
+                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Request Food</a>
+              </li>
+              <li>
+                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About Us</a>
+              </li>
+              <li>
+                <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="w-full mt-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
+        <div class="text-center text-white font-Paprika font-normal">
+          <h1 class="text-3xl">Haba Na Haba</h1>
+          <p class="text-xl">We are passionate hunger heroes</p>
+          <p class="text-sm mt-2 font-Outfit">Together we can end hunger</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-lightGreen text-white p-6">
+    <div class="flex flex-row justify-center items-center gap-5">
+      <h2 class="text-3xl font-Outfit font-bold">No one should ever go hungry</h2>
+      <p class="font-Outfit text-lg ">That's why we connect people with food today and build community power to end hunger at its roots, eliminating barriers to employment, affordable housing, health care and more.</p>
+    </div>
+
+    <div class="font-Outfit font-normal text-lg mt-5">
+      <button type="button" class="text-lightGreen bg-white hover:bg-lightGreen hover:text-white hover:border-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Request Food</button>
+      <button type="button" class="text-white bg-darkBlue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Donate Food</button>
+    </div>
+  </section>
+
+<section class="font-Outfit text-darkBlue p-4 flex flex-col justify-center items-center">
+  <%= image_tag("volunteer.png",  alt: "volunteer") %>
+  <h2 class="font-bold text-2xl mt-5">Little by little the pot is filled</h2>
+  <p class="font-semibold text-sm p-5">We envision a world where communities are working together to empower each other and alleviate hunger</p>
+  <p class="font-normal text-sm p-4 ">At Haba Na Haba, we collect and distribute food to hunger-relief charities and people. Each year billions of kilogrammes of food go to waste, while 1 in 4 people are malnourished. This is why we engage in to attenuate the stringent hunger & food waste challenge. We strongly believe that "hunger is often not a food problem; it's a logistics problem"!</p>
+   
+ <ul class="max-w-md space-y-1 list-inside  mt-5 w-full font-Outfit text-darkBlue-400 text-xl">
+    <li class="flex items-center p-5">
+        <svg class="w-6 h-6 me-2 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" stroke="#6DC13D" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+         </svg>
+       Reduce food waste
+    </li>
+    <li class="flex items-center p-5">
+        <svg class="w-6 h-6 me-2 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" stroke="#6DC13D" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+         </svg>
+        Fight food hunger
+    </li>
+    <li class="flex items-center p-5">
+        <svg class="w-6 h-6 me-2 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" stroke="#6DC13D" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+         </svg>
+        Work with people
+    </li>
+ </ul>
+
+ <div class="block max-w-sm p-6 bg-darkBlue rounded-2xl shadow">
+ <h4 class="mb-2 text-2xl font-bold tracking-tight text-white">6+ years of serving community</h4>
+ </div>
+
+ <div class="mt-5 block max-w-sm w-full p-7 bg-white border-2 border-lightGreen rounded-2xl shadow">
+  <h4 class="mb-2 text-2xl font-bold tracking-tight text-darkBlue">1.25M+ Beneficiaries</h4>
+ </div>
+</section>
+
+
+<section>
+  <div class="bg-community-image text-white pt-2.5 pr-10 pb-10 pl-10">
+  <h3 class="font-Outfit font-normal text-base text-center">HOW WE DO THAT</h3>
+  <h3 class="font-Outfit font-bold text-2xl mt-8">HOW WE GET RESULTS THAT LAST</h3>
+  </div>
+
+ <div class="grid-container font-Outfit text-white">
+  <div class="px-1.5">
+  <%= image_tag("Gift.png", size: "80x80", alt: "Gift") %>
+  </div>
+  <div>
+  <h3 class="font-bold text-sm">GIVE A DONATION</h3>
+  <p class="font-normal text-xs mt-4">Support  our cause with your treasures in either funding, materials or alms
+  </p>
+  </div>
+  <div class="font-bold text-lg">DONATE</div> 
+
+  <div class="px-1.5">
+  <%= image_tag("accessible.png", size: "80x80", alt: "Accessible") %>
+  </div>
+  <div>
+  <h3 class="font-bold text-sm">VOLUNTEER NOW</h3>
+  <p class="font-normal text-xs mt-4">Take off time to make an impact as you serve humanity together with us</p>
+  </div>
+  <div class="font-bold text-lg">JOIN IN</div>
+
+  <div class="px-1.5">
+  <%= image_tag("plus.png", size: "80x80", alt: "Plus sign") %>
+  </div>
+  <div>
+  <h3 class="font-bold text-sm">PARTNER WITH US</h3>
+  <p class="font-normal text-xs mt-4">Let’s join hands to make a difference in the lives of people & communities</p>
+  </div>
+  <div class="font-bold text-lg">START NOW</div>
+
+  <div class="px-1.5"><%= image_tag("sunlight.png", size: "80x80", alt: "sunlight") %></div>
+  <div>
+  <h3 class="font-bold text-sm">PRAY FOR US</h3>
+  <p class="font-normal text-xs mt-4">Praying is a Godly principle that produces great and valued results</p>
+  </div>
+  <div class="text-lightGreen font-bold text-lg">LET'S TALK</div>
+ </div>
+</section>
+
+<article>
+  <div class="text-darkBlue font-Outfit text-center p-6">
+    <h3 class="font-medium text-sm">PROMISES THAT BUILD</h3>
+    <h3 class="font-bold text-3xl mt-2">OUR MISSION</h3>
+    <p class="font-normal text-base">We work in a mission-driven environment with people about making a difference and
+     seeing how they’re impacting communities.
+    </p>
+  </div>
+
+  <div>
+   <div class="mt-2">
+     
+      <div >
+       <%= image_tag("two-volunteers.png", class: "", alt: "volunteers") %>
+      </div>
+     
+   </div>
+   <div class="bg-lightGreen text-white text-left pt-10 px-5">
+      <h3 class="text-darkBlue font-medium text-base">WE WORK FOR PEOPLE</h3>
+      <h3 class="font-semibold text-3xl">Building Communities</h3>
+      <p class="font-normal text-sm mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities.
+      Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.
+      </p>
+      <button type="button" class="text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      Learn more
+      </button>
+    </div>
+  </div>
+</article>
+ 
+</main>

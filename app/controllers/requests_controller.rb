@@ -40,7 +40,7 @@ class RequestsController < ApplicationController
 
   def destroy
     if @request.destroy
-    redirect_to requests_url, notice: 'Request was successfully destroyed.'
+      redirect_to requests_url, notice: 'Request was successfully destroyed.'
     else
       redirect_to requests_url, alert: 'Failed to delete request.'
     end
@@ -73,6 +73,7 @@ class RequestsController < ApplicationController
   end
 
   def request_params
-    params.require(:request).permit(:name, :phone_number, :request_type, :district_id, :county_id, :sub_county_id, :branch_id)
+    params.require(:request).permit(:name, :phone_number, :request_type, :district_id, :county_id, :sub_county_id,
+                                    :branch_id)
   end
 end

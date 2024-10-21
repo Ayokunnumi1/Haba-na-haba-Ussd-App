@@ -56,15 +56,15 @@
     </div>
     <div>
       <%= form.label :district_id, "District", class: "block font-medium text-gray-700" %>
-      <%= form.collection_select :district_id, District.all, :id, :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: 'form-select', 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
     </div>
     <div>
-      <%= form.label :county_id, "County", class: "block font-medium text-gray-700" %>
-      <%= form.collection_select :county_id, County.all, :id, :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= form.label :county_id, "County" %>
+      <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: 'form-select', 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
     </div>
     <div>
-      <%= form.label :sub_county_id, "Sub-County", class: "block font-medium text-gray-700" %>
-      <%= form.collection_select :sub_county_id, SubCounty.all, :id, :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= form.label :sub_county_id, "Sub-County" %>
+      <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: 'form-select' } %>
     </div>
   </div>
   <div class="pt-6">

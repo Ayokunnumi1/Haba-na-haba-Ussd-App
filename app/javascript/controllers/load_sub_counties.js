@@ -5,11 +5,12 @@ document.addEventListener("turbo:load", function () {
   if (countySelect) {
     countySelect.addEventListener("change", function () {
       const countyId = countySelect.value;
+      const contextPath = countySelect.dataset.contextPath || "";
 
       subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>";
 
       if (countyId) {
-        fetch(`/requests/load_sub_counties?county_id=${countyId}`)
+        fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
           .then((response) => response.json())
           .then((data) => {
             data.forEach((subCounty) => {

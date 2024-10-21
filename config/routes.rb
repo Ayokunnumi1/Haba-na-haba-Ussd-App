@@ -16,7 +16,12 @@ Rails.application.routes.draw do
       get :load_counties
       get :load_sub_counties
     end
-    resource :individual_beneficiary, only: [:new, :create, :edit, :update]
+    resource :individual_beneficiary, only: [:new, :create, :edit, :update] do
+      collection do
+        get :load_counties, to: 'individual_beneficiaries#load_counties'
+        get :load_sub_counties, to: 'individual_beneficiaries#load_sub_counties'
+      end
+    end
   end
   resources :individual_beneficiaries, only: [:index, :show, :destroy]
 

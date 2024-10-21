@@ -1,19 +1,21 @@
 class IndividualBeneficiariesController < ApplicationController
-  before_action :set_request, only: [:new, :create, :edit, :update]
-  before_action :set_individual_beneficiary, only: [:edit, :update, :show, :destroy]
+  before_action :set_request, only: %i[new create edit update]
+  before_action :set_individual_beneficiary, only: %i[edit update show destroy]
 
   def index
     @individual_beneficiaries = IndividualBeneficiary.includes(:request).all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     if @request.individual_beneficiary.present?
-      redirect_to individual_beneficiaries_path, alert: "Individual Beneficiary already exists for this request."
+      redirect_to individual_beneficiaries_path, alert: 'Individual Beneficiary already exists for this request.'
     else
       @individual_beneficiary = @request.build_individual_beneficiary
+      @districts = District.all
+      @counties = County.none
+      @sub_counties = SubCounty.none
     end
   end
 
@@ -31,11 +33,14 @@ class IndividualBeneficiariesController < ApplicationController
   end
 
   def edit
+    @districts = District.all
+    @counties = @individual_beneficiary.district.present? ? County.where(district_id: @individual_beneficiary.district_id) : County.none
+    @sub_counties = @individual_beneficiary.county.present? ? SubCounty.where(county_id: @individual_beneficiary.county_id) : SubCounty.none
   end
 
   def update
     if @individual_beneficiary.update(individual_beneficiary_params)
-      redirect_to individual_beneficiaries_path, notice: "Individual Beneficiary was successfully updated."
+      redirect_to individual_beneficiaries_path, notice: 'Individual Beneficiary was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,12 +48,30 @@ class IndividualBeneficiariesController < ApplicationController
 
   def destroy
     if @individual_beneficiary.destroy
-      redirect_to individual_beneficiaries_path, notice: "Individual Beneficiary was successfully deleted."
+      redirect_to individual_beneficiaries_path, notice: 'Individual Beneficiary was successfully deleted.'
     else
-      redirect_to individual_beneficiaries_path, alert: "Failed to delete Individual Beneficiary."
+      redirect_to individual_beneficiaries_path, alert: 'Failed to delete Individual Beneficiary.'
     end
   rescue StandardError => e
     redirect_to individual_beneficiaries_path, alert: handle_destroy_error(e)
+  end
+
+  def load_counties
+    @counties = if params[:district_id].present?
+                  County.where(district_id: params[:district_id])
+                else
+                  County.none
+                end
+    render json: @counties.map { |county| { id: county.id, name: county.name } }
+  end
+
+  def load_sub_counties
+    @sub_counties = if params[:county_id].present?
+                      SubCounty.where(county_id: params[:county_id])
+                    else
+                      SubCounty.none
+                    end
+    render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
   private

@@ -17,7 +17,7 @@
   </div>
   <div class="mb-4">
     <%= form.label :county_id, "County" %>
-    <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: 'form-select' } %>
+    <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: 'form-select','data-context-path': 'requests' } %>
   </div>
   <div class="mb-4">
     <%= form.label :sub_county_id, "Sub-County" %>

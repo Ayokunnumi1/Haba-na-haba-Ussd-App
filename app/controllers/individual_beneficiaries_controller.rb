@@ -1,6 +1,6 @@
 class IndividualBeneficiariesController < ApplicationController
   before_action :set_request, only: [:new, :create, :edit, :update]
-  before_action :set_individual_beneficiary, only: [:show, :edit, :update, :destroy]
+  before_action :set_individual_beneficiary, only: [:edit, :update, :show, :destroy]
 
   def index
     @individual_beneficiaries = IndividualBeneficiary.includes(:request).all
@@ -18,11 +18,15 @@ class IndividualBeneficiariesController < ApplicationController
   end
 
   def create
-    @individual_beneficiary = @request.build_individual_beneficiary(individual_beneficiary_params)
-    if @individual_beneficiary.save
-      redirect_to individual_beneficiaries_path, notice: "Individual Beneficiary was successfully created."
+    if @request.individual_beneficiary.present?
+      redirect_to @request, alert: 'An Individual Beneficiary already exists for this request.'
     else
-      render :new, status: :unprocessable_entity
+      @individual_beneficiary = @request.build_individual_beneficiary(individual_beneficiary_params)
+      if @individual_beneficiary.save
+        redirect_to @request, notice: 'Individual Beneficiary was successfully created.'
+      else
+        render :new
+      end
     end
   end
 

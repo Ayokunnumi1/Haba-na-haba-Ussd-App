@@ -23,7 +23,7 @@ class IndividualBeneficiariesController < ApplicationController
     else
       @individual_beneficiary = @request.build_individual_beneficiary(individual_beneficiary_params)
       if @individual_beneficiary.save
-        redirect_to @request, notice: 'Individual Beneficiary was successfully created.'
+        redirect_to @individual_beneficiary, notice: 'Individual Beneficiary was successfully created.'
       else
         render :new
       end
@@ -58,7 +58,12 @@ class IndividualBeneficiariesController < ApplicationController
   end
 
   def set_individual_beneficiary
-    @individual_beneficiary = IndividualBeneficiary.find(params[:id])
+    if params[:request_id]
+      @request = Request.find(params[:request_id])
+      @individual_beneficiary = @request.individual_beneficiary
+    else
+      @individual_beneficiary = IndividualBeneficiary.find(params[:id])
+    end
   end
 
   def individual_beneficiary_params

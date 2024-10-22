@@ -2,13 +2,85 @@ class FamilyBeneficiariesController < ApplicationController
   before_action :set_request, only: %i[new create edit update]
   before_action :set_family_beneficiary, only: %i[edit update show destroy]
 
-  def index; end
+  def index
+    @family_beneficiaries = FamilyBeneficiary.includes(:request).all
+  end
 
   def show; end
 
-  def new; end
+  def new
+    if @request.family_beneficiary.present?
+      redirect_to family_beneficiaries_path, alert: 'Family Beneficiary already exists for this request.'
+    else
+      @family_beneficiary = @request.build_family_beneficiary
+      @districts = District.all
+      @counties = County.none
+      @sub_counties = SubCounty.none
+    end
+  end
 
-  def edit; end
+  def create
+    if @request.family_beneficiary.present?
+      redirect_to @request, alert: 'An Family Beneficiary already exists for this request.'
+    else
+      @family_beneficiary = @request.build_family_beneficiary(family_beneficiary_params)
+      if @family_beneficiary.save
+        redirect_to @family_beneficiary, notice: 'Family Beneficiary was successfully created.'
+      else
+        render :new
+      end
+    end
+  end
+
+  def edit
+    @districts = District.all
+    @counties = if @family_beneficiary.district.present?
+                  County.where(district_id: @family_beneficiary.district_id)
+                else
+                  County.none
+                end
+    @sub_counties = if @family_beneficiary.county.present?
+                      SubCounty.where(county_id: @family_beneficiary.county_id)
+                    else
+                      SubCounty.none
+                    end
+  end
+
+  def update
+    if @family_beneficiary.update(family_beneficiary_params)
+      redirect_to family_beneficiaries_path, notice: 'Family Beneficiary was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @family_beneficiary.destroy
+      redirect_to family_beneficiaries_path, notice: 'Family Beneficiary was successfully deleted.'
+    else
+      redirect_to family_beneficiaries_path, alert: 'Failed to delete Family Beneficiary.'
+    end
+  rescue StandardError => e
+    redirect_to family_beneficiaries_path, alert: handle_destroy_error(e)
+  end
+
+  def load_counties
+    @counties = if params[:district_id].present?
+                  County.where(district_id: params[:district_id])
+                else
+                  County.none
+                end
+    render json: @counties.map { |county| { id: county.id, name: county.name } }
+  end
+
+  def load_sub_counties
+    @sub_counties = if params[:county_id].present?
+                      SubCounty.where(county_id: params[:county_id])
+                    else
+                      SubCounty.none
+                    end
+    render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
+  end
 
   private
 

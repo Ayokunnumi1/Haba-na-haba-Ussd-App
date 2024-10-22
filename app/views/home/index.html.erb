@@ -1,6 +1,6 @@
 <main>
   <section>
-    <div class="bg-custom-image relative min-h-screen">
+    <div class="bg-custom-image">
       <nav class="border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
           <%= image_tag("hnhfoodbank-logo.png", size: "70x70", alt: "Hnh Logo") %>
@@ -33,24 +33,24 @@
       </nav>
 
       <div class="w-full mt-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
-        <div class="text-center text-white font-Paprika font-normal">
-          <h1 class="text-3xl">Haba Na Haba</h1>
-          <p class="text-xl">We are passionate hunger heroes</p>
-          <p class="text-sm mt-2 font-Outfit">Together we can end hunger</p>
+        <div class="text-center text-white font-Paprika">
+          <h1 class="text-3xl font-normal">Haba Na Haba</h1>
+          <p class="text-xl mt-2 font-normal">We are passionate hunger heroes</p>
+          <p class="text-base mt-2 font-Outfit font-light">Together we can end hunger</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="bg-lightGreen text-white p-6">
-    <div class="flex flex-row justify-center items-center gap-5">
-      <h2 class="text-3xl font-Outfit font-bold">No one should ever go hungry</h2>
-      <p class="font-Outfit text-lg ">That's why we connect people with food today and build community power to end hunger at its roots, eliminating barriers to employment, affordable housing, health care and more.</p>
+  <section class="bg-lightGreen text-white mt-0 padding">
+    <div class="flex flex-row items-center gap-5 font-Outfit text-left">
+      <h2 class="text-xl font-bold">No one should ever go hungry</h2>
+      <p class="text-lg font-light">That's why we connect people with food today and build community power to end hunger at its roots, eliminating barriers to employment.</p>
     </div>
 
-    <div class="font-Outfit font-normal text-lg mt-5">
-      <button type="button" class="text-lightGreen bg-white hover:bg-lightGreen hover:text-white hover:border-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Request Food</button>
-      <button type="button" class="text-white bg-darkBlue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Donate Food</button>
+    <div class="font-Outfit font-normal text-base mt-5">
+      <button type="button" class="text-lightGreen bg-white hover:bg-lightGreen hover:text-white hover:border-white focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-5 me-2 mb-2">Request Food</button>
+      <button type="button" class="text-white bg-darkBlue hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-5 me-2 mb-2">Donate Food</button>
     </div>
   </section>
 
@@ -158,11 +158,98 @@
       <p class="font-normal text-sm mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities.
       Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.
       </p>
-      <button type="button" class="text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      <button type="button" class=" mb-10 text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
       Learn more
       </button>
     </div>
   </div>
 </article>
  
+<article class="bg-darkBlue p-5">
+ <div class="text-center text-white font-Outfit">
+  <p class="font-normal text-base">SOME NUMBERS FOR YOU</p>
+  <h3 class="font-bold text-4xl">6 Years of Impact</h3>
+ </div>
+
+ <div class="impact-grid-container mt-5">
+  <%= impact_item("Clock.png", "60x60", "Clock", "240+", "Food Donations") %>
+  <%= impact_item("Calender.png", "60x60", "Calender", "1000 TONS", "Current Year") %>
+  <%= impact_item("pie-chart.png", "60x60", "Pie Chart", "6000 KG", "Current Year food collection") %>
+  <%= impact_item("handshake.png", "60x60", "Handshake", "6000 KG", "Current Year food collection") %>
+ </div>
+</article>
+
+<section class="font-Outfit text-darkBlue flex flex-col justify-center align-center p-5 gap-10 ">
+  <div>
+    <p class="font-light text-base mt-5 text-center">STILL HAVE QUESTIONS ABOUT US</p>
+    <h4 class="font-bold text-2xl text-center">LEARN MORE FROM FAQ'S</h4>
+  </div>
+
+
+ <div id="accordion-collapse" data-accordion="collapse">
+  <!-- Accordion item 1 -->
+  <h4 id="accordion-collapse-heading-1">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+      <span>How do I request for food?</span>
+      <svg data-accordion-icon class="w-4 h-4 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h4>
+  <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+      <p class="mb-2 dark:text-gray-400">Answer the frequently asked question in a simple sentence, a longish paragraph, or even in a list.</p>
+    </div>
+  </div>
+
+  <!-- Accordion item 2 -->
+  <h4 id="accordion-collapse-heading-2">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+      <span>Can I be a donor?</span>
+      <svg data-accordion-icon class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h4>
+  <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+      <p class="mb-2">Answer the frequently asked question in a simple sentence, a longish paragraph, or even in a list.</p>
+    </div>
+  </div>
+
+  <!-- Accordion item 3 -->
+  <h4 id="accordion-collapse-heading-2">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+      <span>How do I collect food?</span>
+      <svg data-accordion-icon class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h4>
+  <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+      <p class="mb-2">Answer the frequently asked question in a simple sentence, a longish paragraph, or even in a list.</p>
+    </div>
+  </div>
+
+  <!-- Accordion item 4 -->
+  <h4 id="accordion-collapse-heading-2">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+      <span>Can I become a donor?</span>
+      <svg data-accordion-icon class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h4>
+  <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+      <p class="mb-2">Answer the frequently asked question in a simple sentence, a longish paragraph, or even in a list.</p>
+    </div>
+  </div>
+
+
+</div>
+
+
+</section>
 </main>

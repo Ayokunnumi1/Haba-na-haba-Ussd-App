@@ -22,8 +22,10 @@ Rails.application.routes.draw do
         get :load_sub_counties, to: 'individual_beneficiaries#load_sub_counties'
       end
     end
+    resource :family_beneficiaries, only: [:new, :create, :edit, :update]
   end
   resources :individual_beneficiaries, only: [:index, :show, :destroy]
+  resources :family_beneficiaries, only: [:index, :show, :destroy]
 
   # Conditional root route
   authenticated :user do

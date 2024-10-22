@@ -48,7 +48,7 @@ class OrganizationBeneficiariesController < ApplicationController
 
   def update
     if @organization_beneficiary.update(organization_beneficiary_params)
-      redirect_to organization_beneficiaries_path, notice: 'Organization Beneficiary was successfully updated.'
+      redirect_to @organization_beneficiary, notice: 'Organization Beneficiary was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end

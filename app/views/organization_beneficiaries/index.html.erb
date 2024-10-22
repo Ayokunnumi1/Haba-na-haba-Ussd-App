@@ -1,4 +1,47 @@
-<div>
-  <h1 class="font-bold text-4xl">OrganizationBeneficiaries#index</h1>
-  <p>Find me in app/views/organization_beneficiaries/index.html.erb</p>
+<div class="container mx-auto py-8">
+  <h1 class="text-2xl font-bold mb-6">Organization Beneficiaries</h1>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Organization Name</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Male</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Female</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">District</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">County</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Sub County</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <% @organization_beneficiaries.each do |organization_beneficiary| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%= organization_beneficiary.organization_name %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%= organization_beneficiary.male %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%= organization_beneficiary.female %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%= organization_beneficiary.district.name if organization_beneficiary.district %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%= organization_beneficiary.county.name if organization_beneficiary.county %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%= organization_beneficiary.sub_county.name if organization_beneficiary.sub_county %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
+              <%= link_to 'Show', organization_beneficiary_path(organization_beneficiary), class: "text-indigo-600 hover:text-indigo-900" %>
+              <%= link_to 'Edit', edit_request_organization_beneficiary_path(organization_beneficiary.request, organization_beneficiary), class: "text-blue-600 hover:text-blue-900" %>
+              <%= button_to 'Delete', organization_beneficiary_path(organization_beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-600 hover:text-red-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

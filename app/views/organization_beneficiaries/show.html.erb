@@ -1,4 +1,94 @@
-<div>
-  <h1 class="font-bold text-4xl">OrganizationBeneficiaries#show</h1>
-  <p>Find me in app/views/organization_beneficiaries/show.html.erb</p>
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <h1 class="text-2xl font-semibold mb-4 text-indigo-600">Organization Beneficiary Details</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <strong class="block font-semibold text-gray-700">Organization Name:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.organization_name %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Male Beneficiaries:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.male %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Female Beneficiaries:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.female %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Adult Age Range:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.adult_age_range %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Children Age Range:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.children_age_range %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">District:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.district.name %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">County:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.county.name %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Sub County:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.sub_county.name %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Residence Address:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.residence_address %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Village:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.village %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Parish:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.parish %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Phone Number:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.phone_number %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Case Name:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.case_name %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Case Description:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.case_description %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Registration No:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.registration_no %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Organization No:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.organization_no %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Director's Name:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.directors_name %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Head of Institution:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.head_of_institution %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Number of Meals at Home:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.number_of_meals_home %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Basic FEH:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.basic_FEH %></p>
+    </div>
+    <div>
+      <strong class="block font-semibold text-gray-700">Request ID:</strong>
+      <p class="text-gray-900"><%= @organization_beneficiary.request_id %></p>
+    </div>
+  </div>
+  <div class="mt-6 flex justify-end">
+    <%= link_to "Edit", edit_request_organization_beneficiary_path(@organization_beneficiary.request, @organization_beneficiary), class: "py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700" %>
+    <%= button_to 'Destroy', organization_beneficiary_path(@organization_beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'py-2 px-4 bg-red-400 text-white rounded-md shadow-sm hover:bg-red-700' %>
+    <%= link_to "Back to beneficiaries", organization_beneficiaries_path, class: "ml-4 py-2 px-4 bg-gray-600 text-white rounded-md shadow-sm hover:bg-gray-700" %>
+  </div>
 </div>

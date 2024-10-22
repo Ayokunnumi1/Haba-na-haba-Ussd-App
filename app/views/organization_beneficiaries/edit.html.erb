@@ -1,4 +1,3 @@
-<div>
-  <h1 class="font-bold text-4xl">OrganizationBeneficiaries#edit</h1>
-  <p>Find me in app/views/organization_beneficiaries/edit.html.erb</p>
-</div>
+<h1 class="text-2xl font-bold mb-4">New Individual Beneficiary</h1>
+<%= render 'form', request: @request %>
+<%= link_to 'Back to Requests', requests_path, class: "mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>

@@ -19,7 +19,7 @@
         <td>
           <%= link_to 'Show', individual_beneficiary_path(beneficiary), class: 'text-indigo-600 hover:text-indigo-900' %>
           <%= link_to 'Edit', edit_request_individual_beneficiary_path(beneficiary.request, beneficiary), class: 'text-blue-600 hover:text-blue-900' %>
-          <%= link_to 'Destroy', individual_beneficiary_path(beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900' %>
+          <%= button_to 'Destroy', individual_beneficiary_path(beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900' %>
         </td>
       </tr>
     <% end %>

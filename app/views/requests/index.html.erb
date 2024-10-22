@@ -10,7 +10,7 @@
   </thead>
   <tbody class="bg-white divide-y divide-gray-200">
     <% @requests.each do |request| %>
-      <tr>
+      <tr class="bg-slate-200">
         <td><%= request.name %></td>
         <td><%= request.phone_number %></td>
         <td><%= request.request_type %></td>
@@ -18,7 +18,8 @@
           <%= link_to 'Show', request, class: 'text-indigo-600 hover:text-indigo-900' %>
           <%= link_to 'Edit', edit_request_path(request), class: 'text-yellow-600 hover:text-blue-900' %>
           <%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900' %>
-          <%= link_to 'Add Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'text-green-600 hover:text-green-900' %>
+          <%= link_to 'AIB', new_request_individual_beneficiary_path(request), class: 'text-white bg-green-300 py-1 px-2 rounded hover:bg-green-600' %>
+          <%= link_to 'AFB', new_request_family_beneficiary_path(request), class: 'text-white bg-green-300 py-1 px-2 rounded hover:bg-green-600' %>
         </td>
       </tr>
     <% end %>

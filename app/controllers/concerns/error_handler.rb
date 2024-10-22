@@ -1,6 +1,8 @@
 module ErrorHandler
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+
   def handle_destroy_error(error)
     case error
     when ActiveRecord::InvalidForeignKey, PG::ForeignKeyViolation
@@ -27,4 +29,6 @@ module ErrorHandler
       'An unexpected error occurred while trying to delete the record.'
     end
   end
+
+  # rubocop:enable all
 end

@@ -34,8 +34,16 @@ class IndividualBeneficiariesController < ApplicationController
 
   def edit
     @districts = District.all
-    @counties = @individual_beneficiary.district.present? ? County.where(district_id: @individual_beneficiary.district_id) : County.none
-    @sub_counties = @individual_beneficiary.county.present? ? SubCounty.where(county_id: @individual_beneficiary.county_id) : SubCounty.none
+    @counties = if @individual_beneficiary.district.present?
+                  County.where(district_id: @individual_beneficiary.district_id)
+                else
+                  County.none
+                end
+    @sub_counties = if @individual_beneficiary.county.present?
+                      SubCounty.where(county_id: @individual_beneficiary.county_id)
+                    else
+                      SubCounty.none
+                    end
   end
 
   def update

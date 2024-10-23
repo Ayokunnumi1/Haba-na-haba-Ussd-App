@@ -9,10 +9,10 @@ class InventoriesController < ApplicationController
   def show; end
 
   def new
-    if @request.inventory.present?
+    if @request.inventories.exists?
       redirect_to inventories_path, alert: 'Inventory already exists for this request.'
     else
-      @inventory = @request.build_inventory
+      @inventory = @request.inventories.build
       @districts = District.all
       @counties = County.none
       @sub_counties = SubCounty.none
@@ -20,20 +20,23 @@ class InventoriesController < ApplicationController
   end
 
   def create
-    if @request.inventory.present?
+    if @request.inventories.exists?
       redirect_to @request, alert: 'An Inventory already exists for this request.'
     else
-      @inventory = @request.build_inventory(inventory_params)
+      @inventory = @request.inventories.build(inventory_params)
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory was successfully created.'
       else
+        @districts = District.all
+        @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+        @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
         render :new, alert: 'Failed to create the Inventory.'
       end
     end
   end
 
   def edit
-    @district = District.all
+    @districts = District.all
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
   end
@@ -83,7 +86,7 @@ class InventoriesController < ApplicationController
   def set_inventory
     if params[:request_id]
       @request = Request.find(params[:request_id])
-      @inventory = @request.inventory
+      @inventory = @request.inventories.find(params[:id])
     else
       @inventory = Inventory.find(params[:id])
     end

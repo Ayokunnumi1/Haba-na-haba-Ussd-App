@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       fontSize: {
         "xxs": "10px",
+        "3.5xl":"32px",
       },
       colors: {
         darkBlue: "#302C51",

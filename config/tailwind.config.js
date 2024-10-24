@@ -10,7 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontSize: {},
+      fontSize: {
+        "xxs": "10px",
+      },
       colors: {
         darkBlue: "#302C51",
         lightGreen: "#6DC13D",

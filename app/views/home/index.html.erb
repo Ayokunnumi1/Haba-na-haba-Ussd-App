@@ -37,8 +37,8 @@
 <div class="w-full mt-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
 <div class="text-center text-white w-90% font-Paprika">
   <h1 class="text-3.5xl sm:text-3.5xl md:text-5xl lg:text-6xl font-normal">Haba Na Haba</h1>
-  <p class="text-xl sm:text-2xl md:text-2xl lg:text-3xl mt-2 font-normal">We are passionate hunger heroes</p>
-  <p class="text-sm sm:text-base md:text-lg lg:text-xl mt-2 font-Outfit font-light">Together we can end hunger</p>
+  <p class="text-xl sm:text-2xl md:text-3.8xl lg:text-3xl mt-2 font-normal">We are passionate hunger heroes</p>
+  <p class="text-sm sm:text-base md:text-xl lg:text-xl mt-2 font-Outfit font-light">Together we can end hunger</p>
 </div>
 </div>
 
@@ -71,7 +71,7 @@
     </div>
 
     <div class="w-full md:w-40% text-left mt-10 ml-2">
-      <h2 class=" font-bold text-xl sm:text-2xl md:text-xl lg:text-3xl">Little by little the pot is filled</h2>
+      <h2 class=" font-bold text-xl sm:text-2xl md:text-3.5xl lg:text-3xl">Little by little the pot is filled</h2>
       <p class="  font-semibold text-sm sm:text-base md:text-xs  mt-2">We envision a world where communities are working together to empower each other and alleviate hunger.</p>
       <p class=" font-Outfit font-normal text-xs sm:text-sm md:text-xxs lg:text-lg mt-2">
         At Haba Na Haba, we collect and distribute food to hunger-relief charities and people. Each year billions of kilogrammes of food go to waste, while 1 in 4 people are malnourished. This is why we engage to attenuate the stringent hunger & food waste challenge. We strongly believe that "hunger is often not a food problem; it's a logistics problem"!
@@ -235,37 +235,36 @@
 </section>
 
 
-
-<article class="md:hidden lg:hidden">
+<article>
+  <!-- Section visible on all screens -->
   <div class="text-darkBlue font-Outfit text-center p-6">
-    <p class="font-medium text-sm">PROMISES THAT BUILD</p>
-    <p class="font-bold text-xl mt-2">OUR MISSION</p>
-    <p class="font-normal text-sm">We work in a mission-driven environment with people about making a difference and
-      seeing how they’re impacting communities.
-    </p>
+    <p class="font-medium text-xmxs md:text-xxs lg:text-xxs">PROMISES THAT BUILD</p>
+    <p class="font-bold text-3.5xl md:text-text-2xl lg:text-xxs">OUR MISSION</p>
+    <p class="font-normal text-xmxs md:text-xs lg:text-xxs">We work in a mission-driven environment with people about making a difference and seeing how they’re impacting communities.</p>
   </div>
 
-  <div>
-    <div class="mt-2">
-      <div>
-        <%= image_tag("two-volunteers.png", class: "", alt: "volunteers") %>
+  <!-- Section hidden on md and lg screens -->
+  <div class="block md:hidden lg:hidden">
+    <div>
+      <div class="mt-2">
+        <div>
+          <%= image_tag("two-volunteers.png", class: "", alt: "volunteers") %>
+        </div>
       </div>
-    </div>
-    <div class="bg-lightGreen text-white text-left pt-10 px-5">
-      <h3 class="text-darkBlue font-medium text-base">WE WORK FOR PEOPLE</h3>
-      <h3 class="font-semibold text-3xl">Building Communities</h3>
-      <p class="font-normal text-sm mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities.
-        Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.
-      </p>
-      <button type="button" class="mb-10 text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-        Learn more
-      </button>
+      <div class="bg-lightGreen text-white text-left pt-10 px-5">
+        <h3 class="text-darkBlue font-medium text-base ">WE WORK FOR PEOPLE</h3>
+        <h3 class="font-semibold text-3xl">Building Communities</h3>
+        <p class="font-normal text-sm  mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities. Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.</p>
+        <button type="button" class="mb-10 text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+          Learn more
+        </button>
+      </div>
     </div>
   </div>
 </article>
 
-
-<div class="hidden md:flex lg:flex xl:flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto">
+<div class="we_work_people_desktop_tab">
+<div class="hidden md:flex lg:flex xl:flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto -mb-20 z-10">
   <div class="relative h-74 w-1/2 overflow-hidden rounded-l-lg">
     <img src="../assets/group-different-people-volunteering-foodbank 1.png" 
          alt="card-image" 
@@ -273,25 +272,67 @@
   </div>
   <div class="p-4 w-1/2 flex flex-col justify-between">
     <div>
-      <h3 class="mb-1 text-slate-800 text-xl font-semibold">
+      <h3 class="mb-1 text-darkBlue text-xl font-medium md:text-xxs lg:text-base">
         WE WORK FOR PEOPLE
       </h3>
-      <h3 class="text-slate-600 font-light">
-        Building Communities
-      </h3>
-      <p class="font-normal text-sm mt-4">
+      <h3 class="text-white font-semibold md:text-xl lg:text-3.8xl lg:leading-snug">
+    Building Communities
+</h3>
+
+      <p class="font-normal text-white text-sm mt-4 md:text-1xxs lg:text-base lg:max-w-max">
         Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities. It is fully recognized as a member of the Regional Food Banking Network No. 150051, headquartered in UAE Dubai, under the mentorship of Egypt Food Bank.
       </p>
     </div>
-    <div class="mt-4">
-      <button class="rounded-md bg-darkBlue py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-        Read more
+    <div class="mt-4 font-Outfit">
+      <button class="rounded-md bg-darkBlue py-2 px-4 border border-transparent text-center text-semibold text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+        Learn more
       </button>
     </div>
   </div>
 </div>
 
-<article class="bg-darkBlue p-5">
+<article class="bg-darkBlue pt-20 relative z-0 hidden md:block lg:block font-Outfit">
+  <div class="text-center text-white font-Outfit mt-7">
+    <p class="font-normal text-base font-medium md:text-xxs lg:text-base ">SOME NUMBERS FOR YOU</p>
+    <p class="font-bold text-2xl md:text-2xl lg:text-3.8xl">6 Years of Impact</p>
+  </div>
+
+<div class="justify-center mt-5 flex items-center space-x-4 font-Outfit text-white">
+  <div class="flex items-center">
+    <div class="p-4"> <!-- Add padding and background color -->
+      <%= impact_item("Clock.svg", "60x60", "Clock", "240+", "Food Donations") %>
+    </div>
+    <div class="h-16 border-l border-white mx-2"></div> <!-- Vertical line -->
+  </div>
+  
+  <div class="flex items-center">
+    <div class="p-4  "> <!-- Add padding and background color -->
+      <%= impact_item("Calender.svg", "60x60", "Calender", "1000 M TONS", "Current Year") %>
+    </div>
+    <div class="h-16 border-l border-white mx-2"></div> <!-- Vertical line -->
+  </div>
+  
+  <div class="flex items-center">
+    <div class="p-4  lg:p-8"> <!-- Add padding and background color -->
+      <%= impact_item("pie-chart.svg", "60x60", "Pie Chart", "6000 KG", "Current Year food collection") %>
+    </div>
+    <div class="h-16 border-l border-white mx-2"></div> <!-- Vertical line -->
+  </div>
+  
+  <div class="flex items-center">
+    <div class="p-4"> <!-- Add padding and background color -->
+      <%= impact_item("Handshake.svg", "60x60", "Handshake", "72+", "Partnerships") %>
+    </div>
+  </div>
+</div>
+
+
+</article>
+
+</div>
+
+
+<article class="bg-darkBlue p-5 block md:hidden lg:hidden">
 
  <div class="text-center text-white font-Outfit mt-7">
   <p class="font-normal text-base">SOME NUMBERS FOR YOU</p>
@@ -299,18 +340,18 @@
  </div>
 
  <div class="impact-grid-container mt-5">
-  <%= impact_item("Clock.png", "60x60", "Clock", "240+", "Food Donations") %>
-  <%= impact_item("Calender.png", "60x60", "Calender", "1000 TONS", "Current Year") %>
-  <%= impact_item("pie-chart.png", "60x60", "Pie Chart", "6000 KG", "Current Year food collection") %>
-  <%= impact_item("handshake.png", "60x60", "Handshake", "6000 KG", "Current Year food collection") %>
+  <%= impact_item("Clock.svg", "60x60", "Clock", "240+", "Food Donations") %>
+  <%= impact_item("Calender.svg", "60x60", "Calender", "1000 TONS", "Current Year") %>
+  <%= impact_item("pie-chart.svg", "60x60", "Pie Chart", "6000 KG", "Current Year food collection") %>
+  <%= impact_item("Handshake.svg", "60x60", "Handshake", "6000 KG", "Current Year food collection") %>
  </div>
 </article>
 
 
 <section class="font-Outfit text-darkBlue flex flex-col justify-center align-center p-5 gap-10 ">
   <div>
-    <p class="font-light text-base mt-5 text-center">STILL HAVE QUESTIONS ABOUT US</p>
-    <h4 class="font-bold text-2xl text-center">LEARN MORE FROM FAQ'S</h4>
+    <p class="font-light text-base md:text-xxs mt-5 text-center">STILL HAVE QUESTIONS ABOUT US</p>
+    <h4 class="font-bold text-2xl md:text-2xl text-center ">LEARN MORE FROM FAQ'S</h4>
   </div>
 
 <div id="accordion-collapse" data-accordion="collapse">
@@ -374,59 +415,55 @@
     </div>
   </div>
 </div>
-<button type="button" class="text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-darkBlue font-Outfit font-regular rounded-lg text-sm px-2 py-2.5 me-1 mb-1 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Learn More</button>
-
 </section>
+<div class="flex justify-center">
+  <button type="button" class="text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-darkBlue font-Outfit font-regular rounded-lg text-sm px-5 py-4 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+    Learn More
+  </button>
+</div>
 
-
-<div class="bg-lightGreen py-16 font-Outfit">
-      <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-12 p-4">
-        <div class="w-full text-center lg:text-left">
-          <h2 class="text-white text-xl font-bold text-left mb-6">Want to be a part of this Noble
-Cause? Donate Now</h2>
-          <div class="flex flex-row">
-          <div>
+<div class="bg-lightGreen md:w-[95%] lg:w-[95%] py-16 font-Outfit mx-auto rounded-lg">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row lg:flex-row items-center justify-center gap-12 p-4">
+    <div class="w-full text-center md:flex-row lg:text-left">
+      <h2 class="text-white text-xl font-bold text-left mb-6">Want to be a part of this Noble Cause? Donate Now</h2>
+      <div class="flex flex-row">
+        <div>
           <p class="text-lg text-white text-left">or call us now</p>
           <p class="text-2xl font-bold text-white text-left">(+256) 782-611246</p>
-          </div>
-          <div>
-          <img src="../assets/map_uganda.png" alt="Map uganda Icon" class="w-40 h-40" />
-          </div>
-          </div>
         </div>
-
-        <div class="w-full max-lg:max-w-lg">
-         
-
-<form class="max-w-md mx-auto">
-  
-  <div class="grid md:grid-cols-2 md:gap-6">
-    <div class="relative z-0 w-full mb-5 group">
-        <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white
-        bg-transparent border-0 border-b-2 border-white appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full name</label>
-    </div>
-    <div class="relative z-0 w-full mb-5 group">
-        <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duwhite transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Physical Address</label>
-    </div>
-  </div>
-  <div class="grid md:grid-cols-2 md:gap-6">
-    <div class="relative z-0 w-full mb-5 group">
-        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (123-456-7890)</label>
-    </div>
-    <div class="relative z-0 w-full mb-5 group">
-        <input type="text" name="floating_company" id="floating_company" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_company" class="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address</label>
-    </div>
-  </div>
-  <button type="submit" class="text-white bg-darkBlue hover:bg-transparent hover:border border-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Donate</button>
-</form>
-
+        <div>
+          <img src="../assets/map_uganda.png" alt="Map Uganda Icon" class="w-40 h-40" />
         </div>
       </div>
     </div>
+
+    <div class="w-full max-lg:max-w-lg">
+      <form class="max-w-md mx-auto">
+        <div class="grid md:grid-cols-2 md:gap-6">
+          <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_first_name" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Full name</label>
+          </div>
+          <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_last_name" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Physical Address</label>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 md:gap-6">
+          <div class="relative z-0 w-full mb-5 group">
+            <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_phone" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Phone number</label>
+          </div>
+          <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="floating_company" id="floating_company" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_company" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Email Address</label>
+          </div>
+        </div>
+        <button type="submit" class="text-white bg-darkBlue hover:bg-transparent hover:border border-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Donate</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 <footer class="bg-darkBlue dark:bg-white">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

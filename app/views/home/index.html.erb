@@ -236,115 +236,60 @@
 
 
 <article>
-  <!-- Section visible on all screens -->
+  <!-- Mission Section - Visible on all screens -->
   <div class="text-darkBlue font-Outfit text-center p-6">
     <p class="font-medium text-xmxs md:text-xxs lg:text-xxs">PROMISES THAT BUILD</p>
-    <p class="font-bold text-3.5xl md:text-text-2xl lg:text-xxs">OUR MISSION</p>
-    <p class="font-normal text-xmxs md:text-xs lg:text-xxs">We work in a mission-driven environment with people about making a difference and seeing how they’re impacting communities.</p>
+    <p class="font-bold text-3.5xl md:text-2xl lg:text-xxs">OUR MISSION</p>
+    <p class="font-normal text-xmxs md:text-xs lg:text-xxs">
+      We work in a mission-driven environment with people about making a difference and seeing how they’re impacting communities.
+    </p>
   </div>
 
-  <!-- Section hidden on md and lg screens -->
-  <div class="block md:hidden lg:hidden">
-    <div>
-      <div class="mt-2">
-        <div>
-          <%= image_tag("two-volunteers.png", class: "", alt: "volunteers") %>
-        </div>
-      </div>
-      <div class="bg-lightGreen text-white text-left pt-10 px-5">
-        <h3 class="text-darkBlue font-medium text-base ">WE WORK FOR PEOPLE</h3>
-        <h3 class="font-semibold text-3xl">Building Communities</h3>
-        <p class="font-normal text-sm  mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities. Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.</p>
-        <button type="button" class="mb-10 text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          Learn more
-        </button>
-      </div>
-    </div>
+  <!-- Mobile Section - Hidden on md and lg screens -->
+  <div class="block md:hidden">
+    <%= render partial: "shared/volunteer_info_mobile" %>
   </div>
 </article>
 
-<div class="we_work_people_desktop_tab">
-<div class="hidden md:flex lg:flex xl:flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto -mb-20 z-10">
-  <div class="relative h-74 w-1/2 overflow-hidden rounded-l-lg">
-    <img src="../assets/group-different-people-volunteering-foodbank 1.png" 
-         alt="card-image" 
-         class="object-cover h-full w-full" />
-  </div>
-  <div class="p-4 w-1/2 flex flex-col justify-between">
-    <div>
-      <h3 class="mb-1 text-darkBlue text-xl font-medium md:text-xxs lg:text-base">
-        WE WORK FOR PEOPLE
-      </h3>
-      <h3 class="text-white font-semibold md:text-xl lg:text-3.8xl lg:leading-snug">
-    Building Communities
-</h3>
-
-      <p class="font-normal text-white text-sm mt-4 md:text-1xxs lg:text-base lg:max-w-max">
-        Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities. It is fully recognized as a member of the Regional Food Banking Network No. 150051, headquartered in UAE Dubai, under the mentorship of Egypt Food Bank.
-      </p>
-    </div>
-    <div class="mt-4 font-Outfit">
-      <button class="rounded-md bg-darkBlue py-2 px-4 border border-transparent text-center text-semibold text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-        Learn more
-      </button>
-    </div>
-  </div>
+<div class="we_work_people_desktop_tab hidden md:flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto -mb-20 z-10">
+  <%= render partial: "shared/volunteer_info_desktop" %>
 </div>
 
-<article class="bg-darkBlue pt-20 relative z-0 hidden md:block lg:block font-Outfit">
-  <div class="text-center text-white font-Outfit mt-7">
-    <p class="font-normal text-base font-medium md:text-xxs lg:text-base ">SOME NUMBERS FOR YOU</p>
+
+<article class="bg-darkBlue pt-20 hidden md:block font-Outfit">
+  <div class="text-center text-white mt-7">
+    <p class="font-medium text-base md:text-xxs lg:text-base">SOME NUMBERS FOR YOU</p>
     <p class="font-bold text-2xl md:text-2xl lg:text-3.8xl">6 Years of Impact</p>
   </div>
 
-<div class="justify-center mt-5 flex items-center space-x-4 font-Outfit text-white">
-  <div class="flex items-center">
-    <div class="p-4"> <!-- Add padding and background color -->
-      <%= impact_item("Clock.svg", "60x60", "Clock", "240+", "Food Donations") %>
-    </div>
-    <div class="h-16 border-l border-white mx-2"></div> <!-- Vertical line -->
+  <div class="flex flex-wrap justify-center mt-5 items-center space-x-4 text-white">
+    <% ["Clock.svg", "Calender.svg", "pie-chart.svg", "Handshake.svg"].each_with_index do |icon, i| %>
+      <div class="flex items-center">
+        <%= impact_item(icon, "60", icon_name(i), impact_value(i), impact_label(i)) %>
+        
+        <!-- Render the vertical line only for all but the last item -->
+        <% if i < 3 %>
+          <div class="h-16 border-l border-white mx-2 hidden md:block"></div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-  
-  <div class="flex items-center">
-    <div class="p-4  "> <!-- Add padding and background color -->
-      <%= impact_item("Calender.svg", "60x60", "Calender", "1000 M TONS", "Current Year") %>
-    </div>
-    <div class="h-16 border-l border-white mx-2"></div> <!-- Vertical line -->
-  </div>
-  
-  <div class="flex items-center">
-    <div class="p-4  lg:p-8"> <!-- Add padding and background color -->
-      <%= impact_item("pie-chart.svg", "60x60", "Pie Chart", "6000 KG", "Current Year food collection") %>
-    </div>
-    <div class="h-16 border-l border-white mx-2"></div> <!-- Vertical line -->
-  </div>
-  
-  <div class="flex items-center">
-    <div class="p-4"> <!-- Add padding and background color -->
-      <%= impact_item("Handshake.svg", "60x60", "Handshake", "72+", "Partnerships") %>
-    </div>
-  </div>
-</div>
-
-
 </article>
 
-</div>
 
 
-<article class="bg-darkBlue p-5 block md:hidden lg:hidden">
+<!-- Statistics Section - Mobile view -->
+<article class="bg-darkBlue p-5 block md:hidden">
+  <div class="text-center text-white mt-7">
+    <p class="font-normal text-base">SOME NUMBERS FOR YOU</p>
+    <p class="font-bold text-2xl">6 Years of Impact</p>
+  </div>
 
- <div class="text-center text-white font-Outfit mt-7">
-  <p class="font-normal text-base">SOME NUMBERS FOR YOU</p>
-  <p class="font-bold text-2xl">6 Years of Impact</p>
- </div>
-
- <div class="impact-grid-container mt-5">
-  <%= impact_item("Clock.svg", "60x60", "Clock", "240+", "Food Donations") %>
-  <%= impact_item("Calender.svg", "60x60", "Calender", "1000 TONS", "Current Year") %>
-  <%= impact_item("pie-chart.svg", "60x60", "Pie Chart", "6000 KG", "Current Year food collection") %>
-  <%= impact_item("Handshake.svg", "60x60", "Handshake", "6000 KG", "Current Year food collection") %>
- </div>
+  <div class="impact-grid-container mt-5">
+    <% ["Clock.svg", "Calender.svg", "pie-chart.svg", "Handshake.svg"].each_with_index do |icon, i| %>
+      <%= impact_item(icon, "60x60", icon_name(i), impact_value(i), impact_label(i)) %>
+    <% end %>
+  </div>
 </article>
 
 
@@ -421,7 +366,7 @@
     Learn More
   </button>
 </div>
-
+<section> 
 <div class="bg-lightGreen md:w-[95%] lg:w-[95%] py-16 font-Outfit mx-auto rounded-lg">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row lg:flex-row items-center justify-center gap-12 p-4">
     <div class="w-full text-center md:flex-row lg:text-left">
@@ -464,6 +409,7 @@
     </div>
   </div>
 </div>
+</section>
 
 <footer class="bg-darkBlue dark:bg-white">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

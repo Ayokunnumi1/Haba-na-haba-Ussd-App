@@ -14,10 +14,10 @@ module ImpactHelper
       labels[index]
     end
   
-    def impact_item(icon, size, name, value, label)
+    def impact_item(icon, size_classes, name, value, label)
       <<-HTML.html_safe
         <div class="flex flex-col items-center text-center p-4">
-          <img src="/assets/#{icon}" alt="#{name}" class="w-#{size} h-#{size} mb-2"> <!-- Adjust the margin-bottom -->
+          <img src="/assets/#{icon}" alt="#{name}" class="#{size_classes} mb-2"> <!-- Adjust the margin-bottom -->
           <p class="font-bold text-xl sm:text-2xl lg:text-3.8xl mb-1">#{value}</p> <!-- Adjust the margin-bottom -->
           <p class="font-normal text-sm sm:text-base lg:text-lg">#{label}</p>
         </div>

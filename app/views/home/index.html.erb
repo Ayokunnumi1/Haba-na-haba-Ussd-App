@@ -236,62 +236,64 @@
   </div>
 </section>
 
-<div class="hidden md:block lg:block xl:block relative flex flex-row my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-[80%] h-[100%] mx-auto">
-  <div class="relative h-full w-1/2 overflow-hidden rounded-l-lg">
-    <img src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="card-image" class="object-cover h-full w-full" />
-  </div>
-  <div class="p-4 w-1/2">
-    <h6 class="mb-2 text-slate-800 text-xl font-semibold">
-      Website Review Check
-    </h6>
-    <p class="text-slate-600 leading-normal font-light">
-      The place is close to Barceloneta Beach and bus stop just 2 min by walk
-      and near to "Naviglio" where you can enjoy the main nightlife in
-      Barcelona.
+
+<article class="md:hidden lg:hidden">
+  <div class="text-darkBlue font-Outfit text-center p-6">
+    <p class="font-medium text-sm">PROMISES THAT BUILD</p>
+    <p class="font-bold text-xl mt-2">OUR MISSION</p>
+    <p class="font-normal text-sm">We work in a mission-driven environment with people about making a difference and
+      seeing how they’re impacting communities.
     </p>
-    <div class="px-0 pb-4 pt-2 mt-2">
-      <button class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+  </div>
+
+  <div>
+    <div class="mt-2">
+      <div>
+        <%= image_tag("two-volunteers.png", class: "", alt: "volunteers") %>
+      </div>
+    </div>
+    <div class="bg-lightGreen text-white text-left pt-10 px-5">
+      <h3 class="text-darkBlue font-medium text-base">WE WORK FOR PEOPLE</h3>
+      <h3 class="font-semibold text-3xl">Building Communities</h3>
+      <p class="font-normal text-sm mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities.
+        Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.
+      </p>
+      <button type="button" class="mb-10 text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        Learn more
+      </button>
+    </div>
+  </div>
+</article>
+
+
+<div class="hidden md:flex lg:flex xl:flex relative flex-row items-center my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto">
+  <div class="relative h-74 w-1/2 overflow-hidden rounded-l-lg">
+    <img src="../assets/group-different-people-volunteering-foodbank 1.png" 
+         alt="card-image" 
+         class="object-cover h-full w-full" />
+  </div>
+  <div class="p-4 w-1/2 flex flex-col justify-between">
+    <div>
+      <h3 class="mb-1 text-slate-800 text-xl font-semibold">
+        WE WORK FOR PEOPLE
+      </h3>
+      <h3 class="text-slate-600 font-light">
+        Building Communities
+      </h3>
+      <p class="font-normal text-sm mt-4">
+        Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities. It is fully recognized as a member of the Regional Food Banking Network No. 150051, headquartered in UAE Dubai, under the mentorship of Egypt Food Bank.
+      </p>
+    </div>
+    <div class="mt-4">
+      <button class="rounded-md bg-darkBlue py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
         Read more
       </button>
     </div>
   </div>
 </div>
 
-
-
-
-
-<article >
-  <div class="text-darkBlue font-Outfit text-center p-6 md:hidden lg:hidden">
-    <p class="font-medium text-sm">PROMISES THAT BUILD</p>
-    <p class="font-bold text-xl mt-2">OUR MISSION</p>
-    <p class="font-normal text-sm">We work in a mission-driven environment with people about making a difference and
-     seeing how they’re impacting communities.
-    </p>
-  </div>
-
-  <div>
-   <div class="mt-2">
-     
-      <div >
-       <%= image_tag("two-volunteers.png", class: "", alt: "volunteers") %>
-      </div>
-     
-   </div>
-   <div class="bg-lightGreen text-white text-left pt-10 px-5">
-      <h3 class="text-darkBlue font-medium text-base">WE WORK FOR PEOPLE</h3>
-      <h3 class="font-semibold text-3xl">Building Communities</h3>
-      <p class="font-normal text-sm mt-10">Haba Na Haba Food Bank is a registered NGO (No. 0952) in Uganda that passionately works to alleviate hunger and strengthen local communities.
-      Currently it's fully recognized as a member of the Regional Food Banking Network No. 150051 with its headquarters in UAE Dubai and under the mentorship of Egypt Food Bank.
-      </p>
-      <button type="button" class=" mb-10 text-white bg-darkBlue hover:bg-lightGreen focus:ring-4 focus:ring-white font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-      Learn more
-      </button>
-    </div>
-  </div>
-</article>
- 
 <article class="bg-darkBlue p-5">
+
  <div class="text-center text-white font-Outfit mt-7">
   <p class="font-normal text-base">SOME NUMBERS FOR YOU</p>
   <p class="font-bold text-2xl">6 Years of Impact</p>
@@ -304,6 +306,7 @@
   <%= impact_item("handshake.png", "60x60", "Handshake", "6000 KG", "Current Year food collection") %>
  </div>
 </article>
+
 
 <section class="font-Outfit text-darkBlue flex flex-col justify-center align-center p-5 gap-10 ">
   <div>

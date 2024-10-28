@@ -105,79 +105,35 @@
       <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 items-stretch lg:mt-[10%]">
       <!-- Card 1 -->
       <div class="flex-grow block w-full h-full max-w-sm md:max-w-none md:w-1/2 aspect-w-1 aspect-h-1 p-6 md:p-4 bg-darkBlue rounded-2xl shadow flex justify-center items-center ">
-        <h4 class="text-base font-semibold tracking-tight text-white md:text-sm lg:text-3xl text-center">
-          6+ years of serving community 
-          <img src="../assets/love.svg" alt="Icon" class="inline w-5 h-5 ml-2" />
-        </h4>
+        <h4 class="text-3.8xl font-semibold tracking-tight text-white md:text-xl lg:text-3.8xl mr-2 md:mr-5 text-center">
+          6+ </h4>
+        <span class="text-base text-white md:text-xxs lg:text-base">years of serving community </span>
+        <img src="../assets/love.svg" alt="Icon" class="inline w-5 h-5 ml-2 md:-ml-8 lg:-ml-8" />
       </div>
     
       <!-- Card 2 -->
       <div class="flex-grow block w-full h-full max-w-sm md:max-w-none md:w-1/2 aspect-w-1 aspect-h-1 p-6 md:p-4 bg-white border-2 border-lightGreen rounded-2xl shadow flex justify-center items-center ">
-        <h4 class="text-base font-semibold tracking-tight text-darkBlue md:text-sm lg:text-3xl text-center">
-          1.25M+ Beneficiaries
+        <h4 class="text-3.8xl font-semibold tracking-tight text-darkBlue md:text-xl lg:text-3.8xl text-center mr-2">
+          1.25M+
         </h4>
+          <span class="text-base text-darkBlue md:text-xxs lg:text-base">Beneficiaries </span>
       </div>
     </div>
     </section>
 
 
-
 <section class="md:hidden lg:hidden xl:hidden">
   <div class="bg-community-image text-white pt-2.5 pr-10 pb-10 pl-10">
-  <h3 class="font-Outfit font-normal text-base lg:text-lg text-center">HOW WE DO THAT</h3>
-  <h3 class="font-Outfit font-bold text-2xl lg:text-3.8xl mt-8 text-center">HOW WE GET RESULTS THAT LAST</h3>
+    <h3 class="font-Outfit font-normal text-base lg:text-lg text-center">HOW WE DO THAT</h3>
+    <h3 class="font-Outfit font-bold text-2xl lg:text-3.8xl mt-8 text-center">HOW WE GET RESULTS THAT LAST</h3>
   </div>
 
   <div class="grid md:grid-cols-2 xl:grid-cols-1 gap-4 p-6 justify-center font-Outfit text-white">
-  <!-- Card 1 -->
-  <div class="flex flex-col md:flex-row items-center bg-moodyBlue p-6 rounded-lg">
-    <div class="mb-4 md:mb-0 md:mr-4">
-      <%= image_tag("Gift.png", size: "80x80", alt: "Gift") %>
-    </div>
-    <div class="text-center md:text-left">
-      <h3 class="font-bold text-sm lg:text-xl">GIVE A DONATION</h3>
-      <p class="font-normal text-xs lg:text-lg mt-2">Support our cause with your treasures in either funding, materials or alms</p>
-      <div class="font-bold text-base mt-4 text-lightGreen lg:text-base">DONATE</div>
-    </div>
+    <%= render partial: 'shared/card', locals: { image_path: "Gift.png", image_alt: "Gift", title: "GIVE A DONATION", description: "Support our cause with your treasures in either funding, materials or alms", action_text: "DONATE", variant_class: "md:flex-row", image_container_class: "md:mb-0 md:mr-4", text_alignment_class: "md:text-left", action_text_class: "text-lightGreen lg:text-base" } %>
+    <%= render partial: 'shared/card', locals: { image_path: "accessible.png", image_alt: "Accessible", title: "VOLUNTEER NOW", description: "Take time to make impact as you serve humanity together with us", action_text: "JOIN IN", variant_class: "md:flex-row", image_container_class: "md:mb-0 md:mr-4", text_alignment_class: "md:text-left", action_text_class: "text-lightGreen lg:text-base" } %>
+    <%= render partial: 'shared/card', locals: { image_path: "plus.png", image_alt: "Plus sign", title: "PARTNER WITH US", description: "Let’s join hands to make a difference in the lives of people & communities", action_text: "START NOW", variant_class: "md:flex-row", image_container_class: "md:mb-0 md:mr-4", text_alignment_class: "md:text-left", action_text_class: "text-lightGreen lg:text-base" } %>
+    <%= render partial: 'shared/card', locals: { image_path: "sunlight.png", image_alt: "sunlight", title: "PRAY FOR US", description: "Praying is a Godly principle that produces great and valued results", action_text: "LET'S TALK", variant_class: "md:flex-row", image_container_class: "md:mb-0 md:mr-4", text_alignment_class: "md:text-left", action_text_class: "text-lightGreen lg:text-base" } %>
   </div>
-
-  <!-- Card 2 -->
-  <div class="flex flex-col md:flex-row items-center bg-moodyBlue p-6 rounded-lg">
-    <div class="mb-4 md:mb-0 md:mr-4">
-      <%= image_tag("accessible.png", size: "80x80", alt: "Accessible") %>
-    </div>
-    <div class="text-center md:text-left">
-      <h3 class="font-bold text-sm lg:text-xl">VOLUNTEER NOW</h3>
-      <p class="font-normal text-xs mt-2 lg:text-lg">Take off time to make an impact as you serve humanity together with us</p>
-      <div class="font-bold text-base mt-4 text-lightGreen lg:text-base">JOIN IN</div>
-    </div>
-  </div>
-
-  <!-- Card 3 -->
-  <div class="flex flex-col md:flex-row items-center bg-moodyBlue p-6 rounded-lg">
-    <div class="mb-4 md:mb-0 md:mr-4">
-      <%= image_tag("plus.png", size: "80x80", alt: "Plus sign") %>
-    </div>
-    <div class="text-center md:text-left">
-      <h3 class="font-bold text-sm lg:text-xl">PARTNER WITH US</h3>
-      <p class="font-normal text-xs mt-2 lg:text-lg">Let’s join hands to make a difference in the lives of people & communities</p>
-      <div class="font-bold text-base mt-4 text-lightGreen lg:text-base">START NOW</div>
-    </div>
-  </div>
-
-  <!-- Card 4 -->
-  <div class="flex flex-col md:flex-row items-center bg-moodyBlue p-6 rounded-lg">
-    <div class="mb-4 md:mb-0 md:mr-4">
-      <%= image_tag("sunlight.png", size: "80x80", alt: "sunlight") %>
-    </div>
-    <div class="text-center md:text-left">
-      <h3 class="font-bold text-sm lg:text-xl">PRAY FOR US</h3>
-      <p class="font-normal text-xs mt-2 lg:text-lg">Praying is a Godly principle that produces great and valued results</p>
-      <div class="text-lightGreen font-bold text-base mt-4 lg:text-base">LET'S TALK</div>
-    </div>
-  </div>
-</div>
-
 </section>
 
 <section class="hidden md:block lg:block xl:block">
@@ -185,57 +141,15 @@
     <h3 class="font-Outfit font-normal text-base text-center p-5">HOW WE DO THAT</h3>
     <h3 class="font-Outfit font-bold text-2xl mt-3 text-center">HOW WE GET RESULTS THAT LAST</h3>
 
-    <div class="flex justify-center gap-4 p-6 font-Outfit text-white overflow-x-auto w-full"> <!-- Flex container with overflow -->
-      <!-- Card 1 -->
-      <div class="flex flex-col items-center w-1/4 h-72 p-4 rounded-lg"> <!-- Percentage width -->
-        <div class="mb-4">
-          <%= image_tag("Gift.png", size: "80x80", alt: "Gift") %>
-        </div>
-        <div class="text-center flex-grow">
-          <h3 class="font-bold text-sm lg:text-xl">GIVE A DONATION</h3>
-          <p class="font-normal text-xs mt-2 lg:text-lg">Support our cause with your treasures in either funding, materials or alms</p>
-          <div class="font-bold text-base mt-4 lg:text-base"><a>DONATE</a></div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="flex flex-col items-center w-1/4 h-72 p-4 rounded-lg"> <!-- Percentage width -->
-        <div class="mb-4">
-          <%= image_tag("accessible.png", size: "80x80", alt: "Accessible") %>
-        </div>
-        <div class="text-center flex-grow">
-          <h3 class="font-bold text-sm lg:text-xl">VOLUNTEER NOW</h3>
-          <p class="font-normal text-xs mt-2 lg:text-lg">Take time to make impact as you serve humanity together with us</p>
-          <div class="font-bold text-base mt-4 lg:text-base">JOIN IN</div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="flex flex-col items-center w-1/4 h-72 p-4 rounded-lg"> <!-- Percentage width -->
-        <div class="mb-4">
-          <%= image_tag("plus.png", size: "80x80", alt: "Plus sign") %>
-        </div>
-        <div class="text-center flex-grow">
-          <h3 class="font-bold text-sm lg:text-xl">PARTNER WITH US</h3>
-          <p class="font-normal text-xs mt-2 lg:text-lg">Let’s join hands to make a difference in the lives of people & communities</p>
-          <div class="font-bold text-base mt-4 lg:text-base">START NOW</div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="flex flex-col items-center w-1/4 h-72 p-4 rounded-lg mx-auto"> <!-- Percentage width and centered -->
-        <div class="mb-4">
-          <%= image_tag("sunlight.png", size: "80x80", alt: "sunlight") %>
-        </div>
-        <div class="text-center flex-grow">
-          <h3 class="font-bold text-sm lg:text-xl">PRAY FOR US</h3>
-          <p class="font-regular text-xs mt-2 lg:text-lg">Praying is a Godly principle that produces great and valued results</p>
-          <div class="text-lightGreen font-bold text-base mt-4 lg:text-base">LET'S TALK</div>
-        </div>
-      </div>
+    <div class="flex justify-center gap-4 p-6 font-Outfit text-white overflow-x-auto w-full">
+      <%= render partial: 'shared/card', locals: { image_path: "Gift.png", image_alt: "Gift", title: "GIVE A DONATION", description: "Support our cause with your treasures in either funding, materials or alms", action_text: "DONATE", variant_class: "w-1/4 h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+      <%= render partial: 'shared/card', locals: { image_path: "accessible.png", image_alt: "Accessible", title: "VOLUNTEER NOW", description: "Take time to make impact as you serve humanity together with us", action_text: "JOIN IN", variant_class: "w-1/4 h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+      <%= render partial: 'shared/card', locals: { image_path: "plus.png", image_alt: "Plus sign", title: "PARTNER WITH US", description: "Let’s join hands to make a difference in the lives of people & communities", action_text: "START NOW", variant_class: "w-1/4 h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+      <%= render partial: 'shared/card', locals: { image_path: "sunlight.png", image_alt: "sunlight", title: "PRAY FOR US", description: "Praying is a Godly principle that produces great and valued results", action_text: "LET'S TALK", variant_class: "w-1/4 h-72 mx-auto", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
     </div>
   </div>
 </section>
+
 
 
 <article>
@@ -421,61 +335,72 @@
 </section>
 
 <footer class="bg-darkBlue dark:bg-white">
-    <div class="mx-auto w-full max-w-screen-xl lg:w-[90%]  p-4 py-6 lg:py-8 ">
-        <div class="md:flex-col md:justify-between">
-          <div class="mb-6 md:mb-0 flex flex-row items-center space-x-4">
-              <a href="https://flowbite.com/" class="flex items-center">
-                  <img src="../assets/logo-foot.png" class="h-20 me-3" alt="Habanahaba footer Logo" />
-              </a>
-              <div>
-              <h2 class="text-lightGreen font-Outfit font-bold ml-16 md:mt-4">Follow us on our social channels</h2>
 
-              <div class="flex mt-4 sm:justify-center sm:mt-0 ml-16">
-    <!-- Facebook -->
-    <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white">
-        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.81v-9.293H9.692V10.55h3.118V8.148c0-3.1 1.893-4.788 4.657-4.788 1.324 0 2.464.099 2.795.144v3.241l-1.918.001c-1.503 0-1.795.715-1.795 1.764v2.311h3.588l-.467 3.157h-3.121V24h6.116C23.403 24 24 23.403 24 22.675V1.325C24 .597 23.403 0 22.675 0z"/>
+
+    <div class="mx-auto w-full max-w-screen-xl lg:w-[90%] p-4 py-6 lg:py-8">
+  <div class="flex flex-row md:flex-row md:justify-between items-start w-full p-4">
+  <!-- Logo section -->
+  <div class="flex items-center mb-4 md:mb-0">
+    <a href="" class="flex items-center">
+      <img src="../assets/logo-foot.png" class="h-20" alt="Habanahaba footer Logo" />
+    </a>
+  </div>
+  
+  <!-- Social media section -->
+  <div class="text-left md:text-right ml-28">
+    <h2 class="text-lightGreen font-Outfit font-bold mb-4 flex items-center">
+      <span class="mr-2">Follow us on our social channels</span>
+      <!-- Optional: Add a decorative element like an icon here if desired -->
+    </h2>
+    <div class="flex space-x-1 md:space-x-5">
+      <!-- Facebook -->
+      <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white">
+        <svg class="w-3 h-3 md:w-6 md:h-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.81v-9.293H9.692V10.55h3.118V8.148c0-3.1 1.893-4.788 4.657-4.788 1.324 0 2.464.099 2.795.144v3.241l-1.918.001c-1.503 0-1.795.715-1.795 1.764v2.311h3.588l-.467 3.157h-3.121V24h6.116C23.403 24 24 23.403 24 22.675V1.325C24 .597 23.403 0 22.675 0z"/>
         </svg>
         <span class="sr-only">Facebook page</span>
-    </a>
-
-    <!-- Instagram -->
-    <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white ms-5">
-        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.333 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.267.07 1.646.07 4.851 0 3.204-.012 3.584-.07 4.85-.062 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.267.058-1.646.07-4.851.07-3.204 0-3.584-.012-4.85-.07-1.366-.062-2.633-.333-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608-.058-1.267-.07-1.646-.07-4.851 0-3.204.012-3.584.07-4.85.062-1.366.333-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308 1.267-.058 1.646-.07 4.851-.07m0-2.163C8.741 0 8.332.012 7.052.07 5.77.129 4.533.412 3.51 1.435.517 4.427.13 9.049.13 12c0 2.951.388 7.573 3.38 10.565 1.023 1.023 2.26 1.306 3.542 1.365 1.281.058 1.689.07 4.948.07 3.259 0 3.668-.012 4.948-.07 1.282-.059 2.519-.342 3.542-1.365 2.992-2.992 3.38-7.614 3.38-10.565 0-2.951-.388-7.573-3.38-10.565C18.467.412 17.23.13 15.948.07 14.668.012 14.259 0 12 0z"/>
-            <circle cx="12" cy="12" r="3.6"/>
-            <path d="M18.406 3.594a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
+      </a>
+      
+      <!-- Instagram -->
+      <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white">
+        <svg class="w-3 h-3 md:w-6 md:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.333 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.267.07 1.646.07 4.851 0 3.204-.012 3.584-.07 4.85-.062 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.267.058-1.646.07-4.851.07-3.204 0-3.584-.012-4.85-.07-1.366-.062-2.633-.333-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608-.058-1.267-.07-1.646-.07-4.851 0-3.204.012-3.584.07-4.85.062-1.366.333-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308 1.267-.058 1.646-.07 4.851-.07m0-2.163C8.741 0 8.332.012 7.052.07 5.77.129 4.533.412 3.51 1.435.517 4.427.13 9.049.13 12c0 2.951.388 7.573 3.38 10.565 1.023 1.023 2.26 1.306 3.542 1.365 1.281.058 1.689.07 4.948.07 3.259 0 3.668-.012 4.948-.07 1.282-.059 2.519-.342 3.542-1.365 2.992-2.992 3.38-7.614 3.38-10.565 0-2.951-.388-7.573-3.38-10.565C18.467.412 17.23.13 15.948.07 14.668.012 14.259 0 12 0z"/>
+          <circle cx="12" cy="12" r="3.6"/>
+          <path d="M18.406 3.594a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
         </svg>
         <span class="sr-only">Instagram page</span>
-    </a>
-
-    <!-- LinkedIn -->
-    <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white ms-5">
-        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M4.98 3.03c0 .8-.67 1.48-1.5 1.48S2 3.83 2 3.03C2 2.2 2.67 1.5 3.5 1.5c.83 0 1.5.67 1.5 1.53zm-.03 3.94H2v14h2.97v-14zm5.53 0h-3v14h3v-7.47c0-4.01 5.23-4.34 5.23 0v7.47h2.97v-8.72c0-5.63-6.4-5.42-8.2-2.65V6.97z"/>
+      </a>
+      
+      <!-- LinkedIn -->
+      <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white">
+        <svg class="w-3 h-3 md:w-6 md:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.98 3.03c0 .8-.67 1.48-1.5 1.48S2 3.83 2 3.03C2 2.2 2.67 1.5 3.5 1.5c.83 0 1.5.67 1.5 1.53zm-.03 3.94H2v14h2.97v-14zm5.53 0h-3v14h3v-7.47c0-4.01 5.23-4.34 5.23 0v7.47h2.97v-8.72c0-5.63-6.4-5.42-8.2-2.65V6.97z"/>
         </svg>
         <span class="sr-only">LinkedIn page</span>
-    </a>
-
-    <!-- Twitter -->
-    <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white ms-5">
-        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M24 4.557a9.93 9.93 0 0 1-2.827.775 4.932 4.932 0 0 0 2.165-2.723 9.843 9.843 0 0 1-3.127 1.194 4.916 4.916 0 0 0-8.384 4.482 13.95 13.95 0 0 1-10.141-5.146 4.916 4.916 0 0 0 1.523 6.563 4.901 4.901 0 0 1-2.23-.616c-.054 2.281 1.581 4.415 3.95 4.888a4.934 4.934 0 0 1-2.224.084 4.923 4.923 0 0 0 4.6 3.417 9.868 9.868 0 0 1-7.29 2.032 13.93 13.93 0 0 0 7.548 2.213c9.051 0 14.002-7.496 14.002-13.986 0-.213-.005-.425-.014-.637A9.935 9.935 0 0 0 24 4.557z"/>
+      </a>
+      
+      <!-- Twitter -->
+      <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white">
+        <svg class="w-3 h-3 md:w-6 md:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 4.557a9.93 9.93 0 0 1-2.827.775 4.932 4.932 0 0 0 2.165-2.723 9.843 9.843 0 0 1-3.127 1.194 4.916 4.916 0 0 0-8.384 4.482 13.95 13.95 0 0 1-10.141-5.146 4.916 4.916 0 0 0 1.523 6.563 4.901 4.901 0 0 1-2.23-.616c-.054 2.281 1.581 4.415 3.95 4.888a4.934 4.934 0 0 1-2.224.084 4.923 4.923 0 0 0 4.6 3.417 9.868 9.868 0 0 1-7.29 2.032 13.93 13.93 0 0 0 7.548 2.213c9.051 0 14.002-7.496 14.002-13.986 0-.213-.005-.425-.014-.637A9.935 9.935 0 0 0 24 4.557z"/>
         </svg>
         <span class="sr-only">Twitter page</span>
-    </a>
-
-    <!-- YouTube -->
-    <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white ms-5">
-        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M23.498 6.186a2.99 2.99 0 0 0-2.109-2.11C19.33 3.571 12 3.571 12 3.571s-7.33 0-9.388.506a2.99 2.99 0 0 0-2.109 2.11C0 8.33 0 12 0 12s0 3.67.503 5.814a2.99 2.99 0 0 0 2.109 2.109C4.67 20.429 12 20.429 12 20.429s7.33 0 9.388-.506a2.99 2.99 0 0 0 2.109-2.109C24 15.67 24 12 24 12s0-3.67-.502-5.814zM9.615 15.615v-7.23L15.69 12l-6.075 3.615z"/>
+      </a>
+      
+      <!-- YouTube -->
+      <a href="#" class="text-white hover:text-lightGreen dark:hover:text-white">
+        <svg class="w-3 h-3 md:w-6 md:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.495 6.23a2.999 2.999 0 0 0-2.108-2.109C19.45 4 12 4 12 4s-7.45 0-9.387.121A2.999 2.999 0 0 0 .505 6.23 29.878 29.878 0 0 0 0 12c0 1.175.19 2.326.505 3.77a2.999 2.999 0 0 0 2.108 2.109C4.55 20 12 20 12 20s7.45 0 9.387-.121a2.999 2.999 0 0 0 2.108-2.109C23.81 14.326 24 13.175 24 12c0-1.175-.19-2.326-.505-3.77zM9.545 15.452V8.547l6.429 3.452-6.429 3.453z"/>
         </svg>
         <span class="sr-only">YouTube channel</span>
-    </a>
+      </a>
+    </div>
+  </div>
 </div>
 
-              </div>
-          </div>
+
+
+
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 md:grid-cols-4">
           <div>
                   <h2 class="mb-6 text-xl font-Outfit font-bold text-white uppercase dark:text-white">Contact us</h2>
@@ -578,7 +503,8 @@
               
           </div>
       </div>
-      <hr class="my-6 border-lightGreen sm:mx-auto dark:border-gray-700" />
+     <hr class="my-6 border-lightGreen dark:border-gray-700 w-[90%] mx-auto" />
+
    <div class="flex flex-col md:flex-row items-center justify-between lg:w-[90%] px-6">
     <div class="flex-1 flex items-center justify-center md:justify-start lg:ml-[7%] uppercase">
         <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
@@ -593,7 +519,8 @@
         </span>
     </div>
 </div>
-    </div>
+</div>
+</div>
 </footer>
 
 </main>

@@ -10,7 +10,7 @@ module ImpactHelper
     end
   
     def impact_label(index)
-      labels = ["Food Donations", "Current Year", "Current Year food collection", "Partnerships"]
+      labels = ["Food Donations", "Current Year", "Food Collection", "Partnerships"]
       labels[index]
     end
   

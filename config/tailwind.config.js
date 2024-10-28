@@ -17,6 +17,14 @@ module.exports = {
         "3.5xl":"32px",
         "3.8xl":"40px",
       },
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+        '3xl': '1920px',
+      },
       colors: {
         darkBlue: "#302C51",
         lightGreen: "#6DC13D",

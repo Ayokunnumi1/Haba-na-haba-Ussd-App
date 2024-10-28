@@ -1,0 +1,12 @@
+<div id="donateModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 space-y-4">
+    <h2 class="text-xl font-semibold text-center">Donate Food</h2>
+    <form action="/donate" method="post">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <input type="text" placeholder="Food Item" class="block w-full px-4 py-2 border rounded-lg">
+      <input type="number" placeholder="Quantity" class="block w-full px-4 py-2 border rounded-lg">
+      <button type="submit" class="w-full bg-lightGreen text-white py-2 rounded-lg">Donate</button>
+    </form>
+    <button onclick="toggleModal('donateModal')" class="text-red-600">Close</button>
+  </div>
+</div>

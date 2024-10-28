@@ -363,15 +363,15 @@
     Learn More
   </button>
 </div>
-<section> 
-<div class="bg-lightGreen md:w-[95%] lg:w-[95%] py-16 font-Outfit mx-auto rounded-lg">
+<section class="md:my-8"> 
+<div class="bg-lightGreen md:w-[95%] lg:w-[95%] py-16 font-Outfit mx-auto md:rounded-lg">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row lg:flex-row items-center justify-center gap-12 p-4">
     <div class="w-full text-center md:flex-row lg:text-left">
       <h2 class="text-white text-xl font-bold text-left mb-6">Want to be a part of this Noble Cause? Donate Now</h2>
       <div class="flex flex-row">
         <div>
           <p class="text-lg text-white text-left">or call us now</p>
-          <p class="text-2xl font-bold text-white text-left">(+256) 782-611246</p>
+          <p class="text-2xl md:text-xl font-bold text-white text-left">(+256) 782-611246</p>
         </div>
         <div>
           <img src="../assets/map_uganda.png" alt="Map Uganda Icon" class="w-40 h-40" />
@@ -379,38 +379,47 @@
       </div>
     </div>
 
-    <div class="w-full max-lg:max-w-lg">
-      <form class="max-w-md mx-auto">
-        <div class="grid md:grid-cols-2 md:gap-6">
-          <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_first_name" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Full name</label>
-          </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_last_name" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Physical Address</label>
-          </div>
-        </div>
-        <div class="grid md:grid-cols-2 md:gap-6">
-          <div class="relative z-0 w-full mb-5 group">
-            <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_phone" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Phone number</label>
-          </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="floating_company" id="floating_company" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_company" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:font-medium peer-focus:text-blue-600">Email Address</label>
-          </div>
-        </div>
-        <button type="submit" class="text-white bg-darkBlue hover:bg-transparent hover:border border-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Donate</button>
-      </form>
+  <div class="w-full max-lg:max-w-lg md:bg-white md:rounded-lg md:p-8">
+
+<form class="max-w-lg mx-auto font-Outfit" >
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+    <div>
+      <label for="full-name" class="block mb-2 text-sm font-medium text-white md:text-darkBlue">Full Name</label>
+      <input type="text" id="full-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" required />
     </div>
+    
+    <div>
+      <label for="address" class="block mb-2 text-sm font-medium text-white md:text-darkBlue">Physical Address</label>
+      <input type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123 Main St, City, Country" required />
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+    <div>
+      <label for="phone" class="block mb-2 text-sm font-medium text-white md:text-darkBlue">Phone Number</label>
+      <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="(123) 456-7890" required />
+    </div>
+
+    <div>
+      <label for="email" class="block mb-2 text-sm font-medium text-white md:text-darkBlue">Email Address</label>
+      <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@example.com" required />
+    </div>
+  </div>
+  
+  <button type="submit" class="text-white bg-darkBlue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+</form>
+
+
+
+</div>
+
   </div>
 </div>
 </section>
 
 <footer class="bg-darkBlue dark:bg-white">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div class="md:flex md:justify-between">
+        <div class="md:flex-col md:justify-between">
           <div class="mb-6 md:mb-0 flex flex-row items-center space-x-4">
               <a href="https://flowbite.com/" class="flex items-center">
                   <img src="../assets/logo-foot.png" class="h-20 me-3" alt="Habanahaba footer Logo" />
@@ -463,7 +472,7 @@
 
               </div>
           </div>
-          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 md:grid-cols-4">
           <div>
                   <h2 class="mb-6 text-xl font-Outfit font-bold text-white uppercase dark:text-white">Contact us</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
@@ -566,17 +575,19 @@
           </div>
       </div>
       <hr class="my-6 border-lightGreen sm:mx-auto dark:border-gray-700 lg:my-8" />
-     <div class="sm:flex sm:items-center sm:justify-between ml-5 uppercase">
+    <div class="flex flex-col md:flex-row justify-between ">
+     <div class="sm:flex sm:items-center sm:justify-between  ml-5 uppercase">
     <span class="text-sm text-white sm:text-center dark:text-gray-400 font-Outfit">
         Haba Na Haba Food Bank™ 
         <a href="#" class="hover:underline text-lightGreen">©2024</a> | All Rights Reserved
     </span>
 </div>
-<div class="sm:flex sm:items-center sm:justify-between ml-5 uppercase py-9"> <!-- Added mb-5 here -->
+<div class="sm:flex sm:items-center sm:justify-between ml-5 md:ml-0 uppercase py-9"> <!-- Added mb-5 here -->
     <span class="text-sm text-white sm:text-center dark:text-gray-400 font-Outfit">
         Website developed by 
         <a href="#" class="hover:underline text-lightGreen">the winning team</a>
     </span>
+</div>
 </div>
 
     </div>

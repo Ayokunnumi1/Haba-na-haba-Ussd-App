@@ -18,8 +18,8 @@ module ImpactHelper
       <<-HTML.html_safe
         <div class="flex flex-col items-center text-center p-4">
           <img src="/assets/#{icon}" alt="#{name}" class="#{size_classes} mb-2"> <!-- Adjust the margin-bottom -->
-          <p class="font-bold text-xl sm:text-2xl lg:text-3.8xl mb-1">#{value}</p> <!-- Adjust the margin-bottom -->
-          <p class="font-normal text-sm sm:text-base lg:text-lg">#{label}</p>
+          <p class="font-bold text-lg sm:text-2xl lg:text-3.8xl mb-1">#{value}</p> <!-- Adjust the margin-bottom -->
+          <p class="font-normal text-xs sm:text-base lg:text-lg">#{label}</p>
         </div>
       HTML
     end

@@ -5,7 +5,7 @@ module ImpactHelper
     end
   
     def impact_value(index)
-      values = ["240+", "1000 M TONS", "6000 KG", "72+"]
+      values = ["240+", "1000 TONS", "6000 KG", "72+"]
       values[index]
     end
   

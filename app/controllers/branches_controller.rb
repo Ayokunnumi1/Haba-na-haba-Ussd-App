@@ -26,7 +26,7 @@ class BranchesController < ApplicationController
       redirect_to @branch, notice: 'Branch was successfully created.'
     else
       @districts = District.all
-    @counties = @branch.district.present? ? County.where(district_id: @branch.district_id) : County.none
+      @counties = @branch.district.present? ? County.where(district_id: @branch.district_id) : County.none
       render :new, alert: 'Failed to create branch.'
     end
   end
@@ -36,7 +36,7 @@ class BranchesController < ApplicationController
       redirect_to @branch, notice: 'Branch was successfully updated.'
     else
       @districts = District.all
-    @counties = @branch.district.present? ? County.where(district_id: @branch.district_id) : County.none
+      @counties = @branch.district.present? ? County.where(district_id: @branch.district_id) : County.none
       render :edit, alert: 'Failed to update branch.'
     end
   end

@@ -14,6 +14,7 @@ module.exports = {
         darkBlue: "#302C51",
         lightGreen: "#6DC13D",
         moodyBlue: "#666099",
+        lightGray: "#F5F5F5",
       },
       fontFamily: {
         Paprika: ["Paprika", "sans-serif"],

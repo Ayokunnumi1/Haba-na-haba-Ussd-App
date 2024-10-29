@@ -16,29 +16,28 @@
 
 .mobile-yield-content {
   margin: 5px;
-  
-  /* margin-right: 10px; */
 
+  /* margin-right: 10px; */
 }
 
 .mobile-sidebar {
-   position: fixed;
-   top: 2px;
-   left: 2px;
+  position: fixed;
+  top: 2px;
+  left: 2px;
 }
 
 .mobile-navbar {
-   width: 80%;
-   margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 768px) {
-   .tab-yield-content {
-      margin-left: 220px;
-      margin-right: 28px;
-   }
-   
-   /* .desktop-sidebar {
+  .tab-yield-content {
+    margin-left: 220px;
+    margin-right: 28px;
+  }
+
+  /* .desktop-sidebar {
       position: fixed;
       top: 2.5rem;
       left: 2.5rem;

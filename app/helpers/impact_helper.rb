@@ -1,16 +1,16 @@
 module ImpactHelper
   def icon_name(index)
-    icons = ["Clock", "Calender", "Pie Chart", "Handshake"]
+    icons = ['Clock', 'Calender', 'Pie Chart', 'Handshake']
     icons[index]
   end
 
   def impact_value(index)
-    values = ["240+", "1000 TONS", "6000 KG", "72+"]
+    values = ['240+', '1000 TONS', '6000 KG', '72+']
     values[index]
   end
 
   def impact_label(index)
-    labels = ["Food Donations", "Current Year", "Food Collection", "Partnerships"]
+    labels = ['Food Donations', 'Current Year', 'Food Collection', 'Partnerships']
     labels[index]
   end
 

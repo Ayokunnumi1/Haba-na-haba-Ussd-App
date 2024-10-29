@@ -4,6 +4,9 @@ class InventoriesController < ApplicationController
 
   def index
     @inventories = Inventory.includes(:request).all
+    @inventory_food = Inventory.includes(:request).where(donor_type: 'Food')
+    @food_inventory_count = @inventory_food.count
+
   end
 
   def show; end

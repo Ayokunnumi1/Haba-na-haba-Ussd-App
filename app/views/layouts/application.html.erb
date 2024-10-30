@@ -11,8 +11,10 @@
   </head>
   <body class="h-screen">
     <main class="">
-      <%= render 'admin_panel/sidebar' %>
-      <%= render 'admin_panel/navbar' %>
+      <% if user_signed_in? %>
+        <%= render 'admin_panel/sidebar' %>
+        <%= render 'admin_panel/navbar' %>
+      <% end %>
       <section class="p-4 mobile-yield-content tab-yield-content yield-content">
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>

@@ -6,6 +6,18 @@ class InventoriesController < ApplicationController
     @inventories = Inventory.includes(:request).all
     @inventory_food = Inventory.includes(:request).where(donor_type: 'Food')
     @food_inventory_count = @inventory_food.count
+  
+    @inventories = @inventories.by_donation_type(params[:donation_type])
+    .by_donation_date(params[:donation_date])
+    .by_collection_range(params[:collection_start], params[:collection_end])
+    .by_collection_amount(params[:collection_amount])
+    @inventories = if params[:query].present?
+      Inventory.search(params[:query])
+    else
+      Inventory.all
+    end
+
+    @food_inventory_count = @inventories.where(donor_type: 'Food').count
 
   end
 

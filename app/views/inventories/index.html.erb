@@ -51,21 +51,36 @@
 
   <h3 class="font-bold mb-4 mx-8">Inventory Items</h3>
 
-<div class="flex gap-4 flex-row flex-start">
-  <form class="max-w-md mx-auto">
-      <div class="flex">
-          <label for="location-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
-          <div class="relative w-full">
-                <button type="submit" class="absolute top-0 left-20 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                  </svg>
-                  <span class="sr-only">Search</span>
-                </button>
-              <input type="search" id="input-search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required />
-          </div>
+  <div class="flex gap-4 flex-row flex-start">
+    <form class="max-w-md mx-auto">
+    <div class="relative w-full">
+      <!-- Search Input Field -->
+      <input
+        type="search"
+        id="input-search"
+        class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+        placeholder="Search"
+        required
+      />
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <svg
+          class="w-4 h-4 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
       </div>
-  </form>
+    </div>
+    </form>
 
     <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2" id="filter-action">
       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -97,9 +112,11 @@
           <label for="donation-type" class="block text-sm font-medium text-gray-900 dark:text-white">Donation Type</label>
           <select id="donation-type" name="donation_type" class="mt-1 block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="">Select Type</option>
-            <option value="food">Food</option>
-            <option value="clothing">Clothing</option>
-            <option value="money">Money</option>
+            <option value="food">Fresh Food</option>
+            <option value="food">Dry Food</option>
+            <option value="clothing">Clothes</option>
+            <option value="cash">Cash</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
@@ -140,22 +157,36 @@
 
     <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
       </svg>
-      <span>Filter</span>  
+
+      <span>Add</span>  
     </div>
 
     <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
-      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <svg  class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
       </svg>
       <span>Share</span>
     </div>
 
-    <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
+    <div class="border-gray-950	p-2 hover:border-green-400 	rounded-lg flex border-2">
     <span>Bulk Action</span>
+      <svg id="bulk-action-open-dropdown" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+      </svg>
+      <svg id="bulk-action-close-dropdown" class="w-6 h-6 hidden text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+      </svg>
+
     </div>
-  
+    <div id="dropdown-content-bulk" class=" absolute hidden right-4 left-4 top-4  bg-white w-fit" style="left: 92%; top: 42%;">
+      <ul>
+        <li>Select</li>
+        <li>Select</li>
+        <li>Select</li>
+      </ul>
+    </div>
   </div>
 
 </section>
@@ -164,48 +195,83 @@
 <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
   <thead>
     <tr>
-      <!-- New 'Select' Column -->
+      <!-- Checkbox Column -->
       <td class="py-2 px-4 text-sm text-gray-600">
-          <input type="checkbox" name="selected_inventories[]" class="form-checkbox">
-        </td>
-      <th class="py-2 px-4 border-b-2 flex border-gray-300 text-left text-sm font-semibold text-gray-700">
-        Food Name
-          <svg class="w-2 h-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="25" height="15" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-          </svg>
+        <input type="checkbox" name="selected_inventories[]" class="form-checkbox">
+      </td>
+      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">
+        <span>Food Name</span>
+        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+        </svg>
+        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+        </svg>
       </th>
       <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">
-        Donation Amount
+        <span>Donation Amount</span>
+        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+        </svg>
+        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+        </svg>
       </th>
       <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">
-        Collection Date
+        <span>Collection Date</span>
+        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+        </svg>
+        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+        </svg>
       </th>
       <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">
-        Request
+        <span>Expire Date</span>
+        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+        </svg>
+        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+        </svg>
       </th>
       <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">
-        Actions
+        <span>Actions</span>
+        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+        </svg>
+        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+        </svg>
+      </th>
+      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">
+        <span>Status</span>
+        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+        </svg>
+        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+        </svg>
       </th>
     </tr>
   </thead>
-
   <tbody>
     <% @inventories.each do |inventory| %>
-      <tr class="border-b">
-        <!-- Checkbox in each row -->
+      <tr class="border-b hover:bg-gray-300 hover:cursor-pointer" data-url="<%= inventory_path(inventory) %>">
         <td class="py-2 px-4 text-sm text-gray-600">
           <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class="form-checkbox">
         </td>
         <td class="py-2 px-4 text-sm text-gray-600"><%= inventory.food_name %></td>
         <td class="py-2 px-4 text-sm text-gray-600"><%= number_to_human(inventory.amount) %></td>
         <td class="py-2 px-4 text-sm text-gray-600"><%= inventory.collection_date.strftime('%Y-%m-%d') %></td>
-        <td class="py-2 px-4 text-sm text-gray-600">
-          <%= link_to inventory.request.name, request_path(inventory.request) %>
-        </td>
+        <td class="py-2 px-4 text-sm text-gray-600"><%= inventory.expire_date.strftime('%Y-%m-%d') %></td>
         <td class="py-2 px-4 text-sm text-gray-600">
           <%= link_to 'Show', inventory_path(inventory), class: "text-blue-500 hover:text-blue-700 mr-2" %>
           <%= link_to 'Edit', edit_request_inventory_path(inventory.request_id, inventory), class: "text-yellow-500 hover:text-yellow-700 mr-2" %>
           <%= button_to 'Delete', inventory_path(inventory), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:text-red-700" %>
+        </td>
+        <td class="py-2 px-4 text-sm text-gray-600">
+          <input type="checkbox" name="selected_inventories[]" value="<%= inventory.request.id %>" class="form-checkbox" <%= "checked" if inventory.request.is_selected %> >
         </td>
       </tr>
     <% end %>
@@ -213,10 +279,59 @@
 </table>
 
 <script>
-    const modal = document.getElementById("modal");
-    const openModalBtn = document.getElementById("filter-action");
-    const closeModalBtn = document.getElementById("close-modal");
+ const bulkActionsdropdownOpen = document.getElementById("bulk-action-open-dropdown");
+ const bulkActionsdropdownClose = document.getElementById("bulk-action-close-dropdown");
+ const dropContentBulk = document.getElementById("dropdown-content-bulk");
 
+ bulkActionsdropdownOpen.addEventListener("click", () => {
+  bulkActionsdropdownOpen.classList.add('hidden')
+  dropContentBulk.classList.remove('hidden')
+  bulkActionsdropdownClose.classList.remove('hidden')
+ })
+
+ bulkActionsdropdownClose.addEventListener("click", () => {
+  bulkActionsdropdownOpen.classList.remove('hidden')
+  dropContentBulk.classList.add('hidden')
+  bulkActionsdropdownClose.classList.add('hidden')
+ })
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll("tr[data-url]");
+
+    rows.forEach(row => {
+      row.addEventListener("click", () => {
+        window.location.href = row.getAttribute("data-url");
+      });
+    });
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Select all instances of filter toggles
+  const filterHigherIcons = document.querySelectorAll(".filter-higher");
+  const filterLowerIcons = document.querySelectorAll(".filter-lower");
+
+  filterHigherIcons.forEach((icon, index) => {
+    icon.addEventListener("click", () => {
+      icon.classList.add("hidden");
+      filterLowerIcons[index].classList.remove("hidden");
+    });
+  });
+
+  filterLowerIcons.forEach((icon, index) => {
+    icon.addEventListener("click", () => {
+      icon.classList.add("hidden");
+      filterHigherIcons[index].classList.remove("hidden");
+    });
+  });
+
+  // Modal logic
+  const modal = document.getElementById("modal");
+  const openModalBtn = document.getElementById("filter-action");
+  const closeModalBtn = document.getElementById("close-modal");
+
+  if (openModalBtn && closeModalBtn && modal) {
     openModalBtn.addEventListener("click", () => {
       modal.classList.remove("hidden");
     });
@@ -224,5 +339,8 @@
     closeModalBtn.addEventListener("click", () => {
       modal.classList.add("hidden");
     });
+  }
+});
+ 
 
 </script>

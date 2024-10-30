@@ -1,0 +1,48 @@
+<section>
+  <div class="bg-custom-image">
+<nav class="bg-transparent font-Outfit px-2 pt-6">
+<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+<%= image_tag("haba_na_haba_logo.svg", 
+              class: "w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 ", 
+              alt: "Hnh Logo") %>
+</a>
+
+  <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg lg:hidden hover:bg-lightGreen focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+      </svg>
+  </button>
+  <div class="hidden w-full lg:block lg:w-auto" id="navbar-default">
+    <ul class="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+      <li>
+        <a href="/" class="block py-2 px-3 text-white bg-lightGreen rounded lg:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen " aria-current="Page">Home</a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" onclick="toggleModal('donateModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen dark:hover:text-white lg:dark:hover:bg-transparent">Donate Food</a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" onclick="toggleModal('requestModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen lg:dark:hover:bg-transparent">Request Food</a>
+      </li>
+      <li>
+        <a href="#about" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white  lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen ">About Us</a>
+      </li>
+      <li>
+        <a href="#contact" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen ">Contact Us</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<div class="w-full mt-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
+<div class="text-center text-white w-90% font-Paprika">
+  <h1 class="text-3.5xl sm:text-3.5xl md:text-5xl lg:text-5xl font-normal">Haba Na Haba</h1>
+  <p class="text-xl sm:text-2xl md:text-3.8xl lg:text-5xl mt-2 font-normal">We are passionate hunger heroes</p>
+  <p class="text-sm sm:text-base md:text-xl lg:text-xl mt-2 font-Outfit font-light">Together we can end hunger</p>
+</div>
+</div>
+
+    </div>
+  </section>

@@ -14,7 +14,7 @@
  *= require_self
  */
 .mobile-yield-content {
-  margin: 5px;
+  margin: 20px;
 }
 
 .mobile-sidebar {
@@ -65,6 +65,18 @@
   .tab-yield-content,
   .tab-navbar {
     margin-top: 50px;
+  }
+}
+
+@media screen and (min-width: 1114px) {
+  .tab-sidebar {
+    top: 2.5rem;
+    bottom: 2.5rem;
+  }
+
+  .tab-yield-content,
+  .tab-navbar {
+    margin-top: 20px;
   }
 }
 

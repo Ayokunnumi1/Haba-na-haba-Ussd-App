@@ -8,6 +8,10 @@
     <%= form.text_field :last_name, required: true %>
   </div>
   <div>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+  <div>
     <%= form.label :phone_number %>
     <%= form.telephone_field :phone_number, required: true %>
   </div>

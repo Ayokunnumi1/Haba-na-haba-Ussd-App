@@ -1,9 +1,9 @@
 <nav class="flex flex-row justify-center items-center gap-5 md:gap-5 yield-content tab-navbar">
-    <div class="p-2 rounded-2xl bg-lightGray w-3/5 md:w-4/5">
-        <div>
-            <%= image_tag("search.png",                
-                alt: "search") %>
-        </div>
+    <div class="p-2 rounded-2xl bg-lightGray w-3/5 md:w-4/5 flex items-center space-x-2">
+            <%= image_tag("search.png", alt: "search", class: "w-5 h-5") %>
+            <input type="text" placeholder="Search" 
+           class="bg-transparent border-0 focus:border-0 focus:outline-none outline-none focus:ring-0 w-full text-gray-700 placeholder-gray-400" 
+           aria-label="Search">
     </div>
     
     <div class="flex flex-row gap-2">

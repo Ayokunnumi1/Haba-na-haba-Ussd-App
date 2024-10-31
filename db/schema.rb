@@ -10,19 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_30_173447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "branch_districts", force: :cascade do |t|
+    t.bigint "branch_id", null: false
+    t.bigint "district_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id", "district_id"], name: "index_branch_districts_on_branch_id_and_district_id", unique: true
+    t.index ["branch_id"], name: "index_branch_districts_on_branch_id"
+    t.index ["district_id"], name: "index_branch_districts_on_district_id"
+  end
 
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
-    t.bigint "district_id", null: false
     t.bigint "county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["county_id"], name: "index_branches_on_county_id"
-    t.index ["district_id"], name: "index_branches_on_district_id"
   end
 
   create_table "counties", force: :cascade do |t|
@@ -223,8 +231,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "branch_districts", "branches"
+  add_foreign_key "branch_districts", "districts"
   add_foreign_key "branches", "counties"
-  add_foreign_key "branches", "districts"
   add_foreign_key "counties", "districts"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"

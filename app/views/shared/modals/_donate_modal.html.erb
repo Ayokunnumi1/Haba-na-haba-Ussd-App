@@ -1,124 +1,145 @@
-<div id="donateModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8">
-  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-4 sm:p-6 space-y-4 relative">
+<!-- Main Modal -->
+<div id="donateModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+    
+    <div class="relative p-4 w-full max-w-2xl max-h-full z-10">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white font-outfit">
+                    Donation Form
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" onclick="toggleModal('donateModal')">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            
+            <!-- Modal Body - Step 1 -->
+            <div id="step-1" class="modal-step p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh]">
+                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                <div class="flex gap-2">
+                    <input type="text" required placeholder="First Name" class="input-field"/>
+                    <input type="text" required placeholder="Last Name" class="input-field"/>
+                </div>
 
-    <!-- Close icon button in the top right corner -->
-    <button onclick="toggleModal('donateModal')" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+                <div class="flex gap-2">
+                    <div class="w-1/2">
+                        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" required placeholder="Enter phone number" class="input-field"/>
+                    </div>
+                    <div class="w-1/2">
+                        <label class="block text-sm font-medium text-gray-700">Donor Type</label>
+                        <select required class="input-field">
+                            <option value="" disabled selected>Select type</option>
+                            <option>Individual</option>
+                            <option>Family</option>
+                            <option>Organization</option>
+                        </select>
+                    </div>
+                </div>
 
-    <!-- Title and Subtitle with Outfit font -->
-    <p class="text-center font-Outfit font-bold text-lightGreen uppercase">Give Hope, Share Love</p>
-    <h2 class="text-2xl font-bold text-center font-Outfit text-lightGreen uppercase">Your Donation Makes a Difference</h2>
+                <label class="block text-sm font-medium text-gray-700">Address</label>
+                <input type="text" required placeholder="Street Address" class="input-field"/>
+                <div class="flex gap-2">
+                    <select required class="input-field">
+                        <option value="" disabled selected>District</option>
+                        <!-- Add district options here -->
+                    </select>
+                    <select required class="input-field">
+                        <option value="" disabled selected>County</option>
+                        <!-- Add county options here -->
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" required placeholder="Sub-county" class="input-field"/>
+                    <input type="text" required placeholder="Village" class="input-field"/>
+                </div>
+                <input type="text" required placeholder="Parish" class="input-field"/>
 
-    <form action="/donate" method="post">
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <!-- Next Button -->
+                <button type="button" onclick="showNextStep('step-2')" class="btn-next">Next</button>
+            </div>
 
-      <!-- First Section (Contact Information) -->
-      <div id="contactInfoSection">
-        <label class="block font-semibold">Name</label>
-        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-          <input type="text" id="firstName" placeholder="First Name" class="block w-full px-4 py-2 border rounded-lg" required>
-          <input type="text" id="lastName" placeholder="Last Name" class="block w-full px-4 py-2 border rounded-lg" required>
+            <!-- Modal Body - Step 2 -->
+            <div id="step-2" class="modal-step p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh] hidden">
+                <input type="text" placeholder="Registration No." class="input-field"/>
+                <input type="text" placeholder="Head of the Institution" class="input-field"/>
+
+                <div class="flex justify-between">
+                    <button type="button" onclick="showPreviousStep('step-1')" class="btn-back">Back</button>
+                    <button type="button" onclick="showNextStep('step-3')" class="btn-next">Next</button>
+                </div>
+            </div>
+
+            <!-- Modal Body - Step 3 -->
+            <div id="step-3" class="modal-step p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh] hidden">
+                <input type="text" placeholder="Donation Type" class="input-field"/>
+                <input type="text" placeholder="Food Name" class="input-field"/>
+
+                <label class="block text-sm font-medium text-gray-700">Collection & Expiry Date</label>
+                <div class="flex gap-2">
+                    <input type="date" class="input-field"/>
+                    <input type="date" class="input-field"/>
+                </div>
+
+                <input type="number" placeholder="Donation Amount" class="input-field"/>
+
+                <label class="block text-sm font-medium text-gray-700">How Did You Hear About Us?</label>
+                <select class="input-field">
+                    <option value="" disabled selected>Select source</option>
+                    <!-- Add options here -->
+                </select>
+
+                <div class="flex justify-between">
+                    <button type="button" onclick="showPreviousStep('step-2')" class="btn-back">Back</button>
+                    <button type="submit" class="btn-submit">Submit</button>
+                </div>
+            </div>
         </div>
-
-        <label class="block font-semibold mt-4">Contact Information</label>
-        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-          <input type="tel" id="phoneNumber" placeholder="Phone Number" class="block w-full px-4 py-2 border rounded-lg" required>
-          <select id="donorType" class="block w-full px-4 py-2 border rounded-lg" required>
-            <option disabled selected>Donor Type</option>
-            <option>Individual</option>
-            <option>Family</option>
-            <option>Organization</option>
-          </select>
-        </div>
-
-        <label class="block font-semibold mt-4">Address</label>
-        <input type="text" placeholder="Street Address" class="block w-full px-4 py-2 border rounded-lg" required>
-
-        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
-          <select class="block w-full px-4 py-2 border rounded-lg" required>
-            <option disabled selected>District</option>
-          </select>
-          <select class="block w-full px-4 py-2 border rounded-lg" required>
-            <option disabled selected>County</option>
-          </select>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
-          <select class="block w-full px-4 py-2 border rounded-lg" required>
-            <option disabled selected>Sub-County</option>
-          </select>
-          <input type="text" placeholder="Village" class="block w-full px-4 py-2 border rounded-lg" required>
-        </div>
-
-        <input type="text" placeholder="Parish" class="block w-full px-4 py-2 border rounded-lg mt-2" required>
-
-        <!-- Next button for mobile only, after the address fields -->
-        <div class="block sm:hidden mt-4">
-          <button type="button" onclick="showAdditionalDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
-        </div>
-
-        <!-- Next button for larger screens -->
-        <div class="hidden sm:block mt-4">
-          <button type="button" onclick="showAdditionalDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
-        </div>
-      </div>
-
-      <!-- Additional Details Section (Initially Hidden) -->
-      <div id="additionalDetailsSection" class="hidden">
-        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
-          <div class="w-full">
-            <label class="block font-semibold">Registration No</label>
-            <input type="text" id="registrationNo" placeholder="Registration No" class="w-full px-4 py-2 border rounded-lg mt-1" required>
-          </div>
-          <div class="w-full">
-            <label class="block font-semibold">Head of the Institution</label>
-            <input type="text" id="headOfInstitution" placeholder="Head of the Institution" class="w-full px-4 py-2 border rounded-lg mt-1" required>
-          </div>
-        </div>
-
-        <!-- Next button for mobile only -->
-        <div class="block sm:hidden mt-4">
-          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
-        </div>
-
-        <!-- Next button for larger screens -->
-        <div class="hidden sm:block mt-4">
-          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
-        </div>
-      </div>
-
-      <!-- Second Section (Donation Details, Initially Hidden) -->
-      <div id="donationDetailsSection" class="hidden">
-        <label class="block font-semibold">Donation Details</label>
-        <input type="text" id="foodItem" placeholder="Food Item" class="block w-full px-4 py-2 border rounded-lg" required>
-        <input type="number" id="quantity" placeholder="Quantity" class="block w-full px-4 py-2 border rounded-lg mt-2" required>
-
-        <!-- Submit and Back buttons -->
-        <div class="flex justify-between mt-4">
-          <button type="button" onclick="showContactInfo()" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-lg">Back</button>
-          <button type="submit" class="bg-lightGreen text-white py-2 px-4 rounded-lg">Submit</button>
-        </div>
-      </div>
-    </form>
-  </div>
+    </div>
 </div>
 
+<!-- Styling Classes -->
+<style>
+    .input-field {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .btn-next, .btn-back, .btn-submit {
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-back {
+        background-color: #f0ad4e;
+    }
+    .btn-submit {
+        background-color: #5bc0de;
+    }
+</style>
+
+<!-- JavaScript -->
 <script>
-  function showAdditionalDetails() {
-    document.getElementById('contactInfoSection').classList.add('hidden');
-    document.getElementById('additionalDetailsSection').classList.remove('hidden');
-  }
+    function toggleModal(id) {
+        document.getElementById(id).classList.toggle('hidden');
+    }
 
-  function showDonationDetails() {
-    document.getElementById('additionalDetailsSection').classList.add('hidden');
-    document.getElementById('donationDetailsSection').classList.remove('hidden');
-  }
+    function showNextStep(stepId) {
+        document.querySelectorAll('.modal-step').forEach(el => el.classList.add('hidden'));
+        document.getElementById(stepId).classList.remove('hidden');
+    }
 
-  function showContactInfo() {
-    document.getElementById('contactInfoSection').classList.remove('hidden');
-    document.getElementById('additionalDetailsSection').classList.add('hidden');
-  }
+    function showPreviousStep(stepId) {
+        document.querySelectorAll('.modal-step').forEach(el => el.classList.add('hidden'));
+        document.getElementById(stepId).classList.remove('hidden');
+    }
 </script>

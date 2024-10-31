@@ -1,0 +1,35 @@
+<article id="about">
+  <!-- Mission Section - Visible on all screens -->
+  <div class="text-darkBlue font-Outfit text-center p-6">
+    <p class="font-medium text-xmxs md:text-xxs lg:text-base lg:pb-2">PROMISES THAT BUILD</p>
+    <p class="font-bold text-3.5xl md:text-2xl lg:text-3.8xl lg:pb-2">OUR MISSION</p>
+    <p class="font-normal text-xmxs md:text-xs lg:text-2xl">
+      We work in a mission-driven environment with people about making a difference and seeing how they’re impacting communities.
+    </p>
+  </div>
+
+<div class="we_work_people_desktop_tab  flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto -mb-20 z-10">
+  <%= render partial: "shared/volunteer_info_desktop" %>
+</div>
+
+<article id="impact" class="bg-darkBlue pt-20 font-Outfit">
+  <div class="text-center text-white mt-7">
+    <p class="font-medium text-base md:text-xxs lg:text-base">SOME NUMBERS FOR YOU</p>
+    <p class="font-bold text-2xl md:text-2xl lg:text-3.8xl">6 Years of Impact</p>
+  </div>
+
+  <div class="flex flex-wrap justify-center mt-5 items-center text-white space-x-0 md:space-x-4">
+    <div class="grid grid-cols-2 gap-y-4 gap-x-2 md:flex md:space-x-4">
+      <% ["Clock.svg", "Calender.svg", "pie-chart.svg", "Handshake.svg"].each_with_index do |icon, i| %>
+        <div class="flex items-center">
+          <%= impact_item(icon, "w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24", icon_name(i), impact_value(i), impact_label(i)) %>
+          
+          <!-- Render the vertical line only for all but the last item on larger screens -->
+          <% if i < 3 %>
+            <div class="hidden md:block h-16 border-l border-white mx-2"></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</article>

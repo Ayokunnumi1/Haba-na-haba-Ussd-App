@@ -1,0 +1,17 @@
+
+<section class="block">
+  <div class="bg-community-image text-white">
+    <h3 class="font-Outfit font-normal text-base text-center p-5">HOW WE DO THAT</h3>
+    <h3 class="font-Outfit font-bold text-2xl mt-3 text-center">HOW WE GET RESULTS THAT LAST</h3>
+
+    <div class="grid grid-cols-2 md:flex md:justify-center gap-4 p-6 font-Outfit text-white overflow-x-auto w-full">
+      <%= render partial: 'shared/card', locals: { image_path: "Gift.png", image_alt: "Gift", title: "GIVE A DONATION", description: "Support our cause with your treasures in either funding, materials or alms", action_text: "DONATE", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+
+      <%= render partial: 'shared/card', locals: { image_path: "accessible.png", image_alt: "Accessible", title: "VOLUNTEER NOW", description: "Take time to make impact as you serve humanity together", action_text: "JOIN IN", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+
+      <%= render partial: 'shared/card', locals: { image_path: "plus.png", image_alt: "Plus sign", title: "PARTNER WITH US", description: "Let’s join hands to make a difference in the lives of people & communities", action_text: "START NOW", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+
+      <%= render partial: 'shared/card', locals: { image_path: "sunlight.png", image_alt: "sunlight", title: "PRAY FOR US", description: "Praying is a Godly principle that produces great and valued results", action_text: "LET'S TALK", variant_class: "h-72 mx-auto", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+    </div>
+  </div>
+</section>

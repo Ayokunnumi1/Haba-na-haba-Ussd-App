@@ -17,10 +17,11 @@
           <%= link_to 'Edit', edit_district_path(district), class: 'text-yellow-600 hover:underline' %>
         </td>
         <td class="py-3 px-6 text-center">
-          <%= link_to 'Destroy', district, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
+          <%= button_to 'Destroy', district, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <%= link_to 'New District', new_district_path, class: 'inline-block mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700' %>
+<%= link_to 'Dashboard', users_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>

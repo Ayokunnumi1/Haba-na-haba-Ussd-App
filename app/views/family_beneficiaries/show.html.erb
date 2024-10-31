@@ -1,0 +1,42 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6">Family Beneficiary Details</h1>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Case Information</h3>
+    </div>
+    <div class="border-t border-gray-200">
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4">
+          <dt class="text-sm font-medium text-gray-500">Case Name</dt>
+          <dd class="text-sm text-gray-900"><%= @family_beneficiary.case_name %></dd>
+        </div>
+        <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
+          <dt class="text-sm font-medium text-gray-500">Phone Number</dt>
+          <dd class="text-sm text-gray-900"><%= @family_beneficiary.phone_number %></dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4">
+          <dt class="text-sm font-medium text-gray-500">Family Members</dt>
+          <dd class="text-sm text-gray-900"><%= @family_beneficiary.family_members %></dd>
+        </div>
+        <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
+          <dt class="text-sm font-medium text-gray-500">Male Members</dt>
+          <dd class="text-sm text-gray-900"><%= @family_beneficiary.male %></dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 grid grid-cols-3 gap-4">
+          <dt class="text-sm font-medium text-gray-500">Female Members</dt>
+          <dd class="text-sm text-gray-900"><%= @family_beneficiary.female %></dd>
+        </div>
+        <div class="bg-white px-4 py-5 grid grid-cols-3 gap-4">
+          <dt class="text-sm font-medium text-gray-500">Children</dt>
+          <dd class="text-sm text-gray-900"><%= @family_beneficiary.children %></dd>
+        </div>
+        <!-- Add more fields as necessary -->
+      </dl>
+    </div>
+  </div>
+  <div class="mt-6">
+    <%= link_to 'Edit', edit_request_family_beneficiary_path(@family_beneficiary.request, @family_beneficiary), class: 'text-blue-600 hover:text-blue-900' %>
+    <%= button_to 'Destroy', family_beneficiary_path(@family_beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900' %>
+    <%= link_to 'Back to Beneficiaries', family_beneficiaries_path, class: 'inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+class CountiesController < ApplicationController
+  include ErrorHandler
+  before_action :authenticate_user!
+  before_action :set_county, only: %i[show edit update destroy]
+
+  def index
+    @counties = County.all
+  end
+
+  def show; end
+
+  def new
+    @county = County.new
+  end
+
+  def create
+    @county = County.new(county_params)
+
+    if @county.save
+      redirect_to @county, notice: 'County was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @county.update(county_params)
+      redirect_to @county, notice: 'County was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @county.destroy
+      redirect_to counties_url, notice: 'County was successfully deleted.'
+    else
+      redirect_to counties_url, alert: @county.errors.full_messages.to_sentence
+    end
+  rescue StandardError => e
+    redirect_to counties_url, alert: handle_destroy_error(e)
+  end
+
+  private
+
+  def set_county
+    @county = County.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to counties_url, alert: 'County not found.'
+  end
+
+  def county_params
+    params.require(:county).permit(:name, :district_id)
+  end
+end

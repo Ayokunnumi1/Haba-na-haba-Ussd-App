@@ -57,9 +57,17 @@
 
         <!-- Next button for mobile only, after the address fields -->
         <div class="block sm:hidden mt-4">
-          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
+          <button type="button" onclick="showAdditionalDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
         </div>
 
+        <!-- Next button for larger screens -->
+        <div class="hidden sm:block mt-4">
+          <button type="button" onclick="showAdditionalDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
+        </div>
+      </div>
+
+      <!-- Additional Details Section (Initially Hidden) -->
+      <div id="additionalDetailsSection" class="hidden">
         <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
           <div class="w-full">
             <label class="block font-semibold">Registration No</label>
@@ -71,13 +79,18 @@
           </div>
         </div>
 
+        <!-- Next button for mobile only -->
+        <div class="block sm:hidden mt-4">
+          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
+        </div>
+
         <!-- Next button for larger screens -->
-        <div class="hidden sm:block">
-          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg mt-4">Next</button>
+        <div class="hidden sm:block mt-4">
+          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
         </div>
       </div>
 
-      <!-- Second Section (Donation Details) -->
+      <!-- Second Section (Donation Details, Initially Hidden) -->
       <div id="donationDetailsSection" class="hidden">
         <label class="block font-semibold">Donation Details</label>
         <input type="text" id="foodItem" placeholder="Food Item" class="block w-full px-4 py-2 border rounded-lg" required>
@@ -94,13 +107,18 @@
 </div>
 
 <script>
-  function showDonationDetails() {
+  function showAdditionalDetails() {
     document.getElementById('contactInfoSection').classList.add('hidden');
+    document.getElementById('additionalDetailsSection').classList.remove('hidden');
+  }
+
+  function showDonationDetails() {
+    document.getElementById('additionalDetailsSection').classList.add('hidden');
     document.getElementById('donationDetailsSection').classList.remove('hidden');
   }
 
   function showContactInfo() {
     document.getElementById('contactInfoSection').classList.remove('hidden');
-    document.getElementById('donationDetailsSection').classList.add('hidden');
+    document.getElementById('additionalDetailsSection').classList.add('hidden');
   }
 </script>

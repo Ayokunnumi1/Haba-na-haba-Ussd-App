@@ -1,12 +1,106 @@
-<div id="donateModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 space-y-4">
-    <h2 class="text-xl font-semibold text-center">Donate Food</h2>
+<div id="donateModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8">
+  <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-4 sm:p-6 space-y-4 relative">
+
+    <!-- Close icon button in the top right corner -->
+    <button onclick="toggleModal('donateModal')" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Title and Subtitle with Outfit font -->
+    <p class="text-center font-Outfit font-bold text-lightGreen uppercase">Give Hope, Share Love</p>
+    <h2 class="text-2xl font-bold text-center font-Outfit text-lightGreen uppercase">Your Donation Makes a Difference</h2>
+
     <form action="/donate" method="post">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-      <input type="text" placeholder="Food Item" class="block w-full px-4 py-2 border rounded-lg">
-      <input type="number" placeholder="Quantity" class="block w-full px-4 py-2 border rounded-lg">
-      <button type="submit" class="w-full bg-lightGreen text-white py-2 rounded-lg">Donate</button>
+
+      <!-- First Section (Contact Information) -->
+      <div id="contactInfoSection">
+        <label class="block font-semibold">Name</label>
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+          <input type="text" id="firstName" placeholder="First Name" class="block w-full px-4 py-2 border rounded-lg" required>
+          <input type="text" id="lastName" placeholder="Last Name" class="block w-full px-4 py-2 border rounded-lg" required>
+        </div>
+
+        <label class="block font-semibold mt-4">Contact Information</label>
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+          <input type="tel" id="phoneNumber" placeholder="Phone Number" class="block w-full px-4 py-2 border rounded-lg" required>
+          <select id="donorType" class="block w-full px-4 py-2 border rounded-lg" required>
+            <option disabled selected>Donor Type</option>
+            <option>Individual</option>
+            <option>Family</option>
+            <option>Organization</option>
+          </select>
+        </div>
+
+        <label class="block font-semibold mt-4">Address</label>
+        <input type="text" placeholder="Street Address" class="block w-full px-4 py-2 border rounded-lg" required>
+
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
+          <select class="block w-full px-4 py-2 border rounded-lg" required>
+            <option disabled selected>District</option>
+          </select>
+          <select class="block w-full px-4 py-2 border rounded-lg" required>
+            <option disabled selected>County</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
+          <select class="block w-full px-4 py-2 border rounded-lg" required>
+            <option disabled selected>Sub-County</option>
+          </select>
+          <input type="text" placeholder="Village" class="block w-full px-4 py-2 border rounded-lg" required>
+        </div>
+
+        <input type="text" placeholder="Parish" class="block w-full px-4 py-2 border rounded-lg mt-2" required>
+
+        <!-- Next button for mobile only, after the address fields -->
+        <div class="block sm:hidden mt-4">
+          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg">Next</button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2">
+          <div class="w-full">
+            <label class="block font-semibold">Registration No</label>
+            <input type="text" id="registrationNo" placeholder="Registration No" class="w-full px-4 py-2 border rounded-lg mt-1" required>
+          </div>
+          <div class="w-full">
+            <label class="block font-semibold">Head of the Institution</label>
+            <input type="text" id="headOfInstitution" placeholder="Head of the Institution" class="w-full px-4 py-2 border rounded-lg mt-1" required>
+          </div>
+        </div>
+
+        <!-- Next button for larger screens -->
+        <div class="hidden sm:block">
+          <button type="button" onclick="showDonationDetails()" class="w-full bg-lightGreen text-white py-2 rounded-lg mt-4">Next</button>
+        </div>
+      </div>
+
+      <!-- Second Section (Donation Details) -->
+      <div id="donationDetailsSection" class="hidden">
+        <label class="block font-semibold">Donation Details</label>
+        <input type="text" id="foodItem" placeholder="Food Item" class="block w-full px-4 py-2 border rounded-lg" required>
+        <input type="number" id="quantity" placeholder="Quantity" class="block w-full px-4 py-2 border rounded-lg mt-2" required>
+
+        <!-- Submit and Back buttons -->
+        <div class="flex justify-between mt-4">
+          <button type="button" onclick="showContactInfo()" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-lg">Back</button>
+          <button type="submit" class="bg-lightGreen text-white py-2 px-4 rounded-lg">Submit</button>
+        </div>
+      </div>
     </form>
-    <button onclick="toggleModal('donateModal')" class="text-red-600">Close</button>
   </div>
 </div>
+
+<script>
+  function showDonationDetails() {
+    document.getElementById('contactInfoSection').classList.add('hidden');
+    document.getElementById('donationDetailsSection').classList.remove('hidden');
+  }
+
+  function showContactInfo() {
+    document.getElementById('contactInfoSection').classList.remove('hidden');
+    document.getElementById('donationDetailsSection').classList.add('hidden');
+  }
+</script>

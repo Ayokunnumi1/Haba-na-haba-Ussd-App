@@ -11,7 +11,7 @@
     <div class="grid grid-cols-2 md:flex md:justify-center gap-4 p-6 font-Outfit text-white overflow-x-auto w-full">
       <%= render partial: 'shared/card', locals: { image_path: "Gift.png", image_alt: "Gift", title: "GIVE A DONATION", description: "Support our cause with your treasures in either funding, materials or alms", action_text: "DONATE", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
 
-      <%= render partial: 'shared/card', locals: { image_path: "accessible.png", image_alt: "Accessible", title: "VOLUNTEER NOW", description: "Take time to make impact as you serve humanity together with us", action_text: "JOIN IN", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
+      <%= render partial: 'shared/card', locals: { image_path: "accessible.png", image_alt: "Accessible", title: "VOLUNTEER NOW", description: "Take time to make impact as you serve humanity together", action_text: "JOIN IN", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
 
       <%= render partial: 'shared/card', locals: { image_path: "plus.png", image_alt: "Plus sign", title: "PARTNER WITH US", description: "Let’s join hands to make a difference in the lives of people & communities", action_text: "START NOW", variant_class: "h-72", image_container_class: "", text_alignment_class: "", action_text_class: "" } %>
 
@@ -33,50 +33,32 @@
     </p>
   </div>
 
-  <!-- Mobile Section - Hidden on md and lg screens -->
-  <div class="block md:hidden">
-    <%= render partial: "shared/volunteer_info_mobile" %>
-  </div>
-</article>
-
-<div class="we_work_people_desktop_tab hidden md:flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto -mb-20 z-10">
+<div class="we_work_people_desktop_tab  flex relative flex-row items-center my-6 bg-lightGreen shadow-sm border border-slate-200 rounded-lg w-[90%] mx-auto -mb-20 z-10">
   <%= render partial: "shared/volunteer_info_desktop" %>
 </div>
 
-<article id="impact" class="bg-darkBlue pt-20 hidden md:block font-Outfit">
+<article id="impact" class="bg-darkBlue pt-20 font-Outfit">
   <div class="text-center text-white mt-7">
     <p class="font-medium text-base md:text-xxs lg:text-base">SOME NUMBERS FOR YOU</p>
     <p class="font-bold text-2xl md:text-2xl lg:text-3.8xl">6 Years of Impact</p>
   </div>
 
-  <div class="flex flex-wrap justify-center mt-5 items-center space-x-4 text-white">
-    <% ["Clock.svg", "Calender.svg", "pie-chart.svg", "Handshake.svg"].each_with_index do |icon, i| %>
-      <div class="flex items-center">
-        <%= impact_item(icon, "w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24", icon_name(i), impact_value(i), impact_label(i)) %>
-        
-        <!-- Render the vertical line only for all but the last item -->
-        <% if i < 3 %>
-          <div class="h-16 border-l border-white mx-2 hidden md:block"></div>
-        <% end %>
-      </div>
-    <% end %>
+  <div class="flex flex-wrap justify-center mt-5 items-center text-white space-x-0 md:space-x-4">
+    <div class="grid grid-cols-2 gap-y-4 gap-x-2 md:flex md:space-x-4">
+      <% ["Clock.svg", "Calender.svg", "pie-chart.svg", "Handshake.svg"].each_with_index do |icon, i| %>
+        <div class="flex items-center">
+          <%= impact_item(icon, "w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24", icon_name(i), impact_value(i), impact_label(i)) %>
+          
+          <!-- Render the vertical line only for all but the last item on larger screens -->
+          <% if i < 3 %>
+            <div class="hidden md:block h-16 border-l border-white mx-2"></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </article>
 
-<!-- Statistics Section - Mobile view -->
-<article id="impact" class="bg-darkBlue p-5 block md:hidden">
-  <div class="text-center text-white mt-7">
-    <p class="font-normal text-base lg:text-base">SOME NUMBERS FOR YOU</p>
-    <p class="font-bold text-2xl lg:text-3.8xl">6 Years of Impact</p>
-  </div>
-
-  <div class="grid grid-cols-2 text-white mt-5 gap-4">
-  <% ["Clock.svg", "Calender.svg", "pie-chart.svg", "Handshake.svg"].each_with_index do |icon, i| %>
-    <%= impact_item(icon, "w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24", icon_name(i), impact_value(i), impact_label(i)) %>
-  <% end %>
-</div>
-
-</article>
 
 
 <section class="font-Outfit text-darkBlue flex flex-col justify-center align-center p-5 gap-10 ">

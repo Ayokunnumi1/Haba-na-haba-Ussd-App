@@ -1,5 +1,4 @@
 class InventoriesController < ApplicationController
-
   before_action :set_request, only: %i[new create edit update]
   before_action :set_inventory, only: %i[edit update show destroy]
 
@@ -19,16 +18,15 @@ class InventoriesController < ApplicationController
     @total_count = Inventory.count
 
     @inventories = Inventory.includes(:request)
-                             .by_donation_type(params[:donor_type])
-                             .by_donation_date(params[:collection_date])
-                             .by_expire_range(params[:start_date], params[:end_date])
-                             .by_collection_amount(params[:min_amount], params[:max_amount])
-                             .order(sort_column + " " + sort_direction)
-                             .search_query(params[:query])
+      .by_donation_type(params[:donor_type])
+      .by_donation_date(params[:collection_date])
+      .by_expire_range(params[:start_date], params[:end_date])
+      .by_collection_amount(params[:min_amount], params[:max_amount])
+      .order("#{sort_column} #{sort_direction}")
+      .search_query(params[:query])
 
     @min_collection_amount = @inventories.minimum(:amount) || 0
-    @max_collection_amount = @inventories.maximum(:amount) || 1500 
-
+    @max_collection_amount = @inventories.maximum(:amount) || 1500
   end
 
   def show; end
@@ -105,12 +103,12 @@ class InventoriesController < ApplicationController
   def bulk_delete
     ids = params[:ids]
     Inventory.where(id: ids).destroy_all
-  
+
     respond_to do |format|
-      format.json { render json: { success: true, message: "Items deleted successfully" } }
-      format.html { redirect_to inventories_path, notice: "Selected items were deleted." }
+      format.json { render json: { success: true, message: 'Items deleted successfully' } }
+      format.html { redirect_to inventories_path, notice: 'Selected items were deleted.' }
+    end
   end
-end
 
   private
 
@@ -134,13 +132,11 @@ end
                                       :county_id, :sub_county_id, :request_id)
   end
 
-  private
-
   def sort_column
-    Inventory.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    Inventory.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

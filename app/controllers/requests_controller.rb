@@ -19,7 +19,7 @@ class RequestsController < ApplicationController
     @districts = District.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branches = @request.district.present? ? Branch.where(district_id: @request.district_id) : Branch.none  
+    @branches = @request.district.present? ? Branch.where(district_id: @request.district_id) : Branch.none
   end
 
   def create

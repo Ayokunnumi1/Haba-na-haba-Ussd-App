@@ -28,7 +28,9 @@ class RequestsController < ApplicationController
     if @request.save
       redirect_to @request, notice: 'Request was successfully created.'
     else
-      render :new, alert: 'Failed to create request.'
+      @districts = District.all
+      @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
+      @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
     end
   end
 
@@ -36,6 +38,9 @@ class RequestsController < ApplicationController
     if @request.update(request_params)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
+      @districts = District.all
+      @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
+      @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       render :edit, alert: 'Failed to update request.'
     end
   end

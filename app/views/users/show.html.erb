@@ -1,5 +1,8 @@
 <h1 class="text-2xl font-bold mb-6">User Details</h1>
 <div class="bg-white p-6 rounded-lg shadow-lg">
+  <% if @user.image.attached? %>
+    <%= image_tag url_for(@user.image), alt: "#{@user.first_name}'s Profile Image", class: "w-32 h-32 rounded-full mb-4" %>
+  <% end %>
   <p class="text-gray-700"><strong>First Name:</strong> <%= @user.first_name %></p>
   <p class="text-gray-700"><strong>Last Name:</strong> <%= @user.last_name %></p>
   <p class="text-gray-700"><strong>Phone Number:</strong> <%= @user.phone_number %></p>

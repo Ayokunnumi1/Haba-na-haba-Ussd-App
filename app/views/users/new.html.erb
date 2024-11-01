@@ -12,6 +12,10 @@
     <%= form.telephone_field :phone_number, required: true %>
   </div>
   <div>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+  <div>
     <%= form.label :role %>
     <%= form.select :role, User::ROLES, { include_blank: true }, required: true %>
   </div>

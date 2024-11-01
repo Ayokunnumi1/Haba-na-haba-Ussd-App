@@ -10,12 +10,12 @@
 
     <div class="content-start flex w-full">
       <div class="flex-none w-1/2 mt-4">
-        <span class="text-lg font-semibold">Total Food Amount</span>
-        <span class="text-2xl font-bold"><%= @food_inventory_count %> </span>
+        <h4 class="text-lg font-semibold">Total Food Amount</h4>
+        <span class="text-2xl font-bold"><%= @inventory_food.count %> </span>
       </div>
       <div class=" grow mt-4 w-1/2">
         <h4 class="text-lg font-semibold">Donated</h4>
-        <span class="text-2xl font-bold">316 <span class="text-sm">86%</span></span>
+        <span class="text-2xl font-bold"><%= @inventory_donated.count %> </span>
       </div>
     </div>
 
@@ -32,13 +32,13 @@
       </div>
 
       <div class="content-start flex w-full">
-        <div class="flex-none w-1/2 mt-4">
+        <div class="flex flex-col w-1/2 mt-4">
           <h4 class="text-lg font-semibold">Low stock alert</h4>
-          <span class="text-2xl font-bold">350</span>
+          <span class="text-2xl font-bold"><%= @inventory_stock_alert.count %> </span>
         </div>
         <div class=" grow mt-4 w-1/2">
           <h4 class="text-lg font-semibold">Expired</h4>
-          <span class="text-2xl font-bold">316</span>
+          <span class="text-2xl font-bold"><%= @inventory_expired.count %> </span>
         </div>
       </div>
 
@@ -46,22 +46,21 @@
   </div>
 
 </div>
-
 <section class="flex justify-between mt-4 mb-4">
   <h3 class="font-bold mb-4 mx-8">Inventory Items</h3>
 
-  <div class="flex justify-end gap-4">
+  <button onclick="window.location.href='<%= inventories_path %>'"  aria-label="Refresh Page" type="button" class="text-white bg-[#6DC13D] hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"/>
+   </svg>
+    <span class="sr-only">Refesh</span>
+  </button>
+  
+  <div class="flex justify-end space-x-4">
     <!-- Search Form -->
-    <form class="max-w-md mx-auto" action="<%= inventories_path %>" method="get">
+    <form class="max-w-md" action="<%= inventories_path %>" method="get">
       <div class="relative w-full">
-        <input
-          type="search"
-          id="input-search"
-          name="query"
-          class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          placeholder="Search"
-          required
-        />
+        <input type="search" id="input-search" name="query" class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search" required />
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -71,14 +70,15 @@
     </form>
 
     <!-- Filter Button -->
-    <div id="filter-action" class="border-gray-950 p-2 hover:border-green-400  rounded-lg flex items-center border-2">
+    <div id="filter-action" class="border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
       <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
       </svg>
       <span class="ml-2">Filter</span>
     </div>
 
-    <!-- Modal Component --> 
+    <!-- Add Button -->
+
     <div id="modal" tabindex="-1" aria-hidden="true" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-neutral-950 bg-opacity-25">
       <div class="relative w-full max-w-lg p-4">
         <div class="bg-white rounded-lg shadow dark:bg-gray-700">
@@ -96,203 +96,166 @@
           <!-- Modal Form -->
           <%= form_with url: inventories_path, method: :get, local: true, class: "p-4 space-y-4" do |f| %>
             <div>
-              <%= f.label :donation_type, "Donation Type", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-              <%= f.select :donation_type, [["Select Type", ""], ["Fresh Food", "food"], ["Dry Food", "dry_food"], ["Clothes", "clothing"], ["Cash", "cash"], ["Other", "other"]], {}, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+              <%= f.label :donor_type, "Donation Type", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+              <%= f.select :donor_type, [["Select Type", ""], ["Fresh Food", "fresh_food"], ["Dry Food", "dry_food"], ["Clothes", "clothing"], ["Cash", "cash"], ["Other", "other"]], {}, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
             </div>
-
+          
             <div>
-              <%= f.label :donation_date, "Donation Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-              <%= f.date_field :donation_date, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+              <%= f.label :collection_date, "Donation Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+              <%= f.date_field :collection_date, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
             </div>
-
+          
             <div class="flex space-x-4">
               <div class="w-1/2">
-                <%= f.label :collection_start, "Collection Start Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-                <%= f.date_field :collection_start, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+                <%= f.label :start_date, "Collection Start Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+                <%= f.date_field :start_date, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
               </div>
               <div class="w-1/2">
-                <%= f.label :collection_end, "Collection End Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-                <%= f.date_field :collection_end, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+                <%= f.label :end_date, "Collection End Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+                <%= f.date_field :end_date, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
               </div>
             </div>
-
-            <div>
-              <%= f.label :collection_amount, "Collection Amount", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-              <%= f.number_field :collection_amount, placeholder: "Enter amount", class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+          
+            <div class="relative mb-6">
+              <label for="collection-range" class="block text-sm font-medium text-gray-700 dark:text-white">Collection Amount Range</label>
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-500 dark:text-gray-400">$<span id="min-range-value"><%= @min_collection_amount %></span></span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">$<span id="max-range-value"><%= @max_collection_amount %></span></span>
+              </div>
+              <div class="flex space-x-4">
+                <div class="w-1/2">
+                  <%= f.hidden_field :min_amount, id: "collection_amount_min", value: @min_collection_amount %>
+                  <%= f.hidden_field :max_amount, id: "collection_amount_max", value: @max_collection_amount %>
+                  <input id="collection-range-min" type="range" min="<%= @min_collection_amount %>" max="<%= @max_collection_amount %>" step="10" value="<%= @min_collection_amount %>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateRangeValue(this.value, 'min')">
+                </div>
+                <div class="w-1/2">
+                  <input id="collection-range-max" type="range" min="<%= @min_collection_amount %>" max="<%= @max_collection_amount %>" step="10" value="<%= @max_collection_amount %>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateRangeValue(this.value, 'max')">
+                </div>
+              </div>
             </div>
-
+          
             <!-- Modal Footer -->
             <div class="flex justify-end p-4 border-t border-gray-200 dark:border-gray-600">
               <%= f.submit "Apply Filter", class: "px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800" %>
             </div>
           <% end %>
+          
         </div>
       </div>
     </div>
-    </div>
-   </div>
-
-    <!-- Modal toggle -->
-    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2" type="button">
+    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="border-gray-950 p-2 hover:border-green-400 rounded-lg flex border-2" type="button">
       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-        </svg>
-
-        <span>Add</span>
+      </svg>
+      <span class="ml-2">Add</span>
     </button>
 
-      <!-- Main modal -->
-      <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-          <div class="relative p-4 w-full max-w-2xl max-h-full">
-              <!-- Modal content -->
-              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                  <!-- Modal header -->
-                  <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                          Terms of Service
-                      </h3>
-                      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-                          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                          </svg>
-                          <span class="sr-only">Close modal</span>
-                      </button>
-                  </div>
-                  <!-- Modal body -->
-                  <div class="p-4 md:p-5 space-y-4">
-                      <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                          With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                      </p>
-                      <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                          The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                      </p>
-                  </div>
-                  <!-- Modal footer -->
-                  <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                      <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                      <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
+    <!-- Share Button -->
+    <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+     <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Add Request then add Inventory
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+            </div>
+          
+            
+            </div>
+        </div>
+    </div>      
     <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
-      <svg  class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
+    <svg  class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
+    </svg>
+    <span>Share</span>
+  </div>
+        
+    <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+    Bulk Action
+      <svg class="w-6 h-6 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
       </svg>
-      <span>Share</span>
     </div>
 
-    <div class="border-gray-950	p-2 hover:border-green-400 	rounded-lg flex border-2">
-    <span>Bulk Action</span>
-      <svg id="bulk-action-open-dropdown" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
-      </svg>
-      <svg id="bulk-action-close-dropdown" class="w-6 h-6 hidden text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
-      </svg>
-
-    </div>
-    <div id="dropdown-content-bulk" class=" absolute hidden right-4 left-4 top-4  bg-white w-fit" style="left: 92%; top: 42%;">
-      <ul>
-        <li>Delete</li>
-        <li></li>
-        <li>Select</li>
+  <!-- Dropdown menu -->
+  <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+        <li id="bulk-delete" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Delete Selected</li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+        </li>
       </ul>
+  </div>
+
+  </div>
+</section>
+<%= turbo_frame_tag "inventories" do %>
+  <div class="flow-root mt-8">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="inventories__table--shadow overflow-hidden border border-gray-200 rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50 font-bold">
+              <tr>
+                <td class="py-2 px-4 text-sm ">
+                  <input type="checkbox" id="select-all" class="form-checkbox rounded-md" aria-label="Select all items">
+                </td>
+                <%= sortable_table_header 'Food Name', :food_name, :inventories_path, class: 'inventories__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Donation Amount', :amount, :inventories_path, class: 'inventories__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                
+                <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <% @inventories.each do |inventory| %>
+                <tr class="hover:bg-gray-100 transition-colors" data-url="<%= inventory_path(inventory) %>">
+                  <td class="py-2 px-4 text-sm text-gray-900">
+                    <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class="form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
+                  </td>
+                  <td class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600">
+                    <%= inventory.food_name %>
+                  </td>
+                  <td class="inventories__row inventories__row--collection-amount py-2 px-4 text-sm text-gray-600">
+                    <%= number_to_human(inventory.amount) %>
+                  </td>
+                  <td class="inventories__row inventories__row--created-at py-2 px-4 text-sm text-gray-600">
+                    <%= inventory.collection_date.strftime('%Y-%m-%d') %>
+                  </td>
+                  <td class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600">
+                    <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
+                  </td>
+                  <td class="py-2 px-4 text-sm rounded-lg text-gray-600">
+                     <input type="checkbox" name="selected_inventories[]" value="<%= inventory.request.id %>" class="form-checkbox" <%= "checked" if inventory.request.is_selected %> >
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-
-</section>
-
-
-
-<table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-  <thead>
-    <tr>
-      <!-- Checkbox Column -->
-      <td class="py-2 px-4 text-sm text-gray-600">
-        <input type="checkbox" name="selected_inventories[]" class="form-checkbox">
-      </td>
-      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700 " data-column="food_name" data-order="asc">
-        <span>Food Name</span> 
-        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" data-sort="asc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-        </svg> 
-        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" data-sort="desc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
-      </th>
-      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700" data-column="donation_amount" data-order="asc">
-        <span>Donation Amount</span>
-        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" data-sort="asc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-        </svg>
-        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" data-sort="desc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
-      </th>
-      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700" data-column="collection_date" data-order="asc">
-        <span>Collection Date</span>
-        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" data-sort="asc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-        </svg>
-        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" data-sort="desc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
-      </th>
-      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700" data-column="expire_date" data-order="asc">
-        <span>Expire Date</span>
-        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" data-sort="asc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-        </svg>
-        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" data-sort="desc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
-      </th>
-      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700" data-column="actions" data-order="asc">
-        <span>Actions</span>
-        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" data-sort="asc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-        </svg>
-        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" data-sort="desc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
-      </th>
-      <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700" data-column="status" data-order="asc">
-        <span>Status</span>
-        <svg class="filter-higher w-4 h-4 text-gray-800 dark:text-white cursor-pointer" data-sort="asc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-        </svg>
-        <svg class="filter-lower hidden w-6 h-6 text-gray-800 dark:text-white cursor-pointer" data-sort="desc" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
-        </svg>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @inventories.each do |inventory| %>
-      <tr class="border-b hover:bg-gray-300 hover:cursor-pointer" data-url="<%= inventory_path(inventory) %>">
-        <td class="py-2 px-4 text-sm text-gray-600">
-          <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class="form-checkbox">
-        </td>
-        <td class="py-2 px-4 text-sm text-gray-600"><%= inventory.food_name %></td>
-        <td class="py-2 px-4 text-sm text-gray-600"><%= number_to_human(inventory.amount) %></td>
-        <td class="py-2 px-4 text-sm text-gray-600"><%= inventory.collection_date.strftime('%Y-%m-%d') %></td>
-        <td class="py-2 px-4 text-sm text-gray-600"><%= inventory.expire_date.strftime('%Y-%m-%d') %></td>
-        <td class="py-2 px-4 text-sm text-gray-600">
-          <%= link_to 'Show', inventory_path(inventory), class: "text-blue-500 hover:text-blue-700 mr-2" %>
-          <%= link_to 'Edit', edit_request_inventory_path(inventory.request_id, inventory), class: "text-yellow-500 hover:text-yellow-700 mr-2" %>
-          <%= button_to 'Delete', inventory_path(inventory), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:text-red-700" %>
-        </td>
-        <td class="py-2 px-4 text-sm text-gray-600">
-          <input type="checkbox" name="selected_inventories[]" value="<%= inventory.request.id %>" class="form-checkbox" <%= "checked" if inventory.request.is_selected %> >
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% end %>
 
 <script>
  const bulkActionsdropdownOpen = document.getElementById("bulk-action-open-dropdown");
@@ -311,7 +274,7 @@
   bulkActionsdropdownClose.classList.add('hidden')
  })
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("turbo:load", () => {
     const rows = document.querySelectorAll("tr[data-url]");
 
     rows.forEach(row => {
@@ -324,99 +287,55 @@
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function() {
-
-  const filterHigherIcons = document.querySelectorAll(".filter-higher");
-  const filterLowerIcons = document.querySelectorAll(".filter-lower");
+document.addEventListener("turbo:load", function() {
   const modal = document.getElementById("modal");
   const openModalBtn = document.getElementById("filter-action");
   const closeModalBtn = document.getElementById("close-modal");
+  const selectAllCheckbox = document.getElementById("select-all");
+  const inventoryCheckboxes = document.querySelectorAll(".inventory-checkbox");
+  const bulkDeleteBtn = document.querySelector("#bulk-delete");
 
-  filterHigherIcons.forEach((icon, index) => {
-    icon.addEventListener("click", () => {
-      icon.classList.add("hidden");
-      filterLowerIcons[index].classList.remove("hidden");
-    });
+  selectAllCheckbox.addEventListener("change", () => {
+      inventoryCheckboxes.forEach(checkbox => {
+          checkbox.checked = selectAllCheckbox.checked;
+      });
   });
 
-  filterLowerIcons.forEach((icon, index) => {
-    icon.addEventListener("click", () => {
-      icon.classList.add("hidden");
-      filterHigherIcons[index].classList.remove("hidden");
-    });
+
+  bulkDeleteBtn.addEventListener("click", () => {
+    const selectedIds = Array.from(inventoryCheckboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+    if (selectedIds.length > 0) {
+      if (confirm("Are you sure you want to delete the selected items?")) {
+        fetch("/inventories/bulk_delete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ ids: selectedIds })
+        }).then(response => {
+          if (response.ok) {
+            location.reload();
+          } else {
+            alert("Failed to delete items.");
+          }
+        });
+      }
+    } else {
+      alert("No items selected.");
+    }
   });
 
-    openModalBtn.addEventListener("click", () => {
-      modal.classList.remove("hidden");
-    });
+  openModalBtn.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+  });
 
-    closeModalBtn.addEventListener("click", () => {
-      modal.classList.add("hidden");
-    });
+  closeModalBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
 });
 
-</script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const headers = document.querySelectorAll("th[data-column]");
-
-      headers.forEach(header => {
-        header.addEventListener("click", () => {
-          const order = header.getAttribute("data-order");
-          const column = header.getAttribute("data-column");
-
-          sortTable(column, order);
-
-          # // Toggle sorting icons
-          toggleIcons(header, order);
-
-          # // Update order attribute for the next click
-          header.setAttribute("data-order", order === "asc" ? "desc" : "asc");
-        });
-      });
-
-      function toggleIcons(header, order) {
-        const filterHigherIcon = header.querySelector(".filter-higher");
-        const filterLowerIcon = header.querySelector(".filter-lower");
-
-        if (order === "asc") {
-          filterHigherIcon.classList.add("hidden");
-          filterLowerIcon.classList.remove("hidden");
-        } else {
-          filterHigherIcon.classList.remove("hidden");
-          filterLowerIcon.classList.add("hidden");
-        }
-      }
-
-      function sortTable(column, order) {
-        const tableBody = document.getElementById("inventory-table-body");
-        const rows = Array.from(tableBody.querySelectorAll("tr"));
-
-        rows.sort((a, b) => {
-          const aValue = a.querySelector(`td:nth-child(${getColumnIndex(column)})`).textContent.trim();
-          const bValue = b.querySelector(`td:nth-child(${getColumnIndex(column)})`).textContent.trim();
-
-          return order === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        });
-
-        rows.forEach(row => tableBody.appendChild(row));
-      }
-
-      function getColumnIndex(column) {
-        switch (column) {
-          case "food_name":
-            return 2; # // Adjust index based on actual column position (1-based index)
-          case "donation_amount":
-            return 3;
-          case "collection_date":
-            return 4;
-          case "expire_date":
-            return 5;
-          case "status":
-            return 6;
-        }
-      }
-    });
 </script>

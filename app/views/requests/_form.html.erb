@@ -27,7 +27,40 @@
     <%= form.label :branch_id, "Branch" %>
     <%= form.collection_select :branch_id, Branch.all, :id, :name, { prompt: 'Select a branch' }, { class: 'form-select' } %>
   </div>
+
   <div class="mb-4">
     <%= form.submit class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" %>
   </div>
 <% end %>
+
+<script>
+  document.getElementById('district-select').addEventListener('change', function() {
+    var districtId = this.value;
+
+    fetch(`/requests/load_counties?district_id=${districtId}`)
+      .then(response => response.json())
+      .then(counties => {
+        let countySelect = document.getElementById('county-select');
+        countySelect.innerHTML = '<option value="">Select a county</option>';
+        counties.forEach(county => {
+          let option = document.createElement('option');
+          option.value = county.id;
+          option.text = county.name;
+          countySelect.appendChild(option);
+        });
+      });
+
+    fetch(`/requests/load_branches?district_id=${districtId}`)
+      .then(response => response.json())
+      .then(branches => {
+        let branchSelect = document.getElementById('branch-select');
+        branchSelect.innerHTML = '<option value="">Select a branch</option>';
+        branches.forEach(branch => {
+          let option = document.createElement('option');
+          option.value = branch.id;
+          option.text = branch.name;
+          branchSelect.appendChild(option);
+        });
+      });
+  });
+</script>

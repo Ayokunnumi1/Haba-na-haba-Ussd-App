@@ -69,7 +69,7 @@ branch_district_data = [
   { branch: branches[6], district: districts[6] },
   { branch: branches[7], district: districts[7] },
   { branch: branches[8], district: districts[8] },
-  { branch: branches[9], district: districts[9] }
+  { branch: branches[9], district: districts[1] }
 ]
 
 branch_district_data.each do |data|
@@ -93,7 +93,7 @@ end
 puts "Seeded users."
 
 # Seed Requests
-request_types = ["fresh_food", "dry_food", "clothing", "cash", "other"]
+request_types = ["food", "donation"]
 10.times do
   Request.create!(
     name: Faker::Name.name,
@@ -113,7 +113,7 @@ end
 puts "Seeded requests."
 
 # Seed Inventories
-donor_types = ["individual", "organization", "foundation"]
+donor_types = ["fresh_food", "dry_food", "clothing", "cash", "other"]
 10.times do
   Inventory.create!(
     donor_name: Faker::Name.name,

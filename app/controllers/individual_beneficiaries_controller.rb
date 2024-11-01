@@ -27,6 +27,9 @@ class IndividualBeneficiariesController < ApplicationController
       if @individual_beneficiary.save
         redirect_to @individual_beneficiary, notice: 'Individual Beneficiary was successfully created.'
       else
+        @districts = District.all
+        @counties = County.none
+        @sub_counties = SubCounty.none
         render :new
       end
     end
@@ -50,6 +53,17 @@ class IndividualBeneficiariesController < ApplicationController
     if @individual_beneficiary.update(individual_beneficiary_params)
       redirect_to individual_beneficiaries_path, notice: 'Individual Beneficiary was successfully updated.'
     else
+      @districts = District.all
+      @counties = if @individual_beneficiary.district.present?
+                    County.where(district_id: @individual_beneficiary.district_id)
+                  else
+                    County.none
+                  end
+      @sub_counties = if @individual_beneficiary.county.present?
+                        SubCounty.where(county_id: @individual_beneficiary.county_id)
+                      else
+                        SubCounty.none
+                      end
       render :edit, status: :unprocessable_entity
     end
   end

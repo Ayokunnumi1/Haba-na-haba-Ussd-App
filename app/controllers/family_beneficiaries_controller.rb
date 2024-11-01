@@ -27,6 +27,9 @@ class FamilyBeneficiariesController < ApplicationController
       if @family_beneficiary.save
         redirect_to @family_beneficiary, notice: 'Family Beneficiary was successfully created.'
       else
+        @districts = District.all
+        @counties = County.none
+        @sub_counties = SubCounty.none
         render :new
       end
     end
@@ -50,6 +53,17 @@ class FamilyBeneficiariesController < ApplicationController
     if @family_beneficiary.update(family_beneficiary_params)
       redirect_to family_beneficiaries_path, notice: 'Family Beneficiary was successfully updated.'
     else
+      @districts = District.all
+      @counties = if @family_beneficiary.district.present?
+                    County.where(district_id: @family_beneficiary.district_id)
+                  else
+                    County.none
+                  end
+      @sub_counties = if @family_beneficiary.county.present?
+                        SubCounty.where(county_id: @family_beneficiary.county_id)
+                      else
+                        SubCounty.none
+                      end
       render :edit, status: :unprocessable_entity
     end
   end

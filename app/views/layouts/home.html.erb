@@ -9,17 +9,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="">
-    <main class="h-screen">
-      <% if user_signed_in? %>
-        <%= render 'admin_panel/sidebar' %>
-        <%= render 'admin_panel/navbar' %>
-      <% end %>
-      <section class="p-4 mobile-yield-content tab-yield-content yield-content">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-        <%= yield %>
-      </section>
-    </main>
+  <body>
+    <%= yield %>
   </body>
 </html>

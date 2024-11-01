@@ -1,23 +1,33 @@
 class InventoriesController < ApplicationController
+
   before_action :set_request, only: %i[new create edit update]
   before_action :set_inventory, only: %i[edit update show destroy]
 
   def index
-    @inventories = Inventory.includes(:request).all
-    @inventory_food = Inventory.includes(:request).where(donor_type: 'Food')
-    @food_inventory_count = @inventory_food.count
-  
-    @inventories = @inventories.by_donation_type(params[:donation_type])
-    .by_donation_date(params[:donation_date])
-    .by_collection_range(params[:collection_start], params[:collection_end])
-    .by_collection_amount(params[:collection_amount])
-    @inventories = if params[:query].present?
-      Inventory.search(params[:query])
-    else
-      Inventory.all
-    end
+    @inventory_food = Inventory.includes(:request).by_food_type
 
-    @food_inventory_count = @inventories.where(donor_type: 'Food').count
+    # Filter for donated inventories (check for request numbers)
+    @inventory_donated = Inventory.includes(:request).donated
+
+    # Filter for stock alerts (where request is selected as true)
+    @inventory_stock_alert = Inventory.includes(:request).stock_alert
+
+    # Filter for expired inventories (expire_date is past current date)
+    @inventory_expired = Inventory.includes(:request).expired
+
+    @food_inventory_count = @inventory_food.count
+    @total_count = Inventory.count
+
+    @inventories = Inventory.includes(:request)
+                             .by_donation_type(params[:donor_type])
+                             .by_donation_date(params[:collection_date])
+                             .by_expire_range(params[:start_date], params[:end_date])
+                             .by_collection_amount(params[:min_amount], params[:max_amount])
+                             .order(sort_column + " " + sort_direction)
+                             .search_query(params[:query])
+
+    @min_collection_amount = @inventories.minimum(:amount) || 0
+    @max_collection_amount = @inventories.maximum(:amount) || 1500 
 
   end
 
@@ -92,6 +102,16 @@ class InventoriesController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  def bulk_delete
+    ids = params[:ids]
+    Inventory.where(id: ids).destroy_all
+  
+    respond_to do |format|
+      format.json { render json: { success: true, message: "Items deleted successfully" } }
+      format.html { redirect_to inventories_path, notice: "Selected items were deleted." }
+  end
+end
+
   private
 
   def set_request
@@ -112,5 +132,15 @@ class InventoriesController < ApplicationController
                                       :expire_date, :village_address, :residence_address, :phone_number,
                                       :parish, :amount, :head_of_institution, :registration_no, :district_id,
                                       :county_id, :sub_county_id, :request_id)
+  end
+
+  private
+
+  def sort_column
+    Inventory.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

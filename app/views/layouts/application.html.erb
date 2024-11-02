@@ -13,7 +13,9 @@
     <main class="h-screen">
       <% if user_signed_in? %>
         <%= render 'admin_panel/sidebar' %>
-        <%= render 'admin_panel/navbar' %>
+        <% if display_navbar? %>
+          <%= render 'admin_panel/navbar' %>
+        <% end %>
       <% end %>
       <section class="p-4 mobile-yield-content tab-yield-content yield-content">
         <p class="notice"><%= notice %></p>

@@ -119,9 +119,9 @@
         <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-12 h-12", alt: user.first_name) %>
       </div>
       <div class="text-center">
-        <p class="font-bold"><%= user.first_name %></p>
-        <p class="font-thin"><%= user.role %></p>
-        <p class="font-thin"><%= user.email %></p>
+        <p class="font-bold text-sm"><%= user.first_name %></p>
+        <p class="font-thin text-xs"><%= user.role %></p>
+        <p class="font-thin text-xs"><%= user.email %></p>
       </div>
     </div>
   <% end %>

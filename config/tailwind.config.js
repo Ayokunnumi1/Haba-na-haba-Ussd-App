@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        darkBlue: "#302C51",
+        darkBlue: "rgb(48, 44, 81)",
         lightGreen: "#6DC13D",
         moodyBlue: "#666099",
         lightGray: "#F5F5F5",
@@ -19,6 +19,12 @@ module.exports = {
       fontFamily: {
         Paprika: ["Paprika", "sans-serif"],
         Outfit: ["Outfit", "sans-serif"],
+      },
+      width: {
+        30: "30px",
+      },
+      height: {
+        30: "30px",
       },
     },
   },

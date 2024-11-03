@@ -27,9 +27,26 @@ class InventoriesController < ApplicationController
 
     @min_collection_amount = @inventories.minimum(:amount) || 0
     @max_collection_amount = @inventories.maximum(:amount) || 1500
+
+    @inventory = Inventory.includes(:request).all
+
+    @Request = Request.all
+
+    @request = Request.new
+    @districts = District.all
+    @counties = County.none
+    @branches = Branch.none
+    @sub_counties = SubCounty.none
   end
 
-  def show; end
+  def show
+    inventory = Inventory.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: 'inventories/modal', locals: { inventory: @inventory } }
+      format.json { render json: inventory }
+    end
+  end
+  
 
   def new
     if @request.inventories.exists?

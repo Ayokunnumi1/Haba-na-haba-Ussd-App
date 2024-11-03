@@ -70,6 +70,6 @@ class BranchesController < ApplicationController
   end
 
   def branch_params
-    params.require(:branch).permit(:name, :phone_number, :district_id, :county_id)
+    params.require(:branch).permit(:name, :phone_number, :county_id)
   end
 end

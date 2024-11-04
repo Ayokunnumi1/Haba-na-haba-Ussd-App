@@ -1,44 +1,41 @@
-<div class="md:flex-row flex space-x-4 p-4">
+<div class="md:flex-row flex space-x-4">
 
-  <a href="#" class="flex flex-col items-start w-1/2 p-6 bg-[#6DC13D] rounded-lg shadow-md text-white">
+  <a href="#" class="flex flex-col items-start w-1/2 p-2 bg-[#6DC13D] rounded-lg shadow-md text-white">
 
     <div class="flex items-center space-x-2">
-      <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 8H4m0-2v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/>
-      </svg>
+      <%= image_tag 'inventory.svg', alt: 'Selected', class: 'icon-class' %>
     </div>
 
     <div class="content-start flex w-full">
-      <div class="flex-none w-1/2 mt-4">
-        <h4 class="text-lg font-semibold">Total Food Amount</h4>
-        <span class="text-2xl font-bold"><%= @inventory_food.count %> </span>
+      <div class="flex flex-col w-1/2 mt-4">
+        <span class="">Total Food Amount</span>
+        <span class=""><%= @inventory_food.count %></span>
       </div>
-      <div class=" grow mt-4 w-1/2">
-        <h4 class="text-lg font-semibold">Donated</h4>
-        <span class="text-2xl font-bold"><%= @inventory_donated.count %> </span>
+      <div class="grow flex flex-col mt-4 w-1/2">
+        <span class="">Donated</span>
+        <span class=""><%= @inventory_donated.count %> 86%</span>
       </div>
     </div>
 
   </a>
 
   <div class="flex flex-col w-1/2">
-    <a href="#" class="flex flex-col items-start p-6 rounded-lg shadow-md">
-      <div class="flex items-center space-x-2">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
-        </svg>
-
-       
+    <a href="#" class="flex flex-col items-start p-2 rounded-lg shadow-md">
+      <div class="flex justify-between items-center space-x-2">
+        <div class="flex items-center space-x-2">
+          <%= image_tag 'users.svg', alt: 'Selected', class: 'icon-class' %>
+        </div>
+        <p class="font-weight-100 ">This Week </p>
       </div>
 
       <div class="content-start flex w-full">
         <div class="flex flex-col w-1/2 mt-4">
-          <h4 class="text-lg font-semibold">Low stock alert</h4>
-          <span class="text-2xl font-bold"><%= @inventory_stock_alert.count %> </span>
+          <span class="">Low stock alert</span>
+          <span class=""><%= @inventory_stock_alert.count %> </span>
         </div>
-        <div class=" grow mt-4 w-1/2">
-          <h4 class="text-lg font-semibold">Expired</h4>
-          <span class="text-2xl font-bold"><%= @inventory_expired.count %> </span>
+        <div class=" grow flex flex-col mt-4 w-1/2">
+          <span class="">Expired</span>
+          <span class=""><%= @inventory_expired.count %> </span>
         </div>
       </div>
 
@@ -46,19 +43,11 @@
   </div>
 
 </div>
-<section class="flex justify-between mt-4 mb-4">
-  <h3 class="font-bold mb-4 mx-8">Inventory Items</h3>
-
-  <button onclick="window.location.href='<%= inventories_path %>'"  aria-label="Refresh Page" type="button" class="text-white bg-[#6DC13D] hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">
-    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"/>
-   </svg>
-    <span class="sr-only">Refesh</span>
-  </button>
-  
+<section class="md:flex md:justify-between mt-4 mb-4">
+  <h3 class="font-bold mb-4 mx-8 hidden">Inventory Items</h3>  
   <div class="flex justify-end space-x-4">
     <!-- Search Form -->
-    <form class="max-w-md" action="<%= inventories_path %>" method="get">
+    <form class="max-w-md hidden md:block" action="<%= inventories_path %>" method="get">
       <div class="relative w-full">
         <input type="search" id="input-search" name="query" class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search" required />
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -70,7 +59,7 @@
     </form>
 
     <!-- Filter Button -->
-    <div id="filter-action" class="border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+    <div id="filter-action" class="border-gray-950 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
       <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
       </svg>
@@ -206,21 +195,21 @@
             <thead class="bg-gray-50 font-bold">
               <tr>
                 <td class="py-2 px-4 text-sm ">
-                  <input type="checkbox" id="select-all" class="form-checkbox rounded-md" aria-label="Select all items">
+                  <input type="checkbox" id="select-all" class="form-checkbox hidden md:flex rounded-md" aria-label="Select all items">
                 </td>
                 <%= sortable_table_header 'Food Name', :food_name, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Donation Amount', :amount, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
               </tr>
             </thead>
             <tbody class="bg-white">
               <% @inventories.each do |inventory| %>
                 <tr class="hover:bg-gray-100 transition-colors" data-url="<%= inventory_path(inventory.id) %>">
                   <td class="py-2 px-4 text-sm text-gray-900">
-                    <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class="form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
+                    <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class=" md:flex hidden form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
                   </td>
                   <td class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600  text-center">
                     <%= inventory.food_name %>
@@ -235,7 +224,7 @@
                     <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
                   </td>
                   
-                  <td class="py-2 px-4 text-sm rounded-lg text-gray-600">
+                  <td class="py-2 px-4 text-sm md:flex hidden rounded-lg text-gray-600">
                     <% if inventory.request.is_selected %>
                       <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>
                     <% else %>
@@ -243,7 +232,7 @@
                     <% end %>
                   </td>
 
-                  <td class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600 flex justify-between" data-url="<%= inventory_path(inventory) %>">
+                  <td class="inventories__row inventories__row--expire-date md:flex hidden py-2 px-4 text-sm text-gray-600 flex justify-between" data-url="<%= inventory_path(inventory) %>">
                         <button data-id="<%= inventory.id %>" data-modal-target="show-modal" data-modal-toggle="show-modal" data-remote="true" data-url="<%= inventory_path(inventory) %>" type="button">
                           <%= image_tag("Icon.svg", alt: "show-icon", class: "show-action-icon") %>
                         </button>
@@ -291,6 +280,42 @@
     </div>
   </div>
 <% end %>
+<div class="pagination-container flex items-center justify-between mt-4">
+  <!-- Items per page dropdown -->
+  <div class="items-per-page">
+    
+    <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="border rounded px-2 py-1">
+      <% [2, 10, 25, 50, 100].each do |count| %>
+        <option value="<%= count %>" <%= 'selected' if count == @per_page %>><%= count %></option>
+      <% end %>
+    </select>
+    <label for="items-per-page" class="mr-2">Items per page</label>
+  </div>
+
+  <!-- Current page display -->
+  <div class="page-display flex items-center">
+    <label for="current-page" class="mr-2">Page</label>
+    <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class="border rounded px-2 py-1 text-center w-12"
+      onchange="window.location.href='?page=' + this.value + '&per_page=' + document.getElementById('items-per-page').value">
+    <span class="ml-2">of <%= @total_pages %> pages</span>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="pagination-buttons flex items-center">
+    <% if @page_no > 1 %>
+      <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page)%>
+    <% else %>
+      <span><</span>
+    <% end %>
+
+    <% if @page_no < @total_pages %>
+      <%= link_to '>', inventories_path(page: @page_no + 1, per_page: @per_page)  %>
+    <% else %>
+      <span >></span>
+    <% end %>
+  </div>
+</div>
+
 
 <script>
 

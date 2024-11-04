@@ -1,21 +1,23 @@
 class InventoriesController < ApplicationController
+  include Pagination
+
   before_action :set_request, only: %i[new create edit update]
   before_action :set_inventory, only: %i[edit update show destroy]
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
 
   def index
+    @per_page = (params[:per_page] || 2).to_i
+    @page_no = (params[:page] || 1).to_i
+
     @inventory_food = Inventory.includes(:request).by_food_type
-
-    # Filter for donated inventories (check for request numbers)
     @inventory_donated = Inventory.includes(:request).donated
-
-    # Filter for stock alerts (where request is selected as true)
     @inventory_stock_alert = Inventory.includes(:request).stock_alert
-
-    # Filter for expired inventories (expire_date is past current date)
     @inventory_expired = Inventory.includes(:request).expired
 
     @food_inventory_count = @inventory_food.count
-    @total_count = Inventory.count
+    total_count = Inventory.count
+    @total_pages = (total_count.to_f / @per_page).ceil
 
     @inventories = Inventory.includes(:request)
       .by_donation_type(params[:donor_type])
@@ -24,13 +26,11 @@ class InventoriesController < ApplicationController
       .by_collection_amount(params[:min_amount], params[:max_amount])
       .order("#{sort_column} #{sort_direction}")
       .search_query(params[:query])
+      .page(@page_no)
+      .per(@per_page)
 
     @min_collection_amount = @inventories.minimum(:amount) || 0
     @max_collection_amount = @inventories.maximum(:amount) || 1500
-
-    @inventory = Inventory.includes(:request).all
-
-    @Request = Request.all
 
     @request = Request.new
     @districts = District.all
@@ -38,6 +38,9 @@ class InventoriesController < ApplicationController
     @branches = Branch.none
     @sub_counties = SubCounty.none
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+
 
   def show
     inventory = Inventory.find(params[:id])
@@ -46,7 +49,6 @@ class InventoriesController < ApplicationController
       format.json { render json: inventory }
     end
   end
-  
 
   def new
     if @request.inventories.exists?

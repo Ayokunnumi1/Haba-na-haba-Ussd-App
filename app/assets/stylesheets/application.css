@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
+@import "font-awesome";
+
 .mobile-yield-content {
   margin: 20px;
 }

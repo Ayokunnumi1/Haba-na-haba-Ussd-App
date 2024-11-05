@@ -5,9 +5,8 @@ class InventoriesController < ApplicationController
   before_action :set_inventory, only: %i[edit update show destroy]
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
-
   def index
-    @per_page = (params[:per_page] || 2).to_i
+    @per_page = params[:per_page].to_i
     @page_no = (params[:page] || 1).to_i
 
     @inventory_food = Inventory.includes(:request).by_food_type
@@ -16,19 +15,29 @@ class InventoriesController < ApplicationController
     @inventory_expired = Inventory.includes(:request).expired
 
     @food_inventory_count = @inventory_food.count
-    total_count = Inventory.count
-    @total_pages = (total_count.to_f / @per_page).ceil
 
-    @inventories = Inventory.includes(:request)
-      .by_donation_type(params[:donor_type])
-      .by_donation_date(params[:collection_date])
-      .by_expire_range(params[:start_date], params[:end_date])
-      .by_collection_amount(params[:min_amount], params[:max_amount])
-      .order("#{sort_column} #{sort_direction}")
-      .search_query(params[:query])
-      .page(@page_no)
-      .per(@per_page)
+    # Check if 'Show All' is selected (per_page is 0)
+    @inventories = if @per_page.zero?
+                     Inventory.includes(:request)
+                       .by_donation_type(params[:donor_type])
+                       .by_donation_date(params[:collection_date])
+                       .by_expire_range(params[:start_date], params[:end_date])
+                       .by_collection_amount(params[:min_amount], params[:max_amount])
+                       .order("#{sort_column} #{sort_direction}")
+                       .search_query(params[:query])
+                   else
+                     Inventory.includes(:request)
+                       .by_donation_type(params[:donor_type])
+                       .by_donation_date(params[:collection_date])
+                       .by_expire_range(params[:start_date], params[:end_date])
+                       .by_collection_amount(params[:min_amount], params[:max_amount])
+                       .order("#{sort_column} #{sort_direction}")
+                       .search_query(params[:query])
+                       .page(@page_no)
+                       .per(@per_page)
+                   end
 
+    @total_pages = @per_page.zero? ? 1 : (Inventory.count.to_f / @per_page).ceil
     @min_collection_amount = @inventories.minimum(:amount) || 0
     @max_collection_amount = @inventories.maximum(:amount) || 1500
 
@@ -43,11 +52,8 @@ class InventoriesController < ApplicationController
 
 
   def show
-    inventory = Inventory.find(params[:id])
-    respond_to do |format|
-      format.html { render partial: 'inventories/modal', locals: { inventory: @inventory } }
-      format.json { render json: inventory }
-    end
+    inventories = Inventory.includes(:request)
+    @inventory = inventories.find(params[:id])
   end
 
   def new

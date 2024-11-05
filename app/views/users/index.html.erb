@@ -142,11 +142,11 @@
       </div>
   </div>
 
+  
   <!-- Users index page displayed on large screen -->
-
-  <div class="hidden lg:grid lg:grid-cols-5 gap-2 lg:mt-10 font-Outfit font-lightGray">
+  <div class="hidden lg:grid lg:grid-cols-5 gap-2 lg:mt-10 lg:font-Outfit lg:font-lightGray lg:bg-gray-300">
     <% @users.each do |user| %>
-    <div class="relative h-auto max-w-full rounded-lg p-4 bg-gray-100 hover:bg-darkBlue hover:text-white">
+    <div class="relative h-auto max-w-full rounded-lg p-4 bg-white hover:bg-darkBlue hover:text-white">
       <div class="absolute top-2 right-2">
         <button id="dropdownButton<%= user.id %>" data-dropdown-toggle="dropdownMenu<%= user.id %>" class="text-gray-500 hover:text-gray-700 focus:outline-none">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">

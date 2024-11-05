@@ -7,8 +7,12 @@
         <%= form.text_field :name, value: params[:name], class: "mt-1 block w-full border border-gray-300 rounded" %>
       </div>
       <div>
-        <%= form.label :age, "Age", class: "block text-gray-700" %>
-        <%= form.number_field :age, value: params[:age], class: "mt-1 block w-full border border-gray-300 rounded" %>
+        <%= form.label :min_age, "Minimum Age", class: "block text-gray-700" %>
+        <%= form.number_field :min_age, value: params[:min_age], class: "mt-1 block w-full border border-gray-300 rounded" %>
+      </div>
+      <div>
+        <%= form.label :max_age, "Maximum Age", class: "block text-gray-700" %>
+        <%= form.number_field :max_age, value: params[:max_age], class: "mt-1 block w-full border border-gray-300 rounded" %>
       </div>
       <div>
         <%= form.label :case_name, "Case Name", class: "block text-gray-700" %>

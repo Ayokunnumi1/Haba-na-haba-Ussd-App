@@ -50,7 +50,6 @@ class InventoriesController < ApplicationController
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
-
   def show
     inventories = Inventory.includes(:request)
     @inventory = inventories.find(params[:id])

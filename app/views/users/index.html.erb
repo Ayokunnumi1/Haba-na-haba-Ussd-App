@@ -109,7 +109,7 @@
 
   <div class="hidden lg:grid lg:grid-cols-5 gap-2 lg:mt-10 font-Outfit font-lightGray">
     <% @users.each do |user| %>
-    <div class="relative h-auto max-w-full rounded-lg p-4 bg-gray-100">
+    <div class="relative h-auto max-w-full rounded-lg p-4 bg-gray-100 hover:bg-darkBlue hover:text-white">
       <div class="absolute top-2 right-2">
         <button id="dropdownButton<%= user.id %>" data-dropdown-toggle="dropdownMenu<%= user.id %>" class="text-gray-500 hover:text-gray-700 focus:outline-none">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -117,16 +117,16 @@
           </svg>
         </button>
         <!-- Dropdown menu -->
-        <div id="dropdownMenu<%= user.id %>" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-          <ul class="py-1 text-sm text-gray-700">
+        <div id="dropdownMenu<%= user.id %>" class="hidden absolute right-0 mt-2 w-48 bg-white hover:text-white rounded-md shadow-lg z-10">
+          <ul class="py-1 text-sm text-black">
             <li>
-              <%= link_to 'Show', user_path(user), class: "block px-4 py-2 hover:bg-gray-100" %>
+              <%= link_to 'Show', user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
             </li>
             <li>
-              <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-gray-100" %>
+              <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
             </li>
             <li>
-              <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-gray-100" do %>
+              <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray" do %>
                 Delete
               <% end %>
             </li>
@@ -134,10 +134,10 @@
         </div>
       </div>
       <div class="flex justify-center items-center mb-4">
-        <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-12 h-12", alt: user.first_name) %>
+        <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-14 h-14", alt: user.first_name) %>
       </div>
       <div class="text-center">
-        <p class="font-bold text-sm"><%= user.first_name %></p>
+        <p class="font-bold text-sm "><%= user.first_name %></p>
         <p class="font-thin text-xs"><%= user.role %></p>
         <p class="font-thin text-xs"><%= user.email %></p>
       </div>

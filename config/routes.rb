@@ -2,10 +2,12 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
+  get 'requests/donor'
   resources :users
   resources :districts
   resources :counties
   resources :sub_counties
+
   resources :branches do
     collection do
       get :load_counties
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
       collection do
         get :load_counties, to: 'inventories#load_counties'
         get :load_sub_counties, to: 'inventories#load_sub_counties'
+        post :bulk_delete, to: 'inventories#bulk_delete'
       end
     end
   end

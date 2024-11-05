@@ -1,8 +1,19 @@
 class RequestsController < ApplicationController
+  include RequestHelper
+
   before_action :set_request, only: %i[show edit update destroy]
 
   def index
     @requests = Request.all
+  end
+
+  def donor
+    @requests = Request.where(request_type: 'donation')
+
+    @donation_requests = Request.by_request_type('donation')
+     .order("#{sort_column} #{sort_direction}")
+
+    # Other instance variables as needed
   end
 
   def show; end
@@ -74,6 +85,14 @@ class RequestsController < ApplicationController
   end
 
   private
+
+  def sort_column
+    Request.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
 
   def set_request
     @request = Request.find(params[:id])

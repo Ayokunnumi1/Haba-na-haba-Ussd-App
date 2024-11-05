@@ -1,0 +1,160 @@
+<div class="md:flex-row flex space-x-4">
+
+  <a href="#" class="flex flex-col items-start w-1/2 p-2 bg-[#6DC13D] rounded-lg shadow-md text-white">
+
+    <div class="flex items-center space-x-2">
+      <%= image_tag 'inventory.svg', alt: 'Selected', class: 'icon-class' %>
+    </div>
+
+    <div class="content-start flex w-full">
+      <div class="flex flex-col w-1/2 mt-4">
+        <span>Total Food Amount</span>
+        <span>Placeholder</span>
+      </div>
+      <div class="grow flex flex-col mt-4 w-1/2">
+        <span>Donated</span>
+        <span>Placeholder 86%</span>
+      </div>
+    </div>
+
+  </a>
+
+  <div class="flex flex-col w-1/2">
+    <a href="#" class="flex flex-col items-start p-2 rounded-lg shadow-md">
+      <div class="flex justify-between items-center space-x-2">
+        <div class="flex items-center space-x-2">
+          <%= image_tag 'users.svg', alt: 'Selected', class: 'icon-class' %>
+        </div>
+        <p class="font-weight-100">This Week</p>
+      </div>
+
+      <div class="content-start flex w-full">
+        <div class="flex flex-col w-1/2 mt-4">
+          <span>Low stock alert</span>
+          <span>Placeholder</span>
+        </div>
+        <div class="grow flex flex-col mt-4 w-1/2">
+          <span>Expired</span>
+          <span>Placeholder</span>
+        </div>
+      </div>
+
+    </a>
+  </div>
+
+</div>
+
+<section class="md:flex md:justify-between mt-4 mb-4">
+  <h3 class="font-bold mb-4 mx-8 hidden">Inventory Items</h3>  
+  <div class="flex justify-end space-x-4">
+    <!-- Search Form -->
+    <form class="max-w-md hidden md:block" action="#" method="get">
+      <div class="relative w-full">
+        <input type="search" id="input-search" name="query" class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search" required />
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+          </svg>
+        </div>
+      </div>
+    </form>
+
+    <!-- Filter Button -->
+    <div id="filter-action" class="border-gray-950 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
+      </svg>
+      <span class="ml-2">Filter</span>
+    </div>
+
+    <!-- Add Button -->
+
+    <div id="modal" tabindex="-1" aria-hidden="true" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-neutral-950 bg-opacity-25">
+      <div class="relative w-full max-w-lg p-4">
+        <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-600 rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Inventory Filter</h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="modal">
+              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal Body -->
+          <div class="p-4">
+            <p class="text-sm text-gray-500 dark:text-gray-300">Placeholder for modal content...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%= turbo_frame_tag "requests" do %>
+    <div class="flow-root mt-8">
+      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div class="requests__table--shadow overflow-hidden border border-gray-200 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50 font-bold">
+                <tr>
+                  <td class="py-2 px-4 text-sm">
+                    <input type="checkbox" id="select-all" class="form-checkbox hidden md:flex rounded-md" aria-label="Select all items">
+                  </td>
+                  <%= sortable_table_header 'Name', :name, :requests_donor_path, class: 'requests__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Address', :residence_address, :requests_donor_path, class: 'requests__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Phone Number', :phone_number, :requests_donor_path, class: 'requests__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Email', :email, :requests_donor_path, class: 'requests__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Type', :request_type, :requests_donor_path, class: 'requests__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Status', :status, :requests_donor_path, class: 'requests__row--header py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <td class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</td>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                <% @donation_requests.each do |request| %>
+                  <tr class="hover:bg-gray-100 transition-colors">
+                    <td class="py-2 px-4 text-sm text-gray-900">
+                      <input type="checkbox" name="selected_requests[]" value="<%= request.id %>" class="md:flex hidden form-checkbox rounded-md request-checkbox" aria-label="Select request <%= request.id %>">
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <%= request.name %>
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <%= request.residence_address %>
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <%= request.phone_number %>
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <%= request.user.email if request.user %>
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <%= request.request_type %>
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <% if request.is_selected %>
+                        <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>
+                      <% else %>
+                        <%= image_tag 'Alert circle.svg', alt: 'Not Selected', class: 'icon-class' %>
+                      <% end %>
+                    </td>
+                    <td class="py-2 px-4 text-sm text-gray-600 text-center">
+                      <button onclick="window.location.href='<%= request_path(request) %>'" type="button">
+                        <%= image_tag 'Icon.svg', alt: 'Show', class: 'action-icon' %>
+                      </button>
+                      <button onclick="window.location.href='<%= edit_request_path(request) %>'" type="button">
+                        <%= image_tag 'Edit.svg', alt: 'Edit', class: 'action-icon' %>
+                      </button>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  

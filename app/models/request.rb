@@ -11,4 +11,6 @@ class Request < ApplicationRecord
 
   validates :name, :phone_number, :request_type, presence: true
   validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
+
+  scope :by_request_type, ->(type) { where(request_type: type) if type.present? }
 end

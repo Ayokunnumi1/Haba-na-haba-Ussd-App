@@ -3,7 +3,7 @@ class IndividualBeneficiariesController < ApplicationController
   before_action :set_individual_beneficiary, only: %i[edit update show destroy]
 
   def index
-    @individual_beneficiaries = IndividualBeneficiary.includes(:request).all
+    @individual_beneficiaries = IndividualBeneficiary.includes(:request).apply_filters(params)
   end
 
   def show; end

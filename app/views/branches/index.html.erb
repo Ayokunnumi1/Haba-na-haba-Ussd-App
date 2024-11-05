@@ -1,31 +1,45 @@
 <h2 class="text-2xl font-bold mb-6">All Branches</h2>
 <div class="mb-4">
-  <%= link_to 'Create Branch', new_branch_path, class: 'bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600' %>
+  <%= link_to 'Add New Branch', new_branch_path, class: 'bg-lightGreen font-Outfit text-base font-semibold text-white px-4 py-2 rounded-lg shadow hover:bg-darkBlue' %>
 </div>
-<table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-  <thead class="bg-gray-50">
-    <tr>
-      <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 font-semibold">Name</th>
-      <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 font-semibold">Phone Number</th>
-      <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 font-semibold">District</th>
-      <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 font-semibold">County</th>
-      <th class="py-2 px-4 border-b border-gray-200 text-left text-gray-600 font-semibold">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @branches.each do |branch| %>
-      <tr class="border-b hover:bg-gray-50">
-        <td class="py-2 px-4 text-gray-700"><%= branch.name %></td>
-        <td class="py-2 px-4 text-gray-700"><%= branch.phone_number %></td>
-        <td class="py-2 px-4 text-gray-700"><%= branch.district.name %></td>
-        <td class="py-2 px-4 text-gray-700"><%= branch.county.name %></td>
-        <td class="py-2 px-4">
-          <%= link_to 'Show', branch_path(branch), class: 'bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600' %>
-          <%= link_to 'Edit', edit_branch_path(branch), class: 'bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600' %>
-          <%= button_to 'Delete', branch_path(branch), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to 'Dashboard', users_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 font-Outfit  ">
+  <% @branches.each do |branch| %>
+    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 bg-branch-image hover:bg-darkBlue group">
+      <div class="flex justify-end px-4 pt-4">
+        <button id="dropdownButton" data-dropdown-toggle="dropdown-<%= branch.id %>" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+          <span class="sr-only">Open dropdown</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+            <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+          </svg>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown-<%= branch.id %>" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2" aria-labelledby="dropdownButton">
+            <li>
+              <%= link_to 'Edit', edit_branch_path(branch), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white' %>
+            </li>
+            <li>
+              <%= link_to 'Export Data', '#', class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white' %>
+            </li>
+            <li>
+              <%= button_to 'Delete', branch_path(branch), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col items-center pb-6">
+        <h6 class="text-2xl font-bold text-darkBlue group-hover:text-white"><%= branch.name %></h6>
+        <hr class="border-gray-300 my-2 w-[80%] align-center" /> <!-- Horizontal line after branch name -->
+        <p class="text-base font-semibold text-darkBlue group-hover:text-white pb-3 md:pb-5"><%= branch.phone_number %></p>
+        <p class="text-sm font-semibold text-darkBlue group-hover:text-white"><%= branch.district.name %></p>
+        <p class="text-sm font-semibold text-darkBlue group-hover:text-white"><%= branch.county.name %></p>
+        <hr class="border-gray-300 my-2 w-[80%] align-center" /> <!-- Horizontal line after county -->
+        <div class="flex space-x-2 mt-2 font-Outfit">
+          <%= link_to 'Get Started', branch_path(branch), class: 'bg-transparent border border-darkBlue text-darkBlue px-4 py-2 rounded-full group-hover:border-lightGreen group-hover:text-lightGreen font-semibold text-sm' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'Dashboard', users_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5" %>

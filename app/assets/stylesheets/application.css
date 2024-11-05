@@ -13,6 +13,16 @@
  *= require_tree .
  *= require_self
  */
+ .bg-branch-image {
+  background-image: url('/assets/Bg-branch-p.svg');
+  background-size: cover; /* Ensure the image covers the entire background */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  height: 100%; /* Make sure the height is 100% */
+}
+
+
+
 .mobile-yield-content {
   margin: 20px;
 }

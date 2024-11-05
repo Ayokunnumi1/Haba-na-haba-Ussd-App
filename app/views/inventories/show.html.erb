@@ -1,71 +1,71 @@
-<div class="max-w-4xl mx-auto mt-10">
-  <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Inventory Details</h1>
-  <div class="bg-white shadow-md rounded-lg p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Donor Name</p>
-        <p class="text-gray-600"><%= @inventory.donor_name %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Donor Type</p>
-        <p class="text-gray-600"><%= @inventory.donor_type %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Collection Date</p>
-        <p class="text-gray-600"><%= @inventory.collection_date %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Food Name</p>
-        <p class="text-gray-600"><%= @inventory.food_name %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Expire Date</p>
-        <p class="text-gray-600"><%= @inventory.expire_date %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">District</p>
-        <p class="text-gray-600"><%= @inventory.district.name %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">County</p>
-        <p class="text-gray-600"><%= @inventory.county.name %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Sub-County</p>
-        <p class="text-gray-600"><%= @inventory.sub_county.name %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Village Address</p>
-        <p class="text-gray-600"><%= @inventory.village_address %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Residence Address</p>
-        <p class="text-gray-600"><%= @inventory.residence_address %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Phone Number</p>
-        <p class="text-gray-600"><%= @inventory.phone_number %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Parish</p>
-        <p class="text-gray-600"><%= @inventory.parish %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Amount</p>
-        <p class="text-gray-600"><%= @inventory.amount %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Head of Institution</p>
-        <p class="text-gray-600"><%= @inventory.head_of_institution %></p>
-      </div>
-      <div>
-        <p class="text-lg font-semibold text-gray-700">Registration No</p>
-        <p class="text-gray-600"><%= @inventory.registration_no %></p>
-      </div>
+<div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-8 border border-gray-200 relative">
+  <h2 class="text-2xl font-bold text-center mb-6 text-green-600">Inventory Information</h2>
+  
+  <!-- Main Container with Responsive Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border border-4 border-green-500 md:rounded-3xl md:mx-44 p-2 relative">
+    <!-- Green Line Divider for Desktop View Only -->
+    <div class="hidden md:block absolute inset-y-0 left-1/2 w-0.5 bg-green-500 h-full top-0"></div>
+    
+    <!-- Content Blocks with Adjusted Padding for Mobile -->
+    <div class="md:pr-6">
+      <p class="text-sm font-bold text-green-700">Full name</p>
+      <p class="text-gray-800"><%= @inventory.donor_name || 'N/A' %></p>
     </div>
-    <div class="mt-8 flex justify-center">
-      <%= link_to 'Edit Inventory', edit_request_inventory_path(@inventory.request_id, @inventory), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
-      <%= link_to 'Back to Inventory List', inventories_path, class: 'ml-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded' %>
+    <div class="md:pl-6">
+      <p class="text-sm font-bold text-green-700">Donation type</p>
+      <p class="text-gray-800"><%= @inventory.donor_type || 'N/A' %></p>
     </div>
+    <div class="md:pr-6">
+      <p class="text-sm font-bold text-green-700">Address</p>
+      <p class="text-gray-800"><%= @inventory.residence_address || 'N/A' %></p>
+    </div>
+    <div class="md:pl-6">
+      <p class="text-sm font-bold text-green-700">Food name</p>
+      <p class="text-gray-800"><%= @inventory.food_name || 'N/A' %></p>
+    </div>
+    <div class="md:pr-6">
+      <p class="text-sm font-bold text-green-700">Phone number</p>
+      <p class="text-gray-800"><%= @inventory.phone_number || 'N/A' %></p>
+    </div>
+    <div class="md:pl-6">
+      <p class="text-sm font-bold text-green-700">Collection date</p>
+      <p class="text-gray-800"><%= @inventory.collection_date || 'N/A' %></p>
+    </div>
+    <div class="md:pr-6">
+      <p class="text-sm font-bold text-green-700">Registration no</p>
+      <p class="text-gray-800"><%= @inventory.registration_no || 'N/A' %></p>
+    </div>
+    <div class="md:pl-6">
+      <p class="text-sm font-bold text-green-700">Expiry date</p>
+      <p class="text-gray-800"><%= @inventory.expire_date || 'N/A' %></p>
+    </div>
+    <div class="md:pr-6">
+      <p class="text-sm font-bold text-green-700">Donation amount</p>
+      <p class="text-gray-800"><%= @inventory.amount || 'N/A' %> kg</p>
+    </div>
+    <div class="md:pl-6">
+      <p class="text-sm font-bold text-green-700">Head of the institution</p>
+      <p class="text-gray-800"><%= @inventory.head_of_institution || 'N/A' %></p>
+    </div>
+    <div class="md:pr-6">
+      <p class="text-sm font-bold text-green-700">Request submission date</p>
+      <p class="text-gray-800"><%= @inventory.created_at.strftime('%d/%m/%Y') %></p>
+    </div>
+    <div class="md:pl-6">
+      <p class="text-sm font-bold text-green-700">Request type</p>
+      <p class="text-gray-800"><%= @inventory.request.request_type || 'N/A' %></p>
+    </div>
+  </div>
+  
+  <div class="flex">
+    <button   onclick="window.location.href='<%= inventories_path %>'" class="mt-6 flex justify-center mx-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      Back
+    </button>
+    <button  class="mt-6 flex justify-center mx-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      Edit
+    </button>
+    <button  onclick="if(confirm('Are you sure you want to delete this item?')) { window.location.href='<%= inventory_path(@inventory) %>' }" class="mt-6 flex justify-center mx-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      Delete
+    </button>
   </div>
 </div>

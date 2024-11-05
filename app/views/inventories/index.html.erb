@@ -1,6 +1,6 @@
 <div class="md:flex-row flex space-x-4">
 
-  <a href="#" class="flex flex-col items-start w-1/2 p-2 bg-[#6DC13D] rounded-lg shadow-md text-white">
+  <a href="#" class="flex flex-col justify-around w-1/2 bg-[#6DC13D] rounded-lg shadow-md text-white">
 
     <div class="flex items-center space-x-2">
       <%= image_tag 'inventory.svg', alt: 'Selected', class: 'icon-class' %>
@@ -8,20 +8,20 @@
 
     <div class="content-start flex w-full">
       <div class="flex flex-col w-1/2 mt-4">
-        <span class="">Total Food Amount</span>
-        <span class=""><%= @inventory_food.count %></span>
+        <span class="text-xs">Total Food Amount</span>
+        <span class="text-xs"><%= @inventory_food.count %></span>
       </div>
       <div class="grow flex flex-col mt-4 w-1/2">
-        <span class="">Donated</span>
-        <span class=""><%= @inventory_donated.count %> 86%</span>
+        <span class="text-xs">Donated</span>
+        <span class="text-xs"><%= @inventory_donated.count %> 86%</span>
       </div>
     </div>
 
   </a>
 
   <div class="flex flex-col w-1/2">
-    <a href="#" class="flex flex-col items-start p-2 rounded-lg shadow-md">
-      <div class="flex justify-between items-center space-x-2">
+    <a href="#" class="flex flex-col justify-between p-2 rounded-lg shadow-md">
+      <div class="flex justify-between w-fit ">
         <div class="flex items-center space-x-2">
           <%= image_tag 'users.svg', alt: 'Selected', class: 'icon-class' %>
         </div>
@@ -44,7 +44,7 @@
 
 </div>
 <section class="md:flex md:justify-between mt-4 mb-4">
-  <h3 class="font-bold mb-4 mx-8 hidden">Inventory Items</h3>  
+  <h3 class="font-bold mb-4 mx-8 hidden md:block">Inventory Items</h3>  
   <div class="flex justify-end space-x-4">
     <!-- Search Form -->
     <form class="max-w-md hidden md:block" action="<%= inventories_path %>" method="get">
@@ -59,11 +59,11 @@
     </form>
 
     <!-- Filter Button -->
-    <div id="filter-action" class="border-gray-950 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
-      <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <div id="filter-action" class="border-gray-950 h-fit p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+      <svg class="w-4 h-4 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
       </svg>
-      <span class="ml-2">Filter</span>
+      <span class="ml-2 text-sm">Filter</span>
     </div>
 
     <!-- Add Button -->
@@ -132,14 +132,13 @@
         </div>
       </div>
     </div>
-    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="border-gray-950 p-2 hover:border-green-400 rounded-lg flex border-2" type="button">
-      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class=" h-fit p-2 border-gray-950 p-2 hover:border-green-400 rounded-lg flex border-2" type="button">
+      <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
       </svg>
-      <span class="ml-2">Add</span>
+      <span class="ml-2 text-sm">Add</span>
     </button>
 
-    <!-- Share Button -->
     <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
      <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -163,16 +162,16 @@
             </div>
         </div>
     </div>      
-    <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
-    <svg  class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <div class="h-fit p-2 border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
+    <svg  class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
     </svg>
-    <span>Share</span>
+    <span class="text-sm">Share</span>
   </div>
         
-    <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+    <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="hidden md:block h-fit p-2 text-xs relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
         Bulk Action
-      <svg class="w-6 h-6 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <svg class="w-4 h-4 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
       </svg>
     </div>
@@ -202,29 +201,29 @@
                 <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header md:block hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
               </tr>
             </thead>
             <tbody class="bg-white">
               <% @inventories.each do |inventory| %>
-                <tr class="hover:bg-gray-100 transition-colors" data-url="<%= inventory_path(inventory.id) %>">
+                <tr class="hover:bg-gray-100 transition-colors"  >
                   <td class="py-2 px-4 text-sm text-gray-900">
                     <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class=" md:flex hidden form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
                   </td>
-                  <td class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600  text-center">
+                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600  text-center">
                     <%= inventory.food_name %>
                   </td>
-                  <td class="inventories__row inventories__row--collection-amount py-2 px-4 text-sm text-gray-600  text-center">
+                  <td  onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--collection-amount py-2 px-4 text-sm text-gray-600  text-center">
                     <%= number_to_human(inventory.amount) %>
                   </td>
-                  <td class="inventories__row inventories__row--created-at py-2 px-4 text-sm text-gray-600  text-center">
+                  <td  onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--created-at py-2 px-4 text-sm text-gray-600  text-center">
                     <%= inventory.collection_date.strftime('%Y-%m-%d') %>
                   </td>
-                  <td class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600  text-center">
+                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600  text-center">
                     <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
                   </td>
                   
-                  <td class="py-2 px-4 text-sm md:flex hidden rounded-lg text-gray-600">
+                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="py-2 px-4 text-sm md:flex hidden rounded-lg text-gray-600">
                     <% if inventory.request.is_selected %>
                       <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>
                     <% else %>
@@ -232,44 +231,13 @@
                     <% end %>
                   </td>
 
-                  <td class="inventories__row inventories__row--expire-date md:flex hidden py-2 px-4 text-sm text-gray-600 flex justify-between" data-url="<%= inventory_path(inventory) %>">
-                        <button data-id="<%= inventory.id %>" data-modal-target="show-modal" data-modal-toggle="show-modal" data-remote="true" data-url="<%= inventory_path(inventory) %>" type="button">
+                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class=" md:flex hidden py-2 px-4 text-sm text-gray-600" data-url="<%= inventory_path(inventory) %>">
+                        <button onclick="window.location.href='<%= inventory_path(inventory) %>'"  data-remote="true" data-url="<%= inventory_path(inventory) %>" type="button">
                           <%= image_tag("Icon.svg", alt: "show-icon", class: "show-action-icon") %>
                         </button>
                         <button data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="" type="button">
                           <%= image_tag("Edit.svg", alt: "edit-icon", class: "action-icon") %>
-                        </button>
-
-                      <!-- Share Button -->
-                      <div id="show-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                      <div class="relative p-4 w-full max-w-2xl max-h-full">
-                          <!-- Modal content -->
-                         
-                          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                              <!-- Modal header -->
-                              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                  <h3 class="text-xl font-semibold text-green-900 dark:text-white">
-                                      Inventory Information  <%= inventory.id %>
-                                  </h3>
-                                  <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="show-modal">
-                                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                      </svg>
-                                      <span class="sr-only">Close modal</span>
-                                  </button>
-                              </div>
-                              <!-- Modal body -->
-                              <div  class="p-4 md:p-5 space-y-4" id="modal-content-<%= inventory.id %>">
-                              
-                                  <div class="border border-green-600 rounded-t dark:border-gray-600" data-url="<%= inventory_path(inventory) %>">
-                                    <!-- Row content here -->
-    
-                                    <%= render partial: "inventories/modal", locals: { inventory: inventory } %>
-                                  </div>
-                              
-                              </div>
-                          </div>
-                      </div>
+                        </button>                
                   </td>
                 </tr>
               <% end %>
@@ -280,32 +248,35 @@
     </div>
   </div>
 <% end %>
-<div class="pagination-container flex items-center justify-between mt-4">
+
+<div class="pagination-container  flex items-center justify-between py-4">
   <!-- Items per page dropdown -->
   <div class="items-per-page">
-    
-    <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="border rounded px-2 py-1">
-      <% [2, 10, 25, 50, 100].each do |count| %>
-        <option value="<%= count %>" <%= 'selected' if count == @per_page %>><%= count %></option>
-      <% end %>
+    <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="rounded-lg bg-gray-200 px-2 py-1">
+          <% [10, 25, 50, 100, 'All'].each do |count| %>
+          <option class="text-xs" value="<%= count == 'All' ? 0 : count %>" <%= 'selected' if count == @per_page || (count == 'All' && @per_page == 0) %>>
+            <%= count == 'All' ? 'Show All' : count %>
+          </option>
+        <% end %>
     </select>
-    <label for="items-per-page" class="mr-2">Items per page</label>
+    <label for="items-per-page" class="text-xs">Items per page</label>
   </div>
-
+ 
+  <div class="flex justify-between gap-4">
   <!-- Current page display -->
   <div class="page-display flex items-center">
-    <label for="current-page" class="mr-2">Page</label>
-    <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class="border rounded px-2 py-1 text-center w-12"
+    
+    <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class=" rounded-lg px-2 py-1 bg-gray-200 text-center w-12"
       onchange="window.location.href='?page=' + this.value + '&per_page=' + document.getElementById('items-per-page').value">
     <span class="ml-2">of <%= @total_pages %> pages</span>
   </div>
 
   <!-- Navigation buttons -->
-  <div class="pagination-buttons flex items-center">
+  <div class="pagination-buttons flex gap-4 items-center">
     <% if @page_no > 1 %>
       <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page)%>
     <% else %>
-      <span><</span>
+      <span ><</span>
     <% end %>
 
     <% if @page_no < @total_pages %>
@@ -313,6 +284,7 @@
     <% else %>
       <span >></span>
     <% end %>
+  </div>
   </div>
 </div>
 
@@ -370,6 +342,7 @@ document.addEventListener("turbo:load", function() {
   });
 
 });
+
 </script>
 
 <script>

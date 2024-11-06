@@ -41,7 +41,13 @@
 
 <div id="branch-users" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue hidden lg:block">Branch Users</h3>
-    <ul class="space-y-2">
+    <div class="flex justify-end">
+        <!-- Trigger Modal Button -->
+        <%= link_to '#', class: "text-darkBlue hover:text-darkBlue/80", data: { modal_toggle: 'userModal' } do %>
+            <i class="fa-solid fa-plus text-xl"></i>
+        <% end %>
+    </div>
+    <ul class="space-y-2 mt-2">
         <% @branch.users.each do |user| %>
             <li class="flex items-center space-x-2">
                 <i class="fa-solid fa-user text-gray-500"></i>
@@ -50,7 +56,12 @@
             </li>
         <% end %>
     </ul>
+<!-- Include Modal Partial Here -->
+<div id="modal-container">
+  <%= render 'user_modal' %>
 </div>
+</div>
+
 
 <div id="requests-section" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Requests</h3>

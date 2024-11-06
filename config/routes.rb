@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     collection do
       get :load_counties
     end
+    resources :users, only: [:new, :create]
   end
   resources :requests do
     collection do

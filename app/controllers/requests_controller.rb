@@ -84,6 +84,16 @@ class RequestsController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  def bulk_delete
+    ids = params[:ids]
+    Request.where(id: ids).destroy_all
+
+    respond_to do |format|
+      format.json { render json: { success: true, message: 'Items deleted successfully' } }
+      format.html { redirect_to requests_donor_path, notice: 'Selected items were deleted.' }
+    end
+  end
+
   private
 
   def sort_column

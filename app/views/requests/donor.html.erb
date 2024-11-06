@@ -89,6 +89,21 @@
         </div>
       </div>
     </div>
+
+        <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="hidden md:block h-fit p-2 text-xs relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+        Bulk Action
+      <svg class="w-4 h-4 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+      </svg>
+    </div>
+
+    <!-- Dropdown menu -->
+    <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+        <li id="bulk-delete" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Delete Selected</li>
+      </ul>
+    </div>
+    
   </div>
 </section>
 <%= turbo_frame_tag "requests" do %>
@@ -115,7 +130,7 @@
                 <% @donation_requests.each do |request| %>
                   <tr class="hover:bg-gray-100 transition-colors">
                     <td class="py-2 px-4 text-sm text-gray-900">
-                      <input type="checkbox" name="selected_requests[]" value="<%= request.id %>" class="md:flex hidden form-checkbox rounded-md request-checkbox" aria-label="Select request <%= request.id %>">
+                      <input type="checkbox" name="selected_requests[]" value="<%= request.id %>" class="donor-request-checkbox md:flex hidden form-checkbox rounded-md request-checkbox" aria-label="Select request <%= request.id %>">
                     </td>
                     <td class="py-2 px-4 text-sm text-gray-600 text-center">
                       <%= request.name %>

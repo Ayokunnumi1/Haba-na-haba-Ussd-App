@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     collection do
       get :load_counties
       get :load_sub_counties
+      post :bulk_delete, to: 'requests#bulk_delete'
     end
     resource :individual_beneficiary, only: [:new, :create, :edit, :update] do
       collection do

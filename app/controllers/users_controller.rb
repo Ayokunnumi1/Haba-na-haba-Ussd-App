@@ -2,7 +2,12 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    if params[:branch_id].present?
+      @branch = Branch.find(params[:branch_id])  # Ensure the branch is found
+      @users = @branch.users  # Assuming a `has_many :users` relationship on the Branch model
+    else
+      @users = User.all  # If no branch is selected, show all users
+    end
   end
 
   def show

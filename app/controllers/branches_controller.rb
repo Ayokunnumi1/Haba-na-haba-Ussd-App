@@ -6,7 +6,9 @@ class BranchesController < ApplicationController
     @branches = Branch.all
   end
 
-  def show; end
+  def show
+    @users = @branch.users
+  end
 
   def new
     @branch = Branch.new

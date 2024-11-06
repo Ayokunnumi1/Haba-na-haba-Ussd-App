@@ -5,3 +5,6 @@ import "./controllers";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
 import "flowbite"
+import '@fortawesome/fontawesome-free/js/all';
+import '@fortawesome/fontawesome-free/css/all.css';
+

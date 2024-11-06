@@ -1,7 +1,8 @@
 <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-  <h class="text-3xl font-bold text-gray-800 mb-6">New Branch</h2>
-  <%= render 'form', branch: @branch %>
+  <h class="text-3xl font-bold font-Outfit mb-6 text-lightGreen">Add New Branch</h2>
   <div class="mt-4">
-    <%= link_to 'Back to Branches', branches_path, class: "bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600" %>
+    <%= link_to 'Back to Branches', branches_path, class: "bg-lightGreen text-white text-sm font-Outfit  px-4 py-2 rounded-lg shadow hover:bg-gray-600" %>
   </div>
+  <%= render 'form', branch: @branch %>
+  
 </div>

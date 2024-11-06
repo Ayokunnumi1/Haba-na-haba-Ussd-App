@@ -34,7 +34,7 @@
 </div>
 
 <!-- Overview section, visible by default -->
-<div id="overview-section" class="mt-4 p-4">
+<div id="overview-section" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Overview Content</h3>
     <p class="text-sm text-gray-800">This is the overview content that is visible by default.</p>
 </div>
@@ -90,11 +90,17 @@
             document.getElementById(sectionId).classList.remove("hidden");
         }
 
-        // Attach event listeners to each tab
+        // Load the last active tab from localStorage
+        const lastActiveTab = localStorage.getItem("activeTab") || "overview-tab";
+        showSection(tabSectionMapping[lastActiveTab]);
+
+        // Attach event listeners to each tab and save the active tab to localStorage
         Object.keys(tabSectionMapping).forEach(tabId => {
             document.getElementById(tabId).addEventListener("click", function (event) {
                 event.preventDefault();
-                showSection(tabSectionMapping[tabId]);
+                const sectionId = tabSectionMapping[tabId];
+                showSection(sectionId);
+                localStorage.setItem("activeTab", tabId); // Save the current tab ID
             });
         });
     });

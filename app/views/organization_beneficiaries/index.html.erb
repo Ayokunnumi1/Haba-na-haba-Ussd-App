@@ -1,5 +1,57 @@
 <div class="container mx-auto py-8">
   <h1 class="text-2xl font-bold mb-6">Organization Beneficiaries</h1>
+  <%= form_with url: organization_beneficiaries_path, method: :get, local: true do |f| %>
+    <div class="space-y-4">
+      <div>
+        <%= f.label :organization_name, "Organization Name" %>
+        <%= f.text_field :organization_name, value: params[:organization_name], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :registration_no, "Registration No." %>
+        <%= f.text_field :registration_no, value: params[:registration_no], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :case_name, "Case Name" %>
+        <%= f.text_field :case_name, value: params[:case_name], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :phone_number, "Phone Number" %>
+        <%= f.text_field :phone_number, value: params[:phone_number], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :min_people, "Min People" %>
+        <%= f.number_field :min_people, value: params[:min_people], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :max_people, "Max People" %>
+        <%= f.number_field :max_people, value: params[:max_people], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :start_date, "Created After" %>
+        <%= f.date_field :start_date, value: params[:start_date], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :end_date, "Created Before" %>
+        <%= f.date_field :end_date, value: params[:end_date], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+      </div>
+      <div>
+        <%= f.label :district_id, "District", class: "block font-medium text-gray-700" %>
+        <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, { id: 'district-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm', 'data-context-path': "organization_beneficiaries" } %>
+      </div>
+      <div>
+        <%= f.label :county_id, "County", class: "block font-medium text-gray-700" %>
+        <%= f.collection_select :county_id, @counties, :id, :name, { prompt: "Select County" }, { id: 'county-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm', 'data-context-path': "organization_beneficiaries" } %>
+      </div>
+      <div>
+        <%= f.label :sub_county_id, "Sub-County", class: "block font-medium text-gray-700" %>
+        <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: "Select Sub-County" }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm' } %>
+      </div>
+      <div class="flex space-x-4">
+        <%= submit_tag "Filter", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        <%= link_to "Refresh Filter", organization_beneficiaries_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+      </div>
+    </div>
+  <% end %>
   <div class="overflow-x-auto">
     <table class="min-w-full bg-white border border-gray-300">
       <thead class="bg-gray-100">
@@ -26,13 +78,13 @@
               <%= organization_beneficiary.female %>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <%= organization_beneficiary.district.name if organization_beneficiary.district %>
+              <%= organization_beneficiary.district&.name %>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <%= organization_beneficiary.county.name if organization_beneficiary.county %>
+              <%= organization_beneficiary.county&.name %>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <%= organization_beneficiary.sub_county.name if organization_beneficiary.sub_county %>
+              <%= organization_beneficiary.sub_county&.name %>
             </td>
             <td class="px-6 py-4 whitespace-nowrap flex space-x-2">
               <%= link_to 'Show', organization_beneficiary_path(organization_beneficiary), class: "text-indigo-600 hover:text-indigo-900" %>

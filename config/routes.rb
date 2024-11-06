@@ -49,7 +49,12 @@ Rails.application.routes.draw do
       get :load_sub_counties
     end
   end
-  resources :organization_beneficiaries, only: [:index, :show, :destroy]
+  resources :organization_beneficiaries, only: [:index, :show, :destroy] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
   resources :inventories, only: [:index, :show, :destroy]
 
   # Conditional root route

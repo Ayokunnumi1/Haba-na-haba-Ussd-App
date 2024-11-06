@@ -1,39 +1,76 @@
-<div class="border-b border-gray-200 dark:border-gray-700 font-Outfit ">
-    <ul class="flex justify-center space-x-2  sm:space-x-0 font-Outfit font-bold text-darkBlue">
+<div class="border-b border-gray-200 dark:border-gray-700 font-Outfit">
+    <ul class="flex justify-center space-x-2 sm:space-x-0 font-Outfit font-bold text-darkBlue">
         <li>
-            <a href="#" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
-            <i class="fa-solid fa-chart-line"></i>
+            <a href="#" id="overview-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-chart-line"></i>
                 Overview
             </a>
         </li>
         <li>
-            <div href="" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg  hover:text-lightGreen hover:border-lightGreen group" aria-current="page">
-            <i class="fa-solid fa-users"></i>
-
-                <%= link_to "Staffs", users_path(branch_id: @branch.id), class: "" %>
-                 
+            <div id="staffs-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group" aria-current="page">
+                <i class="fa-solid fa-users"></i>
+                Staffs
             </div>
         </li>
         <li>
-            <a href="#" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
-            <i class="fa-solid fa-inbox"></i>
-
+            <a href="#" id="requests-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-inbox"></i>
                 Requests
             </a>
         </li>
         <li>
-            <a href="#" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
-            <i class="fa-solid fa-bookmark"></i>
-
+            <a href="#" id="events-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-bookmark"></i>
                 Events
             </a>
         </li>
         <li>
-        <a href="#" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
-        <i class="fa-solid fa-bell "></i>
-
-            Inventory
-        </a>
-    </li>
+            <a href="#" id="inventory-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-bell"></i>
+                Inventory
+            </a>
+        </li>
     </ul>
 </div>
+
+<!-- Display branch user information below the "Staffs" link -->
+<div id="branch-users" class="mt-4 p-4 hidden">
+    <h3 class="text-lg font-semibold text-darkBlue">Branch Users</h3>
+    <ul class="space-y-2">
+        <% @branch.users.each do |user| %>
+            <li class="flex items-center space-x-2">
+                <i class="fa-solid fa-user text-gray-500"></i>
+                <span class="text-sm text-gray-800"><%= "#{user.first_name} #{user.last_name}" %></span>
+                <span class="text-xs text-gray-500">(<%= user.email %>)</span>
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+<!-- JavaScript to control the display of the Branch Users section -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const staffsTab = document.getElementById("staffs-tab");
+        const branchUsersSection = document.getElementById("branch-users");
+
+        // Array of other tab elements
+        const otherTabs = [
+            document.getElementById("overview-tab"),
+            document.getElementById("requests-tab"),
+            document.getElementById("events-tab"),
+            document.getElementById("inventory-tab")
+        ];
+
+        // Show branch users when Staffs is clicked
+        staffsTab.addEventListener("click", function () {
+            branchUsersSection.classList.remove("hidden");
+        });
+
+        // Hide branch users when any other tab is clicked
+        otherTabs.forEach(tab => {
+            tab.addEventListener("click", function () {
+                branchUsersSection.classList.add("hidden");
+            });
+        });
+    });
+</script>

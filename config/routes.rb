@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
+  get 'filter_results', to: 'your_controller#filter_results'
   resources :users
   resources :districts
   resources :counties
@@ -42,7 +43,12 @@ Rails.application.routes.draw do
     end
   end
   resources :individual_beneficiaries, only: [:index, :show, :destroy]
-  resources :family_beneficiaries, only: [:index, :show, :destroy]
+  resources :family_beneficiaries, only: [:index, :show, :destroy] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
   resources :organization_beneficiaries, only: [:index, :show, :destroy]
   resources :inventories, only: [:index, :show, :destroy]
 

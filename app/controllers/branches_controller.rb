@@ -8,6 +8,8 @@ class BranchesController < ApplicationController
 
   def show
     @users = @branch.users
+    @branch = Branch.find(params[:id])
+    @user = User.new(branch: @branch)
   end
 
   def new

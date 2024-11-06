@@ -1,5 +1,5 @@
 <!-- Main modal -->
-<div id="userModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="userModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 flex items-center justify-center z-50">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -15,9 +15,9 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-                <%= form_with model: @user, url: branch_users_path(@branch), local: true do |form| %>
+            <!-- Modal body (scrollable content) -->
+            <div class="p-4 md:p-5 space-y-4 max-h-[60vh] overflow-y-auto">
+                <%= form_with model: @user || User.new, local: true do |form| %>
                     <div class="space-y-4">
                         <!-- User name input -->
                         <div class="flex flex-col">
@@ -28,6 +28,21 @@
                         <div class="flex flex-col">
                             <%= form.label :last_name, class: 'text-sm font-medium text-gray-900 dark:text-white' %>
                             <%= form.text_field :last_name, required: true, class: 'mt-2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600' %>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <%= form.label :phone_number, class: 'text-sm font-medium text-gray-900 dark:text-white' %>
+                            <%= form.telephone_field :phone_number, required: true, class: 'mt-2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600' %>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <%= form.label :image, class: 'text-sm font-medium text-gray-900 dark:text-white' %>
+                            <%= form.file_field :image, class: 'mt-2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600' %>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <%= form.label :role, class: 'text-sm font-medium text-gray-900 dark:text-white' %>
+                            <%= form.select :role, User::ROLES, { include_blank: true }, required: true, class: 'mt-2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600' %>
                         </div>
 
                         <div class="flex flex-col">
@@ -45,24 +60,23 @@
                             <%= form.password_field :password_confirmation, required: true, class: 'mt-2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600' %>
                         </div>
 
-                        <!-- Branch is automatically selected and hidden -->
-                        <%= form.hidden_field :branch_id, value: @branch.id %>
+                        <div class="flex flex-col">
+                        <div class="flex flex-col">
+                        <%= form.label :branch_id, class: 'text-sm font-medium text-gray-900 dark:text-white' %>
+                        <%= form.collection_select :branch_id, Branch.all, :id, :name,
+                            { include_blank: true },
+                            { selected: @user&.branch_id || @branch.id, class: 'mt-2 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600' } %>
+                      </div>
 
-                        <!-- Submit button -->
                         <div class="flex justify-end mt-4">
                             <%= form.submit 'Create User', class: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' %>
                         </div>
                     </div>
                 <% end %>
             </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="userModal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancel</button>
-            </div>
         </div>
     </div>
 </div>
-
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

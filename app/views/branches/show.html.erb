@@ -1,31 +1,31 @@
 <div class="border-b border-gray-200 dark:border-gray-700 font-Outfit">
     <ul class="flex justify-center space-x-2 sm:space-x-0 font-Outfit font-bold text-darkBlue">
         <li>
-            <a href="#" id="overview-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+            <a href="#" id="overview-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
                 <i class="fa-solid fa-chart-line"></i>
                 Overview
             </a>
         </li>
         <li>
-            <div id="staffs-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group" aria-current="page">
+            <div id="staffs-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group" aria-current="page">
                 <i class="fa-solid fa-users"></i>
                 Staffs
             </div>
         </li>
         <li>
-            <a href="#" id="requests-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+            <a href="#" id="requests-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
                 <i class="fa-solid fa-inbox"></i>
                 Requests
             </a>
         </li>
         <li>
-            <a href="#" id="events-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+            <a href="#" id="events-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
                 <i class="fa-solid fa-bookmark"></i>
                 Events
             </a>
         </li>
         <li>
-            <a href="#" id="inventory-tab" class="flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+            <a href="#" id="inventory-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
                 <i class="fa-solid fa-bell"></i>
                 Inventory
             </a>
@@ -33,13 +33,12 @@
     </ul>
 </div>
 
-<!-- Overview section, visible by default -->
+<!-- Sections for each tab -->
 <div id="overview-section" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Overview Content</h3>
     <p class="text-sm text-gray-800">This is the overview content that is visible by default.</p>
 </div>
 
-<!-- Branch Users section, hidden by default -->
 <div id="branch-users" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Branch Users</h3>
     <ul class="space-y-2">
@@ -53,25 +52,30 @@
     </ul>
 </div>
 
-<!-- Requests section, hidden by default -->
 <div id="requests-section" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Requests</h3>
     <p class="text-sm text-gray-800">Details about recent requests go here.</p>
 </div>
 
-<!-- Events section, hidden by default -->
 <div id="events-section" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Events</h3>
     <p class="text-sm text-gray-800">Upcoming events and news go here.</p>
 </div>
 
-<!-- Inventory section, hidden by default -->
 <div id="inventory-section" class="mt-4 p-4 hidden">
     <h3 class="text-lg font-semibold text-darkBlue">Inventory</h3>
     <p class="text-sm text-gray-800">Current inventory details go here.</p>
 </div>
 
-<!-- JavaScript to control the display of sections -->
+<!-- Styles for active tab -->
+<style>
+    .active-tab {
+        color: #6DC13D; /* lightGreen color */
+        border-color: #6DC13D;
+    }
+</style>
+
+<!-- JavaScript to control the display of sections and active tab styling -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const tabSectionMapping = {
@@ -82,7 +86,6 @@
             "inventory-tab": "inventory-section"
         };
 
-        // Function to show only the selected section
         function showSection(sectionId) {
             Object.values(tabSectionMapping).forEach(section => {
                 document.getElementById(section).classList.add("hidden");
@@ -90,9 +93,17 @@
             document.getElementById(sectionId).classList.remove("hidden");
         }
 
+        function setActiveTab(activeTabId) {
+            document.querySelectorAll(".tab-link").forEach(tab => {
+                tab.classList.remove("active-tab");
+            });
+            document.getElementById(activeTabId).classList.add("active-tab");
+        }
+
         // Load the last active tab from localStorage
         const lastActiveTab = localStorage.getItem("activeTab") || "overview-tab";
         showSection(tabSectionMapping[lastActiveTab]);
+        setActiveTab(lastActiveTab);
 
         // Attach event listeners to each tab and save the active tab to localStorage
         Object.keys(tabSectionMapping).forEach(tabId => {
@@ -100,7 +111,8 @@
                 event.preventDefault();
                 const sectionId = tabSectionMapping[tabId];
                 showSection(sectionId);
-                localStorage.setItem("activeTab", tabId); // Save the current tab ID
+                setActiveTab(tabId);
+                localStorage.setItem("activeTab", tabId);
             });
         });
     });

@@ -13,7 +13,10 @@
  *= require_tree .
  *= require_self
  */
- .bg-branch-image {
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+.bg-branch-image {
   background-image: url('/assets/Bg-branch-p.svg');
   background-size: cover; /* Ensure the image covers the entire background */
   background-position: center; /* Center the image */

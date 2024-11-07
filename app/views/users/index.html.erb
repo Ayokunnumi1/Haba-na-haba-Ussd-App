@@ -44,13 +44,13 @@
     </div>
   
     <%= button_to new_user_path, method: :get do  %>
-    <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
+      <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
     <% end %>
   
     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black bg-gray-100 hover:bg-lightGreen focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Roles
-    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+     <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-    </svg>
+      </svg>
     </button>
   
     <!-- Dropdown menu -->
@@ -144,9 +144,9 @@
 
   
   <!-- Users index page displayed on large screen -->
-  <div class="hidden lg:grid lg:grid-cols-5 gap-2 lg:mt-10 lg:font-Outfit lg:font-lightGray lg:bg-gray-300">
+  <div class="hidden lg:grid lg:grid-cols-5 gap-2 lg:mt-10 lg:font-Outfit lg:font-lightGray">
     <% @users.each do |user| %>
-    <div class="relative h-auto max-w-full rounded-lg p-4 bg-white hover:bg-darkBlue hover:text-white">
+    <div class="relative h-auto max-w-full rounded-lg p-4 bg-white shadow-sm hover:bg-darkBlue hover:text-white">
       <div class="absolute top-2 right-2">
         <button id="dropdownButton<%= user.id %>" data-dropdown-toggle="dropdownMenu<%= user.id %>" class="text-gray-500 hover:text-gray-700 focus:outline-none">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">

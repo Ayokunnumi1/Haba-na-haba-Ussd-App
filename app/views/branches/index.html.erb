@@ -2,9 +2,10 @@
 <div class="mb-4">
   <%= link_to 'Add New Branch', new_branch_path, class: 'bg-lightGreen font-Outfit text-base font-semibold text-white px-4 py-2 rounded-lg shadow hover:bg-darkBlue' %>
 </div>
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 font-Outfit  ">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 font-Outfit">
   <% @branches.each do |branch| %>
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 bg-branch-image hover:bg-darkBlue group">
+    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 bg-branch-image hover:bg-darkBlue group relative">
+      <!-- Ensure the parent div is positioned relative -->
       <div class="flex justify-end px-4 pt-4">
         <button id="dropdownButton" data-dropdown-toggle="dropdown-<%= branch.id %>" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
           <span class="sr-only">Open dropdown</span>
@@ -12,8 +13,8 @@
             <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
           </svg>
         </button>
-        <!-- Dropdown menu -->
-        <div id="dropdown-<%= branch.id %>" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <!-- Dropdown menu, now absolutely positioned -->
+        <div id="dropdown-<%= branch.id %>" class="z-10 hidden absolute right-0 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
           <ul class="py-2" aria-labelledby="dropdownButton">
             <li>
               <%= link_to 'Edit', edit_branch_path(branch), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white' %>
@@ -29,11 +30,11 @@
       </div>
       <div class="flex flex-col items-center pb-6">
         <h6 class="text-2xl font-bold text-darkBlue group-hover:text-white"><%= branch.name %></h6>
-        <hr class="border-gray-300 my-2 w-[80%] align-center" /> <!-- Horizontal line after branch name -->
+        <hr class="border-gray-300 my-2 w-[80%] align-center" />
         <p class="text-base font-semibold text-darkBlue group-hover:text-white pb-3 md:pb-5"><%= branch.phone_number %></p>
         <p class="text-sm font-semibold text-darkBlue group-hover:text-white"><%= branch.district.name %></p>
         <p class="text-sm font-semibold text-darkBlue group-hover:text-white"><%= branch.county.name %></p>
-        <hr class="border-gray-300 my-2 w-[80%] align-center" /> <!-- Horizontal line after county -->
+        <hr class="border-gray-300 my-2 w-[80%] align-center" />
         <div class="flex space-x-2 mt-2 font-Outfit">
           <%= link_to 'Get Started', branch_path(branch), class: 'bg-transparent border border-darkBlue text-darkBlue px-4 py-2 rounded-full group-hover:border-lightGreen group-hover:text-lightGreen font-semibold text-sm' %>
         </div>
@@ -42,17 +43,36 @@
   <% end %>
 </div>
 
-<%= link_to 'Dashboard', users_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5" %>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // Function to close all open dropdowns
+  function closeAllDropdowns() {
+    document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
+      const dropdownId = button.getAttribute('data-dropdown-toggle');
+      const dropdown = document.getElementById(dropdownId);
+      dropdown.classList.add('hidden');
+    });
+  }
+
+  // Open dropdown on button click
   document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
-    button.addEventListener('click', function () {
+    button.addEventListener('click', function (event) {
+      event.stopPropagation(); // Prevent click from propagating to document
       const dropdownId = this.getAttribute('data-dropdown-toggle');
       const dropdown = document.getElementById(dropdownId);
+
+      // Toggle the dropdown visibility
       dropdown.classList.toggle('hidden');
     });
   });
-});
 
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function (event) {
+    // Check if the clicked element is outside of any dropdown or dropdown button
+    if (!event.target.closest('[data-dropdown-toggle]') && !event.target.closest('[id^="dropdown-"]')) {
+      closeAllDropdowns();
+    }
+  });
+});
 </script>

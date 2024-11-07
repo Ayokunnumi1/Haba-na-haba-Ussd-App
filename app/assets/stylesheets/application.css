@@ -19,7 +19,13 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* height: 100%; */
+}
+
+.bg-users-show {
+  background-image: url('/assets/users-show.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .mobile-yield-content {

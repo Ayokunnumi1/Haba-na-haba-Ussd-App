@@ -13,8 +13,21 @@
  *= require_tree .
  *= require_self
  */
+
+.bg-users-image {
+  background-image: url('/assets/users-image.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* height: 100%; */
+}
+
 .mobile-yield-content {
   margin: 20px;
+}
+
+.red-border {
+  border: 3px solid red;
 }
 
 .mobile-sidebar {

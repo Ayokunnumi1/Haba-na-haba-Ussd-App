@@ -73,6 +73,14 @@ class BranchesController < ApplicationController
     redirect_to branches_url, alert: 'Branch not found.'
   end
 
+  def handle_destroy_error(error)
+    if error.is_a?(ActiveRecord::InvalidForeignKey)
+      'Cannot delete branch as it is still referenced in other records.'
+    else
+      'An unexpected error occurred while deleting the branch.'
+    end
+  end
+
   def branch_params
     params.require(:branch).permit(:name, :phone_number, :district_id, :county_id)
   end

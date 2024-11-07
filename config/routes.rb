@@ -42,7 +42,12 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :individual_beneficiaries, only: [:index, :show, :destroy]
+  resources :individual_beneficiaries, only: [:index, :show, :destroy] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
   resources :family_beneficiaries, only: [:index, :show, :destroy] do
     collection do
       get :load_counties

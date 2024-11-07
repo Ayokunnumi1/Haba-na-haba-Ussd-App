@@ -3,6 +3,9 @@ class IndividualBeneficiariesController < ApplicationController
   before_action :set_individual_beneficiary, only: %i[edit update show destroy]
 
   def index
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
     @individual_beneficiaries = IndividualBeneficiary.includes(:request).apply_filters(params)
   end
 

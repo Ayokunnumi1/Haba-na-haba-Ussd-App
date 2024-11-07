@@ -7,6 +7,18 @@
         <%= form.text_field :name, value: params[:name], class: "mt-1 block w-full border border-gray-300 rounded" %>
       </div>
       <div>
+        <%= form.label :case_name, "Case Name", class: "block text-gray-700" %>
+        <%= form.text_field :case_name, value: params[:case_name], class: "mt-1 block w-full border border-gray-300 rounded" %>
+      </div>
+      <div>
+        <%= form.label :gender, "Gender", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.select :gender, options_for_select([["Male", "male"], ["Female", "female"]], selected: params[:gender]), { prompt: "Select Gender" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+      </div>
+      <div>
+        <%= form.label :phone_number, "Phone Number", class: "block text-gray-700" %>
+        <%= form.text_field :phone_number, value: params[:phone_number], class: "mt-1 block w-full border border-gray-300 rounded" %>
+      </div>
+      <div>
         <%= form.label :min_age, "Minimum Age", class: "block text-gray-700" %>
         <%= form.number_field :min_age, value: params[:min_age], class: "mt-1 block w-full border border-gray-300 rounded" %>
       </div>
@@ -15,8 +27,16 @@
         <%= form.number_field :max_age, value: params[:max_age], class: "mt-1 block w-full border border-gray-300 rounded" %>
       </div>
       <div>
-        <%= form.label :case_name, "Case Name", class: "block text-gray-700" %>
-        <%= form.text_field :case_name, value: params[:case_name], class: "mt-1 block w-full border border-gray-300 rounded" %>
+        <%= form.label :district_id, "District", class: "block font-medium text-gray-700" %>
+        <%= form.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, { id: 'district-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm', 'data-context-path': "individual_beneficiaries" } %>
+      </div>
+      <div>
+        <%= form.label :county_id, "County", class: "block font-medium text-gray-700" %>
+        <%= form.collection_select :county_id, @counties, :id, :name, { prompt: "Select County" }, { id: 'county-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm', 'data-context-path': "individual_beneficiaries" } %>
+      </div>
+      <div>
+        <%= form.label :sub_county_id, "Sub-County", class: "block font-medium text-gray-700" %>
+        <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: "Select Sub-County" }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm' } %>
       </div>
       <div>
         <%= form.label :start_date, "Start Date", class: "block text-gray-700" %>

@@ -170,3 +170,11 @@
       </ul>
    </div>
 </aside>
+
+<script>
+document.querySelector('[data-drawer-toggle="logo-sidebar"]').addEventListener('click', function () {
+   const sidebar = document.getElementById('logo-sidebar');
+   sidebar.classList.toggle('-translate-x-full');
+   sidebar.classList.toggle('translate-x-0');
+});
+</script>

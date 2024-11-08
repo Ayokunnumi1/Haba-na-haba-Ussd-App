@@ -17,44 +17,32 @@
       <%= f.submit "Filter", class: "bg-indigo-600 text-white p-2 rounded" %>
     </div>
   <% end %>
-  <table class="min-w-full divide-y divide-gray-200 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-    <thead class="bg-gray-50">
-      <tr>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Case Name
-        </th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Phone Number
-        </th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Family Members
-        </th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Action
-        </th>
-      </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-      <% @family_beneficiaries.each do |family_beneficiary| %>
-        <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-            <%= family_beneficiary.case_name %>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <%= family_beneficiary.phone_number %>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <%= family_beneficiary.family_members %>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-            <%= link_to 'Show', family_beneficiary_path(family_beneficiary), class: 'text-indigo-600 hover:text-indigo-900' %>
-            <%= link_to 'Edit', edit_request_family_beneficiary_path(family_beneficiary.request, family_beneficiary), class: 'text-blue-600 hover:text-blue-900' %>
-            <%= button_to 'Destroy', family_beneficiary_path(family_beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:text-red-900' %>
-          </td>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr class="text-darkBlue">
+          <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-6/26">Father</th>
+          <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-6/26">Mother</th>
+          <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-2/26">Members</th>
+          <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-4/26">Case</th>
+          <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-4/26">Phone</th>
+          <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-4/26">Parish</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @family_beneficiaries.each do |beneficiary| %>
+          <tr class="hover:bg-gray-100">
+            <td class="px-6 py-4 text-sm text-[#6e7079] w-6/26"><%= beneficiary.fathers_name %></td>
+            <td class="px-6 py-4 text-sm text-[#6e7079] w-6/26"><%= beneficiary.mothers_name %></td>
+            <td class="px-6 py-4 text-sm text-[#6e7079] w-2/26"><%= beneficiary.family_members %></td>
+            <td class="px-6 py-4 text-sm text-[#6e7079] w-4/26"><%= beneficiary.case_name %></td>
+            <td class="px-6 py-4 text-sm text-[#6e7079] w-4/26"><%= beneficiary.phone_number %></td>
+            <td class="px-6 py-4 text-sm text-[#6e7079] w-4/26"><%= beneficiary.parish %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <div class="mt-6">
     <%= link_to 'Dashboard', users_path, class: "mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
   </div>

@@ -34,13 +34,13 @@
       <td class="px-6 py-3 text-left"><%= district.name %></td>
       
       <!-- Individual action buttons (hidden on mobile) -->
-      <td class="px-6 py-3 text-center hidden md:table-cell">
-        <%= link_to 'Show', district, class: 'text-blue-600 hover:underline' %>
+      <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+        <%= link_to 'Show', district, class: 'text-lightGreen hover:underline' %>
       </td>
-      <td class="px-6 py-3 text-center hidden md:table-cell">
-        <%= link_to 'Edit', edit_district_path(district), class: 'text-yellow-600 hover:underline' %>
+      <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+        <%= link_to 'Edit', edit_district_path(district), class: 'text-darkBlue hover:underline' %>
       </td>
-      <td class="px-6 py-3 text-center hidden md:table-cell">
+      <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
         <%= button_to 'Destroy', district, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
       </td>
       
@@ -54,9 +54,9 @@
         </button>
     
         <!-- Dropdown menu -->
-        <div class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden">
-          <%= link_to 'Show', district, class: 'block px-4 py-2 text-blue-600 hover:bg-gray-100' %>
-          <%= link_to 'Edit', edit_district_path(district), class: 'block px-4 py-2 text-yellow-600 hover:bg-gray-100' %>
+        <div class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden font-Outfit font-semibold">
+          <%= link_to 'Show', district, class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+          <%= link_to 'Edit', edit_district_path(district), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
           <%= button_to 'Destroy', district, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-red-600 hover:bg-gray-100 text-center' %>
         </div>
       </div>

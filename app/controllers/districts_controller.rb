@@ -5,6 +5,7 @@ class DistrictsController < ApplicationController
 
   def index
     @districts = District.all
+    @districts = District.page(params[:page]).per(10) 
   end
 
   def show; end

@@ -5,6 +5,7 @@ class SubCountiesController < ApplicationController
 
   def index
     @sub_counties = SubCounty.all
+    @sub_counties = SubCounty.page(params[:page]).per(20)
   end
 
   def show; end

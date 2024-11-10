@@ -9,7 +9,7 @@
                 <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-lightGray font-Outfit">
                     <div class="flex flex-col items-start font-thin">
                         <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Food</p>
-                        <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">350 Ton</p>
+                        <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">350</p>
                     </div>
                     <div class="flex flex-col items-start font-thin">
                         <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Donated</p>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="flex justify-between items-center mt-10">
+    <div class="flex justify-between items-center mt-10 lg:hidden">
         <button class="border-2 border-black focus:outline-none rounded-xl p-2">
             <i class="fa-solid fa-filter fa-xl"></i>
             <span>filter</span>
@@ -56,6 +56,56 @@
                 <span>filter</span>
             </div>
         </button>
+    </div>
+
+    <div class="hidden lg:flex justify-between items-center font-Outfit mt-10">
+        <p class="font-semi-bold text-lg">Inventory Items</p>
+        <div class="flex items-center gap-2">            
+            <div class="px-2 rounded-xl bg-white flex items-center border border-deepGray">
+                <%= image_tag("search.png", alt: "search", class: "w-5 h-5") %>
+                    <input type="text" placeholder="Search" 
+                    class="bg-transparent focus:outline-none border-none focus:border-none text-gray-700 placeholder-gray-400" 
+                    aria-label="Search">
+            </div>
+            <button class="border-2 border-deepGray focus:outline-none rounded-xl p-2">
+                <i class="fa-solid fa-filter fa-xl"></i>
+                <span>filter</span>
+            </button>
+            <button>
+                <div class="border-2 border-deepGray focus:outline-none rounded-xl p-2">
+                    <i class="fa-regular fa-calendar-days fa-xl"></i>
+                    <span>filter</span>
+                </div>
+            </button>
+            <button>
+                <div class="border-2 border-deepGray focus:outline-none rounded-xl p-2">
+                    <i class="fa-regular fa-share-nodes"></i>
+                    <span>Share</span>
+                </div>
+            </button>
+            <button class="border-2 border-lightGreen p-2 rounded-xl">Add New</button>
+            
+            
+            <!-- Bulk action menu -->
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownBk" class="text-black font-medium rounded-xl p-2 inline-flex items-center border-2 border-deepGray" type="button">Bulk Action <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+            </button>
+            <div id="dropdownBk" class="z-10 hidden bg-white rounded-xl shadow w-44">
+                <ul class="py-2 text-gray-700" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Delete all</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Select all</a>
+                    </li>
+                
+                </ul>
+            </div>
+
+                
+        </div>
+
     </div>
 
 

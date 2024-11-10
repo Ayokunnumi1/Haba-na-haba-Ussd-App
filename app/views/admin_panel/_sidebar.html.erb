@@ -120,6 +120,7 @@
             </a>
          </li>
          <!-- Dropdown for Forms -->
+           <% if current_user.role.in?(%w[super_admin admin branch_manager]) %>
          <li>
             <details class="">
                <summary class="flex items-center p-2 text-white rounded-lg cursor-pointer hover:bg-white group">
@@ -157,8 +158,7 @@
                </ul>
             </details>
          </li>
-
-
+          <% end %>
 
          <p class="py-2 text-white font-Outfit font-normal text-sm mr-20">PREFERENCE</p>
          <li>

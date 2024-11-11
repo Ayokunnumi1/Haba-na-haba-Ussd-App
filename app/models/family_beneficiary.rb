@@ -26,6 +26,10 @@ class FamilyBeneficiary < ApplicationRecord
       beneficiaries = beneficiaries.where('family_members <= ?', params[:max_member])
     end
 
+    if params[:start_date].present? && params[:end_date].present?
+      beneficiaries = beneficiaries.where(created_at: Date.parse(params[:start_date])..Date.parse(params[:end_date]))
+    end
+
     beneficiaries = beneficiaries.where(district_id: params[:district_id]) if params[:district_id].present?
     beneficiaries = beneficiaries.where(county_id: params[:county_id]) if params[:county_id].present?
     beneficiaries = beneficiaries.where(sub_county_id: params[:sub_county_id]) if params[:sub_county_id].present?

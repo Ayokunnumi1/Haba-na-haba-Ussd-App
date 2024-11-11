@@ -1,6 +1,7 @@
 <h1>Request Details</h1>
 <p><strong>Name:</strong> <%= @request.name %></p>
 <p><strong>Phone Number:</strong> <%= @request.phone_number %></p>
+<p><strong>Residence Address:</strong> <%= @request.residence_address %></p>
 <p><strong>Request Type:</strong> <%= @request.request_type %></p>
 <p><strong>District:</strong> <%= @request.district.name if @request.district.present? %></p>
 <p><strong>County:</strong> <%= @request.county.name if @request.county.present? %></p>

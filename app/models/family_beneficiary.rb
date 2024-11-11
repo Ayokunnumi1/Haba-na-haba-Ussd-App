@@ -11,10 +11,25 @@ class FamilyBeneficiary < ApplicationRecord
   validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
 
   def self.apply_filters(params)
-    beneficiaries = all
+    beneficiaries = FamilyBeneficiary.all
+
+    beneficiaries = beneficiaries.where('fathers_name ILIKE ?', "%#{params[:fathers_name]}%") if params[:fathers_name].present?
+    beneficiaries = beneficiaries.where('mothers_name ILIKE ?', "%#{params[:mothers_name]}%") if params[:mothers_name].present?
+    beneficiaries = beneficiaries.where('case_name ILIKE ?', "%#{params[:case_name]}%") if params[:case_name].present?
+    beneficiaries = beneficiaries.where('phone_number ILIKE ?', "%#{params[:phone_number]}%") if params[:phone_number].present?
+
+    if params[:min_member].present? && params[:max_member].present?
+      beneficiaries = beneficiaries.where(family_members: params[:min_member]..params[:max_member])
+    elsif params[:min_member].present?
+      beneficiaries = beneficiaries.where('family_members >= ?', params[:min_member])
+    elsif params[:max_member].present?
+      beneficiaries = beneficiaries.where('family_members <= ?', params[:max_member])
+    end
+
     beneficiaries = beneficiaries.where(district_id: params[:district_id]) if params[:district_id].present?
     beneficiaries = beneficiaries.where(county_id: params[:county_id]) if params[:county_id].present?
     beneficiaries = beneficiaries.where(sub_county_id: params[:sub_county_id]) if params[:sub_county_id].present?
+
     beneficiaries
   end
 end

@@ -2,6 +2,30 @@
   <h1 class="text-2xl font-bold mb-6">Family Beneficiaries</h1>
   <%= form_with(url: family_beneficiaries_path, method: :get, local: true, class: "space-y-6") do |f| %>
     <div>
+      <%= f.label :fathers_name, "Father's Name" %>
+      <%= f.text_field :fathers_name, value: params[:fathers_name], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+    </div>
+    <div>
+      <%= f.label :mothers_name, "Mother's Name" %>
+      <%= f.text_field :mothers_name, value: params[:mothers_name], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+    </div>
+    <div>
+      <%= f.label :case_name, "Case Name" %>
+      <%= f.text_field :case_name, value: params[:case_name], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+    </div>
+    <div>
+      <%= f.label :phone_number, "Phone Number" %>
+      <%= f.text_field :phone_number, value: params[:phone_number], class: "form-input mt-1 block w-full border-gray-300 rounded-md" %>
+    </div>
+    <div>
+      <%= f.label :min_member, "Minimum member", class: "block text-gray-700" %>
+      <%= f.number_field :min_member, value: params[:min_member], class: "mt-1 block w-full border border-gray-300 rounded" %>
+    </div>
+    <div>
+      <%= f.label :max_member, "Maximum member", class: "block text-gray-700" %>
+      <%= f.number_field :max_member, value: params[:max_member], class: "mt-1 block w-full border border-gray-300 rounded" %>
+    </div>
+    <div>
       <%= f.label :district_id, "District", class: "block font-medium text-gray-700" %>
       <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, { id: 'district-select', class: 'form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm', 'data-context-path': "family_beneficiaries" } %>
     </div>
@@ -15,6 +39,7 @@
     </div>
     <div>
       <%= f.submit "Filter", class: "bg-indigo-600 text-white p-2 rounded" %>
+      <%= link_to "Refresh Filter", family_beneficiaries_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
     </div>
   <% end %>
   <div class="overflow-x-auto">

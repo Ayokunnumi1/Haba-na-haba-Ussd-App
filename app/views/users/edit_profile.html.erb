@@ -52,18 +52,23 @@
           <%= form.email_field :email, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
         </div>
 
-        <!-- Password -->
         <div class="mb-4">
-          <%= form.label :password, "Password", class: "block text-gray-700" %>
-          <%= form.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-          <p class="text-sm text-gray-500">(Leave blank if you don't want to change it)</p>
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mb-4">
-          <%= form.label :password_confirmation, "Confirm Password", class: "block text-gray-700" %>
-          <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        </div>
+        <%= form.label :password, "Password", class: "block text-gray-700" %>
+        <%= form.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        <p class="text-sm text-gray-500">(Leave blank if you don't want to change it)</p>
+        <% if @user.errors[:password].any? %>
+          <p class="text-red-500 text-sm mt-1"><%= @user.errors[:password].first %></p>
+        <% end %>
+      </div>
+      
+      <div class="mb-4">
+        <%= form.label :password_confirmation, "Confirm Password", class: "block text-gray-700" %>
+        <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        <% if @user.errors[:password_confirmation].any? %>
+          <p class="text-red-500 text-sm mt-1"><%= @user.errors[:password_confirmation].first %></p>
+        <% end %>
+      </div>
+      
 
         <!-- Phone Number -->
         <div class="mb-4">
@@ -80,3 +85,27 @@
     </div>
   <% end %>
 </div>
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+  const passwordField = document.querySelector("#user_password");
+  const confirmPasswordField = document.querySelector("#user_password_confirmation");
+  const submitButton = document.querySelector("input[type='submit']");
+  const errorMessage = document.createElement("p");
+  errorMessage.className = "text-red-500 text-sm mt-1";
+  confirmPasswordField.insertAdjacentElement("afterend", errorMessage);
+
+  const validatePasswords = () => {
+    if (passwordField.value !== confirmPasswordField.value) {
+      errorMessage.textContent = "Passwords do not match.";
+      submitButton.disabled = true;
+    } else {
+      errorMessage.textContent = "";
+      submitButton.disabled = false;
+    }
+  };
+
+  passwordField.addEventListener("input", validatePasswords);
+  confirmPasswordField.addEventListener("input", validatePasswords);
+});
+</script>

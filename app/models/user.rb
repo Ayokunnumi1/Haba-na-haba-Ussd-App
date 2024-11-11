@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :event_users
   has_many :events, through: :event_users
   has_one_attached :image
+  
 
   ROLES = %w[super_admin admin branch_manager volunteer].freeze
 
@@ -15,6 +16,9 @@ class User < ApplicationRecord
                        confirmation: { message: 'Password confirmation does not match' },
                        length: { within: 6..128, message: 'Password must be between 6 and 128 characters long' },
                        if: :password_required?
+
+                        validates :password, confirmation: true, if: -> { password.present? }
+                        validates :password_confirmation, presence: true, if: -> { password.present? }
 
   ROLES.each do |role_name|
     define_method "#{role_name.gsub(' ', '_')}?" do

@@ -1,63 +1,77 @@
-<!-- app/views/users/edit_profile.html.erb -->
-<h1>Edit Your Profile</h1>
-
-<% if flash[:notice] %>
-  <div class="alert alert-success">
+<!-- Display Flash Messages -->
+<% if flash[:notice].present? %>
+  <div class="mb-4 p-4 text-green-700 bg-green-100 border border-green-300 rounded">
     <%= flash[:notice] %>
   </div>
-<% elsif flash[:alert] %>
-  <div class="alert alert-danger">
+<% elsif flash[:alert].present? %>
+  <div class="mb-4 p-4 text-red-700 bg-red-100 border border-red-300 rounded">
     <%= flash[:alert] %>
   </div>
 <% end %>
 
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+  <h2 class="text-2xl font-semibold text-gray-700 mb-6">Account Setting</h2>
+  
+  <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, html: { multipart: true }) do |form| %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Personal Information Section -->
+      <div class="col-span-1">
+        <!-- First Name -->
+        <div class="mb-4">
+          <%= form.label :first_name, "First Name", class: "block text-gray-700" %>
+          <%= form.text_field :first_name, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        </div>
 
-<%= form_with(model: @user, url: update_profile_user_path(@user), local: true) do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+        <!-- Last Name -->
+        <div class="mb-4">
+          <%= form.label :last_name, "Last Name", class: "block text-gray-700" %>
+          <%= form.text_field :last_name, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <%= form.label :email, "Email", class: "block text-gray-700" %>
+          <%= form.email_field :email, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <%= form.label :password, "Password", class: "block text-gray-700" %>
+          <%= form.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+          <p class="text-sm text-gray-500">(Leave blank if you don't want to change it)</p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4">
+          <%= form.label :password_confirmation, "Confirm Password", class: "block text-gray-700" %>
+          <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-4">
+          <%= form.label :phone_number, "Phone Number", class: "block text-gray-700" %>
+          <%= form.text_field :phone_number, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        </div>
+      </div>
+
+      <!-- Profile Image Section -->
+      <div class="col-span-1 flex flex-col items-center">
+        <div class="relative w-32 h-32 rounded-full overflow-hidden bg-gray-200 border border-gray-300">
+          <% if @user.image.attached? %>
+            <%= image_tag @user.image, class: "object-cover w-full h-full" %>
+          <% else %>
+            <%= content_tag(:span, '', class: "fa fa-user text-gray-400 text-6xl flex items-center justify-center w-full h-full") %>
+          <% end %>
+        </div>
+        <div class="mt-4">
+          <%= form.file_field :image, class: "w-full text-center" %>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Submit Button -->
+    <div class="mt-6">
+      <%= form.submit "Update Profile", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password, autocomplete: "new-password" %>
-    <p>(leave blank if you don't want to change it)</p>
-  </div>
-
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Update Profile" %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', user_path(@user) %>
+</div>

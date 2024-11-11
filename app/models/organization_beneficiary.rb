@@ -12,10 +12,19 @@ class OrganizationBeneficiary < ApplicationRecord
   def self.apply_filters(params)
     beneficiaries = OrganizationBeneficiary.all
 
-    beneficiaries = beneficiaries.where('organization_name ILIKE ?', "%#{params[:organization_name]}%") if params[:organization_name].present?
-    beneficiaries = beneficiaries.where('registration_no ILIKE ?', "%#{params[:registration_no]}%") if params[:registration_no].present?
+    if params[:organization_name].present?
+      beneficiaries = beneficiaries.where('organization_name ILIKE ?',
+                                          "%#{params[:organization_name]}%")
+    end
+    if params[:registration_no].present?
+      beneficiaries = beneficiaries.where('registration_no ILIKE ?',
+                                          "%#{params[:registration_no]}%")
+    end
     beneficiaries = beneficiaries.where('case_name ILIKE ?', "%#{params[:case_name]}%") if params[:case_name].present?
-    beneficiaries = beneficiaries.where('phone_number ILIKE ?', "%#{params[:phone_number]}%") if params[:phone_number].present?
+    if params[:phone_number].present?
+      beneficiaries = beneficiaries.where('phone_number ILIKE ?',
+                                          "%#{params[:phone_number]}%")
+    end
 
     if params[:min_people].present? || params[:max_people].present?
       min_people = params[:min_people].presence || 0

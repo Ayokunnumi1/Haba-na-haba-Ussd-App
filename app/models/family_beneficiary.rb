@@ -13,10 +13,19 @@ class FamilyBeneficiary < ApplicationRecord
   def self.apply_filters(params)
     beneficiaries = FamilyBeneficiary.all
 
-    beneficiaries = beneficiaries.where('fathers_name ILIKE ?', "%#{params[:fathers_name]}%") if params[:fathers_name].present?
-    beneficiaries = beneficiaries.where('mothers_name ILIKE ?', "%#{params[:mothers_name]}%") if params[:mothers_name].present?
+    if params[:fathers_name].present?
+      beneficiaries = beneficiaries.where('fathers_name ILIKE ?',
+                                          "%#{params[:fathers_name]}%")
+    end
+    if params[:mothers_name].present?
+      beneficiaries = beneficiaries.where('mothers_name ILIKE ?',
+                                          "%#{params[:mothers_name]}%")
+    end
     beneficiaries = beneficiaries.where('case_name ILIKE ?', "%#{params[:case_name]}%") if params[:case_name].present?
-    beneficiaries = beneficiaries.where('phone_number ILIKE ?', "%#{params[:phone_number]}%") if params[:phone_number].present?
+    if params[:phone_number].present?
+      beneficiaries = beneficiaries.where('phone_number ILIKE ?',
+                                          "%#{params[:phone_number]}%")
+    end
 
     if params[:min_member].present? && params[:max_member].present?
       beneficiaries = beneficiaries.where(family_members: params[:min_member]..params[:max_member])

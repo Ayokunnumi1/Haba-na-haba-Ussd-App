@@ -8,6 +8,22 @@
     <!-- Form container -->
     <div class="w-full bg-white rounded-lg shadow dark:border sm:max-w-md md:max-w-xl xl:p-0 dark:bg-gray-800 dark:border-gray-700">
       <div class="p-6 space-y-4 md:space-y-8 md:space-y-2 sm:p-8">
+
+      <!-- Flash Message -->
+      <% if flash.any? %>
+        <div class="text-center mb-4">
+          <% flash.each do |type, message| %>
+            <div class="p-4 mb-4 text-sm font-medium rounded-lg
+                <%= 'bg-green-100 text-green-800' if type == 'notice' %>
+                <%= 'bg-red-100 text-red-800' if type == 'alert' %>
+                <%= 'bg-yellow-100 text-yellow-800' if type == 'warning' %>
+            ">
+              <%= message %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      
         <h1 class="text-xl leading-tight font-Outfit font-semibold tracking-tight text-darkBlue md:text-2xl text-center">
           Login to Account
         </h1>

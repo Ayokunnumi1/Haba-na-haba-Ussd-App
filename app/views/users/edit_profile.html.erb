@@ -1,19 +1,37 @@
-<!-- Display Flash Messages -->
-<% if flash[:notice].present? %>
-  <div class="mb-4 p-4 text-green-700 bg-green-100 border border-green-300 rounded">
-    <%= flash[:notice] %>
-  </div>
-<% elsif flash[:alert].present? %>
-  <div class="mb-4 p-4 text-red-700 bg-red-100 border border-red-300 rounded">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
-
 <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
-  <h2 class="text-2xl font-semibold text-gray-700 mb-6">Account Setting</h2>
+  <h2 class="text-2xl font-Outfit font-semibold text-gray-700 mb-6">Account Setting</h2>
   
   <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, html: { multipart: true }) do |form| %>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Profile Image Section -->
+    <div class="col-span-1 flex flex-col items-center">
+<!-- Image Container with Upload and Delete Icons -->
+<div class="relative w-32 h-32 rounded-lg overflow-hidden bg-gray-200 border border-gray-300 flex items-center justify-center">
+  <!-- Display the User Image if Attached, Otherwise a Placeholder Icon -->
+  <% if @user.image.attached? %>
+    <%= image_tag @user.image, class: "object-cover w-full h-full rounded-lg" %>
+  <% else %>
+    <%= content_tag(:span, '', class: "fa fa-user text-gray-400 text-6xl flex items-center justify-center") %>
+  <% end %>
+  
+  <!-- Icons Overlay for Upload and Delete -->
+  <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity">
+    <!-- Upload Icon -->
+    <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, html: { multipart: true }) do |form| %>
+      <%= form.file_field :image, class: "hidden", id: "upload-image" %>
+      <label for="upload-image" class="cursor-pointer text-white text-2xl mx-2">
+        <i class="fa fa-upload"></i>
+      </label>
+    <% end %>
+
+    <!-- Delete Icon -->
+    <%= link_to update_profile_user_path(@user, user: { remove_image: true }), method: :patch, class: "text-white text-2xl mx-2" do %>
+      <i class="fa fa-trash"></i>
+    <% end %>
+  </div>
+</div>
+</div>
+
       <!-- Personal Information Section -->
       <div class="col-span-1">
         <!-- First Name -->
@@ -54,24 +72,11 @@
         </div>
       </div>
 
-      <!-- Profile Image Section -->
-      <div class="col-span-1 flex flex-col items-center">
-        <div class="relative w-32 h-32 rounded-full overflow-hidden bg-gray-200 border border-gray-300">
-          <% if @user.image.attached? %>
-            <%= image_tag @user.image, class: "object-cover w-full h-full" %>
-          <% else %>
-            <%= content_tag(:span, '', class: "fa fa-user text-gray-400 text-6xl flex items-center justify-center w-full h-full") %>
-          <% end %>
-        </div>
-        <div class="mt-4">
-          <%= form.file_field :image, class: "w-full text-center" %>
-        </div>
-      </div>
-    </div>
+     
     
     <!-- Submit Button -->
     <div class="mt-6">
-      <%= form.submit "Update Profile", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+      <%= form.submit "Update Profile", class: "px-4 py-2 bg-lightGreen text-white rounded-md hover:bg-lightGreen" %>
     </div>
   <% end %>
 </div>

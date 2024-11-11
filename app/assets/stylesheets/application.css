@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
-
  .bg-login {
   background-color: #6dc13d; /* Light green */
   background-image: url('/assets/Shape.svg'); /* Path to your background image */

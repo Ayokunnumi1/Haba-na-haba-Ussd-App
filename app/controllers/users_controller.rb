@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_profile, :update_profile]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -48,7 +50,29 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def edit_profile
+  end
+
+  def update_profile
+    if @user.update(user_params)
+      flash.now[:notice] = 'Your profile was successfully updated.'
+      render :edit_profile
+    else
+      flash.now[:alert] = 'There was an error updating your profile.'
+      render :edit_profile
+    end
+  end
+  
+  
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    redirect_to root_path, alert: 'Not authorized' unless @user == current_user || current_user.admin?
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :email, :password,

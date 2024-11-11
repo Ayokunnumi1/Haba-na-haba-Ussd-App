@@ -41,6 +41,13 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :users do
+    member do
+      get :edit_profile
+      patch :update_profile
+    end
+  end
   resources :individual_beneficiaries, only: [:index, :show, :destroy]
   resources :family_beneficiaries, only: [:index, :show, :destroy]
   resources :organization_beneficiaries, only: [:index, :show, :destroy]

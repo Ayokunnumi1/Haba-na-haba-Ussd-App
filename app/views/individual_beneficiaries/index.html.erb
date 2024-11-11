@@ -57,23 +57,23 @@
   <table class="min-w-full bg-white shadow-md rounded-lg">
     <thead>
       <tr class="text-darkBlue">
-        <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-1/3">Name</th>
-        <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-1/12">Age</th>
-        <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-1/12">Gender</th>
-        <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-1/6">Case Name</th>
-        <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-1/6">Phone Number</th>
-        <th class="px-6 py-3 text-left font-Outfit text-sm font-bold tracking-wider w-1/6">Father's Name</th>
+        <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/3">Name</th>
+        <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/12">Age</th>
+        <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/12">Gender</th>
+        <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/6">Case Name</th>
+        <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/6">Phone Number</th>
+        <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/6">Father's Name</th>
       </tr>
     </thead>
     <tbody>
       <% @individual_beneficiaries.each do |beneficiary| %>
         <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4 text-sm text-[#6e7079] w-1/3"><%= beneficiary.name %></td>
-          <td class="px-6 py-4 text-sm text-[#6e7079] w-1/12"><%= beneficiary.age %></td>
-          <td class="px-6 py-4 text-sm text-[#6e7079] w-1/12"><%= beneficiary.gender %></td>
-          <td class="px-6 py-4 text-sm text-[#6e7079] w-1/6"><%= beneficiary.case_name %></td>
-          <td class="px-6 py-4 text-sm text-[#6e7079] w-1/6"><%= beneficiary.phone_number %></td>
-          <td class="px-6 py-4 text-sm text-[#6e7079] w-1/6"><%= beneficiary.fathers_name %></td>
+          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/3"><%= beneficiary.name %></td>
+          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/12"><%= beneficiary.age %></td>
+          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/12"><%= beneficiary.gender %></td>
+          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.case_name %></td>
+          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.phone_number %></td>
+          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.fathers_name %></td>
         </tr>
       <% end %>
     </tbody>

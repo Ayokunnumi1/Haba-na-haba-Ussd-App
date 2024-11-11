@@ -14,11 +14,11 @@
  *= require_self
  */
   .bg-login {
-  background-color: #6dc13d; /* Light green */
-  background-image: url('/assets/Shape.svg'); /* Path to your background image */
-  background-size: cover; /* Ensure the image covers the entire background */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Do not repeat the background image */
+  background-color:#6dc13d; /* Light green */
+  background-image:url('/assets/Shape.svg'); /* Path to your background image */
+  background-size:cover; /* Ensure the image covers the entire background */
+  background-position:center; /* Center the background image */
+  background-repeat:no-repeat; /* Do not repeat the background image */
 }
 
 .mobile-yield-content {

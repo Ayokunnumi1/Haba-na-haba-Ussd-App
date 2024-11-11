@@ -84,4 +84,4 @@ gem 'devise'
 # Africastalking-ruby for implement ussd menu
 gem 'africastalking-ruby'
 
-gem "kaminari", "~> 1.2"
+gem 'kaminari', '~> 1.2'

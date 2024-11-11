@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     if params[:user][:remove_image] == "true"
       @user.image.purge if @user.image.attached?
     end
-  
+
     if @user.update(user_params)
       flash[:notice] = 'Your profile was successfully updated.'
       redirect_to edit_profile_user_path(@user)
@@ -66,8 +66,7 @@ class UsersController < ApplicationController
       render :edit_profile
     end
   end
-  
-  
+
   private
 
   def set_user

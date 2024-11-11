@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_profile, :update_profile]
-  before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: %i[show edit update destroy edit_profile update_profile]
+  before_action :authorize_user, only: %i[edit update destroy]
 
   def index
     @users = User.all
@@ -50,13 +50,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def edit_profile
-  end
+  def edit_profile; end
 
   def update_profile
-    if params[:user][:remove_image] == "true"
-      @user.image.purge if @user.image.attached?
-    end
+    @user.image.purge if params[:user][:remove_image] == 'true' && @user.image.attached?
 
     if @user.update(user_params)
       flash[:notice] = 'Your profile was successfully updated.'

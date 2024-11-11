@@ -54,23 +54,23 @@
     <table class="min-w-full bg-white shadow-md rounded-lg">
       <thead>
         <tr class="text-darkBlue">
-          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-6/26">Father</th>
-          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-6/26">Mother</th>
-          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-2/26">Members</th>
-          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-4/26">Case</th>
-          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-4/26">Phone</th>
-          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-4/26">Parish</th>
+          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/5">Father</th>
+          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/5">Mother</th>
+          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-auto">Members</th>
+          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/6">Case</th>
+          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/6">Phone</th>
+          <th class="px-6 py-3 text-left font-Outfit text-base font-bold tracking-wider w-1/6">Parish</th>
         </tr>
       </thead>
       <tbody>
         <% @family_beneficiaries.each do |beneficiary| %>
           <tr class="hover:bg-gray-100">
-            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-6/26"><%= beneficiary.fathers_name %></td>
-            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-6/26"><%= beneficiary.mothers_name %></td>
-            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-2/26"><%= beneficiary.family_members %></td>
-            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-4/26"><%= beneficiary.case_name %></td>
-            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-4/26"><%= beneficiary.phone_number %></td>
-            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-4/26"><%= beneficiary.parish %></td>
+            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/5"><%= beneficiary.fathers_name %></td>
+            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/5"><%= beneficiary.mothers_name %></td>
+            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-auto"><%= beneficiary.family_members %></td>
+            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.case_name %></td>
+            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.phone_number %></td>
+            <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.parish %></td>
           </tr>
         <% end %>
       </tbody>

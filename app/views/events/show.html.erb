@@ -1,0 +1,9 @@
+<h1><%= @event.name %></h1>
+<p><strong>Start Date:</strong> <%= @event.start_date %></p>
+<p><strong>End Date:</strong> <%= @event.end_date %></p>
+<p><strong>District:</strong> <%= @event.district.name %></p>
+<p><strong>County:</strong> <%= @event.county.name %></p>
+<p><strong>Sub County:</strong> <%= @event.sub_county.name %></p>
+
+<%= link_to 'Edit', edit_event_path(@event) %>
+<%= link_to 'Back to Events', events_path %>

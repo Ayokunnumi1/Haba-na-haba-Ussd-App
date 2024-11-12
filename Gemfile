@@ -88,3 +88,6 @@ gem 'kaminari'
 #Font awesome icons
 gem "font-awesome-sass", "6.5.2"
 
+gem 'sassc-rails'
+
+

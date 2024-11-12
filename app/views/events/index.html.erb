@@ -1,12 +1,72 @@
-<h1>Events</h1>
-<%= link_to 'New Event', new_event_path, class: 'btn btn-primary' %>
+<section class="bg-white">
+  <div class="max-w-screen-xl lg:px-12">
+    <!-- Events Section -->
+    <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div class="w-full md:w-1/2">
+          <h2 class="text-2xl font-bold mb-4">Events</h2>
+        </div>
+        
+        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+          <%= link_to new_event_path, class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2' do %>
+            <i class="fa-solid fa-plus mr-2"></i> New Event
+          <% end %>
+        </div>
+      </div>
 
-<ul>
-  <% @events.each do |event| %>
-    <li>
-      <%= link_to event.name, event_path(event) %>
-      <%= link_to 'Edit', edit_event_path(event) %>
-      <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
-  <% end %>
-</ul>
+      <!-- Table for Events -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th class="px-6 py-3 text-left">Event</th>
+              <th class="px-6 py-3 text-left">Start Date</th>
+              <th class="px-6 py-3 text-left">End Date</th>
+              <th class="px-6 py-3 text-left">District</th>
+              <th class="px-6 py-3 text-left">County</th>
+              <th class="px-6 py-3 text-left">SubCounty</th>
+              <th colspan="3" class="px-6 py-3 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+              <tr class="border-b border-gray-200 hover:bg-gray-100">
+                <td class="px-6 py-3"><%= event.name %></td>
+                <td class="px-6 py-3"><%= event.start_date %></td>
+                <td class="px-6 py-3"><%= event.end_date %></td>
+                <td class="px-6 py-3"><%= event.district.name if event.district %></td>
+                <td class="px-6 py-3"><%= event.county.name if event.county %></td>
+                <td class="px-6 py-3"><%= event.sub_county.name if event.sub_county %></td>
+
+                <!-- Individual action buttons (hidden on mobile) -->
+                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+                  <%= link_to 'Show', event_path(event), class: 'text-lightGreen hover:underline' %>
+                </td>
+                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+                  <%= link_to 'Edit', edit_event_path(event), class: 'text-darkBlue hover:underline' %>
+                </td>
+                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+                  <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
+                </td>
+                
+                <!-- Dropdown for actions (only on mobile) -->
+                <td class="px-6 py-3 text-center md:hidden">
+                  <div class="relative">
+                    <button onclick="toggleDropdown(this)" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg" type="button">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
+                      <%= link_to 'Show', event_path(event), class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+                      <%= link_to 'Edit', edit_event_path(event), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
+                      <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

@@ -5,8 +5,7 @@ class User < ApplicationRecord
   has_many :event_users
   has_many :events, through: :event_users
   has_one_attached :image
-  has_many :requests, dependent: :nullify
-
+  
   ROLES = %w[super_admin admin branch_manager volunteer].freeze
 
   validates :first_name, :last_name, :phone_number, :role, :gender, :location, presence: true

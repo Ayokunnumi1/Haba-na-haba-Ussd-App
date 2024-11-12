@@ -4,6 +4,13 @@
 <p><strong>District:</strong> <%= @event.district.name %></p>
 <p><strong>County:</strong> <%= @event.county.name %></p>
 <p><strong>Sub County:</strong> <%= @event.sub_county.name %></p>
+<h2>Assigned Users</h2>
+<ul>
+  <% @event.users.each do |user| %>
+    <li><%= user.full_name %></li>
+  <% end %>
+</ul>
+
 
 <%= link_to 'Edit', edit_event_path(@event) %>
 <%= link_to 'Back to Events', events_path %>

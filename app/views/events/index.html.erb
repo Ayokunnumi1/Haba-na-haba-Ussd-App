@@ -1,5 +1,5 @@
 <section class="bg-white">
-  <div class="max-w-screen-xl lg:px-12">
+  <div class="w-full lg:px-10">
     <!-- Events Section -->
     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -19,33 +19,37 @@
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th class="px-6 py-3 text-left">Event</th>
-              <th class="px-6 py-3 text-left">Start Date</th>
-              <th class="px-6 py-3 text-left">End Date</th>
-              <th class="px-6 py-3 text-left">District</th>
-              <th class="px-6 py-3 text-left">County</th>
-              <th class="px-6 py-3 text-left">SubCounty</th>
+              <th class="px-5 py-3 text-left">Event</th>
+              <th class="px-5 py-3 text-left">Start Date</th>
+              <th class="px-5 py-3 text-left">Start Time</th>
+              <th class="px-5 py-3 text-left">End Date</th>
+              <th class="px-5 py-3 text-left">End Time</th>
+              <th class="px-5 py-3 text-left">District</th>
+              <th class="px-5 py-3 text-left">County</th>
+              <th class="px-5 py-3 text-left">SubCounty</th>
               <th colspan="3" class="px-6 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             <% @events.each do |event| %>
               <tr class="border-b border-gray-200 hover:bg-gray-100">
-                <td class="px-6 py-3"><%= event.name %></td>
-                <td class="px-6 py-3"><%= event.start_date %></td>
-                <td class="px-6 py-3"><%= event.end_date %></td>
-                <td class="px-6 py-3"><%= event.district.name if event.district %></td>
-                <td class="px-6 py-3"><%= event.county.name if event.county %></td>
-                <td class="px-6 py-3"><%= event.sub_county.name if event.sub_county %></td>
+                <td class="px-5 py-3"><%= event.name %></td>
+                <td class="px-5 py-3"><%= event.start_date.strftime("%d-%b-%Y") %></td>
+                <td class="px-5 py-3"><%= event.start_time.strftime("%H:%M") %></td>
+                 <td class="px-5 py-3"><%= event.end_date.strftime("%d-%b-%Y") %></td>
+                <td class="px-5 py-3"><%= event.end_time.strftime("%H:%M") %></td>
+                <td class="px-5 py-3"><%= event.district.name if event.district %></td>
+                <td class="px-5 py-3"><%= event.county.name if event.county %></td>
+                <td class="px-5 py-3"><%= event.sub_county.name if event.sub_county %></td>
 
                 <!-- Individual action buttons (hidden on mobile) -->
-                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+                <td class="px-5 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
                   <%= link_to 'Show', event_path(event), class: 'text-lightGreen hover:underline' %>
                 </td>
-                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+                <td class="px-5 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
                   <%= link_to 'Edit', edit_event_path(event), class: 'text-darkBlue hover:underline' %>
                 </td>
-                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
+                <td class="px-5 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
                   <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
                 </td>
                 

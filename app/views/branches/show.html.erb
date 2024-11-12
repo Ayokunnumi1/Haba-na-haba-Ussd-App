@@ -7,7 +7,7 @@
     <ul class="list-disc pl-6 mt-2 text-gray-600">
       <li><strong>Phone Number:</strong> <%= @branch.phone_number %></li>
       <li><strong>County:</strong> <%= @branch.county.name %></li>
-      <li><strong>District:</strong> <%= @branch.county.district.name %></li>
+      <li><strong>District:</strong><%= @branch.districts.map(&:name).join(', ') %></li>
     </ul>
   </div>
   <div class="flex space-x-4 mt-6">

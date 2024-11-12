@@ -17,7 +17,7 @@
       <tr class="border-b hover:bg-gray-50">
         <td class="py-2 px-4 text-gray-700"><%= branch.name %></td>
         <td class="py-2 px-4 text-gray-700"><%= branch.phone_number %></td>
-        <td class="py-2 px-4 text-gray-700"><%= branch.district.name %></td>
+        <td class="py-2 px-4 text-gray-700"><%= branch.districts.map(&:name).join(', ') %></td>
         <td class="py-2 px-4 text-gray-700"><%= branch.county.name %></td>
         <td class="py-2 px-4">
           <%= link_to 'Show', branch_path(branch), class: 'bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600' %>

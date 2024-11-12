@@ -6,12 +6,6 @@
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                    </div>
-                </th>
                 <th scope="col" class="px-6 py-3">
                     Name
                 </th>
@@ -25,101 +19,67 @@
                     Request type
                 </th>
                 <th scope="col" class="px-6 py-3">
-                Status
+                    Status
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Actions
                 </th>
             </tr>
         </thead>
-       <tbody>
+        <tbody>
             <% @requests.each do |request| %>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <!-- Checkbox Column -->
-                  <td class="w-4 p-4">
-                    <div class="flex items-center">
-                      <input id="checkbox-table-search-<%= request.id %>" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                      <label for="checkbox-table-search-<%= request.id %>" class="sr-only">checkbox</label>
-                    </div>
-                  </td>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <!-- Request Name -->
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <%= request.name %>
+                    </th>
+                    
+                    <!-- Phone Number -->
+                    <td class="px-6 py-4">
+                        <%= request.phone_number %>
+                    </td>
 
-                  <!-- Request Name -->
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <%= request.name %>
-                </th>
+                    <!-- Address -->
+                    <td class="px-6 py-4">
+                        <%= request.residence_address %>
+                    </td>
 
-                  <!-- Phone Number -->
-                <td class="px-6 py-4">
-                  <%= request.phone_number %>
-                </td>
+                    <!-- Request Type -->
+                    <td class="px-6 py-4">
+                        <%= request.request_type %>
+                    </td>
 
-                  <!-- Address -->
-                <td class="px-6 py-4">
-                    <%= request.residence_address %>
-                </td>
+                    <!-- Request Status -->
+                    <td class="px-6 py-4 text-center">
+                        <i class="fa-solid fa-square-check" style="color: #6DC13D;"></i>
+                        fulfilled
+                    </td>
 
-                  <!-- Request Type -->
-                <td class="px-6 py-4">
-                    <%= request.request_type %>
-                </td>
-
-                <!-- Request Status -->
-                <td class="px-6 py-4 text-center">
-                  <i class="fa-solid fa-square-check" style="color: #6DC13D;"></i>
-                  fufilled
-                </td>
-
-                <!-- Dropdown Menu  -->
-                  <td class="px-6 py-4">
-                    <div class="relative inline-block text-left">
-                      <button type="button" onclick="toggleDropdown(<%= request.id %>)" class="rounded-md border border-gray-300 shadow-sm p-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none flex justify-center items-center">
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                      </button>
-                      <div id="dropdown-<%= request.id %>" class="hidden absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                            <%= link_to 'Show', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                            <%= link_to 'Edit', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                            <%= button_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>        
-                            <%= link_to 'Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                            <%= link_to 'Family Beneficiary', new_request_family_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                            <%= link_to 'Organization Benefiary', new_request_organization_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                            <%= link_to 'Add Inventory', new_request_inventory_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                          </div>
-                      </div>
-                    </div>
-                  </td>
-              </tr>
+                    <!-- Dropdown Menu for Actions -->
+                    <td class="px-6 py-4">
+                        <div class="relative inline-block text-left">
+                            <button type="button" onclick="toggleDropdown(<%= request.id %>)" class="rounded-md border border-gray-300 shadow-sm p-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none flex justify-center items-center">
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div id="dropdown-<%= request.id %>" class="hidden absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                    <%= link_to 'Show', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                                    <%= link_to 'Edit', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                                    <%= button_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>        
+                                    <%= link_to 'Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                                    <%= link_to 'Family Beneficiary', new_request_family_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                                    <%= link_to 'Organization Beneficiary', new_request_organization_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                                    <%= link_to 'Add Inventory', new_request_inventory_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             <% end %>
-          </tbody>
-
+        </tbody>
     </table>
-    <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-            </li>
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-            </li>
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-            </li>
-            <li>
-                <a href="#" aria-current="page" class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-            </li>
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-            </li>
-            <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-            </li>
-            <li>
-        <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-            </li>
-        </ul>
-    </nav>
 </div>
+
 

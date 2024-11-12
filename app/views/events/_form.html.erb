@@ -61,15 +61,22 @@
 
     <!-- Additional Users Dropdown -->
     <div class="mb-4">
-      <%= form.label :user_ids, "Select Users to Add", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.collection_select :user_ids, User.all, :id, :full_name, {}, { multiple: true, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" } %>
-      <small class="text-gray-500">Hold Ctrl (Cmd) to select multiple users</small>
-    </div>
+  <%= form.label :user_ids, "Select Users to Add", class: "block text-gray-700 text-sm font-bold mb-2" %>
+  <%= form.collection_select :user_ids, User.order(:role), :id, ->(user) { "#{user.full_name} - #{user.role} - #{user.phone_number}" }, {}, { multiple: true, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" } %>
+  <small class="text-lightGreen">Hold Ctrl (Cmd) to select multiple users</small>
+</div>
+
+  
+
 
     <!-- Submit button -->
-    <div class="actions">
-      <%= form.submit "Submit", class: "w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    <div class="actions flex flex-row space-x-4">
+      <div class="w-1/2">
+      <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      <div class="w-1/2 bg-darkBlue text-white font-Outfit py-2 px-4 rounded-md text-center">
       <%= link_to 'Back to Events', events_path %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -1,5 +1,6 @@
 class Branch < ApplicationRecord
-  belongs_to :district
+  has_many :branch_districts, dependent: :destroy
+  has_many :districts, through: :branch_districts
   belongs_to :county
   has_many :users
 

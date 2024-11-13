@@ -1,80 +1,77 @@
 <section>
-
-    <!-- Navigation -->
+  <!-- Navigation -->
   <div class="flex flex-row justify-between items-center font-Outfit">
-      <div class="block md:hidden">
-        <%= button_to new_user_path, method: :get do  %>
-          <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
-        <% end %>
-      </div>
+    <div class="block md:hidden">
+      <%= button_to new_user_path, method: :get do %>
+        <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
+      <% end %>
+    </div>
 
-      <p class="hidden md:block font-bold">Staffs</p>
+    <p class="hidden md:block font-bold">Staffs</p>
 
-      <div class= "hidden md:block p-4 bg-lightGreen text-white rounded-xl">
-        <%= link_to 'Add New Staff', new_user_path, alt: 'add new staff' %>
-      </div>
-        
-      <div>
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownId2" class="text-black bg-gray-100 hover:bg-lightGreen focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Roles
+    <div class="hidden md:block p-4 bg-lightGreen text-white rounded-xl">
+      <%= link_to 'Add New Staff', new_user_path, alt: 'add new staff' %>
+    </div>
+
+    <div>
+      <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownId2" class="text-black bg-gray-100 hover:bg-lightGreen focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Roles
         <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
         </svg>
-        </button>
-        <!-- Dropdown menu -->
-        <div id="dropdownId2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-          <% @roles.each do |role| %>  
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100"><%= role.titleize %></a>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="dropdownId2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <% @roles.each do |role| %>
+            <li class="block px-4 py-2 hover:bg-gray-100" data-role="<%= role %>">
+              <%= role.titleize %>
             </li>
           <% end %>
-          </ul>
-        </div>
+        </ul>
       </div>
-  </div> 
+    </div>
+  </div>
 
-
-  
   <!-- Users index page displayed -->
-  <div class=" users-grid-container font-Outfit font-lightGray mt-10">
+  <div class="users-grid-container font-Outfit font-lightGray mt-10">
     <% @users.each do |user| %>
-    <ul class="flex justify-between items-center p-5 bg-gray-100 rounded-lg shadow font-Outfit md:block md:relative md:rounded-lg md:p-6 md:bg-white md:shadow-sm md:hover:bg-darkBlue md:hover:text-white md:bg-users-image">
-      <li class="absolute top-2 right-2 hidden md:block">
-        <button id="dropdownButton<%= user.id %>" data-dropdown-toggle="dropdownMenu<%= user.id %>" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4z"/>
-          </svg>
-        </button>
-        <!-- Dropdown menu -->
-        <div id="dropdownMenu<%= user.id %>" class="hidden absolute right-0 mt-2 w-48 bg-white hover:text-white rounded-md shadow-lg z-10">
-          <ul class="py-1 text-sm text-black">
-            <li>
-              <%= link_to 'Show', user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
-            </li>
-            <li>
-              <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
-            </li>
-            <li>
-              <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray" do %>
-                Delete
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="flex justify-center items-center mb-4">
-        <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-12 h-12 md:w-14 h-14 ", alt: user.first_name) %>
-      </li>
-      <li class="flex flex-col justify-center items-center">
-        <p class="font-bold text-sm" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
-        <p class="font-thin text-xs mt-1"><%= user.role.titleize %></p>
-        <p class="hidden md:block font-thin text-xs text-center"><%= user.email %></p>
-      </li>
-      <li class="md:hidden flex flex-row justify-center items-center gap-2">
+      <ul class="flex flex-row justify-between items-center p-5 bg-gray-100 rounded-lg shadow font-Outfit md:block md:relative md:rounded-lg md:p-6 md:bg-white md:shadow-sm md:hover:bg-darkBlue md:hover:text-white bg-users-image" data-users-type="<%= user.role %>">
+        <li class="absolute top-2 right-2 hidden md:block">
+          <button id="dropdownButton<%= user.id %>" data-dropdown-toggle="dropdownMenu<%= user.id %>" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4z"/>
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdownMenu<%= user.id %>" class="hidden absolute right-0 mt-2 w-48 bg-white hover:text-white rounded-md shadow-lg z-10">
+            <ul class="py-1 text-sm text-black">
+              <li>
+                <%= link_to 'Show', user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
+              </li>
+              <li>
+                <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
+              </li>
+              <li>
+                <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray" do %>
+                  Delete
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="flex justify-center items-center mb-4">
+          <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-12 h-12 md:w-14 h-14", alt: user.first_name) %>
+        </li>
+        <li class="flex flex-col justify-center items-center">
+          <p class="font-bold text-sm" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
+          <p class="font-thin text-xs mt-1"><%= user.role.titleize %></p>
+          <p class="hidden md:block font-thin text-xs text-center"><%= user.email %></p>
+        </li>
+        <li class="md:hidden flex flex-row justify-center items-center gap-2">
           <div>
             <%= button_to user_path(user), method: :get do %>
               <%= image_tag("external_link.svg", alt: "edit") %>
-              <% end %>
+            <% end %>
           </div>
 
           <div>
@@ -89,9 +86,7 @@
             <% end %>
           </div>
         </li>
-
-    </ul>
+      </ul>
     <% end %>
   </div>
-
 </section>

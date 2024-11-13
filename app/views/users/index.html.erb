@@ -1,6 +1,6 @@
 <section>
 
- <!-- Navigation -->
+    <!-- Navigation -->
   <div class="flex flex-row justify-between items-center font-Outfit">
       <div class="block md:hidden">
         <%= button_to new_user_path, method: :get do  %>
@@ -35,7 +35,7 @@
 
 
   
-  <!-- Users index page displayed on large screen -->
+  <!-- Users index page displayed -->
   <div class=" users-grid-container font-Outfit font-lightGray mt-10">
     <% @users.each do |user| %>
     <ul class="flex justify-between items-center p-5 bg-gray-100 rounded-lg shadow font-Outfit md:block md:relative md:rounded-lg md:p-6 md:bg-white md:shadow-sm md:hover:bg-darkBlue md:hover:text-white md:bg-users-image">
@@ -68,7 +68,7 @@
       <li class="flex flex-col justify-center items-center">
         <p class="font-bold text-sm" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
         <p class="font-thin text-xs mt-1"><%= user.role.titleize %></p>
-        <p class="hidden md:block font-thin text-xs"><%= user.email %></p>
+        <p class="hidden md:block font-thin text-xs text-center"><%= user.email %></p>
       </li>
       <li class="md:hidden flex flex-row justify-center items-center gap-2">
           <div>

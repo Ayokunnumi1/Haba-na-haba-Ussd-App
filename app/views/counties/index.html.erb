@@ -61,17 +61,6 @@
         </table>
       </div>
 
-      <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
-        <span class="text-sm font-normal text-gray-500 ">
-          Showing
-          <span class="font-semibold text-gray-900"><%= @counties.offset_value + 1 %></span>
-          to
-          <span class="font-semibold text-gray-900"><%= [@counties.offset_value + @counties.limit_value, @counties.total_count].min %></span>
-          of
-          <span class="font-semibold text-gray-900"><%= @counties.total_count %></span>
-        </span>
-        <%= paginate @counties %>
-      </nav>
     </div>
   </div>
 </section>

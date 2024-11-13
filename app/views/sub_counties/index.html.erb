@@ -1,6 +1,5 @@
 <section class="bg-white">
     <div class="max-w-screen-xl lg:px-12">
-        <!-- Start coding here -->
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
@@ -16,14 +15,13 @@
                     </a>
                 </div>
             </div>
-            
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left">Sub county</th>
                             <th scope="col" class="px-6 py-3 text-left">County</th>
-                            <th colspan="3" class="px-6 py-3 text-center">Actions</th>
+                            <th scope="col" class="px-6 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,32 +29,16 @@
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <td class="px-6 py-3 text-left"><%= sub_county.name %></td>
                                 <td class="px-6 py-3 text-left"><%= sub_county.county.name %></td>
-                                
-                                <!-- Individual action buttons (hidden on mobile) -->
-                                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
-                                    <%= link_to 'Show', sub_county, class: 'text-lightGreen hover:underline' %>
-                                </td>
-                                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
-                                    <%= link_to 'Edit', edit_sub_county_path(sub_county), class: 'text-darkBlue hover:underline' %>
-                                </td>
-                                <td class="px-6 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
-                                    <%= button_to 'Destroy', sub_county, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
-                                </td>
-                                
-                                <!-- Dropdown for actions (only on mobile) -->
-                                <td class="px-6 py-3 text-center md:hidden">
+                                <td class="px-6 py-3 text-center">
                                     <div class="relative">
-                                        <!-- Dropdown toggle button -->
-                                        <button onclick="toggleDropdown(this)" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg" type="button">
-                                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                                        </button>
-                                        
-                                        <!-- Dropdown menu -->
-                                        <div class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
-                                            <%= link_to 'Show', sub_county, class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
-                                            <%= link_to 'Edit', edit_sub_county_path(sub_county), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
-                                            <%= button_to 'Destroy', sub_county, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
-                                        </div>
+                                    <button data-dropdown-toggle="dropdown-<%= sub_county.id %>" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg" type="button">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <div id="dropdown-<%= sub_county.id %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
+                                        <%= link_to 'Show', sub_county, class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+                                        <%= link_to 'Edit', edit_sub_county_path(sub_county), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
+                                        <%= button_to 'Destroy', sub_county, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
+                                    </div>
                                     </div>
                                 </td>
                             </tr>
@@ -65,36 +47,5 @@
                 </table>
             </div>
         </div>
-        
-        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500 ">
-                Showing
-                <span class="font-semibold text-gray-900"><%= @sub_counties.offset_value + 1 %></span>
-                to
-                <span class="font-semibold text-gray-900"><%= [@sub_counties.offset_value + @sub_counties.limit_value, @sub_counties.total_count].min %></span>
-                of
-                <span class="font-semibold text-gray-900"><%= @sub_counties.total_count %></span>
-            </span>
-            <%= paginate @sub_counties %>
-        </nav>
     </div>
 </section>
-
-<script>
-    function toggleDropdown(button) {
-        const dropdown = button.nextElementSibling;
-        dropdown.classList.toggle('hidden');
-    }
-    
-    // Optional: Close dropdown when clicking outside
-    document.addEventListener('click', function (event) {
-        const isDropdownButton = event.target.closest('[onclick="toggleDropdown(this)"]');
-        const dropdowns = document.querySelectorAll('.relative .absolute');
-    
-        dropdowns.forEach(dropdown => {
-            if (!isDropdownButton || !dropdown.contains(isDropdownButton.nextElementSibling)) {
-                dropdown.classList.add('hidden');
-            }
-        });
-    });
-</script>

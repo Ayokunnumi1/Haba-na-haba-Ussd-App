@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'login-bg': "url('/assets/Shape.svg')",
+      },
       colors: {
         darkBlue: "#302C51",
         lightGreen: "#6DC13D",

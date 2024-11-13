@@ -20,13 +20,6 @@
   justify-content: center;
 }
 
-.bg-users-image {
-  background-image: url('/assets/users-image.svg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .bg-users-show {
   background-image: url('/assets/users-show.svg');
   background-size: cover;
@@ -84,6 +77,13 @@
   .users-grid-container {
     gap: 15px;
   }
+
+    .bg-users-image {
+      background-image: url('/assets/users-image.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
 }
 
 @media screen and (min-width: 820px) {

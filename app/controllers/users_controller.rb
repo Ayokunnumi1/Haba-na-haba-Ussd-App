@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.order(created_at: :desc)
+    @roles = User::ROLES
   end
 
   def show

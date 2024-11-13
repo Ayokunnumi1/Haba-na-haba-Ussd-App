@@ -26,7 +26,7 @@ module.exports = {
       },
       height: {
         30: "30px",
-      },
+      },      
     },
   },
   plugins: [

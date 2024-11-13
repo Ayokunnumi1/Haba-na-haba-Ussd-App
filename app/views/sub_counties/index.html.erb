@@ -24,26 +24,28 @@
                             <th scope="col" class="px-6 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <% @sub_counties.each do |sub_county| %>
-                            <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                <td class="px-6 py-3 text-left"><%= sub_county.name %></td>
-                                <td class="px-6 py-3 text-left"><%= sub_county.county.name %></td>
-                                <td class="px-6 py-3 text-center">
-                                    <div class="relative">
-                                    <button data-dropdown-toggle="dropdown-<%= sub_county.id %>" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg" type="button">
-                                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </button>
-                                    <div id="dropdown-<%= sub_county.id %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
-                                        <%= link_to 'Show', sub_county, class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
-                                        <%= link_to 'Edit', edit_sub_county_path(sub_county), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
-                                        <%= button_to 'Destroy', sub_county, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
-                                    </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        <% end %>
-                    </tbody>
+                    
+<tbody>
+<% @sub_counties.each do |sub_county| %>
+  <tr class="border-b border-gray-200 hover:bg-gray-100">
+    <td class="px-6 py-3 text-left"><%= sub_county.name %></td>
+    <td class="px-6 py-3 text-left"><%= sub_county.county.name %></td>
+    <td class="px-6 py-3 text-center">
+      <div class="relative">
+        <button data-dropdown-toggle="dropdown-<%= sub_county.id %>" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg" type="button">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+        <div id="dropdown-<%= sub_county.id %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
+          <%= link_to 'Show', sub_county, class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+          <%= link_to 'Edit', edit_sub_county_path(sub_county), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
+          <%= button_to 'Destroy', sub_county, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
+        </div>
+      </div>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+
                 </table>
             </div>
         </div>

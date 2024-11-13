@@ -93,7 +93,7 @@ end
 puts "Seeded users."
 
 # Seed Requests
-request_types = ["food", "donation"]
+request_types = ["Beneficiary", "Donation"]
 10.times do
   Request.create!(
     name: Faker::Name.name,

@@ -51,7 +51,6 @@ class RequestsController < ApplicationController
     else
       redirect_to requests_url, alert: 'Failed to delete request.'
     end
-  
   end
 
   def load_counties

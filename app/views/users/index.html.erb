@@ -1,48 +1,7 @@
 <section>
 
   <div class="flex justify-between items-center lg:hidden">
-    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownId" class="text-black bg-gray-100 hover:bg-lightGreen focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center " type="button">Branch
-      <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-      </svg>
-    </button>
-  
-      <!-- Dropdown menu -->
-    <div id="dropdownId" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
-      <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Busiro</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Goma</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Budondo</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Nakigo</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Arapai</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Kapujan</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Gayaza</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Busiu</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Bushika</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Kakindo</a>
-        </li>
-      </ul>
-    </div>
-  
+      
     <%= button_to new_user_path, method: :get do  %>
       <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
     <% end %>
@@ -56,18 +15,11 @@
     <!-- Dropdown menu -->
     <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
       <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+      <% @roles.each do |role| %>  
         <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Super Admin</a>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100"><%= role.titleize %></a>
         </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Admin</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Branch Manager</a>
-        </li>
-        <li>
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Volunteer</a>
-        </li>
+      <% end %>         
       </ul>
     </div>
   </div>
@@ -125,18 +77,11 @@
         <!-- Dropdown menu -->
         <div id="dropdownId2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <% @roles.each do |role| %>  
             <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Super Admin</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100"><%= role.titleize %></a>
             </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Admin</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Branch Manager</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Volunteer</a>
-            </li>
+          <% end %>
           </ul>
         </div>
       </div>

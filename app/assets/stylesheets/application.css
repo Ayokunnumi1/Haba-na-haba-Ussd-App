@@ -78,12 +78,12 @@
     gap: 15px;
   }
 
-    .bg-users-image {
-      background-image: url('/assets/users-image.svg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+  .bg-users-image {
+    background-image: url('/assets/users-image.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 @media screen and (min-width: 820px) {

@@ -3,8 +3,6 @@
   <h2 class="text-center text-lightGreen text-xl font-Outfit font-semibold">Add New User</h2>
     <div class="space-y-4">
       <%= form.label :Name, class: "block text-base font-Outfit font-semibold text-gray-800" %>
-
-      <!-- Name Fields -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <%= form.text_field :first_name, placeholder: "First Name", required: true, class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" %>
@@ -13,18 +11,11 @@
           <%= form.text_field :last_name, placeholder: "Last Name", required: true, class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" %>
         </div>
       </div>
-
-
-      <!-- User Information Fields -->
       <div class="space-y-4">
-        <!-- Email Input -->
         <%= form.label :UserInformation, "User Information", class: "block text-base font-Outfit font-semibold text-gray-800" %>
-
         <div>
           <%= form.text_field :email, placeholder: "example@email.com", required: true, class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" %>
         </div>
-
-        <!-- Password and Confirm Password Fields -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <%= form.password_field :password, placeholder: "Password", class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" %>
@@ -34,8 +25,6 @@
           </div>
         </div>
         <p class="text-xs text-gray-500 mt-1">Leave blank if you don't want to change the password.</p>
-
-        <!-- Phone Number and Role Fields -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
            <div class="w-full p-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
            <%= form.collection_select :branch_id, Branch.all, :id, :name, { include_blank: "Select User Branch" }, class:     "appearance-none border-none" %>
@@ -48,14 +37,10 @@
             <%= form.telephone_field :phone_number, placeholder: "Phone Number", required: true, class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" %>
           </div>
       </div>
-
-      <!-- Image Input -->
       <div>
         <%= form.label :image, class: "block text-base font-Outfit font-semibold text-gray-800" %>
         <%= form.file_field :image, class: "w-full p-2 color-lightGreen rounded-lg" %>
       </div>
-
-      <!-- Submit Button -->
       <div>
         <%= form.submit 'Create User', class: "w-full py-2 px-4 bg-lightGreen font-Outfit text-white font-semibold rounded-lg hover:bg-darkBlue focus:ring-2 focus:ring-indigo-500" %>
       </div>

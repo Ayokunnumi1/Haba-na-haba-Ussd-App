@@ -13,12 +13,12 @@
  *= require_tree .
  *= require_self
  */
-.users-grid-container {
+/* .users-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 10px;
   justify-content: center;
-}
+} */
 
 .bg-users-show {
   background-image: url('/assets/users-show.svg');
@@ -72,17 +72,6 @@
     position: fixed;
     top: 5rem;
     left: 1rem;
-  }
-
-  .users-grid-container {
-    gap: 15px;
-  }
-
-  .bg-users-image {
-    background-image: url('/assets/users-image.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 }
 

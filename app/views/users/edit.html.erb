@@ -67,6 +67,30 @@
           <%= form.password_field :password_confirmation, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
         </div>
       </div>
+     <% if @is_own_profile %>
+        <!-- Show the values but make them non-editable -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-row">
+            <strong>Role:</strong> <%= @user.role %>
+          </div>
+          <div class="flex flex-row">
+            <strong>Branch:</strong> <%= @user.branch.name %>
+          </div>
+        </div>
+      <% else %>
+        <!-- Show input fields side by side for editing another user's profile -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col">
+            <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.select :role, User::ROLES, { include_blank: true }, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+          </div>
+
+          <div class="flex flex-col">
+            <%= form.label :branch_id, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.collection_select :branch_id, Branch.all, :id, :name, { include_blank: true }, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

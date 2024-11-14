@@ -1,51 +1,60 @@
-document.addEventListener("DOMContentLoaded", () => {
+function toggleDropdown(event, button) {
+  event.stopPropagation();
+
+  // Find the dropdown menu within the same dropdown container
+  const dropdownContainer = button.closest("[data-dropdown-container]");
+  const dropdownMenu = dropdownContainer.querySelector("[data-dropdown-menu]");
   const dataTable = document.querySelector(".data-table");
 
-  document.querySelectorAll(".actions-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
+  // Check if dropdown menu exists
+  if (!dropdownMenu) {
+    console.error("Dropdown element not found");
+    return;
+  }
 
-      // Get the associated dropdown for this button
-      const dropdown = button.nextElementSibling;
+  // Close all other dropdowns
+  document.querySelectorAll("[data-dropdown-menu]").forEach((menu) => {
+    if (menu !== dropdownMenu) menu.classList.add("hidden");
+  });
 
-      // Check if the dropdown is already open
-      const isDropdownOpen = !dropdown.classList.contains("hidden");
+  // Toggle visibility of this dropdown menu
+  const isDropdownOpen = !dropdownMenu.classList.contains("hidden");
+  dropdownMenu.classList.toggle("hidden", isDropdownOpen);
 
-      // Close all other dropdowns
-      document.querySelectorAll(".dropdown-menu").forEach((menu) => {
-        menu.classList.add("hidden");
-      });
+  // Adjust dropdown position if necessary
+  if (!isDropdownOpen) {
+    dropdownMenu.style.top = "";
+    dropdownMenu.style.bottom = "";
 
-      // Toggle this dropdown based on its current state
-      if (!isDropdownOpen) {
-        // Reset position before calculating
-        dropdown.style.top = "";
-        dropdown.style.bottom = "";
+    const buttonRect = button.getBoundingClientRect();
+    const dropdownRect = dropdownMenu.getBoundingClientRect();
+    const dataTableRect = dataTable.getBoundingClientRect();
 
-        // Calculate the necessary heights
-        const buttonRect = button.getBoundingClientRect();
-        const dropdownRect = dropdown.getBoundingClientRect();
-        const dataTableRect = dataTable.getBoundingClientRect();
+    // Check if the dropdown goes out of view below and adjust
+    if (buttonRect.bottom + dropdownRect.height > dataTableRect.bottom) {
+      dropdownMenu.style.bottom = `${buttonRect.height}px`;
+    } else {
+      dropdownMenu.style.top = `${buttonRect.height}px`;
+    }
+  }
+}
 
-        // Check if dropdown would go out of the data-table view and adjust position
-        if (buttonRect.bottom + dropdownRect.height > dataTableRect.bottom) {
-          // Not enough space below, position above
-          dropdown.style.bottom = `${buttonRect.height}px`;
-        } else {
-          // Enough space below, position below
-          dropdown.style.top = `${buttonRect.height}px`;
-        }
-
-        // Show the dropdown
-        dropdown.classList.remove("hidden");
-      }
-    });
+function initializeDropdowns() {
+  document.querySelectorAll("[data-dropdown-button]").forEach((button) => {
+    button.addEventListener("click", (event) => toggleDropdown(event, button));
   });
 
   // Close dropdown when clicking outside
   document.addEventListener("click", () => {
-    document.querySelectorAll(".dropdown-menu").forEach((dropdown) => {
+    document.querySelectorAll("[data-dropdown-menu]").forEach((dropdown) => {
       dropdown.classList.add("hidden");
     });
   });
-});
+}
+
+// Expose functions to the global scope
+window.toggleDropdown = toggleDropdown;
+window.initializeDropdowns = initializeDropdowns;
+
+// Initialize dropdowns on DOM content load
+document.addEventListener("DOMContentLoaded", initializeDropdowns);

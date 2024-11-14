@@ -26,7 +26,13 @@ module.exports = {
       },
       height: {
         30: "30px",
-      },      
+      },
+      backgroundImage: {
+        "users-image": "url('/assets/users-image.svg')",
+      },
+      screens: {
+        mmd: "441px",
+      },
     },
   },
   plugins: [

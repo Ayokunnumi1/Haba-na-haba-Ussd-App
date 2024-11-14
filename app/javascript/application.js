@@ -4,6 +4,7 @@ import "controllers";
 import "./controllers";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
+import "./dropdown";
 import "flowbite"
 import 'select2/dist/css/select2.min.css';
 import $ from 'jquery';

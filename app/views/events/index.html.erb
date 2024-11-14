@@ -40,32 +40,22 @@
                 <td class="px-5 py-3"><%= event.end_time.strftime("%H:%M") %></td>
                 <td class="px-5 py-3"><%= event.district.name if event.district %></td>
                 <td class="px-5 py-3"><%= event.county.name if event.county %></td>
-                <td class="px-5 py-3"><%= event.sub_county.name if event.sub_county %></td>
-
-                <!-- Individual action buttons (hidden on mobile) -->
-                <td class="px-5 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
-                  <%= link_to 'Show', event_path(event), class: 'text-lightGreen hover:underline' %>
-                </td>
-                <td class="px-5 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
-                  <%= link_to 'Edit', edit_event_path(event), class: 'text-darkBlue hover:underline' %>
-                </td>
-                <td class="px-5 py-3 text-center hidden md:table-cell font-Outfit font-semibold">
-                  <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
-                </td>
-                
-                <!-- Dropdown for actions (only on mobile) -->
-                <td class="px-6 py-3 text-center md:hidden">
-                  <div class="relative">
-                    <button onclick="toggleDropdown(this)" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-lg" type="button">
-                      <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </button>
-                    <div class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
-                      <%= link_to 'Show', event_path(event), class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
-                      <%= link_to 'Edit', edit_event_path(event), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
-                      <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
-                    </div>
+                <td class="px-5 py-3"><%= event.sub_county.name if event.sub_county %></td>     
+                <td class="px-6 py-3 text-center">
+                <div class="relative">
+                  <button data-dropdown-toggle="dropdown-<%= event.id %>" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 border border-lightGreen rounded" type="button">
+                  <div class="p-1 flex flex-row justify-center items-center  space-between">
+                  <span class="hidden md:block lg:block " >Actions</span>
+                  <i class="fa-solid fa-chevron-down"></i>
                   </div>
-                </td>
+                  </button>
+                  <div id="dropdown-<%= event.id %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
+                    <%= link_to 'Show', event_path(event), class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+                    <%= link_to 'Edit', edit_event_path(event), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
+                    <%= button_to 'Destroy', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
+                  </div>
+                </div>
+              </td>
               </tr>
             <% end %>
           </tbody>
@@ -74,21 +64,3 @@
     </div>
   </div>
 </section>
-<script>
-    function toggleDropdown(button) {
-        const dropdown = button.nextElementSibling;
-        dropdown.classList.toggle('hidden');
-    }
-    
-    // Optional: Close dropdown when clicking outside
-    document.addEventListener('click', function (event) {
-        const isDropdownButton = event.target.closest('[onclick="toggleDropdown(this)"]');
-        const dropdowns = document.querySelectorAll('.relative .absolute');
-    
-        dropdowns.forEach(dropdown => {
-            if (!isDropdownButton || !dropdown.contains(isDropdownButton.nextElementSibling)) {
-                dropdown.classList.add('hidden');
-            }
-        });
-    });
-</script>

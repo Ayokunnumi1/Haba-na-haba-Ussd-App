@@ -1,10 +1,10 @@
 <section class="flex flex-col justify-center items-center overflow-hidden md:mt-20 lg:mt-10">
-  <div class="bg-darkBlue py-10 px-8 text-white rounded-2xl font-Outfit bg-users-show max-w-lg w-full md:max-w-2xl lg:max-w-3xl shadow-lg">
-    <%= button_to users_path, method: :get, class: "mb-4 inline-flex items-center text-white hover:text-gray-300 transition duration-150 ease-in-out" do %>
+  <div class="bg-darkBlue px-8 text-white rounded-2xl font-Outfit bg-users-show max-w-lg w-full md:max-w-2xl lg:max-w-3xl shadow-lg">
+    <%= button_to users_path, method: :get, class: "mt-5 inline-flex items-center text-white hover:text-gray-300 transition duration-150 ease-in-out" do %>
       <%= image_tag("back-icon.svg", alt: "back", class: "w-6 h-6 mr-2") %> Back
     <% end %>
 
-    <div class="flex flex-col justify-center items-center gap-4 md:gap-6">
+    <div class="flex flex-col justify-center items-center gap-4">
       <div class="flex justify-center items-center">
         <%= image_tag(@user.image.attached? ? url_for(@user.image) : "user.png", class: "rounded-full w-20 h-20 md:w-24 md:h-24 border-4 border-white shadow-md", alt: @user.first_name) %>
       </div>

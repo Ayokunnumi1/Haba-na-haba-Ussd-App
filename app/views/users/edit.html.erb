@@ -1,42 +1,81 @@
-<%= form_with model: @user, local: true do |form| %>
-  <div>
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name, required: true %>
+<h2 class="font-bold font-Outfit text-lg">Account Settings</h2>
+<div class="w-full max-w-3xl mx-auto font-Outfit">
+  <!-- Profile Section -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-6 ">
+    <div class="flex items-center space-x-4">
+      <!-- Image Placeholder -->
+      <div class="relative w-32 h-32 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+        <% if @user.image.attached? %>
+          <%= image_tag @user.image, class: "w-32 h-32 rounded-full " %>
+        <% else %>
+          <i class="fas fa-user text-gray-500 text-4xl"></i>
+        <% end %>
+      </div>
+
+      <!-- User Info and Change Picture Button -->
+      <div class="flex-1">
+        <h3 class="text-lg font-semibold"><%= @user.first_name %> <%= @user.last_name %></h3>
+        <p class="text-sm text-gray-500"><%= @user.role %></p>
+
+        <!-- Hidden File Input -->
+        <%= form_with model: @user, local: true, html: { id: "change-picture-form" } do |form| %>
+          <%= form.file_field :image, id: "image-upload", class: "hidden", onchange: "document.getElementById('change-picture-form').submit();" %>
+        <% end %>
+
+        <!-- Change Picture Button -->
+        <button onclick="document.getElementById('image-upload').click()" class="inline-flex  mt-2 justify-center py-1 px-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"><span class="p-5">Change Picture</span></button>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name, required: true %>
+
+
+  <!-- Form Section -->
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <!-- General Information Heading and Update Button -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">General Information</h2>
+      <%= form_with model: @user, local: true do |form| %>
+        <%= form.submit 'Update User', class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      <% end %>
+    </div>
+
+    <%= form_with model: @user, local: true do |form| %>
+      <!-- First and Last name fields -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.text_field :first_name, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+        </div>
+        <div>
+          <%= form.label :last_name, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.text_field :last_name, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+        </div>
+      </div>
+
+      <!-- Email and Phone number fields -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.email_field :email, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+        </div>
+        <div>
+          <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.telephone_field :phone_number, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+        </div>
+      </div>
+
+      <!-- Password and Confirm Password fields -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.password_field :password, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+          <small class="text-gray-500">Leave blank if you don't want to change the password</small>
+        </div>
+        <div>
+          <%= form.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.password_field :password_confirmation, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+        </div>
+      </div>
+    <% end %>
   </div>
-  <div>
-    <%= form.label :image %>
-    <%= form.file_field :image %>
-  </div>
-  <div>
-    <%= form.label :phone_number %>
-    <%= form.telephone_field :phone_number, required: true %>
-  </div>
-  <div>
-    <%= form.label :role %>
-    <%= form.select :role, User::ROLES, { include_blank: true }, required: true %>
-  </div>
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email, required: true %>
-  </div>
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-    <small>Leave blank if you don't want to change the password</small>
-  </div>
-  <div>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-  <div>
-    <%= form.label :branch_id %>
-    <%= form.collection_select :branch_id, Branch.all, :id, :name, { include_blank: true } %>
-  </div>
-  <div>
-    <%= form.submit 'Update User' %>
-  </div>
-<% end %>
+</div>

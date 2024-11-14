@@ -1,7 +1,7 @@
 <div class="flex justify-between items-center">
   <h2 class="text-2xl font-bold">Individual Beneficiaries</h2>
   <div>
-    <button class="toggle-button bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" onclick="toggleFilter()">
+    <button class="toggle-button bg-lightGreen text-white py-2 px-4 rounded hover:bg-lime-600" onclick="toggleFilter()">
       Filter
     </button>
     <%= link_to "Clear Filters", individual_beneficiaries_path, class: "clear-filter ml-4 text-gray-500 py-2 px-4 bg-gray-100 rounded hover:underline hover:bg-gray-200" %>
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="mt-4">
-        <%= form.submit "Filter", class: "inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" %>
+        <%= form.submit "Filter", class: "inline-block bg-lightGreen text-white py-2 px-4 rounded hover:bg-lime-600" %>
       </div>
     <% end %>
   </div>

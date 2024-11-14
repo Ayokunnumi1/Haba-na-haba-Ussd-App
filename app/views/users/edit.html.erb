@@ -1,32 +1,35 @@
 <h2 class="font-bold font-Outfit text-lg ">Account Settings</h2>
 <div class="w-full max-w-3xl mx-auto font-Outfit">
-  <!-- Profile Section -->
-  <div class="bg-white shadow-md rounded-md- p-6 mb-6 ">
-    <div class="flex items-center space-x-4">
-      <!-- Image Placeholder -->
-      <div class="relative w-32 h-32 rounded-md overflow-hidden bg-gray-200 flex items-center justify-center">
-        <% if @user.image.attached? %>
-          <%= image_tag @user.image, class: "w-32 h-32 rounded-md " %>
-        <% else %>
-          <i class="fas fa-user text-gray-500 text-4xl"></i>
-        <% end %>
-      </div>
+<!-- Profile Section -->
+<div class="bg-white shadow-md rounded-md p-6 mb-6 flex justify-center items-center">
+  <div class="flex items-start space-x-4">
+    <!-- Image Placeholder -->
+    <div class="relative w-32 h-32 rounded-md overflow-hidden bg-gray-200 flex items-center justify-center">
+      <% if @user.image.attached? %>
+        <%= image_tag @user.image, class: "w-32 h-32 rounded-md" %>
+      <% else %>
+        <i class="fas fa-user text-gray-500 text-4xl"></i>
+      <% end %>
+    </div>
 
-      <!-- User Info and Change Picture Button -->
-      <div class="flex-1">
-        <h3 class="text-lg font-semibold"><%= @user.first_name %> <%= @user.last_name %></h3>
-        <p class="text-sm text-gray-500"><%= @user.role %></p>
+    <!-- User Info and Change Picture Button -->
+    <div class="flex flex-col justify-end ">
+      <h3 class="text-lg font-semibold"><%= @user.first_name %> <%= @user.last_name %></h3>
+      <p class="text-sm text-gray-500"><%= @user.role %></p>
 
-        <!-- Hidden File Input -->
-        <%= form_with model: @user, local: true, html: { id: "change-picture-form" } do |form| %>
-          <%= form.file_field :image, id: "image-upload", class: "hidden", onchange: "document.getElementById('change-picture-form').submit();" %>
-        <% end %>
+      <!-- Hidden File Input -->
+      <%= form_with model: @user, local: true, html: { id: "change-picture-form" } do |form| %>
+        <%= form.file_field :image, id: "image-upload", class: "hidden", onchange: "document.getElementById('change-picture-form').submit();" %>
+      <% end %>
 
-        <!-- Change Picture Button -->
-        <button onclick="document.getElementById('image-upload').click()" class="inline-flex  mt-2 justify-center py-1 px-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"><span class="p-5">Change Picture</span></button>
-      </div>
+      <!-- Change Picture Button -->
+      <button onclick="document.getElementById('image-upload').click()" class="inline-flex mt-2 justify-center py-1 px-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+        <span class="p-5">Change Picture</span>
+      </button>
     </div>
   </div>
+</div>
+
 
 
   <!-- Form Section -->

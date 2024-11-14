@@ -4,13 +4,13 @@ document.addEventListener("turbo:load", function () {
 
   if (districtSelect) {
     districtSelect.addEventListener("change", function () {
-      const districtId = districtSelect.value;
+      const selectedDistrictIds = Array.from(districtSelect.selectedOptions).map(option => option.value);
       const contextPath = districtSelect.dataset.contextPath || "";
 
       countySelect.innerHTML = "<option value=''>Select County</option>";
 
-      if (districtId) {
-        fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
+      if (selectedDistrictIds.length > 0) {
+        fetch(`/${contextPath}/load_counties?district_ids=${selectedDistrictIds.join(",")}`)
           .then((response) => response.json())
           .then((data) => {
             data.forEach((county) => {

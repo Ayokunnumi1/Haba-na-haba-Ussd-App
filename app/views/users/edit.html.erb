@@ -1,96 +1,98 @@
-<h2 class="font-bold font-Outfit text-lg mb-8">Account Settings</h2>
-<div class="w-full max-w-3xl mx-auto font-Outfit">
-<div class="bg-lightGreen bg-login-bg bg-cover bg-center bg-no-repeat shadow-md rounded-md p-6 mb-6 flex justify-center items-center">
-  <div class="flex items-end space-x-4">
-    <div class="relative w-32 h-32 rounded-md overflow-hidden bg-gray-200 flex items-center justify-center">
-      <% if @user.image.attached? %>
-        <%= image_tag @user.image, class: "w-32 h-32 rounded-md" %>
-      <% else %>
-        <i class="fas fa-user text-gray-500 text-4xl"></i>
-      <% end %>
-    </div>
-    <div class="flex flex-col justify-end space-y-2">
-      <h3 class="text-lg font-semibold text-white"><%= @user.first_name %> <%= @user.last_name %></h3>
-      <p class="text-base text-white"><%= @user.role %></p>
-      <%= form_with model: @user, local: true, html: { id: "change-picture-form" } do |form| %>
-        <%= form.file_field :image, id: "image-upload", class: "hidden", onchange: "document.getElementById('change-picture-form').submit();" %>
-      <% end %>
-      <button onclick="document.getElementById('image-upload').click()" class="inline-flex mt-2 justify-center border border-transparent shadow-sm text-sm font-semibold font-Outfit rounded-md text-lightGreen bg-white ">
-        <span class="p-2">Change Picture</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-
-  <!-- Form Section -->
-  <div class="bg-white shadow-md rounded-lg p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">General Information</h2>
-      <%= form_with model: @user, local: true do |form| %>
-        <%= form.submit 'Update User', class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen font-semibold font-Outfit" %>
-      <% end %>
-    </div>
-
-    <%= form_with model: @user, local: true do |form| %>
-      <!-- First and Last name fields -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :first_name, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-        </div>
-        <div>
-          <%= form.label :last_name, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :last_name, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+ <div class="w-full max-w-3xl mx-auto font-Outfit">
+    <h2 class="font-bold font-Outfit text-lg text-left mb-6">
+    <% if @is_own_profile %> Account Settings <% else %> Edit User <% end %>
+   </h2>
+      <div class="bg-lightGreen bg-login-bg bg-cover bg-center bg-no-repeat shadow-md rounded-md p-6 mb-6 flex justify-center items-center">
+        <div class="flex items-end space-x-4">
+          <div class="relative w-32 h-32 rounded-md overflow-hidden bg-gray-200 flex items-center justify-center">
+            <% if @user.image.attached? %>
+              <%= image_tag @user.image, class: "w-32 h-32 rounded-md" %>
+            <% else %>
+              <i class="fas fa-user text-gray-500 text-4xl"></i>
+            <% end %>
+          </div>
+          <div class="flex flex-col justify-end space-y-2">
+            <h3 class="text-lg font-semibold text-white"><%= @user.first_name %> <%= @user.last_name %></h3>
+            <p class="text-base text-white"><%= @user.role %></p>
+            <%= form_with model: @user, local: true, html: { id: "change-picture-form" } do |form| %>
+              <%= form.file_field :image, id: "image-upload", class: "hidden", onchange: "document.getElementById('change-picture-form').submit();" %>
+            <% end %>
+            <button onclick="document.getElementById('image-upload').click()" class="inline-flex mt-2 justify-center border border-transparent shadow-sm text-sm font-semibold font-Outfit rounded-md text-lightGreen bg-white ">
+              <span class="p-2">Change Picture</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.email_field :email, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+      <!-- Form Section -->
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">General Information</h2>
+          <%= form_with model: @user, local: true do |form| %>
+            <%= form.submit 'Update User', class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen font-semibold font-Outfit" %>
+          <% end %>
         </div>
-        <div>
-          <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.telephone_field :phone_number, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-        </div>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.password_field :password, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-          <small class="text-gray-500">Leave blank if you don't want to change the password</small>
-        </div>
-        <div>
-          <%= form.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.password_field :password_confirmation, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-        </div>
-      </div>
-     <% if @is_own_profile %>
-        <!-- Show the values but make them non-editable -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div class="flex flex-row">
-            <strong>Role:</strong> <%= @user.role %>
-          </div>
-          <div class="flex flex-row">
-            <strong>Branch:</strong> <%= @user.branch.name %>
-          </div>
-        </div>
-      <% else %>
-        <!-- Show input fields side by side for editing another user's profile -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div class="flex flex-col">
-            <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
-            <%= form.select :role, User::ROLES, { include_blank: true }, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+        <%= form_with model: @user, local: true do |form| %>
+          <!-- First and Last name fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
+              <%= form.text_field :first_name, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
+            <div>
+              <%= form.label :last_name, class: "block text-sm font-medium text-gray-700" %>
+              <%= form.text_field :last_name, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
           </div>
 
-          <div class="flex flex-col">
-            <%= form.label :branch_id, class: "block text-sm font-medium text-gray-700" %>
-            <%= form.collection_select :branch_id, Branch.all, :id, :name, { include_blank: true }, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
+              <%= form.email_field :email, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
+            <div>
+              <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
+              <%= form.telephone_field :phone_number, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
           </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
+              <%= form.password_field :password, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+              <small class="text-gray-500">Leave blank if you don't want to change the password</small>
+            </div>
+            <div>
+              <%= form.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+              <%= form.password_field :password_confirmation, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
+          </div>
+
+          <% if @is_own_profile %>
+            <!-- Show the values but make them non-editable -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="flex flex-row">
+                <strong>Role:</strong> <%= @user.role %>
+              </div>
+              <div class="flex flex-row">
+                <strong>Branch:</strong> <%= @user.branch.name %>
+              </div>
+            </div>
+          <% else %>
+            <!-- Show input fields side by side for editing another user's profile -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="flex flex-col">
+                <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
+                <%= form.select :role, User::ROLES, { include_blank: true }, required: true, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+
+              <div class="flex flex-col">
+                <%= form.label :branch_id, class: "block text-sm font-medium text-gray-700" %>
+                <%= form.collection_select :branch_id, Branch.all, :id, :name, { include_blank: true }, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>

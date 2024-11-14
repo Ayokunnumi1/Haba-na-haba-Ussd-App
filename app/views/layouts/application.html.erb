@@ -15,13 +15,14 @@
         <%= render 'admin_panel/sidebar' %>
         <%= render 'admin_panel/navbar' %>
       <% end %>
-      <section class="p-4 mobile-yield-content tab-yield-content yield-content">
+      <section class="p-4 <%= 'mobile-yield-content tab-yield-content yield-content' if user_signed_in? %>">
       <% if user_signed_in? %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-        <%= yield %>
-      </section>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+    </section>
+    
     </main>
   </body>
 </html>

@@ -34,8 +34,12 @@ class EventsController < ApplicationController
     end
   
     def destroy
-      @event.destroy
-      redirect_to events_url, notice: 'Event was successfully destroyed.'
+      event = Event.find(params[:id])
+      # Delete the associated event_users first
+      event.event_users.destroy_all
+      # Then delete the event
+      event.destroy
+      redirect_to events_path, notice: 'Event was successfully deleted.'
     end
   
     private

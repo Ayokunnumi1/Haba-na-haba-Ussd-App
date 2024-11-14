@@ -10,9 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       userElements.forEach((user) => {
         if (user.getAttribute("data-users-type") === role) {
-          user.style.display = "block";
+          user.classList.remove("hidden");
+          user.classList.add("flex", "mmd:block");
         } else {
-          user.style.display = "none";
+          user.classList.add("hidden");
+          user.classList.remove("flex", "mmd:block");
         }
       });
     });

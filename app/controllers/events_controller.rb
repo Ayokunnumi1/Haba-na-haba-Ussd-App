@@ -5,10 +5,7 @@ class EventsController < ApplicationController
     def index
       @events = Event.all
     end
-  
-    def show
-    end
-  
+
     def new
       @event = Event.new
     end
@@ -20,9 +17,6 @@ class EventsController < ApplicationController
       else
         render :new, status: :unprocessable_entity
       end
-    end
-  
-    def edit
     end
   
     def update

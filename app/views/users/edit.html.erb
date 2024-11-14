@@ -1,10 +1,7 @@
 <h2 class="font-bold font-Outfit text-lg ">Account Settings</h2>
 <div class="w-full max-w-3xl mx-auto font-Outfit">
-<!-- Profile Section -->
-<!-- Profile Section -->
 <div class="bg-lightGreen bg-login-bg bg-cover bg-center bg-no-repeat shadow-md rounded-md p-6 mb-6 flex justify-center items-center">
   <div class="flex items-end space-x-4">
-    <!-- Image Placeholder -->
     <div class="relative w-32 h-32 rounded-md overflow-hidden bg-gray-200 flex items-center justify-center">
       <% if @user.image.attached? %>
         <%= image_tag @user.image, class: "w-32 h-32 rounded-md" %>
@@ -12,18 +9,12 @@
         <i class="fas fa-user text-gray-500 text-4xl"></i>
       <% end %>
     </div>
-
-    <!-- User Info and Change Picture Button -->
     <div class="flex flex-col justify-end space-y-2">
       <h3 class="text-lg font-semibold text-white"><%= @user.first_name %> <%= @user.last_name %></h3>
       <p class="text-base text-white"><%= @user.role %></p>
-
-      <!-- Hidden File Input -->
       <%= form_with model: @user, local: true, html: { id: "change-picture-form" } do |form| %>
         <%= form.file_field :image, id: "image-upload", class: "hidden", onchange: "document.getElementById('change-picture-form').submit();" %>
       <% end %>
-
-      <!-- Change Picture Button -->
       <button onclick="document.getElementById('image-upload').click()" class="inline-flex mt-2 justify-center border border-transparent shadow-sm text-sm font-semibold font-Outfit rounded-md text-lightGreen bg-white ">
         <span class="p-2">Change Picture</span>
       </button>
@@ -34,11 +25,10 @@
 
   <!-- Form Section -->
   <div class="bg-white shadow-md rounded-lg p-6">
-    <!-- General Information Heading and Update Button -->
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-bold">General Information</h2>
       <%= form_with model: @user, local: true do |form| %>
-        <%= form.submit 'Update User', class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+        <%= form.submit 'Update User', class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lightGreen font-semibold font-Outfit" %>
       <% end %>
     </div>
 
@@ -55,7 +45,6 @@
         </div>
       </div>
 
-      <!-- Email and Phone number fields -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
@@ -67,7 +56,6 @@
         </div>
       </div>
 
-      <!-- Password and Confirm Password fields -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>

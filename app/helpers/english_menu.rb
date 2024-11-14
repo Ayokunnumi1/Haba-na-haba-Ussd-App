@@ -10,12 +10,13 @@ module EnglishMenu
 
     # Directly welcome the user and show the main menu
     if text == ''
-      if request
-        # If request exists, welcome the user by their name
-        return "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations"
-      else
-        return welcome_menu
-      end
+      return "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations" if request
+
+      # If request exists, welcome the user by their name
+
+
+      return welcome_menu
+
     end
 
     # Continue with menu processing as before
@@ -41,7 +42,7 @@ module EnglishMenu
     when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
       "CON What are you donating:\n1. Fresh Food\n2. Dry Food"
     when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      "CON Enter food name"
+      'CON Enter food name'
     when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
       'CON Enter the donation amount (kgs)'
     when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/

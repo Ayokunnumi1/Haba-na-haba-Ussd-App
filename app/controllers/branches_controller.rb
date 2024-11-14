@@ -53,12 +53,12 @@ class BranchesController < ApplicationController
   end
 
   def load_counties
-    district_ids = params[:district_ids].split(",") # Split comma-separated IDs into an array
+    district_ids = params[:district_ids].split(',') # Split comma-separated IDs into an array
     @counties = County.where(district_id: district_ids)
-  
+
     render json: @counties.map { |county| { id: county.id, name: county.name } }
   end
-  
+
 
   private
 

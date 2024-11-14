@@ -83,5 +83,5 @@ gem 'devise'
 # Africastalking-ruby for implement ussd menu
 gem 'africastalking-ruby'
 
-gem 'sassc-rails'
 gem 'pg_search'
+gem 'sassc-rails'

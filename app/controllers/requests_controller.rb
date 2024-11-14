@@ -5,10 +5,9 @@ class RequestsController < ApplicationController
 
   def index
     @requests = Request.all
-
   end
 
-  def ussd 
+  def ussd
     phone_number = params[:phoneNumber]
     text = params[:text]
 

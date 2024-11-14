@@ -1,6 +1,6 @@
-<section class="flex items-center justify-center sm:h-60vh h-80vh appearance-none">
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-screen-sm p-8 mt-[50%] md:mr-[35%] md:mt-[50%] lg:mr-[20%] lg:mt-[30%] xl:mr-[10%] xl:mt-[20%]"> 
-    <h2 class="text-xl leading-tight font-Outfit font-semibold tracking-tight text-darkBlue md:text-2xl mb-3">Forgot your password?</h2>
+<section class="flex items-center justify-center min-h-screen">
+  <div class="bg-white rounded-lg shadow-lg w-[400px] p-8 mx-auto">
+    <h2 class="text-xl leading-tight font-Outfit font-semibold tracking-tight text-darkBlue md:text-2xl mb-4">Forgot your password?</h2>
 
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>

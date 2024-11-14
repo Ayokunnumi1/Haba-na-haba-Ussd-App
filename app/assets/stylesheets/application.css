@@ -20,27 +20,19 @@
   justify-content: center;
 } */
 
-.bg-users-show {
-  background-image: url('/assets/users-show.svg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* .mobile-yield-content {
+.mobile-yield-content {
   margin: 20px;
-  border: 3px solid red;
-} */
+}
 
 .red-border {
   border: 3px solid red;
 }
 
-/* .mobile-sidebar {
+.mobile-sidebar {
   position: fixed;
   top: 2px;
   left: 2px;
-} */
+}
 
 .space-y-2::-webkit-scrollbar {
   width: 6px;
@@ -61,7 +53,7 @@
   background-color: #555;
 }
 
-/* @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .tab-yield-content,
   .tab-navbar {
     margin-left: 230px;
@@ -74,9 +66,9 @@
     top: 5rem;
     left: 1rem;
   }
-} */
+}
 
-/* @media screen and (min-width: 820px) {
+@media screen and (min-width: 820px) {
   .tab-sidebar {
     top: 10rem;
   }
@@ -85,9 +77,9 @@
   .tab-navbar {
     margin-top: 50px;
   }
-} */
+}
 
-/* @media screen and (min-width: 1114px) {
+@media screen and (min-width: 1114px) {
   .tab-sidebar {
     top: 2.5rem;
     bottom: 2.5rem;
@@ -97,9 +89,9 @@
   .tab-navbar {
     margin-top: 20px;
   }
-} */
+}
 
-/* @media screen and (min-width: 1280px) {
+@media screen and (min-width: 1280px) {
   .yield-content {
     margin-left: 250px;
     margin-right: 28px;
@@ -116,4 +108,4 @@
   .tab-navbar {
     margin-top: 20px;
   }
-} */
+}

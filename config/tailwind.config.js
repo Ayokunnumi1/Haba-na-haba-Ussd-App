@@ -29,9 +29,10 @@ module.exports = {
       },
       backgroundImage: {
         "users-image": "url('/assets/users-image.svg')",
+        "users-show": "url('/assets/users-show.svg')",
       },
       screens: {
-        mmd: "441px",
+        mmd: "442px",
       },
     },
   },

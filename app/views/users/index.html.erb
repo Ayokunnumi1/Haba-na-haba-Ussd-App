@@ -1,15 +1,15 @@
 <section>
   <!-- Navigation -->
   <div class="flex flex-row justify-between items-center font-Outfit">
-    <div class="block md:hidden">
+    <div class="block mmd:hidden">
       <%= button_to new_user_path, method: :get do %>
         <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
       <% end %>
     </div>
 
-    <p class="hidden md:block font-bold">Staffs</p>
+    <p class="hidden mmd:block font-bold">Staffs</p>
 
-    <div class="hidden md:block p-4 bg-lightGreen text-white rounded-xl">
+    <div class="hidden mmd:block p-4 bg-lightGreen text-white rounded-xl">
       <%= link_to 'Add New Staff', new_user_path, alt: 'add new staff' %>
     </div>
 
@@ -33,10 +33,10 @@
   </div>
 
   <!-- Users index page displayed -->
-  <div class="users-grid-container font-Outfit font-lightGray mt-10">
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-2.5 users-grid justify-center mmd:gap-4 font-Outfit font-lightGray mt-10">
     <% @users.each do |user| %>
-      <ul class="flex flex-row justify-between items-center p-5 bg-gray-100 rounded-lg shadow font-Outfit md:block md:relative md:rounded-lg md:p-6 md:bg-white md:shadow-sm md:hover:bg-darkBlue md:hover:text-white bg-users-image" data-users-type="<%= user.role %>">
-        <li class="absolute top-2 right-2 hidden md:block">
+      <ul class="flex flex-row justify-between items-center p-5 bg-gray-100 rounded-lg shadow font-Outfit mmd:block mmd:relative mmd:rounded-lg mmd:p-6 mmd:bg-white mmd:shadow-sm mmd:hover:bg-darkBlue mmd:hover:text-white mmd:bg-users-image mmd:bg-cover mmd:bg-center mmd:bg-no-repeat" data-users-type="<%= user.role %>">
+        <li class="absolute top-2 right-2 hidden mmd:block">
           <button id="dropdownButton<%= user.id %>" data-dropdown-toggle="dropdownMenu<%= user.id %>" class="text-gray-500 hover:text-gray-700 focus:outline-none">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4z"/>
@@ -60,14 +60,14 @@
           </div>
         </li>
         <li class="flex justify-center items-center mb-4">
-          <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-12 h-12 md:w-14 h-14", alt: user.first_name) %>
+          <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full w-12 h-12 mmd:w-14 h-14", alt: user.first_name) %>
         </li>
         <li class="flex flex-col justify-center items-center">
           <p class="font-bold text-sm" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
           <p class="font-thin text-xs mt-1"><%= user.role.titleize %></p>
-          <p class="hidden md:block font-thin text-xs text-center"><%= user.email %></p>
+          <p class="hidden mmd:block font-thin text-xs text-center"><%= user.email %></p>
         </li>
-        <li class="md:hidden flex flex-row justify-center items-center gap-2">
+        <li class="flex flex-row justify-center items-center gap-2 mmd:hidden">
           <div>
             <%= button_to user_path(user), method: :get do %>
               <%= image_tag("external_link.svg", alt: "edit") %>

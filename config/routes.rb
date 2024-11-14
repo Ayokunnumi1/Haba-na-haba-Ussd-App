@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'home/index'
   get 'filter_results', to: 'your_controller#filter_results'
+  post  'ussd_request', to: 'requests#ussd'
   resources :users
   resources :districts
   resources :counties

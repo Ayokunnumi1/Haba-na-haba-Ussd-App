@@ -1,8 +1,21 @@
 class RequestsController < ApplicationController
+  include EnglishMenu
   before_action :set_request, only: %i[show edit update destroy]
+  skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
     @requests = Request.all
+
+  end
+
+  def ussd 
+    phone_number = params[:phoneNumber]
+    text = params[:text]
+
+    @request = Request.all
+
+    response = process_ussd(text, phone_number)
+    render plain: response
   end
 
   def show; end
@@ -18,6 +31,7 @@ class RequestsController < ApplicationController
     @districts = District.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
+    @branchs = Branch.all
   end
 
   def create
@@ -69,6 +83,10 @@ class RequestsController < ApplicationController
                       SubCounty.none
                     end
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
+  end
+
+  def process_ussd(text, phone_number)
+    EnglishMenu.process_menu(text, phone_number, session)
   end
 
   private

@@ -14,7 +14,6 @@ module EnglishMenu
 
       # If request exists, welcome the user by their name
 
-
       return welcome_menu
 
     end

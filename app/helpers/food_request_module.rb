@@ -27,7 +27,6 @@ module FoodRequestModule
     puts "Selected District: ID=#{selected_county.id}, Name=#{selected_county.name}"
     puts "Selected District: ID=#{selected_sub_county.id}, Name=#{selected_sub_county.name}"
 
-
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id })
     branch_name = branch.name
     new_request = Request.create(

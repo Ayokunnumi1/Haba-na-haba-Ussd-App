@@ -59,7 +59,6 @@ class BranchesController < ApplicationController
     render json: @counties.map { |county| { id: county.id, name: county.name } }
   end
 
-
   private
 
   def set_branch

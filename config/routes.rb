@@ -2,14 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
+  resources :users
   resources :districts
   resources :counties
   resources :sub_counties
-  resources :users
-  
-  get 'profile', to: 'users#edit', as: 'edit_profile'
-  patch 'profile', to: 'users#update', as: 'update_profile'
-
   resources :branches do
     collection do
       get :load_counties

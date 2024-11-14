@@ -1,41 +1,15 @@
-<!-- app/views/users/profile.html.erb -->
-<h1>Edit Profile</h1>
-
-<%= form_for(current_user, url: update_profile_path) do |f| %>
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
+<%= form_with(model: @user, url: user_path(current_user.id), method: :patch) do |form| %>
+  <!-- form fields here, for example: -->
+  <div>
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
   </div>
-
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+  <div>
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
   </div>
-
-  <div class="field">
-    <%= f.label :phone_number %>
-    <%= f.text_field :phone_number %>
+  <!-- Add other fields as needed -->
+  <div>
+    <%= form.submit "Update Profile" %>
   </div>
-
-  <div class="field">
-    <%= f.label :role %>
-    <%= f.text_field :role %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <%= f.submit 'Update Profile' %>
 <% end %>

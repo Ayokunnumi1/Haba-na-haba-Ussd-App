@@ -1,111 +1,41 @@
-<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
-  <h2 class="text-2xl font-Outfit font-semibold text-gray-700 mb-6">Account Setting</h2>
-  
-  <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, html: { multipart: true }) do |form| %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Profile Image Section -->
-    <div class="col-span-1 flex flex-col items-center">
-<!-- Image Container with Upload and Delete Icons -->
-<div class="relative w-32 h-32 rounded-lg overflow-hidden bg-gray-200 border border-gray-300 flex items-center justify-center">
-  <!-- Display the User Image if Attached, Otherwise a Placeholder Icon -->
-  <% if @user.image.attached? %>
-    <%= image_tag @user.image, class: "object-cover w-full h-full rounded-lg" %>
-  <% else %>
-    <%= content_tag(:span, '', class: "fa fa-user text-gray-400 text-6xl flex items-center justify-center") %>
-  <% end %>
-  
-  <!-- Icons Overlay for Upload and Delete -->
-  <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity">
-    <!-- Upload Icon -->
-    <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, html: { multipart: true }) do |form| %>
-      <%= form.file_field :image, class: "hidden", id: "upload-image" %>
-      <label for="upload-image" class="cursor-pointer text-white text-2xl mx-2">
-        <i class="fa fa-upload"></i>
-      </label>
-    <% end %>
+<!-- app/views/users/profile.html.erb -->
+<h1>Edit Profile</h1>
 
-    <!-- Delete Icon -->
-    <%= link_to update_profile_user_path(@user, user: { remove_image: true }), method: :patch, class: "text-white text-2xl mx-2" do %>
-      <i class="fa fa-trash"></i>
-    <% end %>
+<%= form_for(current_user, url: update_profile_path) do |f| %>
+  <div class="field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
   </div>
-</div>
-</div>
 
-      <!-- Personal Information Section -->
-      <div class="col-span-1">
-        <!-- First Name -->
-        <div class="mb-4">
-          <%= form.label :first_name, "First Name", class: "block text-gray-700" %>
-          <%= form.text_field :first_name, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        </div>
+  <div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
 
-        <!-- Last Name -->
-        <div class="mb-4">
-          <%= form.label :last_name, "Last Name", class: "block text-gray-700" %>
-          <%= form.text_field :last_name, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        </div>
+  <div class="field">
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+  </div>
 
-        <!-- Email -->
-        <div class="mb-4">
-          <%= form.label :email, "Email", class: "block text-gray-700" %>
-          <%= form.email_field :email, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        </div>
+  <div class="field">
+    <%= f.label :role %>
+    <%= f.text_field :role %>
+  </div>
 
-        <div class="mb-4">
-        <%= form.label :password, "Password", class: "block text-gray-700" %>
-        <%= form.password_field :password, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        <p class="text-sm text-gray-500">(Leave blank if you don't want to change it)</p>
-        <% if @user.errors[:password].any? %>
-          <p class="text-red-500 text-sm mt-1"><%= @user.errors[:password].first %></p>
-        <% end %>
-      </div>
-      
-      <div class="mb-4">
-        <%= form.label :password_confirmation, "Confirm Password", class: "block text-gray-700" %>
-        <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        <% if @user.errors[:password_confirmation].any? %>
-          <p class="text-red-500 text-sm mt-1"><%= @user.errors[:password_confirmation].first %></p>
-        <% end %>
-      </div>
-      
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
 
-        <!-- Phone Number -->
-        <div class="mb-4">
-          <%= form.label :phone_number, "Phone Number", class: "block text-gray-700" %>
-          <%= form.text_field :phone_number, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-        </div>
-      </div>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
 
-     
-    
-    <!-- Submit Button -->
-    <div class="mt-6">
-      <%= form.submit "Update Profile", class: "px-4 py-2 bg-lightGreen text-white rounded-md hover:bg-lightGreen" %>
-    </div>
-  <% end %>
-</div>
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
 
-<script>
- document.addEventListener("DOMContentLoaded", () => {
-  const passwordField = document.querySelector("#user_password");
-  const confirmPasswordField = document.querySelector("#user_password_confirmation");
-  const submitButton = document.querySelector("input[type='submit']");
-  const errorMessage = document.createElement("p");
-  errorMessage.className = "text-red-500 text-sm mt-1";
-  confirmPasswordField.insertAdjacentElement("afterend", errorMessage);
-
-  const validatePasswords = () => {
-    if (passwordField.value !== confirmPasswordField.value) {
-      errorMessage.textContent = "Passwords do not match.";
-      submitButton.disabled = true;
-    } else {
-      errorMessage.textContent = "";
-      submitButton.disabled = false;
-    }
-  };
-
-  passwordField.addEventListener("input", validatePasswords);
-  confirmPasswordField.addEventListener("input", validatePasswords);
-});
-</script>
+  <%= f.submit 'Update Profile' %>
+<% end %>

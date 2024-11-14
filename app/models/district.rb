@@ -1,4 +1,6 @@
 class District < ApplicationRecord
+  include Matchable
+
   has_many :counties
   has_many :branch_districts, dependent: :destroy
   has_many :branches, through: :branch_districts

@@ -1,4 +1,6 @@
 class County < ApplicationRecord
+  include Matchable
+
   belongs_to :district
   has_many :sub_counties
   has_many :branches

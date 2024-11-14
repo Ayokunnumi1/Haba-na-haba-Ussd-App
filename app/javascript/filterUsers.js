@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const dropdownItems = document.querySelectorAll("#dropdownId2 [data-role]");
   const userElements = document.querySelectorAll(
-    ".users-grid-container [data-users-type]"
+    ".users-grid [data-users-type]"
   );
 
   dropdownItems.forEach((item) => {

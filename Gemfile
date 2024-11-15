@@ -83,6 +83,6 @@ gem 'devise'
 # Africastalking-ruby for implement ussd menu
 gem 'africastalking-ruby'
 
+gem 'faker'
 gem 'pg_search'
 gem 'sassc-rails'
-gem 'faker'

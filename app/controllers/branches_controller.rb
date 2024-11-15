@@ -6,9 +6,7 @@ class BranchesController < ApplicationController
     @branches = Branch.includes(:districts).all
   end
 
-  def show
-     
-  end
+  def show; end
 
   def new
     @branch = Branch.new

@@ -3,13 +3,16 @@ class BranchesController < ApplicationController
   before_action :set_branch, only: %i[show edit update destroy]
 
   def index
-    @branches = Branch.includes(:districts, :county).all
+    @branches = Branch.includes(:districts).all
   end
 
-  def show; end
+  def show
+     
+  end
 
   def new
     @branch = Branch.new
+    @branches = Branch.all
     @districts = District.all
     @counties = County.none
   end
@@ -53,7 +56,7 @@ class BranchesController < ApplicationController
   end
 
   def load_counties
-    district_ids = params[:district_ids].split(',') # Split comma-separated IDs into an array
+    district_ids = params[:district_ids].split(',')
     @counties = County.where(district_id: district_ids)
 
     render json: @counties.map { |county| { id: county.id, name: county.name } }
@@ -62,12 +65,13 @@ class BranchesController < ApplicationController
   private
 
   def set_branch
-    @branch = Branch.find(params[:id])
+    @branch = Branch.includes(:districts).find(params[:id])
+    @districts = District.all
   rescue ActiveRecord::RecordNotFound
     redirect_to branches_url, alert: 'Branch not found.'
   end
 
   def branch_params
-    params.require(:branch).permit(:name, :phone_number, :county_id, district_ids: [])
+    params.require(:branch).permit(:name, :phone_number, district_ids: [])
   end
 end

@@ -2,7 +2,7 @@
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start rtl:justify-end">
-        <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
             <span class="sr-only">Open sidebar</span>
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
@@ -68,7 +68,7 @@
 </nav>
 
 
-<aside id="logo-sidebar" class="fixed top-0 md:top-20 left-0 md:left-5 z-40 w-60  h-full sm:h-[82%] lg:h-[90%] xl:h-[90%] sm:rounded-lg pt-20 transition-transform -translate-x-full bg-lightGreen border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+<aside id="logo-sidebar" class="fixed top-0 md:top-20 left-0 lg:left-5 z-40 w-60  h-full sm:h-full lg:h-[90%] xl:h-[90%] lg:rounded-lg pt-20 transition-transform -translate-x-full bg-lightGreen border-r border-gray-200 lg:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
    <div class="h-full px-3 pb-4 overflow-y-auto bg-lightGreen dark:bg-gray-800 md:rounded-lg">
    <div class="flex justify-center mb-4">
    <%= image_tag("hnh_admin_logo.png", alt: "Hnh Logo") %>
@@ -77,9 +77,7 @@
       <ul class="space-y-2 font-medium">
       <li>
       <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:fill-lightGreen">
-            <path d="M7.25317 3H6.25317C4.59631 3 3.25317 4.34315 3.25317 6V14C3.25317 15.6569 4.59631 17 6.25317 17H7.25317V3ZM8.25317 17H14.2532C15.91 17 17.2532 15.6569 17.2532 14V13H8.25317V17ZM17.2532 12V6C17.2532 4.34315 15.91 3 14.2532 3H8.25317V12H17.2532Z" class="fill-white group-hover:fill-lightGreen"/>
-         </svg>
+      <i class="fa-solid fa-table-columns"></i>
          <span class="ms-3 group-hover:text-lightGreen">Dashboard</span>
       </a>
    </li>

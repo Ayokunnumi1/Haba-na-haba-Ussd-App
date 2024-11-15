@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_11_153717) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_080703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -56,10 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_153717) do
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
-    t.bigint "county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["county_id"], name: "index_branches_on_county_id"
   end
 
   create_table "counties", force: :cascade do |t|
@@ -264,7 +262,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_153717) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "branch_districts", "branches"
   add_foreign_key "branch_districts", "districts"
-  add_foreign_key "branches", "counties"
   add_foreign_key "counties", "districts"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"

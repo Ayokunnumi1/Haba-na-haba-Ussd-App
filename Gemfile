@@ -85,3 +85,4 @@ gem 'africastalking-ruby'
 
 gem 'pg_search'
 gem 'sassc-rails'
+gem 'faker'

@@ -117,6 +117,8 @@ GEM
     drb (2.2.1)
     error_highlight (0.6.0)
     erubi (1.13.0)
+    faker (3.5.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.0)
     ffi (1.17.0-x64-mingw-ucrt)
     globalid (1.2.1)
@@ -316,6 +318,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   error_highlight (>= 0.4.0)
+  faker
   importmap-rails
   jbuilder
   pg (~> 1.1)

@@ -21,6 +21,7 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @branches = Branch.all
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
@@ -30,7 +31,8 @@ class RequestsController < ApplicationController
     @districts = District.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branchs = Branch.all
+    @branches = Branch.all
+    
   end
 
   def create

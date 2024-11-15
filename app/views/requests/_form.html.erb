@@ -25,7 +25,7 @@
   </div>
   <div class="mb-4">
     <%= form.label :branch_id, "Branch" %>
-    <%= form.collection_select :branch_ids, @branches, :id, :name, { prompt: 'Select a branch' }, { class: 'form-select' } %>
+    <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { class: 'form-select' } %>
   </div>
   <div class="mb-4">
     <%= form.submit class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" %>

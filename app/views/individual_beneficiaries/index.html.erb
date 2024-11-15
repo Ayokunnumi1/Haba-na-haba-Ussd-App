@@ -1,10 +1,16 @@
+<button onclick="window.history.back()" class="bg-gray-100 text-gray-500 py-1 px-2 mb-3 lg:py-1 lg:px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+  <i class="fa-solid fa-arrow-left"></i> <span class="ml-2 hidden lg:inline-block">Back</span>
+</button>
 <div class="flex justify-between items-center">
-  <h2 class="text-2xl font-bold">Individual Beneficiaries</h2>
-  <div>
-    <button class="toggle-button bg-lightGreen text-white py-2 px-4 rounded hover:bg-lime-600" onclick="toggleFilter()">
-      Filter
+  <h2 class="text-xl lg:text-2xl font-bold flex-1 font-Outfit text-darkBlue">Individual Beneficiaries</h2>
+  <div class="flex-1 flex justify-end gap-2 lg:gap-4">
+    <button class="toggle-button bg-lightGreen text-white py-1 px-2 rounded hover:bg-lime-500 lg:py-1 lg:px-4 " onclick="toggleFilter()">
+      <span class="hidden mr-1 lg:inline-block">Filter</span>
+      <i class="fa-solid fa-filter"></i>
     </button>
-    <%= link_to "Clear Filters", individual_beneficiaries_path, class: "clear-filter ml-4 text-gray-500 py-2 px-4 bg-gray-100 rounded hover:underline hover:bg-gray-200" %>
+    <%= link_to individual_beneficiaries_path, class: "clear-filter text-gray-500 py-1 px-2 bg-gray-100 border-2 border-gray-100 lg:py-1 lg:px-4 rounded hover:bg-gray-200" do %>
+      <i class="fa-solid fa-arrows-rotate"></i> <span class="ml-1 hidden lg:inline-block">Clear Filters</span>
+    <% end %>
   </div>
 </div>
 <div class="mb-6 font-Outfit text-[#5a607a]">
@@ -57,7 +63,7 @@
         </div>
       </div>
       <div class="mt-4">
-        <%= form.submit "Filter", class: "inline-block bg-lightGreen text-white py-2 px-4 rounded hover:bg-lime-600" %>
+        <%= form.submit "Filter", class: "inline-block bg-lightGreen text-white py-1 px-4 rounded hover:bg-lime-500" %>
       </div>
     <% end %>
   </div>
@@ -82,22 +88,18 @@
           <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/12"><%= beneficiary.gender %></td>
           <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.case_name %></td>
           <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6"><%= beneficiary.phone_number %></td>
-          <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6 text-center">
-            <div class="relative inline-block text-left">
-              <!-- Actions button -->
-              <button onclick="toggleDropdown(event)" class="actions-button inline-flex justify-center w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
-                Actions
-                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7l7 7 7-7"></path>
-                </svg>
-              </button>
-              <!-- Dropdown menu -->
-              <div class="dropdown-menu absolute right-0 z-10 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg hidden">
-                <div class="py-1">
-                  <%= link_to 'Show', individual_beneficiary_path(beneficiary), class: 'block px-4 py-2 text-sm text-indigo-600 hover:bg-indigo-100' %>
-                  <%= link_to 'Edit', edit_request_individual_beneficiary_path(beneficiary.request, beneficiary), class: 'block px-4 py-2 text-sm text-blue-600 hover:bg-blue-100' %>
-                  <%= button_to 'Destroy', individual_beneficiary_path(beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-red-100' %>
+          <td class="px-6 py-3 text-center text-sm font-Outfit text-[#5a607a] w-1/6">
+            <div class="relative">
+              <button data-dropdown-toggle="dropdown-<%= beneficiary.id %>" class="text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 border border-lightGreen rounded" type="button">
+                <div class="p-1 flex flex-row justify-center items-center  space-between">
+                  <span class="hidden md:block lg:block mr-1" >Actions</span>
+                  <i class="fa-solid fa-chevron-down"></i>
                 </div>
+              </button>
+              <div id="dropdown-<%= beneficiary.id %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
+                <%= link_to 'Show', individual_beneficiary_path(beneficiary), class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+                <%= link_to 'Edit', edit_request_individual_beneficiary_path(beneficiary.request, beneficiary), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
+                <%= button_to 'Destroy', individual_beneficiary_path(beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-10 py-2 text-red-600 hover:bg-gray-100 text-center' %>
               </div>
             </div>
           </td>

@@ -6,4 +6,5 @@ import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
 import "./controllers/toggleFilter";
 import "./controllers/toggleDropdown";
+import "./dropdown";
 import "flowbite";

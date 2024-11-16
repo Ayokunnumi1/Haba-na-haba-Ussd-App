@@ -96,10 +96,33 @@
 </li>
 
 <li>
-  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
-    <i class="fa-solid fa-user-group group-hover:text-lightGreen text-base"></i>
-    <span class="flex-1 ms-2 whitespace-nowrap group-hover:text-lightGreen text-base">Beneficiaries</span>
-  <% end %>
+<details class="">
+  <summary class="flex items-center p-2 text-white rounded-lg cursor-pointer hover:bg-white group">
+  <i class="fa-solid fa-user-group group-hover:text-lightGreen text-base"></i>
+    <span class="ms-3 group-hover:text-lightGreen text-base">Beneficiaries</span>
+    <i class="fa-solid fa-chevron-down group-hover:text-lightGreen ms-auto transition-transform duration-200"></i>
+  </summary>
+  <ul class="space-y-2 ms-8 border-l-2 border-white pl-3 mt-2">
+    <li>
+      <%= link_to districts_path, class: "flex items-center text-white" do %>
+        <span class="w-2 h-2 bg-white rounded-full mr-2 text-base"></span>
+        <span>Individual</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to counties_path, class: "flex items-center text-white" do %>
+        <span class="w-2 h-2 bg-white rounded-full mr-2 text-base"></span>
+        <span>Family</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to sub_counties_path, class: "flex items-center text-white" do %>
+        <span class="w-2 h-2 bg-white rounded-full mr-2 text-base"></span>
+        <span>Organization</span>
+      <% end %>
+    </li>
+  </ul>
+</details>
 </li>
 
 <li>

@@ -13,18 +13,70 @@
          <%= image_tag("hnh_admin_logo.png",                
                 alt: "Hnh Logo") %>
       </div>
+   <div class="flex justify-center ml-5 block lg:hidden">   
+   <%= image_tag("hnh_admin_mobile_logo.png", alt: "Hnh mobile Logo", class: "h-8 w-8 md:h-10 md:w-10") %>
+   </div>
+      <div class="flex items-center">
+          <div class="flex items-center ms-3">
+            <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <button type="button" class="  focus:outline-none">
+              <i class="fa-solid fa-bell text-darkBlue text-lg "></i>
+              </button>
+              <div class="text-sm hidden lg:block">
+              <p class="text-gray-900 dark:text-white"><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+              <p class="text-gray-500 dark:text-gray-400"><%= current_user.role.titleize %></p>            
+              </div>
+              <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+              </button>
+            </div>
+          </div>
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+              <div class="px-4 py-3" role="none">
+                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                  <%= "#{current_user.first_name} #{current_user.last_name}" %>
+                </p>
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                  <%= current_user.email %>
+                </p>
+              </div>
+              <ul class="py-1" role="none">
+              <li>
+              <%= link_to "Dashboard", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+            </li>
+            <li>
+              <%= link_to "Settings", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+            </li>
+            <li>
+              <%= link_to "Earnings", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+            </li>
+            <li>
+              <%= link_to "Sign out", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+            </li>            
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</nav>
 
-      <p class="py-2 text-white font-Outfit font-normal text-sm mr-24">MANAGE</p>
 
-      <ul class="space-y-2 overflow-y-auto font-Outfit font-normal text-sm">
-         <li>
-            <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:fill-lightGreen">
-                  <path d="M7.25317 3H6.25317C4.59631 3 3.25317 4.34315 3.25317 6V14C3.25317 15.6569 4.59631 17 6.25317 17H7.25317V3ZM8.25317 17H14.2532C15.91 17 17.2532 15.6569 17.2532 14V13H8.25317V17ZM17.2532 12V6C17.2532 4.34315 15.91 3 14.2532 3H8.25317V12H17.2532Z" class="fill-white group-hover:fill-lightGreen"/>
-               </svg>
-               <span class="ms-3 group-hover:text-lightGreen">Dashboard</span>
-            </a>
-         </li>
+<aside id="logo-sidebar" class="fixed top-8 lg:top-20 left-0 lg:left-5 z-40 w-60  h-full sm:h-full lg:h-[85%] xl:h-[90%] lg:rounded-lg pt-20 lg:pt-5 transition-transform -translate-x-full bg-lightGreen border-r border-gray-200 lg:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+   <div class="h-full px-3 pb-4 overflow-y-auto bg-lightGreen dark:bg-gray-800 md:rounded-lg">
+   <div class="flex justify-center hidden lg:block">   
+   <%= image_tag("hnh_admin_logo.png", alt: "Hnh Logo", class: "h-15 w-15") %>
+   </div>
+   <p class="py-2 text-white font-Outfit font-normal text-sm mr-24">MANAGE</p>
+      <ul class="space-y-2 font-medium">
+      <li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-table-columns group-hover:text-lightGreen text-base"></i>
+    <span class="ms-3 group-hover:text-lightGreen text-base">Dashboard</span>
+  <% end %>
+</li>
 
          <li>
                <%= link_to users_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>

@@ -85,3 +85,6 @@ gem 'africastalking-ruby'
 
 # Font awesome for icons
 gem 'font-awesome-sass', '~> 6.5.2'
+
+# Rails sass compiler
+gem 'sassc-rails', '>= 2.1'

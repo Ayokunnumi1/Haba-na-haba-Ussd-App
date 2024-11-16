@@ -76,103 +76,102 @@
    <p class="py-2 text-white font-Outfit font-normal text-sm mr-24">MANAGE</p>
       <ul class="space-y-2 font-medium">
       <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-      <i class="fa-solid fa-table-columns"></i>
-         <span class="ms-3 group-hover:text-lightGreen">Dashboard</span>
-      </a>
-   </li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-table-columns group-hover:text-lightGreen text-base"></i>
+    <span class="ms-3 group-hover:text-lightGreen text-base">Dashboard</span>
+  <% end %>
+</li>
 
-   <li>
-         <%= link_to users_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
-            <i class="fa-solid fa-id-card hover:text-lightGreen"></i>
+<li>
+  <%= link_to users_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-id-card hover:text-lightGreen group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Staffs</span>
+  <% end %>
+</li>
 
-            <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Staffs</span>
-         <% end %>
-   </li>
-   <li>
-      <a href="#" class="flex items-center p-2 rounded-lg text-white hover:bg-white group">
-         
-      <i class="fa-solid fa-list"></i>
+<li>
+  <%= link_to "#", class: "flex items-center p-2 rounded-lg text-white hover:bg-white group" do %>
+    <i class="fa-solid fa-list group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Inventory</span>
+  <% end %>
+</li>
 
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Inventory</span>
-      </a>
-   </li>
-   <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-         
-       <i class="fa-regular fa-circle-check"></i>
+<li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-regular fa-circle-check group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Requests</span>
+  <% end %>
+</li>
 
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Requests</span>
-      </a>
-   </li>
-   <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-         
-      <i class="fa-solid fa-user-group"></i>
+<li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-user-group group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-2 whitespace-nowrap group-hover:text-lightGreen text-base">Beneficiaries</span>
+  <% end %>
+</li>
 
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Beneficiaries</span>
-      </a>
-   </li>
-   <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-         
-      <i class="fa-solid fa-gift"></i>
+<li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-gift group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Donors</span>
+  <% end %>
+</li>
 
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Donors</span>
-      </a>
-   </li>
-   <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group"> 
-      <i class="fa-solid fa-arrow-trend-up"></i>
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Events</span>
-      </a>
-   </li>
-   <!-- Dropdown for Forms -->
-     <% if current_user.role.in?(%w[super_admin admin branch_manager]) %>
-   <li>
-      <details class="">
-         <summary class="flex items-center p-2 text-white rounded-lg cursor-pointer hover:bg-white group">
-         <i class="fa-solid fa-chart-pie group-hover:text-lightGreen"></i>
-            <span class="ms-3 group-hover:text-lightGreen">Data Management</span>
-            <i class="fa-solid fa-chevron-down  group-hover:text-lightGreen ms-auto transition-transform duration-200"></i>
-         </summary>
-         <ul class="space-y-2 ms-8 border-l-2 border-white pl-3 mt-2">
-            <li>
-               <a href="<%= districts_path %>" class="flex items-center text-white">
-               <span class="w-2 h-2 bg-white rounded-full  mr-2"></span>  <span>District</span>
-               
-               </a>
-            </li>
-            <li>
-               <a href="<%= counties_path %>" class="flex items-center text-white">
-               <span class="w-2 h-2 bg-white rounded-full  mr-2"></span> <span>County</span>
-               </a>
-            </li>
-            <li>
-               <a href="<%= sub_counties_path %>" class="flex items-center text-white">
-               <span class="w-2 h-2 bg-white rounded-full  mr-2"></span> <span>Sub-county</span>
-               </a>
-            </li>
-         </ul>
-      </details>
-   </li>
-    <% end %>
+<li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-arrow-trend-up group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Events</span>
+  <% end %>
+</li>
 
-   <p class="py-2 text-white font-Outfit font-normal text-sm mr-20">PREFERENCE</p>
-   <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">  
-      <i class="fa-solid fa-gear"></i>
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Profile</span>
-         
-      </a>
-   </li>
-   
-   <li>
-      <a href="#" class="flex items-center p-2 text-white rounded-lg hover:bg-white group">
-         <i class="fa-solid fa-arrow-right-from-bracket"></i>
-         <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen">Log out</span>
-      </a>
-   </li>
+<% if current_user.role.in?(%w[super_admin admin branch_manager]) %>
+  <li>
+    <details class="">
+      <summary class="flex items-center p-2 text-white rounded-lg cursor-pointer hover:bg-white group">
+        <i class="fa-solid fa-chart-pie group-hover:text-lightGreen text-base"></i>
+        <span class="ms-3 group-hover:text-lightGreen text-base">Data Management</span>
+        <i class="fa-solid fa-chevron-down group-hover:text-lightGreen ms-auto transition-transform duration-200"></i>
+      </summary>
+      <ul class="space-y-2 ms-8 border-l-2 border-white pl-3 mt-2">
+        <li>
+          <%= link_to districts_path, class: "flex items-center text-white" do %>
+            <span class="w-2 h-2 bg-white rounded-full mr-2 text-base"></span>
+            <span>District</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to counties_path, class: "flex items-center text-white" do %>
+            <span class="w-2 h-2 bg-white rounded-full mr-2 text-base"></span>
+            <span>County</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to sub_counties_path, class: "flex items-center text-white" do %>
+            <span class="w-2 h-2 bg-white rounded-full mr-2 text-base"></span>
+            <span>Sub-county</span>
+          <% end %>
+        </li>
+      </ul>
+    </details>
+  </li>
+<% end %>
+
+<p class="py-2 text-white font-Outfit font-normal text-sm mr-20">PREFERENCE</p>
+
+<li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-gear group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Profile</span>
+  <% end %>
+</li>
+
+<li>
+  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+    <i class="fa-solid fa-arrow-right-from-bracket group-hover:text-lightGreen text-base"></i>
+    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Log out</span>
+  <% end %>
+</li>
+
       </ul>
    </div>
 </aside>

@@ -16,10 +16,6 @@
 
 @import "font-awesome";
 
-.mobile-yield-content {
-  margin: 20px;
-}
-
 .mobile-sidebar {
   position: fixed;
   top: 2px;
@@ -46,7 +42,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .tab-yield-content,
   .tab-navbar {
     margin-left: 230px;
     margin-right: 20px;
@@ -65,7 +60,6 @@
     top: 10rem;
   }
 
-  .tab-yield-content,
   .tab-navbar {
     margin-top: 50px;
   }
@@ -77,18 +71,12 @@
     bottom: 2.5rem;
   }
 
-  .tab-yield-content,
   .tab-navbar {
     margin-top: 20px;
   }
 }
 
 @media screen and (min-width: 1280px) {
-  .yield-content {
-    margin-left: 250px;
-    margin-right: 28px;
-  }
-
   .desktop-sidebar {
     position: fixed;
     top: 2.5rem;
@@ -96,7 +84,6 @@
     bottom: 2.5rem;
   }
 
-  .tab-yield-content,
   .tab-navbar {
     margin-top: 20px;
   }

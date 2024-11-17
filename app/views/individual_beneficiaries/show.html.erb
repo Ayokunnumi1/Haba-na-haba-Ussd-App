@@ -1,4 +1,4 @@
-<div class="container mx-auto p-1.5 md:p-6 sm:p-4 bg-gray-50">
+<div class="container mx-auto p-1.5 md:p-6 sm:p-4 lg:p-8 bg-gray-50">
   <div class="bg-gradient-to-tr from-white from-40% via-lightGreen/50 via-90% to-red-600/40 to-100% text-white shadow-xl rounded-xl p-3 sm:p-8 mb-8">
     <div class="flex justify-between items-center mb-4">
       <%= link_to(individual_beneficiaries_path, class: "flex items-center text-sm sm:text-base text-gray-500 py-1 px-4 rounded bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-300 ease-in-out") do %>
@@ -7,44 +7,44 @@
       <% end %>
       <h2 class="text-lg lg:text-3xl text-darkBlue font-bold text-center leading-tight">Details</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4 sm:gap-8">
       <div class="bg-white p-2 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
         <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Personal Information</h3>
         <div class="space-y-4">
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-user text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Name</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.name %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-user-tag text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Sur Name</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.sur_name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.sur_name %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-calendar text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Age</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-semibold text-[#5a607a]"><%= @individual_beneficiary.age %></p>
+              <p class="text-sm sm:text-base font-medium text-[#5a607a]"><%= @individual_beneficiary.age %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-genderless text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Gender</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-semibold text-[#5a607a] capitalize"><%= @individual_beneficiary.gender.capitalize %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.gender.capitalize %></p>
             </div>
           </div>
         </div>
@@ -53,31 +53,31 @@
       <div class="bg-white p-2 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
         <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Address Information</h3>
         <div class="space-y-4">
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-map-marker-alt text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Residence</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.residence_address %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.residence_address %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-home text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Village</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.village %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.village %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-church text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Parish</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.parish %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.parish %></p>
             </div>
           </div>
         </div>
@@ -86,31 +86,31 @@
       <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
         <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Location Information</h3>
         <div class="space-y-4">
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-map text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">District</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.district.name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.district.name %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-map-pin text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">County</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.county.name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.county.name %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-location text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Sub-County</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.sub_county.name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.sub_county.name %></p>
             </div>
           </div>
         </div>
@@ -119,55 +119,55 @@
       <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
         <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Family Information</h3>
         <div class="space-y-4">
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-user-friends text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Father’s Name</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.fathers_name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.fathers_name %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex items-start gap-1.5 sm:gap-3 w-fit">
               <i class="fa-solid fa-user-friends text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Mother’s Name</p>
             </div>
             <div class="flex-1 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.mothers_name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.mothers_name %></p>
             </div>
           </div>
         </div>
       </div>
       <!--case information -->
-      <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out col-span-1 sm:col-span-2 lg:col-span-2 lg:col-start-2">
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out col-span-1 sm:col-span-2 2xl:col-span-2 2xl:col-start-2">
         <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Case Information</h3>
         <div class="space-y-4">
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex-auto w-5/12 flex items-start gap-1.5 sm:gap-3">
               <i class="fa-solid fa-clipboard-list text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Case Name</p>
             </div>
             <div class="flex-auto w-7/12 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.case_name %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.case_name %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class=" flex-auto w-5/12 flex items-start gap-1.5 sm:gap-3">
               <i class="fa-solid fa-briefcase text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Description</p>
             </div>
             <div class="flex-auto w-7/12 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.case_description %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.case_description %></p>
             </div>
           </div>
-          <div class="flex items-center justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
             <div class="flex-auto w-5/12 flex items-start gap-1.5 sm:gap-3">
               <i class="fa-solid fa-phone text-sm text-lightGreen sm:text-lg"></i>
               <p class="font-medium text-sm sm:text-base text-gray-700">Phone</p>
             </div>
             <div class="flex-auto w-7/12 flex justify-end items-start">
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.phone_number %></p>
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @individual_beneficiary.phone_number %></p>
             </div>
           </div>
         </div>

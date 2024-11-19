@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.1.2'
 
 gem 'font-awesome-sass', '~> 6.5.2'
 
@@ -85,3 +85,5 @@ gem 'devise'
 
 # Africastalking-ruby for implement ussd menu
 gem 'africastalking-ruby'
+
+gem 'kaminari', '~> 1.2'

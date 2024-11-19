@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
   const dropdownItems = document.querySelectorAll("#dropdownId2 [data-role]");
   const userElements = document.querySelectorAll(
     ".users-grid [data-users-type]"

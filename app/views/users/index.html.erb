@@ -43,16 +43,16 @@
             </svg>
           </button>
           <!-- Dropdown menu -->
-          <div id="dropdownMenu<%= user.id %>" class="hidden absolute right-0 mt-2 w-48 bg-white hover:text-white rounded-md shadow-lg z-10">
-            <ul class="py-1 text-sm text-black">
+          <div id="dropdownMenu<%= user.id %>" class="hidden absolute right-0 mt-2 w-38 bg-white hover:text-white rounded-md shadow-lg z-10">
+            <ul class="py-1 text-sm text-black font-bold font-Outfit">
               <li>
-                <%= link_to 'Show', user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
+                <%= link_to 'View', user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-DarkBlue" %>
               </li>
               <li>
-                <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray" %>
+                <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen" %>
               </li>
               <li>
-                <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray" do %>
+                <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray text-red-500" do %>
                   Delete
                 <% end %>
               </li>
@@ -65,7 +65,7 @@
         <li class="flex flex-col justify-center items-center">
             <p class="font-bold text-sm sm:text-base md:text-lg" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
             <p class="font-thin text-xs sm:text-sm md:text-base mt-1" id="user-role-<%= user.role %>" data-role-full="<%= user.role.titleize %>"><%= user.role.titleize %></p>
-            <p class="hidden md:block font-thin text-xs text-center"><%= user.email %></p>
+            <p class="hidden mmd:block font-thin text-xs text-center"><%= user.email %></p>
         </li>
         <li class="flex flex-row justify-center items-center gap-2 mmd:hidden">
           <div>

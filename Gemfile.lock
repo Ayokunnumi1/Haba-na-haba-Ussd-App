@@ -117,6 +117,8 @@ GEM
     drb (2.2.1)
     erubi (1.13.0)
     ffi (1.17.0-x64-mingw-ucrt)
+    font-awesome-sass (6.5.2)
+      sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     httparty (0.22.0)
@@ -137,6 +139,18 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.7.2)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
     loofah (2.22.0)
@@ -305,13 +319,15 @@ DEPENDENCIES
   devise
   dotenv-rails
   error_highlight (>= 0.4.0)
+  font-awesome-sass (~> 6.5.2)
   importmap-rails
   jbuilder
+  kaminari (~> 1.2)
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.4)
   rubocop (>= 1.0, < 2.0)
-  sassc-rails
+  sassc-rails (>= 2.1)
   selenium-webdriver
   sprockets-rails
   stimulus-rails
@@ -321,7 +337,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.1.2p20
 
 BUNDLED WITH
    2.5.9

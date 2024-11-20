@@ -1,16 +1,78 @@
-<h1 class="text-2xl font-bold mb-6">User Details</h1>
-<div class="bg-white p-6 rounded-lg shadow-lg">
-  <% if @user.image.attached? %>
-    <%= image_tag url_for(@user.image), alt: "#{@user.first_name}'s Profile Image", class: "w-32 h-32 rounded-full mb-4" %>
-  <% end %>
-  <p class="text-gray-700"><strong>First Name:</strong> <%= @user.first_name %></p>
-  <p class="text-gray-700"><strong>Last Name:</strong> <%= @user.last_name %></p>
-  <p class="text-gray-700"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-  <p class="text-gray-700"><strong>Email:</strong> <%= @user.email %></p>
-  <p class="text-gray-700"><strong>Role:</strong> <%= @user.role %></p>
-  <p class="text-gray-700"><strong>Branch:</strong> <%= @user.branch&.name %></p>
-</div>
-<div class="mt-6">
-  <%= link_to 'Edit', edit_user_path(@user), class: 'bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600' %>
-  <%= link_to 'Back to Users', users_path, class: 'bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none' %>
-</div>
+<section class="flex flex-col justify-center items-center overflow-hidden md:mt-20 lg:mt-10">
+  <div class="bg-darkBlue px-8 text-white rounded-2xl font-Outfit bg-users-show max-w-lg w-full md:max-w-2xl lg:max-w-3xl shadow-lg">
+    <%= button_to users_path, method: :get, class: "mt-5 inline-flex items-center text-white hover:text-gray-300 transition duration-150 ease-in-out" do %>
+      <%= image_tag("back-icon.svg", alt: "back", class: "w-6 h-6 mr-2") %> Back
+    <% end %>
+
+    <div class="flex flex-col justify-center items-center gap-4">
+      <div class="flex justify-center items-center">
+        <%= image_tag(@user.image.attached? ? url_for(@user.image) : "user.png", class: "rounded-full w-20 h-20 md:w-24 md:h-24 border-4 border-white shadow-md", alt: @user.first_name) %>
+      </div>
+      <p class="text-2xl font-bold"><%= @user.first_name %></p>
+      <p class="text-lg font-light text-gray-300"><%= @user.role %></p>
+      
+      <ul class="flex items-center justify-center gap-4 mt-2">
+        <li class="bg-white rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150">
+          <a href="https://www.whatsapp.com/" target="_blank">
+            <!-- WhatsApp icon SVG here -->
+                  <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_692_6012)">
+                      <path d="M13.3333 2.55166V7.55166M13.3333 7.55166H18.3333M13.3333 7.55166L19.1667 1.71832M18.3333 14.985V17.485C18.3343 17.7171 18.2867 17.9468 18.1937 18.1594C18.1008 18.3721 17.9644 18.563 17.7934 18.7199C17.6224 18.8768 17.4205 18.9962 17.2006 19.0706C16.9808 19.1449 16.7478 19.1725 16.5167 19.1517C13.9523 18.873 11.4892 17.9968 9.32498 16.5933C7.31151 15.3139 5.60443 13.6068 4.32499 11.5933C2.91663 9.41933 2.04019 6.94415 1.76665 4.36832C1.74583 4.13788 1.77321 3.90562 1.84707 3.68634C1.92092 3.46706 2.03963 3.26556 2.19562 3.09467C2.35162 2.92378 2.54149 2.78725 2.75314 2.69376C2.9648 2.60027 3.1936 2.55187 3.42499 2.55166H5.92498C6.32941 2.54768 6.72148 2.69089 7.02812 2.9546C7.33476 3.21831 7.53505 3.58453 7.59165 3.98499C7.69717 4.78504 7.89286 5.5706 8.17499 6.32666C8.2871 6.62493 8.31137 6.94908 8.24491 7.26072C8.17844 7.57236 8.02404 7.85842 7.79998 8.08499L6.74165 9.14332C7.92795 11.2296 9.65536 12.957 11.7417 14.1433L12.8 13.085C13.0266 12.8609 13.3126 12.7065 13.6243 12.6401C13.9359 12.5736 14.26 12.5979 14.5583 12.71C15.3144 12.9921 16.0999 13.1878 16.9 13.2933C17.3048 13.3504 17.6745 13.5543 17.9388 13.8662C18.203 14.1781 18.3435 14.5763 18.3333 14.985Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_692_6012">
+                        <rect width="20" height="20" fill="white" transform="translate(0 0.88501)"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+            </a>
+        </li>
+        <li class="bg-white rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150">
+          <a href="https://zoom.us/signin#/login" target="_blank">
+            <!-- Zoom icon SVG here -->
+            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5 13.385C17.5 13.827 17.3244 14.251 17.0118 14.5635C16.6993 14.8761 16.2754 15.0517 15.8333 15.0517H5.83333L2.5 18.385V5.05168C2.5 4.60965 2.67559 4.18573 2.98816 3.87317C3.30072 3.5606 3.72464 3.38501 4.16667 3.38501H15.8333C16.2754 3.38501 16.6993 3.5606 17.0118 3.87317C17.3244 4.18573 17.5 4.60965 17.5 5.05168V13.385Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+
+          </a>
+        </li>
+        <li class="bg-white rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150">
+          <a href="https://www.google.com/intl/en-US/gmail/about/" target="_blank">
+            <!-- Gmail icon SVG here -->
+            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.3333 10.885H13.3333L11.6667 13.385H8.33332L6.66666 10.885H1.66666M18.3333 10.885V15.885C18.3333 16.327 18.1577 16.7509 17.8452 17.0635C17.5326 17.3761 17.1087 17.5517 16.6667 17.5517H3.33332C2.8913 17.5517 2.46737 17.3761 2.15481 17.0635C1.84225 16.7509 1.66666 16.327 1.66666 15.885V10.885M18.3333 10.885L15.4583 5.14332C15.3203 4.86565 15.1076 4.63197 14.8441 4.46856C14.5806 4.30515 14.2767 4.21849 13.9667 4.21832H6.03332C5.72325 4.21849 5.41938 4.30515 5.15586 4.46856C4.89234 4.63197 4.67964 4.86565 4.54166 5.14332L1.66666 10.885" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>          
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex flex-col items-start lg:items-center gap-4 p-4 mt-4 text-gray-200 md:text-lg lg:text-xl font-thin">
+      <div class="flex items-center gap-3">
+        <%= image_tag("user-check.svg", alt: "user check", class: "w-6 h-6") %>
+        <span class="font-normal text-white"><%= @user.first_name %> <%= @user.last_name %></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <%= image_tag("gender.svg", alt: "gender", class: "w-6 h-6") %>
+        <span><%= @user.full_gender %></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <%= image_tag("phone.svg", alt: "phone", class: "w-6 h-6") %>
+        <span><%= @user.phone_number %></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <%= image_tag("mail.svg", alt: "mail", class: "w-6 h-6") %>
+        <span class="truncate"><%= @user.email %></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <%= image_tag("branch.svg", alt: "branch", class: "w-6 h-6") %>
+        <span><%= @user.branch&.name.present? ? @user.branch.name : "No branch assigned" %></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <%= image_tag("location.svg", alt: "location", class: "w-6 h-6") %>
+        <span><%= @user.location.present? ? @user.location : "No location" %></span>
+      </div>
+    </div>
+  </div>
+</section>

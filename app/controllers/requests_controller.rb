@@ -85,11 +85,12 @@ class RequestsController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+
+  private
+
   def process_ussd(text, phone_number)
     EnglishMenu.process_menu(text, phone_number, session)
   end
-
-  private
 
   def set_request
     @request = Request.find(params[:id])

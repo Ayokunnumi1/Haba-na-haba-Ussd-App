@@ -2,12 +2,6 @@ module FoodRequestModule
   extend SmsHelper
 
   def self.process_request(text, phone_number, _session)
-    all_districts = District.all
-    puts 'All Districts:'
-    all_districts.each do |district|
-      puts "District ID: #{district.id}, Name: #{district.name}"
-    end
-
     input_parts = text.split('*')
     request_name = text.split[1]
     district_name = input_parts[2]

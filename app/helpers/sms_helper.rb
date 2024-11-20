@@ -6,7 +6,7 @@ module SmsHelper
     user_name = ENV.fetch('AFRICASTALKING_USERNAME', nil)
     api_key = ENV.fetch('AFRICASTALKING_API_KEY', nil)
     puts "#{api_key}, #{user_name} credentials"
-    @at = AfricasTalking::Initialize.new(username, apiKey)
+    @at = AfricasTalking::Initialize.new(user_name, api_key)
     sms = @at.sms
     options = {
       'to' => phone_number,

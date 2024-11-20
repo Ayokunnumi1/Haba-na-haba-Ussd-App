@@ -1,6 +1,7 @@
 class Branch < ApplicationRecord
-  belongs_to :district
-  belongs_to :county
+  include Matchable
+  has_many :branch_districts, dependent: :destroy
+  has_many :districts, through: :branch_districts
   has_many :users
 
   validates :name, :phone_number, presence: true

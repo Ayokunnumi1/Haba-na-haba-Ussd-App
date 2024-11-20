@@ -1,4 +1,6 @@
 class IndividualBeneficiary < ApplicationRecord
+  include IndividualBeneficiaryFilterable
+
   belongs_to :district
   belongs_to :county
   belongs_to :sub_county

@@ -86,4 +86,6 @@ gem 'devise'
 # Africastalking-ruby for implement ussd menu
 gem 'africastalking-ruby'
 
+gem 'faker'
 gem 'kaminari', '~> 1.2'
+gem 'pg_search'

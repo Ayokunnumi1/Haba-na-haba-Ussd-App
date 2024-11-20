@@ -87,6 +87,7 @@ gem 'devise'
 gem 'africastalking-ruby'
 
 gem 'faker'
-gem 'pg_search'
 gem 'kaminari', '~> 1.2'
+gem 'pg_search'
+
 

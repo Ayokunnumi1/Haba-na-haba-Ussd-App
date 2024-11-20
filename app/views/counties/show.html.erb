@@ -1,4 +1,10 @@
-<h1 class="text-2xl font-bold mb-4"><%= @county.name %></h1>
-<p class="mb-4">District: <%= @county.district.name %></p>
-<%= link_to 'Edit', edit_county_path(@county), class: "mr-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700" %>
-<%= link_to 'Back', counties_path, class: "bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700" %>
+<div class="flex justify-center items-center h-[90%] w-full">
+  <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4 text-center"><%= @county.name %></h2>
+    <p class="mb-4 text-center">District: <%= link_to @county.district.name, district_path(@county.district), class: "text-darkBlue font-semibold hover:underline" %></p>
+    <div class="mt-6 text-center">
+      <%= link_to 'Edit', edit_county_path(@county), class: "inline-block px-4 py-2 bg-lightGreen text-white font-semibold rounded-lg hover:bg-green-700 mr-4" %>
+      <%= link_to 'Back', counties_path, class: "inline-block px-4 py-2 bg-darkBlue text-white font-semibold rounded-lg hover:bg-gray-700" %>
+    </div>
+  </div>
+</div>

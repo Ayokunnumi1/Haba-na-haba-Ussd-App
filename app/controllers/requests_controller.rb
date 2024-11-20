@@ -85,7 +85,6 @@ class RequestsController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
-
   private
 
   def process_ussd(text, phone_number)

@@ -1,4 +1,5 @@
 module FoodDonationModule
+  extend SmsHelper
   def self.process_request(text, phone_number, _session)
     input_parts = text.split('*')
     request_name = input_parts[1]
@@ -54,6 +55,8 @@ module FoodDonationModule
       phone_number:,
       request_id: request.id
     )
+    message = "Thank you for your donation we are reaching out to you shortly. Proceed to branch #{branch.name} in #{selected_district.name}"
+    SmsHelper.send_sms(phone_number, message)
     'END Thank you for your donation we are reaching out to you shortly'
   end
 end

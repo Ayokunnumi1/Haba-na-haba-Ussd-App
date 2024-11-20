@@ -1,4 +1,6 @@
 module FoodRequestModule
+  extend SmsHelper
+
   def self.process_request(text, phone_number, _session)
     all_districts = District.all
     puts 'All Districts:'
@@ -38,8 +40,9 @@ module FoodRequestModule
       sub_county_id: selected_sub_county.id,
       branch_id: branch.id
     )
-
+    message = "We are processing your request and will contact you shortly. Proceed to the branch #{branch_name} in #{selected_district.name} District."
     if new_request.save(validate: false)
+      SmsHelper.send_sms(phone_number, message)
       "END We are processing your request and will contact you shortly. Proceed to the branch #{branch_name} in #{selected_district.name} District."
     else
       puts "Request creation failed: #{new_request.errors.full_messages.join(', ')}"

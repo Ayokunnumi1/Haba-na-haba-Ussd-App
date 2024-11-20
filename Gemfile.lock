@@ -119,11 +119,10 @@ GEM
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.0)
-    ffi (1.17.0-x64-mingw-ucrt)
+    ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x64-mingw-ucrt)
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
-
     globalid (1.2.1)
       activesupport (>= 6.1)
     httparty (0.22.0)
@@ -337,7 +336,6 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.4)
   rubocop (>= 1.0, < 2.0)
-  sassc-rails
   sassc-rails (>= 2.1)
   selenium-webdriver
   sprockets-rails

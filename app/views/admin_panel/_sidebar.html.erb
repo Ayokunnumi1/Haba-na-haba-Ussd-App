@@ -186,10 +186,11 @@
 </li>
 
 <li>
-  <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
-    <i class="fa-solid fa-arrow-right-from-bracket group-hover:text-lightGreen text-base"></i>
-    <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Log out</span>
-  <% end %>
+<%= link_to destroy_user_session_path, method: :delete, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group", data: { turbo_method: :delete } do %>
+  <i class="fa-solid fa-arrow-right-from-bracket group-hover:text-lightGreen text-base"></i>
+  <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Log out</span>
+<% end %>
+
 </li>
       </ul>
    </div>

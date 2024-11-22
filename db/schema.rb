@@ -92,6 +92,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_15_080703) do
     t.bigint "sub_county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "start_time"
+    t.time "end_time"
     t.index ["county_id"], name: "index_events_on_county_id"
     t.index ["district_id"], name: "index_events_on_district_id"
     t.index ["sub_county_id"], name: "index_events_on_sub_county_id"

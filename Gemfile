@@ -2,12 +2,9 @@ source 'https://rubygems.org'
 
 ruby '3.1.2'
 
-gem 'font-awesome-sass', '~> 6.5.2'
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.4'
 
-gem 'sassc-rails', '>= 2.1'
 # Rubocop for linters
 gem 'rubocop', '>= 1.0', '< 2.0'
 
@@ -89,8 +86,12 @@ gem 'africastalking-ruby'
 # Font awesome for icons
 gem 'font-awesome-sass', '~> 6.5.2'
 
-# Rails sass compiler
-gem 'sassc-rails', '>= 2.1'
+# gem for development Environment
 gem 'faker'
+
+# Gem for ussd location
 gem 'kaminari', '~> 1.2'
 gem 'pg_search'
+
+# Rails sass compiler
+gem 'sassc-rails', '>= 2.1'

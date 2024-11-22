@@ -8,6 +8,7 @@ document.addEventListener("turbo:load", function () {
     dropDownMenu.classList.toggle("hidden");
   });
 
+
   // Role filtering functionality
   const dropdownItems = document.querySelectorAll("#dropDownItems");
   const userElements = document.querySelectorAll("#users-grid");

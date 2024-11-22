@@ -5,4 +5,6 @@ import "./controllers";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
 import "./dropdown";
-import "flowbite"
+import "flowbite";
+import "truncate";
+import "filterUsers";

@@ -68,32 +68,3 @@
     </div>
   </div>
 <% end %>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Initialize search filter for the user select dropdown
-    const selectElement = document.getElementById('user_ids');
-
-    if (selectElement) {
-      const searchInput = document.createElement('input');
-      searchInput.setAttribute('type', 'text');
-      searchInput.setAttribute('placeholder', 'Search users...');
-      searchInput.setAttribute('class', 'w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500');
-
-      selectElement.parentNode.insertBefore(searchInput, selectElement);
-
-      searchInput.addEventListener('input', function(event) {
-        const filter = event.target.value.toLowerCase();
-        const options = selectElement.querySelectorAll('option');
-
-        options.forEach(function(option) {
-          const text = option.textContent.toLowerCase();
-          if (text.indexOf(filter) > -1) {
-            option.style.display = '';
-          } else {
-            option.style.display = 'none';
-          }
-        });
-      });
-    }
-  });
-</script>

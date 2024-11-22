@@ -53,14 +53,11 @@
         <%= form.collection_select :sub_county_id, SubCounty.all, :id, :name, {}, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
       </div>
     </div>
-    <!-- Additional Users Dropdown -->
-    <!-- Additional Users Dropdown -->
     <div class="mb-4">
       <%= form.label :user_ids, "Select Users to Add", class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= form.collection_select :user_ids, User.order(:role), :id, ->(user) { "#{user.first_name} - #{user.role} - #{user.phone_number}" }, {}, { multiple: true, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", id: 'user_ids' } %>
       <small class="text-lightGreen">Hold Ctrl (Cmd) to select multiple users</small>
     </div>
-    <!-- Submit button -->
     <div class="actions flex flex-row space-x-4">
       <div class="w-1/2">
         <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>

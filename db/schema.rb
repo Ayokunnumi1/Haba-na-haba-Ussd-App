@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_30_133113) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_080703) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -42,15 +43,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_133113) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "branch_districts", force: :cascade do |t|
+    t.bigint "branch_id", null: false
+    t.bigint "district_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id", "district_id"], name: "index_branch_districts_on_branch_id_and_district_id", unique: true
+    t.index ["branch_id"], name: "index_branch_districts_on_branch_id"
+    t.index ["district_id"], name: "index_branch_districts_on_district_id"
+  end
+
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
-    t.bigint "district_id", null: false
-    t.bigint "county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["county_id"], name: "index_branches_on_county_id"
-    t.index ["district_id"], name: "index_branches_on_district_id"
   end
 
   create_table "counties", force: :cascade do |t|
@@ -246,6 +253,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_133113) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "gender"
+    t.string "location"
     t.index ["branch_id"], name: "index_users_on_branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -253,8 +262,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_133113) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "branches", "counties"
-  add_foreign_key "branches", "districts"
+  add_foreign_key "branch_districts", "branches"
+  add_foreign_key "branch_districts", "districts"
   add_foreign_key "counties", "districts"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"

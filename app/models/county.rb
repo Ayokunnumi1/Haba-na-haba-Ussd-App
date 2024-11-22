@@ -1,7 +1,8 @@
 class County < ApplicationRecord
+  include Matchable
+
   belongs_to :district
   has_many :sub_counties
-  has_many :branches
   has_many :individual_beneficiaries, dependent: :nullify
   has_many :family_beneficiaries, dependent: :nullify
   has_many :organization_beneficiaries, dependent: :nullify

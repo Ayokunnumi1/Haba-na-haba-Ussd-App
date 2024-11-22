@@ -11,7 +11,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        darkBlue: "#302C51",
+        primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a","950":"#172554"},
+        darkBlue: "rgb(48, 44, 81)",
         lightGreen: "#6DC13D",
         moodyBlue: "#666099",
         lightGray: "#F5F5F5",
@@ -20,6 +21,21 @@ module.exports = {
       fontFamily: {
         Paprika: ["Paprika", "sans-serif"],
         Outfit: ["Outfit", "sans-serif"],
+      },
+      width: {
+        30: "30px",
+        48: "192px",
+      },
+      height: {
+        30: "30px",
+      },
+      backgroundImage: {
+        "users-image": "url('/assets/users-image.svg')",
+        "users-show": "url('/assets/users-show.svg')",
+        'login-bg': "url('/assets/Shape.svg')",
+      },
+      screens: {
+        mmd: "370px",
       },
     },
   },

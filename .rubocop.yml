@@ -11,7 +11,7 @@ AllCops:
   DisplayCopNames: true
 
 Layout/LineLength:
-  Max: 120
+  Max: 200
 Metrics/MethodLength:
   Include:
     - "app/controllers/*"
@@ -27,6 +27,10 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   AllowedMethods: ["describe"]
   Max: 60
+Metrics/CyclomaticComplexity:
+ Max: 10
+Metrics/PerceivedComplexity:
+ Max: 10
 
 Style/Documentation:
   Enabled: false

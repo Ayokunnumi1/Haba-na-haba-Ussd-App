@@ -7,3 +7,6 @@ import "./controllers/load_sub_counties";
 import "./controllers/toggleFilter";
 import "./dropdown";
 import "flowbite";
+import "truncate";
+import "filterUsers";
+

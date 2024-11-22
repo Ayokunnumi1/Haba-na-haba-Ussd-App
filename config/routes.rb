@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
+  post  'ussd_request', to: 'requests#ussd'
   resources :users
   resources :districts
   resources :counties

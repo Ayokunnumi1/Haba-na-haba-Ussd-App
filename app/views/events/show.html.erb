@@ -14,3 +14,113 @@
 
 <%= link_to 'Edit', edit_event_path(@event) %>
 <%= link_to 'Back to Events', events_path %>
+<div class="border-b border-gray-200 dark:border-gray-700 font-Outfit">
+    <ul class="flex justify-center space-x-2 sm:space-x-0 font-Outfit font-bold text-darkBlue">
+        <li>
+            <a id="overview-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-chart-line"></i>
+                Overview
+            </a>
+        </li>
+        <li>
+            <a id="staffs-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-users"></i>
+                Staffs
+            </a>
+        </li>
+        <li>
+            <a id="requests-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-inbox"></i>
+                Requests
+            </a>
+        </li>
+        <li>
+            <a id="events-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-bookmark"></i>
+                Events
+            </a>
+        </li>
+        <li>
+            <a id="inventory-tab" class="tab-link flex flex-col text-xs md:text-base items-center p-2 md:p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen group">
+                <i class="fa-solid fa-bell"></i>
+                Inventory
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- Sections for each tab -->
+<div id="overview-section" class="mt-4 p-4 hidden">
+    <h3 class="text-lg font-semibold text-darkBlue">Overview Content</h3>
+    <p class="text-sm text-gray-800">This is the overview content.</p>
+</div>
+</div>
+
+<div id="requests-section" class="mt-4 p-4 hidden">
+    <h3 class="text-lg font-semibold text-darkBlue">Requests</h3>
+    <p class="text-sm text-gray-800">Details about recent requests go here.</p>
+</div>
+
+<div id="events-section" class="mt-4 p-4 hidden">
+    <h3 class="text-lg font-semibold text-darkBlue">Events</h3>
+    <p class="text-sm text-gray-800">Upcoming events and news go here.</p>
+</div>
+
+<div id="inventory-section" class="mt-4 p-4 hidden">
+    <h3 class="text-lg font-semibold text-darkBlue">Inventory</h3>
+    <p class="text-sm text-gray-800">Current inventory details go here.</p>
+</div>
+
+<!-- Styles for active tab -->
+<style>
+    .active-tab {
+        color: #6DC13D; /* lightGreen color */
+        border-color: #6DC13D;
+    }
+</style>
+
+<!-- JavaScript to control the display of sections and active tab styling -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabSectionMapping = {
+            "overview-tab": "overview-section",
+            "staffs-tab": "branch-users",
+            "requests-tab": "requests-section",
+            "events-tab": "events-section",
+            "inventory-tab": "inventory-section"
+        };
+
+        function showSection(sectionId) {
+            
+            Object.values(tabSectionMapping).forEach(section => {
+                document.getElementById(section).classList.add("hidden");
+            });
+            document.getElementById(sectionId).classList.remove("hidden");
+        }
+
+        function setActiveTab(activeTabId) {
+            
+            document.querySelectorAll(".tab-link").forEach(tab => {
+                tab.classList.remove("active-tab");
+            });
+            document.getElementById(activeTabId).classList.add("active-tab");
+        }
+
+        // Load the last active tab from localStorage
+        const lastActiveTab = localStorage.getItem("activeTab") || "overview-tab";
+        showSection(tabSectionMapping[lastActiveTab]);
+        setActiveTab(lastActiveTab);
+
+        // Attach event listeners to each tab
+        Object.keys(tabSectionMapping).forEach(tabId => {
+            document.getElementById(tabId).addEventListener("click", function (event) {
+                event.preventDefault();
+                const sectionId = tabSectionMapping[tabId];
+                showSection(sectionId);
+                setActiveTab(tabId);
+                localStorage.setItem("activeTab", tabId);
+            });
+        });
+    });
+</script>
+

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: %i[show edit update destroy]
 
   def index
     @events = Event.all
@@ -19,6 +19,14 @@ class EventsController < ApplicationController
     end
   end
 
+  def show
+    # The set_event callback sets @event
+  end
+
+  def edit
+    # The set_event callback sets @event
+  end
+
   def update
     if @event.update(event_params)
       redirect_to @event, notice: 'Event was successfully updated.'
@@ -28,20 +36,9 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    event = Event.find(params[:id])
-    # Delete the associated event_users first
-    event.event_users.destroy_all
-    # Then delete the event
-    event.destroy
+    @event.event_users.destroy_all
+    @event.destroy
     redirect_to events_path, notice: 'Event was successfully deleted.'
-  end
-
-  def show
-    # The set_event callback already sets @event
-  end
-
-  def edit
-    # The set_event callback already sets @event
   end
 
   private
@@ -51,6 +48,9 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :start_date, :end_date, :start_time, :end_time, :district_id, :county_id, :sub_county_id, user_ids: [])
+    params.require(:event).permit(
+      :name, :start_date, :end_date, :start_time, :end_time,
+      :district_id, :county_id, :sub_county_id, user_ids: []
+    )
   end
 end

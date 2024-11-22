@@ -37,7 +37,8 @@ module.exports = {
         "users-show": "url('/assets/users-show.svg')",
       },
       screens: {
-        mmd: "370px",
+        ssm: "200px",
+        mmd: "510px",
       },
     },
   },

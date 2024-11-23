@@ -34,11 +34,18 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.event_users.destroy_all
-    @event.destroy
-    redirect_to events_path, notice: 'Event was successfully deleted.'
+    begin
+      @event.event_users.destroy_all
+      if @event.destroy
+        redirect_to events_path, notice: 'Event was successfully deleted.'
+      else
+        redirect_to events_path, alert: 'Failed to delete the event.'
+      end
+    rescue StandardError => e
+      error_message = ErrorHandler.extract_message(e) 
+      redirect_to events_path, alert: "Failed to delete the event: #{error_message}"
+    end
   end
-
   private
 
   def set_event

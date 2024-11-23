@@ -6,12 +6,12 @@
         <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
       <% end %>
     </div>
-    <p class="ssm:hidden mmd:block font-bold">Staffs</p>
+    <p class="ssm:hidden mmd:block font-bold mmd:text-lg">Staffs</p>
     <div class="ssm:hidden mmd:block p-4 bg-lightGreen text-white rounded-xl">
       <%= link_to 'Add New Staff', new_user_path, alt: 'add new staff' %>
     </div>
     <div class="relative">
-      <button id="dropDownMenuBtn" data-dropdown-toggle="dropdownMenu" class="text-black bg-gray-100 hover:bg-lightGreen focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Roles
+      <button id="dropDownMenuBtn" class="text-black bg-gray-100 hover:bg-lightGreen focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Roles
         <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
         </svg>
@@ -33,7 +33,7 @@
     <% @users.each do |user| %>
       <ul class="ssm:flex ssm:flex-row ssm:justify-between ssm:items-center ssm:px-5 ssm:py-2 ssm:bg-gray-100 ssm:rounded-lg ssm:shadow font-Outfit mmd:m-0 mmd:p-5 mmd:block mmd:relative mmd:rounded-lg mmd:bg-white mmd:shadow-sm mmd:hover:bg-darkBlue mmd:hover:text-white mmd:bg-users-image mmd:bg-cover mmd:bg-center mmd:bg-no-repeat" data-users-type="<%= user.role %>" id="users-grid">
         <li class="ssm:hidden mmd:block mmd:absolute mmd:top-2 mmd:right-2">
-          <button id="userDropDownButton<%= user.id %>" data-dropdown-toggle="userDropDwnMenu<%= user.id %>">
+          <button id="userDropDwnBtn<%= user.id %>">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4zm0 4a2 2 0 110-4 2 2 0 010 4z"/>
             </svg>

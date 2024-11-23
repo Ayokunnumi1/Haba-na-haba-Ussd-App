@@ -1,4 +1,4 @@
-document.addEventListener("turbo:load",  () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Role Dropdown toggle functionality
   const dropDownButton = document.querySelector("#dropDownMenuBtn");
   const dropDownMenu = document.querySelector("#dropDownMenu");
@@ -7,14 +7,13 @@ document.addEventListener("turbo:load",  () => {
     dropDownMenu.classList.toggle("hidden");
   });
 
-
   // Role filtering functionality
   const dropdownItems = document.querySelectorAll("#dropDownItems");
   const userElements = document.querySelectorAll("#users-grid");
 
   dropdownItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      const role = this.getAttribute("data-role");
+    item.addEventListener("click", (e) => {
+      const role = e.target.getAttribute("data-role");
 
       userElements.forEach((user) => {
         if (user.getAttribute("data-users-type") === role) {

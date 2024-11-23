@@ -1,10 +1,9 @@
-document.addEventListener("turbo:load", function () {
-  // Dropdown toggle functionality
+document.addEventListener("turbo:load",  () => {
+  // Role Dropdown toggle functionality
   const dropDownButton = document.querySelector("#dropDownMenuBtn");
   const dropDownMenu = document.querySelector("#dropDownMenu");
 
   dropDownButton.addEventListener("click", function () {
-    console.log("clicked");
     dropDownMenu.classList.toggle("hidden");
   });
 
@@ -14,7 +13,7 @@ document.addEventListener("turbo:load", function () {
   const userElements = document.querySelectorAll("#users-grid");
 
   dropdownItems.forEach((item) => {
-    item.addEventListener("click", function () {
+    item.addEventListener("click", () => {
       const role = this.getAttribute("data-role");
 
       userElements.forEach((user) => {

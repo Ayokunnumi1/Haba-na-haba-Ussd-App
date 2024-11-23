@@ -18,6 +18,9 @@ module.exports = {
         lightGray: "#F5F5F5",
         mutedIndigo: "#5a607a",
       },
+      borderRadius: {
+        '4xl': '20px',
+      },
       fontFamily: {
         Paprika: ["Paprika", "sans-serif"],
         Outfit: ["Outfit", "sans-serif"],

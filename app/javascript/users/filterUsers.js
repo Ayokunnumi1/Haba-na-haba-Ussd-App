@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
   // Role Dropdown toggle functionality
   const dropDownButton = document.querySelector("#dropDownMenuBtn");
   const dropDownMenu = document.querySelector("#dropDownMenu");

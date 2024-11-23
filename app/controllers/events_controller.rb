@@ -20,11 +20,9 @@ class EventsController < ApplicationController
   end
 
   def show
-    # The set_event callback sets @event
   end
 
   def edit
-    # The set_event callback sets @event
   end
 
   def update

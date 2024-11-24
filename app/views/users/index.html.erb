@@ -58,9 +58,9 @@
         <li class="flex justify-center items-center ">
           <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full ssm:w-12 ssm:h-12 mmd:w-14 h-14", alt: user.first_name) %>
         </li>
-        <li class="flex flex-col justify-center items-center">
-          <p class="font-bold text-sm ssm:text-base mmd:text-lg" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
-          <p class="font-thin text-xs ssm:text-sm mmd:text-base mt-1" id="user-role-<%= user.role %>" data-role-full="<%= user.role.titleize %>"><%= user.role.titleize %></p>
+        <li class="flex flex-col justify-center items-center mmd:mt-2">
+          <p class="font-bold ssm:text-sm mmd:text-lg" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>
+          <p class="font-thin text-sm" id="user-role-<%= user.role %>" data-role-full="<%= user.role.titleize %>"><%= user.role.titleize %></p>
           <p class="ssm:hidden mmd:block font-thin text-xs text-center"><%= user.email %></p>
         </li>
         <li class="ssm:flex ssm:flex-row ssm:justify-center ssm:items-center ssm:gap-2 mmd:hidden">

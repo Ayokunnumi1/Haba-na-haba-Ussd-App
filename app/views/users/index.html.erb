@@ -31,7 +31,7 @@
   <!-- Users index page displayed -->
   <div class="<%= @users.size <= 3 ? 'mmd:flex mmd:flex-row ssm:gap-2' : 'ssm:flex ssm:flex-col mmd:grid mmd:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] justify-center ssm:gap-2.5 mmd:gap-4' %> font-Outfit font-lightGray mt-10">
     <% @users.each do |user| %>
-      <ul class="<%= @users.size <= 3 ? 'ssm:mt-2 mmd:w-44' : 'mmd:w-full ' %> ssm:flex ssm:flex-row ssm:justify-between ssm:items-center ssm:px-5 ssm:py-2 ssm:bg-gray-100 ssm:rounded-lg ssm:shadow font-Outfit mmd:m-0 mmd:p-5 mmd:block mmd:relative mmd:rounded-lg mmd:bg-white mmd:shadow-sm mmd:hover:bg-darkBlue mmd:hover:text-white mmd:bg-users-image mmd:bg-cover mmd:bg-center mmd:bg-no-repeat" data-users-type="<%= user.role %>" id="users-grid" >
+      <ul class="<%= @users.size <= 3 ? 'ssm:mt-2 mmd:w-56' : 'mmd:w-full ' %> ssm:flex ssm:flex-row ssm:justify-between ssm:items-center ssm:px-5 ssm:py-2 ssm:bg-gray-100 ssm:rounded-lg ssm:shadow font-Outfit mmd:m-0 mmd:p-5 mmd:block mmd:relative mmd:rounded-lg mmd:bg-white mmd:shadow-sm mmd:hover:bg-darkBlue mmd:hover:text-white mmd:bg-users-image mmd:bg-cover mmd:bg-center mmd:bg-no-repeat" data-users-type="<%= user.role %>" id="users-grid" >
         <li class="ssm:hidden mmd:block mmd:absolute mmd:top-2 mmd:right-2">
           <button id="userDropDwnBtn<%= user.id %>">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -56,7 +56,7 @@
           </div>
         </li>
         <li class="flex justify-center items-center ">
-          <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full ssm:w-12 ssm:h-12 mmd:w-14 h-14", alt: user.first_name) %>
+          <%= image_tag(user.image.attached? ? url_for(user.image) : "user.png", class: "rounded-full ssm:w-12 ssm:h-12 mmd:w-24 mmd:h-24", alt: user.first_name) %>
         </li>
         <li class="flex flex-col justify-center items-center mmd:mt-2">
           <p class="font-bold ssm:text-sm mmd:text-lg" id="user-first-name-<%= user.id %>" data-full-name="<%= user.first_name %>"><%= user.first_name %></p>

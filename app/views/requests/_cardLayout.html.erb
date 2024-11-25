@@ -39,28 +39,22 @@
   </div>
   <div class="flex justify-between items-center p-5">
     <div class="block md:hidden",>
-        <%= button_to new_request_path, method: :get do %>
-          <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20.5" cy="20.5" r="20.5" fill="#6DC13D"/>
-            <path d="M20 9.33331V32.6666M8.33333 21H31.6667" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        <% end %>
+      <%= button_to new_request_path, method: :get do %>
+        <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20.5" cy="20.5" r="20.5" fill="#6DC13D"/>
+          <path d="M20 9.33331V32.6666M8.33333 21H31.6667" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      <% end %>
     </div>
-
     <p class="hidden md:block font-semi-bold text-lg">Requests</p>
-
     <div>
-        <div class= "hidden md:inline-flex p-2 bg-lightGreen text-white rounded-xl">
-            <%= link_to "Add New", new_request_path, class:"border-2 border-lightGreen rounded-xl" %>
-        </div>
-        <button class="border-2 border-deepGray focus:outline-none rounded-xl p-2">
-          <i class="fa-solid fa-filter fa-xl"></i>
-          <span>filter</span>
-        </button>
+      <div class= "hidden md:inline-flex p-2 bg-lightGreen text-white rounded-xl">
+        <%= link_to "Add New", new_request_path, class:"border-2 border-lightGreen rounded-xl" %>
+      </div>
+      <button class="border-2 border-deepGray focus:outline-none rounded-xl p-2">
+        <i class="fa-solid fa-filter fa-xl"></i>
+        <span>filter</span>
+      </button>
     </div>
-    
-
   </div>
-
-  
 </section>

@@ -42,9 +42,8 @@ class EventsController < ApplicationController
         redirect_to events_path, alert: 'Failed to delete the event.'
       end
     rescue StandardError => e
-      error_message = ErrorHandler.extract_message(e) 
-      redirect_to events_path, alert: "Failed to delete the event: #{error_message}"
-    end
+    redirect_to events_path, alert: handle_destroy_error(e)
+  end
   end
   private
 

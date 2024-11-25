@@ -83,9 +83,17 @@ gem 'devise'
 
 # Africastalking-ruby for implement ussd menu
 gem 'africastalking-ruby'
-gem 'kaminari'
 
-# Font awesome icons
-gem 'font-awesome-sass', '6.5.2'
+# Font awesome for icons
+gem 'font-awesome-sass', '~> 6.5.2'
 
-gem 'sassc-rails'
+# gem for development Environment
+gem 'faker'
+
+# Gem for ussd location
+gem 'kaminari', '~> 1.2'
+gem 'pg_search'
+
+# Rails sass compiler
+gem 'sassc-rails', '>= 2.1'
+

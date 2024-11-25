@@ -4,8 +4,6 @@ class Inventory < ApplicationRecord
   belongs_to :sub_county
   belongs_to :request
 
-  validates :donor_name, :donor_type, :collection_date, :food_name, :expire_date, presence: true
-  validates :phone_number, :amount, presence: true
   validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
 
   scope :by_food_type, -> { where(donor_type: %w[dry_food fresh_food other]) }

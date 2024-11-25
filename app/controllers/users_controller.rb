@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    @users = User.order(created_at: :desc)
+    @roles = User::ROLES
   end
 
   def show
@@ -52,6 +53,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :email, :password,
-                                 :password_confirmation, :branch_id, :image)
+                                 :password_confirmation, :branch_id, :image, :gender, :location)
   end
 end

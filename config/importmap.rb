@@ -8,3 +8,7 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.turbo.min.js"
 pin "requestDropdown", to: "requestDropdown.js"
 pin "forRequest", to: "forRequest.js"
+pin "truncate", to: "truncate.js"
+pin "dropdown", to: "dropdown.js"
+pin_all_from "app/javascript/users", under: "users"
+

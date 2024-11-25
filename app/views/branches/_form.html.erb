@@ -20,23 +20,21 @@
     <%= form.label :phone_number, 'Phone Number', class: "block text-sm font-medium text-gray-700" %>
     <%= form.telephone_field :phone_number, class: "mt-1 block w-full", placeholder: "Enter phone number", required: true %>
   </div>
-  <!-- District Dropdown -->
-  <div>
-    <%= form.label :district_id, 'District', class: "block text-sm font-medium text-gray-700" %>
-    <%= form.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, class: "mt-1 block w-full", id: "district-select", 'data-context-path': 'branches' %>
-  </div>
-  <!-- County Dropdown (Initially empty or pre-filled for edit) -->
-  <div>
-    <%= form.label :county_id, 'County', class: "block text-sm font-medium text-gray-700" %>
-    <select id="county-select" name="branch[county_id]" class="mt-1 block w-full">
-      <option value="">Select County</option>
-      <% @counties.each do |county| %>
-        <option value="<%= county.id %>" <%= 'selected' if county.id == @branch.county_id %>><%= county.name %></option>
+  <!-- Districts Checkbox List -->
+    <div>
+      <%= form.label :district_ids, 'Select Districts', class: "block text-sm font-medium text-gray-700" %>
+      <div class="mt-2 max-h-40 overflow-y-scroll border rounded-md p-2 bg-gray-50 grid grid-cols-5 gap-4">
+        <% District.all.each do |district| %>
+          <div class="flex items-center space-x-2">
+            <%= check_box_tag "branch[district_ids][]", district.id, @branch.district_ids.include?(district.id), id: "district_#{district.id}" %>
+            <%= label_tag "district_#{district.id}", district.name, class: "text-sm text-gray-700" %>
+          </div>
         <% end %>
-      </select>
+      </div>
     </div>
+
     <!-- Submit Button -->
     <div class="flex space-x-4 mt-4">
       <%= form.submit @branch.new_record? ? "Create Branch" : "Update Branch", class: "bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600" %>
-    </div>
+   </div>
   <% end %>

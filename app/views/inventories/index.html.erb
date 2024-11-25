@@ -1,3 +1,4 @@
+
 <div class="md:flex-row flex space-x-4">
 
   <a href="#" class="flex flex-col items-start w-1/2 p-2 bg-[#6DC13D] rounded-lg shadow-md text-white">
@@ -306,6 +307,7 @@
       <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page)%>
     <% else %>
       <span><</span>
+
     <% end %>
 
     <% if @page_no < @total_pages %>

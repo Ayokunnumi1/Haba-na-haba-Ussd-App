@@ -51,6 +51,7 @@ class RequestsController < ApplicationController
       redirect_to @request, notice: 'Request was successfully updated.'
     else
       @districts = District.all
+      @branches = Branch.all
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       render :edit, alert: 'Failed to update request.'

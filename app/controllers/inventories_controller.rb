@@ -1,12 +1,52 @@
 class InventoriesController < ApplicationController
+  include Pagination
+
   before_action :set_request, only: %i[new create edit update]
   before_action :set_inventory, only: %i[edit update show destroy]
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
 
   def index
-    @inventories = Inventory.includes(:request).all
+    @per_page = (params[:per_page] || 2).to_i
+    @page_no = (params[:page] || 1).to_i
+    @inventory_food = Inventory.includes(:request).by_food_type
+    @inventory_donated = Inventory.includes(:request).donated
+    @inventory_stock_alert = Inventory.includes(:request).stock_alert
+    @inventory_expired = Inventory.includes(:request).expired
+
+    @food_inventory_count = @inventory_food.count
+    total_count = Inventory.count
+    @total_pages = (total_count.to_f / @per_page).ceil
+
+    @inventories = Inventory.includes(:request)
+      .by_donation_type(params[:donor_type])
+      .by_donation_date(params[:collection_date])
+      .by_expire_range(params[:start_date], params[:end_date])
+      .by_collection_amount(params[:min_amount], params[:max_amount])
+      .order("#{sort_column} #{sort_direction}")
+      .search_query(params[:query])
+      .page(@page_no)
+      .per(@per_page)
+
+    @min_collection_amount = @inventories.minimum(:amount) || 0
+    @max_collection_amount = @inventories.maximum(:amount) || 1500
+
+    @request = Request.new
+    @districts = District.all
+    @counties = County.none
+    @branches = Branch.none
+    @sub_counties = SubCounty.none
   end
 
-  def show; end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  def show
+    inventory = Inventory.find(params[:id])
+    respond_to do |format|
+      format.html { render partial: 'inventories/modal', locals: { inventory: @inventory } }
+      format.json { render json: inventory }
+    end
+  end
 
   def new
     if @request.inventories.exists?
@@ -77,6 +117,16 @@ class InventoriesController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  def bulk_delete
+    ids = params[:ids]
+    Inventory.where(id: ids).destroy_all
+
+    respond_to do |format|
+      format.json { render json: { success: true, message: 'Items deleted successfully' } }
+      format.html { redirect_to inventories_path, notice: 'Selected items were deleted.' }
+    end
+  end
+
   private
 
   def set_request
@@ -97,5 +147,13 @@ class InventoriesController < ApplicationController
                                       :expire_date, :village_address, :residence_address, :phone_number,
                                       :parish, :amount, :head_of_institution, :registration_no, :district_id,
                                       :county_id, :sub_county_id, :request_id)
+  end
+
+  def sort_column
+    Inventory.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

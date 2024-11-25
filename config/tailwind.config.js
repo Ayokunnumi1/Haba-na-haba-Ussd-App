@@ -41,7 +41,8 @@ module.exports = {
         'login-bg': "url('/assets/Shape.svg')",
       },
       screens: {
-        mmd: "370px",
+        ssm: "200px",
+        mmd: "510px",
       },
     },
   },

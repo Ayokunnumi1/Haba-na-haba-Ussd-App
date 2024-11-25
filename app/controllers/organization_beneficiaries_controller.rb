@@ -119,7 +119,7 @@ class OrganizationBeneficiariesController < ApplicationController
       :organization_name, :male, :female, :adult_age_range, :children_age_range, :district_id, :county_id,
       :sub_county_id, :residence_address, :village, :parish, :phone_number, :case_name, :case_description,
       :registration_no, :organization_no, :directors_name, :head_of_institution, :number_of_meals_home, :basic_FEH,
-      :request_id
+      :request_id, :branch_id, :provided_food
     )
   end
 end

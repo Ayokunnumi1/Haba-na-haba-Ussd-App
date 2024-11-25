@@ -118,7 +118,7 @@ class IndividualBeneficiariesController < ApplicationController
     params.require(:individual_beneficiary).permit(
       :name, :age, :gender, :residence_address, :village, :parish,
       :phone_number, :case_name, :case_description, :fathers_name,
-      :mothers_name, :sub_county_id, :county_id, :district_id
+      :mothers_name, :sub_county_id, :county_id, :district_id, request_id, :branch_id, :provided_food
     )
   end
 end

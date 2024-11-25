@@ -8,10 +8,10 @@
             <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
           </svg>
         </button>
-        <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-          <%= image_tag("hnh_admin_mobile_logo.png", alt: "Hnh mobile Logo", class: "h-12 me-3") %>
-          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
-        </a>
+        <%= link_to "#" , class: "flex ms-2 md:me-24" do %>
+          <%= image_tag("hnh_admin_mobile_logo.png", alt: "Hnh mobile Logo", class: "h-10 me-3") %>
+          <span class="self-center text-xl font-semibold text-lightGreen sm:text-xl whitespace-nowrap dark:text-white">HabaNaHaba</span>
+        <% end %>
       </div>
       <div class="flex justify-center ml-5 block lg:ml-[20%]">
       </div>
@@ -71,10 +71,7 @@
     </div>
   </nav>
   <aside id="logo-sidebar" class="fixed top-8 lg:top-16.5 left-0 lg:left-5 z-40 w-60  h-[95%] sm:h-full lg:h-[85%] xl:h-[85%] lg:rounded-lg transition-transform -translate-x-full bg-lightGreen border-r border-gray-200 lg:translate-x-0 drop-shadow-xl" aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto scrollbar-none bg-lightGreen lg:rounded-4xl pt-14 lg:pt-0">
-      <div class=" p-[5%] hidden lg:block ">
-        <%= image_tag("hnh_admin_logo.png", alt: "Hnh Logo", class: "h-32 w-full border-b border-gray-200") %>
-      </div>
+    <div class="h-full px-3 pb-4 overflow-y-auto scrollbar-none bg-lightGreen lg:rounded-4xl pt-14 lg:pt-15">
       <p class="py-2 text-white font-Outfit font-normal text-sm mr-24">MANAGE</p>
       <ul class="space-y-2 font-medium">
         <li>

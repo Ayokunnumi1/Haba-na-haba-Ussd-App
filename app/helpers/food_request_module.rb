@@ -16,14 +16,12 @@ module FoodRequestModule
 
     return 'END No matching district found.' if selected_district.nil?
 
-    puts "Selected district #{selected_district}"
-    puts "Selected county #{selected_county}"
-    puts "Selected sub county #{selected_sub_county}"
-    puts "Selected District: ID=#{selected_district.id}, Name=#{selected_district.name}"
+    puts "Selected District: ID=#{selected_district.name}, Name=#{selected_district.id}"
     puts "Selected District: ID=#{selected_county.id}, Name=#{selected_county.name}"
     puts "Selected District: ID=#{selected_sub_county.id}, Name=#{selected_sub_county.name}"
 
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id })
+    puts "Selected District: #{branch}"
     branch_name = branch.name
     new_request = Request.create(
       phone_number:,

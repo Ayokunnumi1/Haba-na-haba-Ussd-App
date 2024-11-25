@@ -37,9 +37,9 @@ class InventoriesController < ApplicationController
     @branches = Branch.none
     @sub_counties = SubCounty.none
   end
+
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
-
   def show
     inventory = Inventory.find(params[:id])
     respond_to do |format|

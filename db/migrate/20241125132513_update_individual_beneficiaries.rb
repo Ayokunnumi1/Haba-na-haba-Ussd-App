@@ -4,6 +4,6 @@ class UpdateIndividualBeneficiaries < ActiveRecord::Migration[7.1]
 
     add_reference :individual_beneficiaries, :branch, foreign_key: true, null: true
 
-    add_column :individual_beneficiaries, :provided_food, :integer
+    add_column :individual_beneficiaries, :provided_food, :decimal
   end
 end

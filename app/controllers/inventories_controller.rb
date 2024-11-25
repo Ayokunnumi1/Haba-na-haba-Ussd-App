@@ -96,6 +96,7 @@ class InventoriesController < ApplicationController
     params.require(:inventory).permit(:donor_name, :donor_type, :collection_date, :food_name,
                                       :expire_date, :village_address, :residence_address, :phone_number,
                                       :parish, :amount, :head_of_institution, :registration_no, :district_id,
-                                      :county_id, :sub_county_id, :request_id)
+                                      :county_id, :sub_county_id, :request_id,
+                                      :branch_id, :collection_amount)
   end
 end

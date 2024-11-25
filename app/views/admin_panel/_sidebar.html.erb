@@ -45,13 +45,13 @@
                       <%= link_to "Dashboard", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
                     </li>
                     <li>
-                      <%= link_to "Settings", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+                      <%= link_to "Request", requests_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
                     </li>
                     <li>
-                      <%= link_to "Earnings", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+                      <%= link_to "Inventory", inventories_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
                     </li>
                     <li>
-                      <%= link_to "Sign out", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+                      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem", data: { turbo_method: :delete } %>
                     </li>
                   </ul>
                 </div>

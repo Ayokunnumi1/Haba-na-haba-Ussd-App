@@ -7,14 +7,18 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new
+    @event = current_user.events.build
+    @users = User.all
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = current_user.events.build(event_params)
+
     if @event.save
-      redirect_to @event, notice: 'Event was successfully created.'
+      allocate_users_to_event(@event, params[:event][:user_ids])
+      redirect_to @event, notice: 'Event and users were successfully created.'
     else
+      @users = User.all
       render :new, status: :unprocessable_entity
     end
   end
@@ -23,28 +27,27 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @users = User.all
   end
 
   def update
     if @event.update(event_params)
-      redirect_to @event, notice: 'Event was successfully updated.'
+      allocate_users_to_event(@event, params[:event][:user_ids])
+      redirect_to @event, notice: 'Event and users were successfully updated.'
     else
+      @users = User.all
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    begin
-      @event.event_users.destroy_all
-      if @event.destroy
-        redirect_to events_path, notice: 'Event was successfully deleted.'
-      else
-        redirect_to events_path, alert: 'Failed to delete the event.'
-      end
-    rescue StandardError => e
-    redirect_to events_path, alert: handle_destroy_error(e)
+    if @event.destroy
+      redirect_to events_path, notice: 'Event was successfully deleted.'
+    else
+      redirect_to events_path, alert: 'Failed to delete the event.'
+    end
   end
-  end
+
   private
 
   def set_event
@@ -52,9 +55,15 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(
-      :name, :start_date, :end_date, :start_time, :end_time,
-      :district_id, :county_id, :sub_county_id, user_ids: []
-    )
+    params.require(:event).permit(:name, :start_date, :end_date, :start_time, :end_time, :district_id, :county_id, :sub_county_id, user_ids: [])
+  end
+
+  # Method to allocate users to the event using the join table (EventUser)
+  def allocate_users_to_event(event, user_ids)
+    return if user_ids.nil? || user_ids.empty?
+
+    user_ids.each do |user_id|
+      EventUser.create(event_id: event.id, user_id: user_id)
+    end
   end
 end

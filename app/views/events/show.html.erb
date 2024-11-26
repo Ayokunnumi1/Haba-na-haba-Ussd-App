@@ -6,7 +6,7 @@
 <p><strong>Sub County:</strong> <%= @event.sub_county.name %></p>
 <h2>Assigned Users</h2>
 <ul>
-  <% @event.users.each do |user| %>
+  <% @event.users.distinct.each do |user| %>  <!-- Added distinct here -->
     <li><%= user.first_name %></li>
   <% end %>
 </ul>

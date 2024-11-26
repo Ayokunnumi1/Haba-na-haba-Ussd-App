@@ -3,7 +3,10 @@ class FamilyBeneficiariesController < ApplicationController
   before_action :set_family_beneficiary, only: %i[edit update show destroy]
 
   def index
-    @family_beneficiaries = FamilyBeneficiary.includes(:request).all
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    @family_beneficiaries = FamilyBeneficiary.includes(:request).apply_filters(params)
   end
 
   def show; end

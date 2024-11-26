@@ -3,7 +3,10 @@ class OrganizationBeneficiariesController < ApplicationController
   before_action :set_organization_beneficiary, only: %i[edit update show destroy]
 
   def index
-    @organization_beneficiaries = OrganizationBeneficiary.includes(:request).all
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    @organization_beneficiaries = OrganizationBeneficiary.includes(:request).apply_filters(params)
   end
 
   def show; end

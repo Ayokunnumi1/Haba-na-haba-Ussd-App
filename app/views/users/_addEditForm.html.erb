@@ -1,0 +1,59 @@
+<%= form_with model: @user, local: true do |form| %>
+  <div class="mt-2 md:mt-28 lg:mt-8 lg:px-20">
+    <p class="text-center text-lightGreen font-Outfit font-bold text-lg ">
+      <%= @user.new_record? ? "Add New Staff" : "Update Staff Profile" %>
+    </p>
+    <div class="grid gap-6 mt-4 md:grid-cols-2">
+      <div>
+        <%= form.label :first_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.text_field :first_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "John" %>
+      </div>
+      <div>
+        <%= form.label :last_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.text_field :last_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Doe" %>
+      </div>
+      <div>
+        <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.telephone_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "123-45-678" %>
+      </div>
+      <div>
+        <%= form.label :gender, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.select :gender, options_for_select([['Female', 'F'], ['Male', 'M']]), { prompt: 'select gender' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+      </div>
+      <div>
+        <%= form.label :image, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.file_field :image, class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" %>
+      </div>
+      <div>
+        <%= form.label :role, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.select :role, User::ROLES.map { |role| [role.humanize, role] }, { prompt: 'select role' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+      </div>
+      <div>
+        <%= form.label :email, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.email_field :email, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "john.doe@company.com" %>
+      </div>
+      <div>
+        <%= form.label :password, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.password_field :password, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "•••••••••" %>
+      </div>
+      <div>
+        <%= form.label :password_confirmation, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.password_field :password_confirmation, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "•••••••••" %>
+      </div>
+      <div>
+        <%= form.label :location, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.text_field :location, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "kampala" %>
+      </div class="md:col-span-2">
+      <div>
+        <%= form.label :branch_id, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.collection_select :branch_id, Branch.all, :id, :name, { prompt: 'select branch' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+      </div>
+      <div class="md:col-span-2">
+        <%= form.submit @user.new_record? ? 'Add Staff' : 'Update',
+          class: "text-white bg-lightGreen hover:bg-darkGreen focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+         %>
+         <%= link_to 'Back', users_path, class: 'inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
+      </div>
+    </div>
+  </div>
+<% end %>

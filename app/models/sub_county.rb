@@ -1,4 +1,6 @@
 class SubCounty < ApplicationRecord
+  include Matchable
+
   belongs_to :county
   has_many :individual_beneficiaries, dependent: :nullify
   has_many :family_beneficiaries, dependent: :nullify

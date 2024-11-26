@@ -1,7 +1,8 @@
 class RequestsController < ApplicationController
   include RequestHelper
-
+  include EnglishMenu
   before_action :set_request, only: %i[show edit update destroy]
+  skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
     @requests = Request.all
@@ -11,10 +12,10 @@ class RequestsController < ApplicationController
     @requests = Request.where(request_type: 'Donation')
 
     @donation_requests = Request.by_request_type('Donation')
-     .order("#{sort_column} #{sort_direction}")
-     .by_donation_type(params[:donation_type])
-     .by_donation_date(params[:start_date], params[:end_date])
-     .search_query(params[:query])
+      .order("#{sort_column} #{sort_direction}")
+      .by_donation_type(params[:donation_type])
+      .by_donation_date(params[:start_date], params[:end_date])
+      .search_query(params[:query])
 
     # Other instance variables as needed
     @districts = District.all
@@ -25,20 +26,31 @@ class RequestsController < ApplicationController
 
   def donor_profile
     @request = Request.includes(:inventories).find(params[:id])
-    
+
     # Ensure donation count includes all donations for the donor's phone number
     @donation_count = Request.where(phone_number: @request.phone_number, request_type: 'Donation').count
-    
+
     # Donation history for the donor
     @donation_history = Request.includes(:inventories, :district, :county, :sub_county, :branch)
-                                .where(phone_number: @request.phone_number, request_type: 'Donation')
-                                .order(created_at: :desc)
+      .where(phone_number: @request.phone_number, request_type: 'Donation')
+      .order(created_at: :desc)
+  end
+
+  def ussd
+    phone_number = params[:phoneNumber]
+    text = params[:text]
+
+    @request = Request.all
+
+    response = process_ussd(text, phone_number)
+    render plain: response
   end
 
   def show; end
 
   def new
     @request = Request.new
+    @branches = Branch.all
     @districts = District.all
     @counties = County.none
     @branches = Branch.none
@@ -49,7 +61,7 @@ class RequestsController < ApplicationController
     @districts = District.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branches = @request.district.present? ? Branch.where(district_id: @request.district_id) : Branch.none
+    @branches = Branch.all
   end
 
   def create
@@ -81,8 +93,6 @@ class RequestsController < ApplicationController
     else
       redirect_to requests_url, alert: 'Failed to delete request.'
     end
-  rescue StandardError => e
-    redirect_to requests_url, alert: handle_destroy_error(e)
   end
 
   def load_counties
@@ -123,12 +133,18 @@ class RequestsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
+  def process_ussd(text, phone_number)
+    EnglishMenu.process_menu(text, phone_number, session)
+  end
+
   def set_request
     @request = Request.find(params[:id])
   end
 
   def request_params
-    params.require(:request).permit(:name, :phone_number, :request_type, :district_id, :county_id, :sub_county_id,
+    params.require(:request).permit(:name, :phone_number, :request_type,
+                                    :residence_address, :district_id,
+                                    :county_id, :sub_county_id,
                                     :branch_id)
   end
 end

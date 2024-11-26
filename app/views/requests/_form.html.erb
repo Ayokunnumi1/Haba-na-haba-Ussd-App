@@ -1,66 +1,42 @@
 <%= form_with(model: request, local: true) do |form| %>
-  <div class="mb-4">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-input" %>
-  </div>
-  <div class="mb-4">
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number, class: "form-input" %>
-  </div>
-  <div class="mb-4">
-    <%= form.label :request_type %>
-    <%= form.text_field :request_type, class: "form-input" %>
-  </div>
-  <div class="mb-4">
-    <%= form.label :district_id, "District" %>
-    <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: 'form-select', 'data-context-path': 'requests' } %>
-  </div>
-  <div class="mb-4">
-    <%= form.label :county_id, "County" %>
-    <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: 'form-select','data-context-path': 'requests' } %>
-  </div>
-  <div class="mb-4">
-    <%= form.label :sub_county_id, "Sub-County" %>
-    <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: 'form-select' } %>
-  </div>
-  <div class="mb-4">
-    <%= form.label :branch_id, "Branch" %>
-    <%= form.collection_select :branch_id, Branch.all, :id, :name, { prompt: 'Select a branch' }, { class: 'form-select' } %>
-  </div>
-
-  <div class="mb-4">
-    <%= form.submit class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" %>
+  <div class="grid gap-6 mt-4 md:grid-cols-2 p-5">
+    <div>
+      <%= form.label :name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "John" %>
+    </div>
+    <div>
+      <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.text_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "123-45-678" %>
+    </div>
+    <div>
+      <%= form.label :residence_address, class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.text_field :residence_address, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Buziga Hill PO BOX 16562" %>
+    </div>
+    <div>
+      <%= form.label :request_type, class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.select :request_type, options_for_select(['Beneficiary', 'Donation']), { prompt: 'select request type' }, id: 'request_type', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+    </div>
+    <div>
+      <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>
+    </div>
+    <div>
+      <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>
+    </div>
+    <div>
+      <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+    </div>
+    <div>
+      <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :branch_id, Branch.all, :id, :name, { prompt: 'Select a branch' }, { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+    </div>
+    <div class="md:col-span-2">
+      <%= form.submit class: "text-white bg-lightGreen hover:bg-darkGreen focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+    </div>
+    <div>
+      <%= link_to 'Back', requests_path, class: 'inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
+    </div>
   </div>
 <% end %>
-
-<script>
-  document.getElementById('district-select').addEventListener('change', function() {
-    var districtId = this.value;
-
-    fetch(`/requests/load_counties?district_id=${districtId}`)
-      .then(response => response.json())
-      .then(counties => {
-        let countySelect = document.getElementById('county-select');
-        countySelect.innerHTML = '<option value="">Select a county</option>';
-        counties.forEach(county => {
-          let option = document.createElement('option');
-          option.value = county.id;
-          option.text = county.name;
-          countySelect.appendChild(option);
-        });
-      });
-
-    fetch(`/requests/load_branches?district_id=${districtId}`)
-      .then(response => response.json())
-      .then(branches => {
-        let branchSelect = document.getElementById('branch-select');
-        branchSelect.innerHTML = '<option value="">Select a branch</option>';
-        branches.forEach(branch => {
-          let option = document.createElement('option');
-          option.value = branch.id;
-          option.text = branch.name;
-          branchSelect.appendChild(option);
-        });
-      });
-  });
-</script>

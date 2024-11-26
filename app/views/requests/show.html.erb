@@ -1,10 +1,41 @@
-<h1>Request Details</h1>
-<p><strong>Name:</strong> <%= @request.name %></p>
-<p><strong>Phone Number:</strong> <%= @request.phone_number %></p>
-<p><strong>Request Type:</strong> <%= @request.request_type %></p>
-<p><strong>District:</strong> <%= @request.district.name if @request.district.present? %></p>
-<p><strong>County:</strong> <%= @request.county.name if @request.county.present? %></p>
-<p><strong>Sub-County:</strong> <%= @request.sub_county.name if @request.sub_county.present? %></p>
-<p><strong>Branch:</strong> <%= @request.branch.name if @request.branch.present? %></p>
-<%= link_to 'Edit', edit_request_path(@request), class: 'bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700' %>
-<%= link_to 'Back', requests_path, class: 'bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
+<section class="font-Outfit flex flex-col justify-center items-center">
+  <h2 class="text-lightGreen font-bold text-center mb-10 text-2xl">Request Information</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg border border-solid border-lightGreen md:border-r p-8 rounded-2xl">
+    <div class="md:pr-4">
+      <p class="font-bold text-lg text-lightGreen">Name:</p>
+      <p><%= @request.name %></p>
+    </div>
+    <div class="md:pl-4">
+      <p class="font-bold text-lg text-lightGreen">Phone Number:</p>
+      <p><%= @request.phone_number %></p>
+    </div>
+    <div class="md:pr-4">
+      <p class="font-bold text-lg text-lightGreen">Residence Address:</p>
+      <p><%= @request.residence_address %></p>
+    </div>
+    <div class="md:pl-4">
+      <p class="font-bold text-lg text-lightGreen">Request Type:</p>
+      <p><%= @request.request_type %></p>
+    </div>
+    <div class="md:pr-4">
+      <p class="font-bold text-lg text-lightGreen">District:</p>
+      <p><%= @request.district.name if @request.district.present? %></p>
+    </div>
+    <div class="md:pl-4">
+      <p class="font-bold text-lg text-lightGreen">County:</p>
+      <p><%= @request.county.name if @request.county.present? %></p>
+    </div>
+    <div class="md:pr-4">
+      <p class="font-bold text-lg text-lightGreen">Sub-County:</p>
+      <p><%= @request.sub_county.name if @request.sub_county.present? %></p>
+    </div>
+    <div class="md:pl-4">
+      <p class="font-bold text-lg text-lightGreen">Branch:</p>
+      <p><%= @request.branch.name if @request.branch.present? %></p>
+    </div>
+    <div class="mt-4 md:pr-4">
+      <%= link_to 'Edit', edit_request_path(@request), class: "bg-lightGreen text-white py-2 px-4 rounded hover:bg-green-800" %>
+      <%= link_to 'Back', requests_path, class: "bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+    </div>
+  </div>
+</section>

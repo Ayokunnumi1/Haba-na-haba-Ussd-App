@@ -9,7 +9,6 @@ class InventoriesController < ApplicationController
   def index
     @per_page = (params[:per_page] || 2).to_i
     @page_no = (params[:page] || 1).to_i
-
     @inventory_food = Inventory.includes(:request).by_food_type
     @inventory_donated = Inventory.includes(:request).donated
     @inventory_stock_alert = Inventory.includes(:request).stock_alert
@@ -38,10 +37,9 @@ class InventoriesController < ApplicationController
     @branches = Branch.none
     @sub_counties = SubCounty.none
   end
+
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
-
-
   def show
     inventory = Inventory.find(params[:id])
     respond_to do |format|

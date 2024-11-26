@@ -9,17 +9,23 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="">
-    <main class="h-screen">
+  <body class="<%= user_signed_in? ? '' : 'bg-lightGreen bg-login-bg bg-cover bg-center bg-no-repeat' %>">
+    <main class="h-screen w-full <%= user_signed_in? ? 'overflow-auto' : 'overflow-hidden' %>">
       <% if user_signed_in? %>
         <%= render 'admin_panel/sidebar' %>
-        <%= render 'admin_panel/navbar' %>
-      <% end %>
-      <section class="p-4 mobile-yield-content tab-yield-content yield-content">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-        <%= yield %>
-      </section>
-    </main>
+
+    <div class="mt-16 lg:ml-64">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+  <% else %>
+    <div>
+      <%= yield %>
+    </div>
+  <% end %>
+</main>
+
   </body>
+  
 </html>

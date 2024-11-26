@@ -8,12 +8,31 @@ class RequestsController < ApplicationController
   end
 
   def donor
-    @requests = Request.where(request_type: 'donation')
+    @requests = Request.where(request_type: 'Donation')
 
-    @donation_requests = Request.by_request_type('donation')
+    @donation_requests = Request.by_request_type('Donation')
      .order("#{sort_column} #{sort_direction}")
+     .by_donation_type(params[:donation_type])
+     .by_donation_date(params[:start_date], params[:end_date])
+     .search_query(params[:query])
 
     # Other instance variables as needed
+    @districts = District.all
+    @counties = County.all
+    @branches = Branch.all
+    @sub_counties = SubCounty.all
+  end
+
+  def donor_profile
+    @request = Request.includes(:inventories).find(params[:id])
+    
+    # Ensure donation count includes all donations for the donor's phone number
+    @donation_count = Request.where(phone_number: @request.phone_number, request_type: 'Donation').count
+    
+    # Donation history for the donor
+    @donation_history = Request.includes(:inventories, :district, :county, :sub_county, :branch)
+                                .where(phone_number: @request.phone_number, request_type: 'Donation')
+                                .order(created_at: :desc)
   end
 
   def show; end

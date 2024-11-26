@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'home/index'
   get 'requests/donor'
+  get 'requests/donor_profile/:id', to: 'requests#donor_profile', as: 'requests_donor_profile'
   resources :users
   resources :districts
   resources :counties

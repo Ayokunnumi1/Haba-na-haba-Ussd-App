@@ -11,8 +11,8 @@ module OtherDonationModule
 
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first
-    selected_county = County.search_by_name(county_name).first
-    selected_sub_county = SubCounty.search_by_name(sub_county_name).first
+    selected_county = selected_district.counties.search_by_name(county_name).first
+    selected_sub_county = selected_county.sub_counties.search_by_name(sub_county_name).first
 
     return 'END No matching district found.' if selected_district.nil?
     return 'END No matching county found.' if selected_county.nil?
@@ -27,7 +27,7 @@ module OtherDonationModule
       '3' => 'Other'
     }
     donation_type = donation_types[donor_type] || 'Unknown'
-    # Create request for donation
+
     request = Request.create(
       phone_number:,
       name: request_name,
@@ -39,7 +39,7 @@ module OtherDonationModule
       branch_id: branch.id
     )
 
-    # Record the donation in inventory
+
     Inventory.create(
       donor_name: request_name,
       donor_type: donation_type,

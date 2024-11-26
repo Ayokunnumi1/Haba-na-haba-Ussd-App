@@ -4,15 +4,15 @@ module EnglishMenu
   include OtherDonationModule
 
   MENU_ACTIONS = {
-    '1' => { 
-      module: FoodRequestModule, 
-      process_method: :process_request 
+    '1' => {
+      module: FoodRequestModule,
+      process_method: :process_request
     },
     '2' => {
       module: FoodDonationModule,
       process_method: :process_request,
       extra_steps: [
-        'What are you donating:\n1. Fresh Food\n2. Dry Food',
+        "What are you donating:\n1. Fresh Food\n2. Dry Food",
         'Enter food name',
         'Enter the donation amount (kgs)'
       ]
@@ -21,7 +21,7 @@ module EnglishMenu
       module: OtherDonationModule,
       process_method: :process_menu_request,
       extra_steps: [
-        'Choose your Donation.\n1. Cash\n2. Clothing\n3. Other',
+        "Choose your Donation.\n1. Cash\n2. Clothing\n3. Other",
         'Enter the donation Amount'
       ]
     }

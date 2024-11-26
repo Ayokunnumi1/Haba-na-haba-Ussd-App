@@ -53,59 +53,11 @@
         <%= form.collection_select :sub_county_id, SubCounty.all, :id, :name, {}, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
       </div>
     </div>
-     <!-- User Filter Section -->
-     <label for="user_filter" class="block text-gray-700 text-sm font-bold mb-2">Filter Users</label>
-     <select id="role_filter" class="w-full p-2 border border-gray-300 rounded-md  mb-2">
-  <option value="">All Roles</option>
-  <option value="super_admin">Super Admin</option>
-  <option value="admin">Admin</option>
-  <option value="branch_manager">Branch Manager</option>
-  <option value="volunteer">Volunteer</option>
-</select>
-
-
-
-  <div class="mb-4">
-    
-    <input
-      type="text"
-      id="user_filter"
-      class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      placeholder="Search users by name, role, or phone number"
-    />
-  </div>
-
-  <div id="filtered_users" class="max-h-48 overflow-auto border border-gray-200 rounded-md p-2 mb-4 bg-gray-50">
-    <ul>
-      <% User.order(:role).each do |user| %>
-        <li class="p-2 hover:bg-gray-200 user-item">
-          <label class="flex items-center">
-            <input
-              type="checkbox"
-              class="user-checkbox"
-              value="<%= user.id %>"
-              data-user-name="<%= user.first_name %>"
-              data-user-role="<%= user.role %>"
-              data-user-phone="<%= user.phone_number %>"
-            />
-            <span class="ml-2"><%= "#{user.first_name} - #{user.role} - #{user.phone_number}" %></span>
-          </label>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="mb-4">
-    <%= form.label :user_ids, "Selected Users", class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <div id="selected_users" class="max-h-48 overflow-auto border border-gray-200 rounded-md p-2 bg-gray-50">
-      <ul>
-        <!-- Selected users will appear here dynamically -->
-      </ul>
+    <div class="mb-4">
+      <%= form.label :user_ids, "Select Users to Add", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :user_ids, User.order(:role), :id, ->(user) { "#{user.first_name} - #{user.role} - #{user.phone_number}" }, {}, { multiple: true, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", id: 'user_ids' } %>
+      <small class="text-lightGreen">Hold Ctrl (Cmd) to select multiple users</small>
     </div>
-  </div>
-
-  <%= form.hidden_field :user_ids, value: event.user_ids.join(","), id: "selected_user_ids_input" %>
-
     <div class="actions flex flex-row space-x-4">
       <div class="w-1/2">
         <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>

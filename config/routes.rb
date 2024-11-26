@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
+  post  'ussd_request', to: 'requests#ussd'
   resources :users
   resources :districts
   resources :counties
@@ -41,9 +42,24 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :individual_beneficiaries, only: [:index, :show, :destroy]
-  resources :family_beneficiaries, only: [:index, :show, :destroy]
-  resources :organization_beneficiaries, only: [:index, :show, :destroy]
+  resources :individual_beneficiaries, only: [:index, :show, :destroy] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
+  resources :family_beneficiaries, only: [:index, :show, :destroy] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
+  resources :organization_beneficiaries, only: [:index, :show, :destroy] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
+    end
+  end
   resources :inventories, only: [:index, :show, :destroy]
 
   # Conditional root route

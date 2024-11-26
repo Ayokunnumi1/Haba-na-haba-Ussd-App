@@ -39,7 +39,6 @@ module OtherDonationModule
       branch_id: branch.id
     )
 
-
     Inventory.create(
       donor_name: request_name,
       donor_type: donation_type,

@@ -6,6 +6,7 @@ class IndividualBeneficiariesController < ApplicationController
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
+    @branches = Branch.all
     @individual_beneficiaries = IndividualBeneficiary.includes(:request).apply_filters(params)
   end
 
@@ -19,6 +20,7 @@ class IndividualBeneficiariesController < ApplicationController
       @districts = District.all
       @counties = County.none
       @sub_counties = SubCounty.none
+      @branches = Branch.all
     end
   end
 
@@ -33,6 +35,7 @@ class IndividualBeneficiariesController < ApplicationController
         @districts = District.all
         @counties = County.none
         @sub_counties = SubCounty.none
+        @branches = Branch.all
         render :new
       end
     end
@@ -50,6 +53,7 @@ class IndividualBeneficiariesController < ApplicationController
                     else
                       SubCounty.none
                     end
+    @branches = Branch.all
   end
 
   def update
@@ -67,6 +71,7 @@ class IndividualBeneficiariesController < ApplicationController
                       else
                         SubCounty.none
                       end
+      @branches = Branch.all
       render :edit, status: :unprocessable_entity
     end
   end
@@ -118,7 +123,7 @@ class IndividualBeneficiariesController < ApplicationController
     params.require(:individual_beneficiary).permit(
       :name, :age, :gender, :residence_address, :village, :parish,
       :phone_number, :case_name, :case_description, :fathers_name,
-      :mothers_name, :sub_county_id, :county_id, :district_id, request_id, :branch_id, :provided_food
+      :mothers_name, :sub_county_id, :county_id, :district_id, :request_id, :branch_id, :provided_food
     )
   end
 end

@@ -62,6 +62,14 @@
       <%= form.label :county_id, "County" %>
       <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: 'form-select', 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
     </div>
+    <div class="mb-4">
+      <%= form.label :branch_id, "Branch" %>
+      <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { class: 'form-select' } %>
+    </div>
+    <div>
+      <%= form.label :age, class: "block font-medium text-gray-700" %>
+      <%= form.number_field :age, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
     <div>
       <%= form.label :sub_county_id, "Sub-County" %>
       <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: 'form-select' } %>

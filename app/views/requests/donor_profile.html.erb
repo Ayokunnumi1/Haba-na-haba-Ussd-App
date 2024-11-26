@@ -1,0 +1,63 @@
+<div class="max-w-6xl mx-auto p-6 bg-gray-50">
+  <!-- Flex container for donor details and donation count -->
+  <div class="flex flex-col md:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+    <!-- Donor Details Card -->
+    <div class="flex-1 bg-white shadow-lg rounded-lg p-6">
+      <h1 class="text-2xl font-bold mb-4 text-gray-700">Donor Profile</h1>
+      <div class="space-y-4 text-gray-600">
+        <p><strong>Name:</strong> <%= @request.name %></p>
+        <p><strong>Phone Number:</strong> <%= @request.phone_number %></p>
+        <p><strong>Donor Type:</strong> <%= @request.inventories.first&.donor_type || "N/A" %></p>
+        <p><strong>District:</strong> <%= @request.district&.name %></p>
+        <p><strong>County:</strong> <%= @request.county&.name %></p>
+        <p><strong>Sub-County:</strong> <%= @request.sub_county&.name %></p>
+        <p><strong>Branch:</strong> <%= @request.branch&.name %></p>
+      </div>
+      <div class="mt-6 flex space-x-4">
+        <%= link_to 'Edit', edit_request_path(@request), class: 'bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700' %>
+        <%= link_to 'Back', requests_path, class: 'bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
+      </div>
+    </div>
+    <!-- Donation Count Sidebar -->
+    <div class="w-full lg:w-1/4 bg-blue-100 shadow-lg rounded-lg p-6 text-center">
+      <h2 class="text-lg font-semibold text-blue-800">Total Donations</h2>
+      <p class="text-4xl font-bold text-blue-900 mt-2"><%= @donation_count %></p>
+    </div>
+  </div>
+  <!-- Donation History Table -->
+  <h2 class="text-xl font-semibold mt-12 mb-4 text-gray-700">Donation History</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 bg-gray-100 border border-gray-200 rounded-md">
+      <thead class="bg-gray-200 text-gray-700">
+        <tr>
+          <th class="py-2 px-4 border-b">Date</th>
+          <th class="py-2 px-4 border-b">Donation Type</th>
+          <th class="py-2 px-4 border-b">Amount</th>
+          <th class="py-2 px-4 border-b">District</th>
+          <th class="py-2 px-4 border-b">County</th>
+          <th class="py-2 px-4 border-b">Sub-County</th>
+          <th class="py-2 px-4 border-b">Branch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @donation_history.any? %>
+          <% @donation_history.each do |donation| %>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <td class="py-2 px-4"><%= donation.created_at.strftime("%Y-%m-%d") %></td>
+              <td class="py-2 px-4"><%= donation.inventories.first&.donor_type || "N/A" %></td>
+              <td class="py-2 px-4"><%= number_to_currency(donation.inventories.sum(&:amount)) %></td>
+              <td class="py-2 px-4"><%= donation.district&.name %></td>
+              <td class="py-2 px-4"><%= donation.county&.name %></td>
+              <td class="py-2 px-4"><%= donation.sub_county&.name %></td>
+              <td class="py-2 px-4"><%= donation.branch&.name %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="7" class="py-4 px-4 text-center text-gray-500">No donation history available for this donor.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

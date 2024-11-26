@@ -28,8 +28,7 @@ module EnglishMenu
   }.freeze
 
   def self.process_menu(text, phone_number, session)
-    request = Request.find_by(phone_number:)
-    return welcome_menu(request) if text.blank?
+    return welcome_menu if text.blank?
 
     action, *inputs = text.split('*')
     action_config = MENU_ACTIONS[action]
@@ -61,12 +60,10 @@ module EnglishMenu
     end
   end
 
-  def self.welcome_menu(request)
-    if request
-      "CON Welcome back, #{request.name}!\n1. Request Food\n2. Donate Food\n3. Other Donations"
-    else
+  def self.welcome_menu
+    
       "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations"
-    end
+  
   end
 
   def self.enter_name

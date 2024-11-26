@@ -17,7 +17,7 @@ module FoodRequestModule
     return 'END No matching county found for the selected district.' unless selected_county
 
     # Find the sub-county within the county
-    selected_sub_county = selected_county.sub_counties.search_by_name(sub_county_name)
+    selected_sub_county = selected_county.sub_counties.search_by_name(sub_county_name).first    
     return 'END No matching sub-county found for the selected county.' unless selected_sub_county
 
     # Find the branch associated with the district
@@ -28,7 +28,7 @@ module FoodRequestModule
 
     # Create a new request
     new_request = Request.new(
-      phone_number: phone_number,
+      phone_number: ,
       name: request_name,
       request_type: 'Food',
       district_id: selected_district.id,

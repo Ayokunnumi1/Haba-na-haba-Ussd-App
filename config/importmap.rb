@@ -9,3 +9,5 @@ pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.t
 pin "truncate", to: "truncate.js"
 pin "filterUsers", to: "filterUsers.js"
 pin "dropdown", to: "dropdown.js"
+pin "chartkick", to: "chartkick.js"
+pin "Chart.bundle", to: "Chart.bundle.js"

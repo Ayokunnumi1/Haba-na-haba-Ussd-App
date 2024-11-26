@@ -6,6 +6,7 @@ gem 'font-awesome-sass', '~> 6.5.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.4'
+gem 'chartkick', '~> 5.1', '>= 5.1.2'
 
 gem 'sassc-rails', '>= 2.1'
 # Rubocop for linters

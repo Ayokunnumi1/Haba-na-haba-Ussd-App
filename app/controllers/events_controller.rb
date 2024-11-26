@@ -62,6 +62,8 @@ class EventsController < ApplicationController
   def allocate_users_to_event(event, user_ids)
     return if user_ids.nil? || user_ids.empty?
 
+    # Ensure user_ids is an array
+    user_ids = user_ids.split(',') if user_ids.is_a?(String)
     user_ids.each do |user_id|
       EventUser.create(event_id: event.id, user_id: user_id)
     end

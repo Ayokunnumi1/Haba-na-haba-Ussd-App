@@ -61,9 +61,7 @@ module EnglishMenu
   end
 
   def self.welcome_menu
-    
-      "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations"
-  
+    "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations"
   end
 
   def self.enter_name

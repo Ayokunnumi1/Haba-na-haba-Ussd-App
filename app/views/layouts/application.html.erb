@@ -13,6 +13,7 @@
     <main class="h-screen w-full <%= user_signed_in? ? 'overflow-auto' : 'overflow-hidden' %>">
       <% if user_signed_in? %>
         <%= render 'admin_panel/sidebar' %>
+
     <div class="mt-16 lg:ml-64">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -24,5 +25,7 @@
     </div>
   <% end %>
 </main>
+
   </body>
+  
 </html>

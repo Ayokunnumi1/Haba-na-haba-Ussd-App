@@ -1,17 +1,20 @@
-<%= form_with(model: [ @request, @inventory ], url: request_inventories_path(@request), local: true, class: "space-y-6") do |f| %>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<%= form_with(model: [ @request, @inventory ], url: request_inventories_path(@request), local: true, class: "space-y-6 mx-44") do |f| %>
+  <div class="grid mx-44 grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col">
       <%= f.label :donor_name, class: "font-semibold text-gray-700" %>
       <%= f.text_field :donor_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
+
     <div class="flex flex-col">
       <%= f.label :donor_type, class: "font-semibold text-gray-700" %>
       <%= f.text_field :donor_type, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
+
     <div class="flex flex-col">
       <%= f.label :collection_date, class: "font-semibold text-gray-700" %>
       <%= f.date_field :collection_date, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
+    
     <div class="flex flex-col">
       <%= f.label :food_name, class: "font-semibold text-gray-700" %>
       <%= f.text_field :food_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
@@ -62,6 +65,6 @@
     </div>
   </div>
   <div class="flex justify-end">
-    <%= f.submit "Save", class: "py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
+    <%= f.submit "Save", class: "py-2 px-4 bg-green-600 text-gray rounded-md shadow-sm " %>
   </div>
 <% end %>

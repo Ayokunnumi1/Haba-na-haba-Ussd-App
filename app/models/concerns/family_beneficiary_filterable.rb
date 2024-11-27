@@ -52,9 +52,9 @@ module FamilyBeneficiaryFilterable
     end
 
     def filter_by_location(beneficiaries, district_id, county_id, sub_county_id)
-      beneficiaries = beneficiaries.where(district_id: district_id) if district_id.present?
-      beneficiaries = beneficiaries.where(county_id: county_id) if county_id.present?
-      beneficiaries = beneficiaries.where(sub_county_id: sub_county_id) if sub_county_id.present?
+      beneficiaries = beneficiaries.where(district_id:) if district_id.present?
+      beneficiaries = beneficiaries.where(county_id:) if county_id.present?
+      beneficiaries = beneficiaries.where(sub_county_id:) if sub_county_id.present?
       beneficiaries
     end
   end

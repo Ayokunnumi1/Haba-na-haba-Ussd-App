@@ -1,94 +1,222 @@
-<div class="bg-white p-6 rounded-lg shadow-md">
-  <h1 class="text-2xl font-semibold mb-4 text-indigo-600">Organization Beneficiary Details</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <strong class="block font-semibold text-gray-700">Organization Name:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.organization_name %></p>
+<div class="container mx-auto p-1.5 md:p-6 sm:p-4 lg:p-8 bg-gray-50">
+  <div class="bg-gradient-to-tr from-white from-40% via-lightGreen/50 via-90% to-red-600/40 to-100% text-white shadow-xl rounded-xl p-3 sm:p-8 mb-8">
+    <div class="flex justify-between items-center mb-4">
+      <%= link_to(organization_beneficiaries_path, class: "flex items-center text-sm sm:text-base text-gray-500 py-1 px-4 rounded bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-300 ease-in-out") do %>
+        <i class="fa-solid fa-arrow-left"></i>
+        <span class="ml-2 hidden lg:inline-block">Back</span>
+      <% end %>
+      <h2 class="text-lg lg:text-3xl text-darkBlue font-bold text-center leading-tight">Details</h2>
     </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Male Beneficiaries:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.male %></p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4 sm:gap-8">
+      <div class="bg-white p-2 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Organization Information</h3>
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-user text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Name</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.organization_name %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-user text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Director</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.directors_name %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-user text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Head</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base font-medium text-[#5a607a]"><%= @organization_beneficiary.head_of_institution %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex w-5/12 items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-arrow-up-1-9 text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-wrap break-all text-sm sm:text-base text-gray-700">Registration No</p>
+            </div>
+            <div class="flex-1 w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.registration_no %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex w-5/12 items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-arrow-down-1-9 text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-wrap break-all text-sm sm:text-base text-gray-700">Organization No</p>
+            </div>
+            <div class="flex-1 w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.organization_no %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-2 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Address Information</h3>
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-map-marker-alt text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Residence</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.residence_address %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-home text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Village</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.village %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-church text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Parish</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.parish %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Location Information</h3>
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-map text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">District</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.district.name %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-map-pin text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">County</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.county.name %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-location text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Sub-County</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.sub_county.name %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
+        <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Demographic Information</h3>
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-mars-double text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Total Male</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.male %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-venus-double text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Total Female</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base font-medium text-[#5a607a]"><%= @organization_beneficiary.female %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-up-right-and-down-left-from-center text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Adult Age Range</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.adult_age_range %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex items-start gap-1 sm:gap-3 w-fit">
+              <div class="w-[23px]"><i class="fa-solid fa-up-right-and-down-left-from-center text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Child Age Range</p>
+            </div>
+            <div class="flex-1 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.children_age_range %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out col-span-1 sm:col-span-2 2xl:col-span-2 2xl:col-start-2">
+        <h3 class="text-lg sm:text-xl font-semibold text-darkBlue mb-4 underline">Case Information</h3>
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex-auto w-5/12 flex items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-clipboard-list text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Case Name</p>
+            </div>
+            <div class="flex-auto w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.case_name %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex-auto w-5/12 flex items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-briefcase text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Description</p>
+            </div>
+            <div class="flex-auto w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.case_description %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex-auto w-5/12 flex items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-phone text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Phone</p>
+            </div>
+            <div class="flex-auto w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.phone_number %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex-auto w-5/12 flex items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-bowl-food text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Home Basic Food</p>
+            </div>
+            <div class="flex-auto w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.basic_FEH %></p>
+            </div>
+          </div>
+          <div class="flex items-start justify-between gap-1.5 sm:gap-3 border-b border-gray-100">
+            <div class="flex-auto w-5/12 flex items-start gap-1 sm:gap-3">
+              <div class="w-[23px]"><i class="fa-solid fa-bowl-rice text-sm text-lightGreen sm:text-lg"></i></div>
+              <p class="font-medium text-sm sm:text-base text-gray-700">Number of Meals</p>
+            </div>
+            <div class="flex-auto w-7/12 flex justify-end items-start">
+              <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @organization_beneficiary.number_of_meals_home %></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Female Beneficiaries:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.female %></p>
+    <div class="mt-8 flex justify-end items-center gap-4">
+      <%= link_to 'Edit', edit_request_organization_beneficiary_path(@organization_beneficiary.request, @organization_beneficiary), class: 'bg-lightGreen text-white py-1 px-4 w-fit rounded hover:bg-lime-500 transition-all text-sm sm:text-base' %>
+      <%= button_to 'Destroy', organization_beneficiary_path(@organization_beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-600 text-white py-1 px-4 w-fit rounded hover:bg-red-700 transition-all text-sm sm:text-base' %>
     </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Adult Age Range:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.adult_age_range %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Children Age Range:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.children_age_range %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">District:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.district.name %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">County:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.county.name %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Sub County:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.sub_county.name %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Residence Address:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.residence_address %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Village:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.village %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Parish:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.parish %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Phone Number:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.phone_number %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Case Name:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.case_name %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Case Description:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.case_description %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Registration No:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.registration_no %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Organization No:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.organization_no %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Director's Name:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.directors_name %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Head of Institution:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.head_of_institution %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Number of Meals at Home:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.number_of_meals_home %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Basic FEH:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.basic_FEH %></p>
-    </div>
-    <div>
-      <strong class="block font-semibold text-gray-700">Request ID:</strong>
-      <p class="text-gray-900"><%= @organization_beneficiary.request_id %></p>
-    </div>
-  </div>
-  <div class="mt-6 flex justify-end">
-    <%= link_to "Edit", edit_request_organization_beneficiary_path(@organization_beneficiary.request, @organization_beneficiary), class: "py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700" %>
-    <%= button_to 'Destroy', organization_beneficiary_path(@organization_beneficiary), method: :delete, data: { confirm: 'Are you sure?' }, class: 'py-2 px-4 bg-red-400 text-white rounded-md shadow-sm hover:bg-red-700' %>
-    <%= link_to "Back to beneficiaries", organization_beneficiaries_path, class: "ml-4 py-2 px-4 bg-gray-600 text-white rounded-md shadow-sm hover:bg-gray-700" %>
   </div>
 </div>

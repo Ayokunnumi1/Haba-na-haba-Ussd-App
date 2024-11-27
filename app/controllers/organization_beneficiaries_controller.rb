@@ -6,6 +6,7 @@ class OrganizationBeneficiariesController < ApplicationController
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
+    @branches = Branch.all
     @organization_beneficiaries = OrganizationBeneficiary.includes(:request).apply_filters(params)
   end
 

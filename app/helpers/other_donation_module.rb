@@ -6,7 +6,6 @@ module OtherDonationModule
     district_name = input_parts[2]
     county_name = input_parts[3]
     sub_county_name = input_parts[4]
-    donor_type = input_parts[5]
 
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first

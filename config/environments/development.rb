@@ -81,5 +81,6 @@ Rails.application.configure do
 
   # Default URL option
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   config.assets.debug = true
 end

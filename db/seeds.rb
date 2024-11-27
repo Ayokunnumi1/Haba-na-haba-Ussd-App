@@ -35,10 +35,10 @@ puts "Seeded #{branches.count} branches."
 
 # Associate branches with districts through BranchDistrict join table
 branch_district_data = 100.times.map do
-  BranchDistrict.create!(
-    branch: branches.sample,
-    district: districts.sample
-  )
+ branch_id = branches.sample.id
+district_id = districts.sample.id
+
+BranchDistrict.find_or_create_by(branch_id: branch_id, district_id: district_id)
 end
 puts "Seeded #{branch_district_data.count} branch-district associations."
 
@@ -52,13 +52,16 @@ users = 100.times.map do
     role: roles.sample,
     email: Faker::Internet.unique.email,
     password: 'password',
+    gender: Faker::Gender.unique.type,
+    location: Faker::Address.unique.city,
     branch: branches.sample
   )
 end
+
 puts "Seeded #{users.count} users."
 
 # Seed Requests
-request_types = ["food", "donation"]
+request_types = ["Beneficiary", "Donation"]
 requests = 100.times.map do
   Request.create!(
     name: Faker::Name.name,
@@ -72,6 +75,7 @@ requests = 100.times.map do
     county: counties.sample,
     sub_county: sub_counties.sample,
     branch: branches.sample,
+
     user: users.sample
   )
 end
@@ -80,6 +84,7 @@ puts "Seeded #{requests.count} requests."
 # Seed Inventories
 donor_types = ["fresh_food", "dry_food", "clothing", "cash", "other"]
 inventories = 100.times.map do
+
   Inventory.create!(
     donor_name: Faker::Name.name,
     donor_type: donor_types.sample,

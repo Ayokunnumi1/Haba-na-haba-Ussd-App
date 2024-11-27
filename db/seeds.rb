@@ -61,7 +61,7 @@ end
 puts "Seeded #{users.count} users."
 
 # Seed Requests
-request_types = ["Beneficiary", "Donation"]
+request_types = ["Food", "Donation"]
 requests = 100.times.map do
   Request.create!(
     name: Faker::Name.name,

@@ -1,0 +1,79 @@
+<div class="p-4 bg-white shadow-md rounded">
+  <%= form_with(model: @request, local: true) do |form| %>    
+    <!-- Selected Dropdown -->
+      <div class="col-span-2">
+        <%= form.label :is_selected, "Selected", class: "block font-medium mb-2" %>
+        <%= form.select :is_selected, [['Yes', true], ['No', false]], {}, { class: "form-select w-full" } %>
+      </div>
+
+    <div class="grid grid-cols-2 gap-6">
+      <!-- Organization Name -->
+      <div>
+        <%= form.label :name, "Organization name", class: "block font-medium mb-2" %>
+        <%= form.text_field :name, placeholder: "Full name", class: "form-input w-full" %>
+      </div>
+
+      <!-- Phone Number -->
+      <div>
+        <%= form.label :phone_number, "Phone number", class: "block font-medium mb-2" %>
+        <%= form.text_field :phone_number, placeholder: "+219 030005 043", class: "form-input w-full" %>
+      </div>
+    </div>
+
+      
+      <!-- Address Label -->
+      <div class="col-span-2">
+        <h3 class="font-medium mb-2">Address</h3>
+        
+      </div>
+
+      <!-- Street Address -->
+      <div class="col-span-2">
+        <%= form.label :street_address, "Address", class: "block font-medium mb-2" %>
+        <%= form.text_field :street_address, placeholder: "Street Address", class: "form-input w-full" %>
+      </div>
+      <div>
+
+    <div class="grid grid-cols-2 gap-6">
+      <!-- District and County -->
+      <div class="mt-4">
+        <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: 'form-select w-full' } %>
+      </div>
+      <div class="mt-4">
+        <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: 'form-select w-full' } %>
+      </div>
+
+      <!-- Sub-county and Village -->
+      <div class="m-2">
+        <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: 'form-select w-full' } %>
+      </div>
+      <div class="m-2">
+        <%= form.text_field :village, placeholder: "Village", class: "form-input w-full" %>
+      </div>
+    </div>
+
+      <!-- Parish -->
+      <div class="col-span-2">
+        <%= form.label :parish, class: "block font-medium mb-2" %>
+        <%= form.text_field :parish, placeholder: "Parish", class: "form-input w-full" %>
+      </div>
+
+      <!-- Registration No and Head of the Institution -->
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+            <%= form.label :registration_no, "Registration no", class: "block font-medium mb-2" %>
+            <%= form.text_field :registration_no, placeholder: "Registration no", class: "form-input w-full" %>
+        </div>
+        <div>
+            <%= form.label :head_of_institution, "Head of the institution", class: "block font-medium mb-2" %>
+            <%= form.text_field :head_of_institution, placeholder: "Head of the institution", class: "form-input w-full" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-6 text-center">
+      <%= form.submit "Submit", class: "bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-700" %>
+    </div>
+  <% end %>
+</div>

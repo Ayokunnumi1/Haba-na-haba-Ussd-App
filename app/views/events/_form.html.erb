@@ -66,13 +66,14 @@
         <option value="super_admin">Super Admin</option>
         <option value="admin">Admin</option>
         <option value="branch_manager">Branch Manager</option>
-        <option value="volunteer">Volunteerr</option>
+        <option value="volunteer">Volunteer</option>
       </select>
     </div>
     <!-- Users List -->
     <div class="mb-4">
       <%= form.label :user_ids, "Select Users to Add", class: "block text-gray-700 text-sm font-bold mb-2" %>
       <ul id="users-list">
+        <input type="hidden" name="event[user_ids][]" value="">
         <% @users.each do |user| %>
           <li class="user-item">
             <input type="checkbox" name="event[user_ids][]" value="<%= user.id %>" <%= 'checked' if @event.users.include?(user) %> />

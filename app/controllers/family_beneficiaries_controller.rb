@@ -6,6 +6,7 @@ class FamilyBeneficiariesController < ApplicationController
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
+    @branches = Branch.all
     @family_beneficiaries = FamilyBeneficiary.includes(:request).apply_filters(params)
   end
 

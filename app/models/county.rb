@@ -2,6 +2,8 @@ class County < ApplicationRecord
   include Matchable
 
   belongs_to :district
+  has_many :sub_counties, dependent: :destroy
+  accepts_nested_attributes_for :sub_counties, allow_destroy: true
   has_many :sub_counties
   has_many :individual_beneficiaries, dependent: :nullify
   has_many :family_beneficiaries, dependent: :nullify

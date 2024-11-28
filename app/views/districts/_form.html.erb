@@ -1,19 +1,29 @@
-<%= form_with(model: district, local: true, class: "space-y-6") do |form| %>
-  <% if district.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-      <strong class="font-bold"><%= pluralize(district.errors.count, "error") %> prevented this district from being saved:</strong>
-      <ul class="mt-2">
-        <% district.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with(model: @district, local: true) do |form| %>
   <div>
-    <%= form.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    <%= form.label :name, "District Name" %>
+    <%= form.text_field :name, required: true %>
   </div>
-  <div>
-    <%= form.submit class: "bg-lightGreen hover:bg-darkBlue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  <div id="counties">
+    <h3>Counties</h3>
+    <%= form.fields_for :counties do |county_form| %>
+      <div class="county-fields">
+        <%= county_form.label :name, "County Name" %>
+        <%= county_form.text_field :name, required: true %>
+        <div class="sub-counties">
+          <h4>SubCounties</h4>
+          <%= county_form.fields_for :sub_counties do |sub_county_form| %>
+            <div class="sub-county-fields">
+              <%= sub_county_form.label :name, "SubCounty Name" %>
+              <%= sub_county_form.text_field :name, required: true %>
+              <%= link_to "Remove SubCounty", "#", class: "remove-sub-county" %>
+            </div>
+          <% end %>
+          <%= link_to "Add SubCounty", "#", class: "add-sub-county" %>
+        </div>
+        <%= link_to "Remove County", "#", class: "remove-county" %>
+      </div>
+    <% end %>
+    <%= link_to "Add County", "#", class: "add-county" %>
   </div>
+  <%= form.submit %>
 <% end %>

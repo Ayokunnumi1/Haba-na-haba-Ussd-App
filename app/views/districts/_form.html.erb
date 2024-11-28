@@ -1,26 +1,15 @@
-<!-- app/views/districts/new.html.erb -->
-<%= form_with(model: @district, local: true) do |form| %>
-  <%= form.label :name, "District Name" %>
-  <%= form.text_field :name %>
+<%= form_with model: @district, local: true do |form| %>
+  <h2>District</h2>
+  <div>
+    <%= form.label :name, "District Name" %>
+    <%= form.text_field :name %>
+  </div>
   <h3>Counties</h3>
-  <%= form.fields_for :counties do |county_fields| %>
-    <div class="nested-fields">
-      <%= county_fields.label :name, "County Name" %>
-      <%= county_fields.text_field :name %>
-      <%= county_fields.check_box :_destroy %>
-      <%= county_fields.label :_destroy, "Remove County" %>
-      <h4>Sub-Counties</h4>
-      <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>
-        <div class="nested-fields">
-          <%= sub_county_fields.label :name, "Sub-County Name" %>
-          <%= sub_county_fields.text_field :name %>
-          <%= sub_county_fields.check_box :_destroy %>
-          <%= sub_county_fields.label :_destroy, "Remove Sub-County" %>
-        </div>
-      <% end %>
-      <%= link_to_add_fields "Add Sub-County", county_fields, :sub_counties %>
-    </div>
-  <% end %>
+  <div id="counties">
+    <%= form.fields_for :counties do |county_fields| %>
+      <%= render 'county_fields', f: county_fields %>
+    <% end %>
+  </div>
   <%= link_to_add_fields "Add County", form, :counties %>
-  <%= form.submit "Save" %>
+  <%= form.submit "Save District" %>
 <% end %>

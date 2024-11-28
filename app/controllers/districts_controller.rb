@@ -22,7 +22,10 @@ class DistrictsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @district = District.find(params[:id])
+  end
+  
 
   def update
     if @district.update(district_params)

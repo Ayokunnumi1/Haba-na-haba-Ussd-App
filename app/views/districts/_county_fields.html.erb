@@ -1,11 +1,13 @@
 <div class="nested-fields">
   <%= f.label :name, "County Name" %>
   <%= f.text_field :name %>
+  <h4>Sub-Counties</h4>
+  <div id="sub-counties">
+    <%= f.fields_for :sub_counties do |sub_county_fields| %>
+      <%= render 'sub_county_fields', f: sub_county_fields %>
+    <% end %>
+  </div>
+  <%= link_to_add_fields "Add Sub-County", f, :sub_counties %>
   <%= f.check_box :_destroy %>
   <%= f.label :_destroy, "Remove County" %>
-  <h4>Sub-Counties</h4>
-  <%= f.fields_for :sub_counties do |sub_county_fields| %>
-    <%= render 'sub_counties/sub_county_fields', f: sub_county_fields %>
-  <% end %>
-  <%= link_to_add_fields "Add Sub-County", f, :sub_counties %>
 </div>

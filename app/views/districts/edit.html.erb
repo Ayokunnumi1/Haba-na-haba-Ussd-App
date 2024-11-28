@@ -1,9 +1,15 @@
-<div class="flex justify-center items-center h-[100%] w-full">
-  <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6">
-    <h2 class="text-2xl font-bold mb-6 text-center"><%= action_name.capitalize %> District</h2>
-    <%= render 'form', district: @district %>
-    <div class="mt-4">
-      <%= link_to 'Back', districts_path, class: 'text-white font-bold py-2 px-4 bg-darkBlue rounded-lg hover:bg-gray-600' %>
-    </div>
+<%= form_with model: @district, local: true do |form| %>
+  <h2>District</h2>
+  <div>
+    <%= form.label :name, "District Name" %>
+    <%= form.text_field :name %>
   </div>
-</div>
+  <h3>Counties</h3>
+  <div id="counties">
+    <%= form.fields_for :counties do |county_fields| %>
+      <%= render 'county_fields', f: county_fields %>
+    <% end %>
+  </div>
+  <%= link_to_add_fields "Add County", form, :counties %>
+  <%= form.submit "Update District" %>
+<% end %>

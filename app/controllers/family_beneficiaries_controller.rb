@@ -6,6 +6,7 @@ class FamilyBeneficiariesController < ApplicationController
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
+    @branches = Branch.all
     @family_beneficiaries = FamilyBeneficiary.includes(:request).apply_filters(params)
   end
 
@@ -120,6 +121,6 @@ class FamilyBeneficiariesController < ApplicationController
                                                :residence_address, :village, :parish, :phone_number, :case_name,
                                                :case_description, :fathers_name, :mothers_name,
                                                :fathers_occupation, :mothers_occupation, :number_of_meals_home,
-                                               :number_of_meals_school, :basic_FEH, :basic_FES, :request_id)
+                                               :number_of_meals_school, :basic_FEH, :basic_FES, :request_id, :branch_id, :provided_food)
   end
 end

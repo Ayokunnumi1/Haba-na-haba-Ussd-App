@@ -11,6 +11,8 @@ module IndividualBeneficiaryFilterable
       beneficiaries = filter_by_age(beneficiaries, params[:min_age], params[:max_age])
       beneficiaries = filter_by_location(beneficiaries, params[:district_id], params[:county_id],
                                          params[:sub_county_id])
+      beneficiaries = filter_by_branch_id(beneficiaries, params[:branch_id])
+      beneficiaries = filter_by_provided_food(beneficiaries, params[:provided_food])
       filter_by_date_range(beneficiaries, params[:start_date], params[:end_date])
     end
 
@@ -49,6 +51,22 @@ module IndividualBeneficiaryFilterable
       beneficiaries = beneficiaries.where(county_id:) if county_id.present?
       beneficiaries = beneficiaries.where(sub_county_id:) if sub_county_id.present?
       beneficiaries
+    end
+
+    def filter_by_branch_id(beneficiaries, branch_id)
+      branch_id.present? ? beneficiaries.where(branch_id:) : beneficiaries
+    end
+
+    def filter_by_provided_food(beneficiaries, provided_food)
+      return beneficiaries unless provided_food.present?
+
+      if provided_food == 'provided'
+        beneficiaries.where('provided_food > 0')
+      elsif provided_food == 'not_provided'
+        beneficiaries.where('provided_food <= 0 OR provided_food IS NULL')
+      else
+        beneficiaries
+      end
     end
 
     def filter_by_date_range(beneficiaries, start_date, end_date)

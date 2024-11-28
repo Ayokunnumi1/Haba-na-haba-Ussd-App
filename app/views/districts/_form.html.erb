@@ -1,97 +1,26 @@
-<div class="max-w-4xl mx-auto mt-10">
-  <%= form_with model: @district, local: true, class: "space-y-4" do |f| %>
-    <!-- District Name -->
-    <div class="space-y-2">
-      <label for="district_name" class="block text-sm font-medium text-gray-700">District Name</label>
-      <%= f.text_field :name, id: "district_name", class: "w-full px-4 py-2 border border-gray-300 rounded-md", placeholder: "Enter District Name", required: true %>
-    </div>
-    <!-- Counties Section -->
-    <div id="counties-container" class="space-y-4">
-      <h3 class="text-lg font-semibold">Counties</h3>
-      <!-- Existing Counties -->
-      <%= f.fields_for :counties do |county_form| %>
-        <div class="county-group space-y-2 border rounded-md p-4">
-          <div class="flex space-x-4 items-center">
-            <%= county_form.text_field :name, class: "w-full px-4 py-2 border border-gray-300 rounded-md", placeholder: "Enter County Name", required: true %>
-            <button type="button" class="remove-county-btn text-red-500 hover:text-red-700 focus:outline-none">
-              <i class="fas fa-minus-circle"></i>
-            </button>
-          </div>
-          <!-- SubCounties Section -->
-          <div class="subcounties-container space-y-4">
-            <h4 class="text-sm font-medium text-gray-700">Sub-Counties</h4>
-            <%= county_form.fields_for :sub_counties do |subcounty_form| %>
-              <div class="flex space-x-4 items-center">
-                <%= subcounty_form.text_field :name, class: "w-full px-4 py-2 border border-gray-300 rounded-md", placeholder: "Enter SubCounty Name", required: true %>
-                <button type="button" class="remove-subcounty-btn text-red-500 hover:text-red-700 focus:outline-none">
-                  <i class="fas fa-minus-circle"></i>
-                </button>
-              </div>
-            <% end %>
-          </div>
+<!-- app/views/districts/new.html.erb -->
+<%= form_with(model: @district, local: true) do |form| %>
+  <%= form.label :name, "District Name" %>
+  <%= form.text_field :name %>
+  <h3>Counties</h3>
+  <%= form.fields_for :counties do |county_fields| %>
+    <div class="nested-fields">
+      <%= county_fields.label :name, "County Name" %>
+      <%= county_fields.text_field :name %>
+      <%= county_fields.check_box :_destroy %>
+      <%= county_fields.label :_destroy, "Remove County" %>
+      <h4>Sub-Counties</h4>
+      <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>
+        <div class="nested-fields">
+          <%= sub_county_fields.label :name, "Sub-County Name" %>
+          <%= sub_county_fields.text_field :name %>
+          <%= sub_county_fields.check_box :_destroy %>
+          <%= sub_county_fields.label :_destroy, "Remove Sub-County" %>
         </div>
       <% end %>
+      <%= link_to_add_fields "Add Sub-County", county_fields, :sub_counties %>
     </div>
-    <!-- Add SubCounty Button -->
-    <button type="button" class="add-subcounty-btn flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
-      <i class="fas fa-plus-circle mr-2"></i> Add SubCounty
-    </button>
-    <!-- Add County Button -->
-    <button type="button" id="add-county-btn" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
-      <i class="fas fa-plus-circle mr-2"></i> Add County
-    </button>
-    <!-- Submit Button -->
-    <%= f.submit "Save District", class: "w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none" %>
   <% end %>
-</div>
-<script>
-  document.addEventListener("turbo:load", () => {
-    const countiesContainer = document.getElementById("counties-container");
-    const addCountyBtn = document.getElementById("add-county-btn");
-
-    // Add new County
-    addCountyBtn.addEventListener("click", () => {
-      const countyIndex = new Date().getTime(); // Unique index for nested attributes
-      const countyHTML = `
-        <div class="county-group space-y-2 border rounded-md p-4">
-          <div class="flex space-x-4 items-center">
-            <input type="text" name="district[counties_attributes][${countyIndex}][name]" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter County Name" required />
-            <button type="button" class="remove-county-btn text-red-500 hover:text-red-700 focus:outline-none">
-              <i class="fas fa-minus-circle"></i>
-            </button>
-          </div>
-          <div class="subcounties-container space-y-4">
-            <h4 class="text-sm font-medium text-gray-700">Sub-Counties</h4>
-          </div>
-          <button type="button" class="add-subcounty-btn flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
-            <i class="fas fa-plus-circle mr-2"></i> Add SubCounty
-          </button>
-        </div>
-      `;
-      countiesContainer.insertAdjacentHTML("beforeend", countyHTML);
-    });
-
-    // Event Delegation for County and SubCounty actions
-    countiesContainer.addEventListener("click", (event) => {
-      if (event.target.closest(".remove-county-btn")) {
-        event.target.closest(".county-group").remove();
-      } else if (event.target.closest(".remove-subcounty-btn")) {
-        event.target.closest(".flex").remove();
-      } else if (event.target.closest(".add-subcounty-btn")) {
-        const countyGroup = event.target.closest(".county-group");
-        const countyIndex = Array.from(countiesContainer.children).indexOf(countyGroup); // Find index of the county
-        const subcountyIndex = new Date().getTime(); // Unique index for nested attributes
-        const subcountyContainer = countyGroup.querySelector(".subcounties-container");
-        const subcountyHTML = `
-          <div class="flex space-x-4 items-center">
-            <input type="text" name="district[counties_attributes][${countyIndex}][sub_counties_attributes][${subcountyIndex}][name]" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter SubCounty Name" required />
-            <button type="button" class="remove-subcounty-btn text-red-500 hover:text-red-700 focus:outline-none">
-              <i class="fas fa-minus-circle"></i>
-            </button>
-          </div>
-        `;
-        subcountyContainer.insertAdjacentHTML("beforeend", subcountyHTML);
-      }
-    });
-  });
-</script>
+  <%= link_to_add_fields "Add County", form, :counties %>
+  <%= form.submit "Save" %>
+<% end %>

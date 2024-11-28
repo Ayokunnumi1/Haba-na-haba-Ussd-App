@@ -1,13 +1,56 @@
-<%= form_with(model: @district, local: true) do |district_form| %>
-  <%= district_form.text_field :name %>
-  <%= district_form.fields_for :counties do |county_form| %>
-    <%= county_form.text_field :name %>
-    <%= county_form.fields_for :sub_counties do |sub_county_form| %>
-      <%= sub_county_form.text_field :name %>
-      <%= sub_county_form.hidden_field :id %>
-      <%= sub_county_form.check_box :_destroy %>
-      <%= sub_county_form.label :_destroy, 'Remove SubCounty' %>
-    <% end %>
-  <% end %>
-  <%= district_form.submit %>
-<% end %>
+<div class="max-w-4xl mx-auto mt-10">
+  <form id="dynamic-form" class="space-y-4">
+    <div id="input-container" class="space-y-4">
+      <!-- Initial dynamic input fields will be appended here -->
+      <div class="input-group">
+        <div class="flex space-x-4 items-center">
+          <input type="text" name="dynamicInput[]" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter value" required />
+          <button type="button" class="remove-btn text-red-500 hover:text-red-700 focus:outline-none">
+            <i class="fas fa-minus-circle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Add new input field button -->
+    <button type="button" id="add-input-btn" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
+      <i class="fas fa-plus-circle mr-2"></i> Add Input
+    </button>
+    <!-- Submit button -->
+    <button type="submit" class="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none">Submit</button>
+  </form>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const inputContainer = document.getElementById("input-container");
+    const addInputBtn = document.getElementById("add-input-btn");
+
+    // Add new input field
+    addInputBtn.addEventListener("click", () => {
+      // Create a new input group div
+      const newInputGroup = document.createElement("div");
+      newInputGroup.classList.add("input-group");
+
+      // Add HTML for input field and remove button
+      newInputGroup.innerHTML = `
+        <div class="flex space-x-4 items-center">
+          <input type="text" name="dynamicInput[]" class="w-full px-4 py-2 border border-gray-300 rounded-md" placeholder="Enter value" required />
+          <button type="button" class="remove-btn text-red-500 hover:text-red-700 focus:outline-none">
+            <i class="fas fa-minus-circle"></i>
+          </button>
+        </div>
+      `;
+
+      // Append the new input group to the container
+      inputContainer.appendChild(newInputGroup);
+    });
+
+    // Use event delegation for dynamically added elements
+    inputContainer.addEventListener("click", (event) => {
+      if (event.target.closest(".remove-btn")) {
+        // Find the closest input group and remove it
+        const inputGroup = event.target.closest(".input-group");
+        inputGroup.remove();
+      }
+    });
+  });
+</script>

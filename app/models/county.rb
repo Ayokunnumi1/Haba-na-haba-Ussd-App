@@ -3,8 +3,7 @@ class County < ApplicationRecord
 
   belongs_to :district
   has_many :sub_counties, dependent: :destroy
-  accepts_nested_attributes_for :sub_counties, allow_destroy: true
-  has_many :sub_counties
+  accepts_nested_attributes_for :sub_counties, allow_destroy: true, reject_if: :all_blank
   has_many :individual_beneficiaries, dependent: :nullify
   has_many :family_beneficiaries, dependent: :nullify
   has_many :organization_beneficiaries, dependent: :nullify

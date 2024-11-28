@@ -1,29 +1,13 @@
-<%= form_with(model: @district, local: true) do |form| %>
-  <div>
-    <%= form.label :name, "District Name" %>
-    <%= form.text_field :name, required: true %>
-  </div>
-  <div id="counties">
-    <h3>Counties</h3>
-    <%= form.fields_for :counties do |county_form| %>
-      <div class="county-fields">
-        <%= county_form.label :name, "County Name" %>
-        <%= county_form.text_field :name, required: true %>
-        <div class="sub-counties">
-          <h4>SubCounties</h4>
-          <%= county_form.fields_for :sub_counties do |sub_county_form| %>
-            <div class="sub-county-fields">
-              <%= sub_county_form.label :name, "SubCounty Name" %>
-              <%= sub_county_form.text_field :name, required: true %>
-              <%= link_to "Remove SubCounty", "#", class: "remove-sub-county" %>
-            </div>
-          <% end %>
-          <%= link_to "Add SubCounty", "#", class: "add-sub-county" %>
-        </div>
-        <%= link_to "Remove County", "#", class: "remove-county" %>
-      </div>
+<%= form_with(model: @district, local: true) do |district_form| %>
+  <%= district_form.text_field :name %>
+  <%= district_form.fields_for :counties do |county_form| %>
+    <%= county_form.text_field :name %>
+    <%= county_form.fields_for :sub_counties do |sub_county_form| %>
+      <%= sub_county_form.text_field :name %>
+      <%= sub_county_form.hidden_field :id %>
+      <%= sub_county_form.check_box :_destroy %>
+      <%= sub_county_form.label :_destroy, 'Remove SubCounty' %>
     <% end %>
-    <%= link_to "Add County", "#", class: "add-county" %>
-  </div>
-  <%= form.submit %>
+  <% end %>
+  <%= district_form.submit %>
 <% end %>

@@ -8,5 +8,5 @@ import "./dropdown";
 import "flowbite";
 import "truncate";
 import "filterUsers";
-import "chartkick"
-import "Chart.bundle"
+import "chartkick";
+import "Chart.bundle";

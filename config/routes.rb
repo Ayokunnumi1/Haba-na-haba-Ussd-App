@@ -65,7 +65,7 @@ Rails.application.routes.draw do
 
   # Conditional root route
   authenticated :user do
-    root to: 'home#dashboard', as: :authenticated_root
+    root to: 'dashboard#index', as: :authenticated_root
   end
 
   unauthenticated do

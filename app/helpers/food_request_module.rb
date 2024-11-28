@@ -3,29 +3,31 @@ module FoodRequestModule
 
   def self.process_request(text, phone_number, _session)
     input_parts = text.split('*')
-    request_name = text.split[1]
+    request_name = input_parts[1]
     district_name = input_parts[2]
     county_name = input_parts[3]
     sub_county_name = input_parts[4]
 
-    puts "district name #{district_name}"
-
+    # Find the district by name
     selected_district = District.search_by_name(district_name).first
-    selected_county = County.search_by_name(county_name).first
-    selected_sub_county = SubCounty.search_by_name(sub_county_name).first
+    return 'END No matching district found.' unless selected_district
 
-    return 'END No matching district found.' if selected_district.nil?
+    # Find the county within the district
+    selected_county = selected_district.counties.search_by_name(county_name).first
+    return 'END No matching county found for the selected district.' unless selected_county
 
-    puts "Selected district #{selected_district}"
-    puts "Selected county #{selected_county}"
-    puts "Selected sub county #{selected_sub_county}"
-    puts "Selected District: ID=#{selected_district.id}, Name=#{selected_district.name}"
-    puts "Selected District: ID=#{selected_county.id}, Name=#{selected_county.name}"
-    puts "Selected District: ID=#{selected_sub_county.id}, Name=#{selected_sub_county.name}"
+    # Find the sub-county within the county
+    selected_sub_county = selected_county.sub_counties.search_by_name(sub_county_name).first
+    return 'END No matching sub-county found for the selected county.' unless selected_sub_county
 
+    # Find the branch associated with the district
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id })
+    return 'END No branch found for the selected district.' unless branch
+
     branch_name = branch.name
-    new_request = Request.create(
+
+    # Create a new request
+    new_request = Request.new(
       phone_number:,
       name: request_name,
       request_type: 'Food',
@@ -34,10 +36,11 @@ module FoodRequestModule
       sub_county_id: selected_sub_county.id,
       branch_id: branch.id
     )
-    message = "We are processing your request and will contact you shortly. Proceed to the branch #{branch_name} in #{selected_district.name} District."
+
     if new_request.save(validate: false)
+      message = "We are processing your request and will contact you shortly. Proceed to the branch #{branch_name} in #{selected_district.name} District."
       SmsHelper.send_sms(phone_number, message)
-      "END We are processing your request and will contact you shortly. Proceed to the branch #{branch_name} in #{selected_district.name} District."
+      "END #{message}"
     else
       puts "Request creation failed: #{new_request.errors.full_messages.join(', ')}"
       'END There was an issue processing your request. Please try again later.'

@@ -68,6 +68,10 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
               </svg>
               <span class="sr-only">Close modal</span>
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
             </button>
           </div>
           <!-- Modal Form -->
@@ -123,234 +127,238 @@
     </button>
     <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <!-- Modal header -->
-          <div class="flex items-center p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h2 class="text-center text-3xl font-bold text-green-500 mb-6">Request Create Form</h2>
-            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-              </svg>
-              <span class="sr-only">Close modal</span>
-            </button>
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+              <h2 class="text-center text-3xl font-bold text-green-500 mb-6">Request Create Form</h2>
+              <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+            </div>
+            <%= render partial: "inventories/add_form" %>
           </div>
-          <!-- Modal body -->
-          <div class="p-4 md:p-5 space-y-4">
-          </div>
-          <%= render partial: "inventories/add_form" %>
+        </div>
+      </div>
+      <div class="h-fit p-2 border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
+        <svg  class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
+        </svg>
+        <span class="text-sm">Share</span>
+      </div>
+      <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="hidden md:block h-fit p-2 text-xs relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+        Bulk Action
+        <svg class="w-4 h-4 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+        </svg>
+      </div>
+      <!-- Dropdown menu -->
+      <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <!-- Dropdown menu -->
+        <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+            <li id="bulk-delete" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Delete Selected</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="h-fit p-2 border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
-      <svg  class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
-      </svg>
-      <span class="text-sm">Share</span>
-    </div>
-    <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="hidden md:block h-fit p-2 text-xs relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
-      Bulk Action
-      <svg class="w-4 h-4 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
-      </svg>
-    </div>
-    <!-- Dropdown menu -->
-    <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
-        <li id="bulk-delete" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Delete Selected</li>
-      </ul>
-    </div>
-  </div>
-</section>
-<%= turbo_frame_tag "inventories" do %>
-  <div class="flow-root mt-8">
-    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-        <div class="inventories__table--shadow overflow-hidden border border-gray-200 rounded-lg">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50 font-bold">
-              <tr>
-                <td class="py-2 px-4 text-sm ">
-                  <input type="checkbox" id="select-all" class="form-checkbox hidden md:flex rounded-md" aria-label="Select all items">
-                </td>
-                <%= sortable_table_header 'Food Name', :food_name, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Donation Amount', :amount, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-                <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header md:block hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
-              </tr>
-            </thead>
-            <tbody class="bg-white">
-              <% @inventories.each do |inventory| %>
-                <tr class="hover:bg-gray-100 transition-colors"  >
-                  <td class="py-2 px-4 text-sm text-gray-900">
-                    <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class=" md:flex hidden form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
+  </section>
+  <%= turbo_frame_tag "inventories" do %>
+    <div class="flow-root mt-8">
+      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div class="inventories__table--shadow overflow-hidden border border-gray-200 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50 font-bold">
+                <tr>
+                  <td class="py-2 px-4 text-sm ">
+                    <input type="checkbox" id="select-all" class="form-checkbox hidden md:flex rounded-md" aria-label="Select all items">
                   </td>
-                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600  text-center">
-                    <%= inventory.food_name %>
-                  </td>
-                  <td  onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--collection-amount py-2 px-4 text-sm text-gray-600  text-center">
-                    <%= number_to_human(inventory.amount) %>
-                  </td>
-                  <td  onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--created-at py-2 px-4 text-sm text-gray-600  text-center">
-                    <%= inventory.collection_date.strftime('%Y-%m-%d') %>
-                  </td>
-                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600  text-center">
-                    <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
-                  </td>
-                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="py-2 px-4 text-sm md:flex hidden rounded-lg text-gray-600">
-                    <% if inventory.request.is_selected %>
-                      <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>
-                    <% else %>
-                      <%= image_tag 'Alert circle.svg', alt: 'Not Selected', class: 'icon-class' %>
-                    <% end %>
-                  </td>
-                  <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class=" md:flex hidden py-2 px-4 text-sm text-gray-600" data-url="<%= inventory_path(inventory) %>">
-                    <button onclick="window.location.href='<%= inventory_path(inventory) %>'"  data-remote="true" data-url="<%= inventory_path(inventory) %>" type="button">
-                      <%= image_tag("Icon.svg", alt: "show-icon", class: "show-action-icon") %>
-                    </button>
-                    <button data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="" type="button">
-                      <%= image_tag("Edit.svg", alt: "edit-icon", class: "action-icon") %>
-                    </button>
-                  </td>
+                  <%= sortable_table_header 'Food Name', :food_name, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Donation Amount', :amount, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                  <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header md:block hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody class="bg-white">
+                <% @inventories.each do |inventory| %>
+                  <tr class="hover:bg-gray-100 transition-colors"  >
+                    <td class="py-2 px-4 text-sm text-gray-900">
+                      <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class=" md:flex hidden form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
+                    </td>
+                    <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600  text-center">
+                      <%= inventory.food_name %>
+                    </td>
+                    <td  onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--collection-amount py-2 px-4 text-sm text-gray-600  text-center">
+                      <%= number_to_human(inventory.amount) %>
+                    </td>
+                    <td  onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--created-at py-2 px-4 text-sm text-gray-600  text-center">
+                      <%= inventory.collection_date.strftime('%Y-%m-%d') %>
+                    </td>
+                    <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600  text-center">
+                      <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
+                    </td>
+                    <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class="py-2 px-4 text-sm md:flex hidden rounded-lg text-gray-600">
+                      <% if inventory.request.is_selected %>
+                        <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>
+                      <% else %>
+                        <%= image_tag 'Alert circle.svg', alt: 'Not Selected', class: 'icon-class' %>
+                      <% end %>
+                    </td>
+                    <td onclick="window.location.href='<%= inventory_path(inventory) %>'" class=" md:flex hidden py-2 px-4 text-sm text-gray-600" data-url="<%= inventory_path(inventory) %>">
+                      <button onclick="window.location.href='<%= inventory_path(inventory) %>'"  data-remote="true" data-url="<%= inventory_path(inventory) %>" type="button">
+                        <%= image_tag("Icon.svg", alt: "show-icon", class: "show-action-icon") %>
+                      </button>
+                      <button data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="" type="button">
+                        <%= image_tag("Edit.svg", alt: "edit-icon", class: "action-icon") %>
+                      </button>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
-<div class="pagination-container  flex items-center justify-between py-4">
-  <!-- Items per page dropdown -->
-  <div class="items-per-page">
-    <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="rounded-lg bg-gray-200 px-2 py-1">
-      <% [10, 25, 50, 100, 'All'].each do |count| %>
-        <option class="text-xs" value="<%= count == 'All' ? 0 : count %>" <%= 'selected' if count == @per_page || (count == 'All' && @per_page == 0) %>>
+  <% end %>
+  <div class="pagination-container  flex items-center justify-between py-4">
+    <!-- Items per page dropdown -->
+    <div class="items-per-page">
+      <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="rounded-lg bg-gray-200 px-2 py-1">
+        <% [10, 25, 50, 100, 'All'].each do |count| %>
+          <option class="text-xs" value="<%= count == 'All' ? 0 : count %>" <%= 'selected' if count == @per_page || (count == 'All' && @per_page == 0) %>>
             <%= count == 'All' ? 'Show All' : count %>
           </option>
-        <% end %>
-      </select>
-      <label for="items-per-page" class="text-xs">Items per page</label>
-    </div>
-    <div class="flex justify-between gap-4">
-      <!-- Current page display -->
-      <div class="page-display flex items-center">
-        <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class=" rounded-lg px-2 py-1 bg-gray-200 text-center w-12"
-      onchange="window.location.href='?page=' + this.value + '&per_page=' + document.getElementById('items-per-page').value">
-        <span class="ml-2">of <%= @total_pages %> pages</span>
+          <% end %>
+        </select>
+        <label for="items-per-page" class="text-xs">Items per page</label>
       </div>
-      <!-- Navigation buttons -->
-      <div class="pagination-buttons flex gap-4 items-center">
-        <% if @page_no > 1 %>
-          <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page)%>
-        <% else %>
-          <span><</span>
-            <% end %>
-            <% if @page_no < @total_pages %>
-              <%= link_to '>', inventories_path(page: @page_no + 1, per_page: @per_page)  %>
-            <% else %>
-              <span >></span>
-            <% end %>
+      <div class="flex justify-between gap-4">
+        <!-- Current page display -->
+        <div class="page-display flex items-center">
+          <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class=" rounded-lg px-2 py-1 bg-gray-200 text-center w-12"
+      onchange="window.location.href='?page=' + this.value + '&per_page=' + document.getElementById('items-per-page').value">
+          <span class="ml-2">of <%= @total_pages %> pages</span>
+        </div>
+        <!-- Navigation buttons -->
+        <div class="pagination-buttons flex gap-4 items-center">
+          <% if @page_no > 1 %>
+            <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page)%>
+          <% else %>
+            <span><</span>
+              <% end %>
+              <% if @page_no < @total_pages %>
+                <%= link_to '>', inventories_path(page: @page_no + 1, per_page: @per_page)  %>
+              <% else %>
+                <span >></span>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-      <script>
-        document.addEventListener("turbo:load", function() {
-          const modal = document.getElementById("modal");
-          const openModalBtn = document.getElementById("filter-action");
-          const closeModalBtn = document.getElementById("close-modal");
-          const selectAllCheckbox = document.getElementById("select-all");
-          const inventoryCheckboxes = document.querySelectorAll(".inventory-checkbox");
-          const bulkDeleteBtn = document.querySelector("#bulk-delete");
+        <script>
+          document.addEventListener("turbo:load", function() {
+            const modal = document.getElementById("modal");
+            const openModalBtn = document.getElementById("filter-action");
+            const closeModalBtn = document.getElementById("close-modal");
+            const selectAllCheckbox = document.getElementById("select-all");
+            const inventoryCheckboxes = document.querySelectorAll(".inventory-checkbox");
+            const bulkDeleteBtn = document.querySelector("#bulk-delete");
 
-          selectAllCheckbox.addEventListener("change", () => {
-              inventoryCheckboxes.forEach(checkbox => {
-                  checkbox.checked = selectAllCheckbox.checked;
-              });
-          });
-
-
-          bulkDeleteBtn.addEventListener("click", () => {
-            const selectedIds = Array.from(inventoryCheckboxes)
-              .filter(checkbox => checkbox.checked)
-              .map(checkbox => checkbox.value);
-
-            if (selectedIds.length > 0) {
-              if (confirm("Are you sure you want to delete the selected items?")) {
-                fetch("/inventories/bulk_delete", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-                  },
-                  body: JSON.stringify({ ids: selectedIds })
-                }).then(response => {
-                  if (response.ok) {
-                    location.reload();
-                  } else {
-                    alert("Failed to delete items.");
-                  }
+            selectAllCheckbox.addEventListener("change", () => {
+                inventoryCheckboxes.forEach(checkbox => {
+                    checkbox.checked = selectAllCheckbox.checked;
                 });
-              }
-            } else {
-              alert("No items selected.");
-            }
-          });
+            });
 
-          openModalBtn.addEventListener("click", () => {
-            modal.classList.remove("hidden");
-          });
 
-          closeModalBtn.addEventListener("click", () => {
-            modal.classList.add("hidden");
-          });
+            bulkDeleteBtn.addEventListener("click", () => {
+              const selectedIds = Array.from(inventoryCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
 
-        });
-      </script>
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          document.querySelectorAll('button[data-modal-toggle]').forEach(button => {
-            button.addEventListener('click', async () => {
-              const modalId = button.getAttribute('data-modal-target');
-              const modal = document.getElementById(modalId);
-              const url = button.getAttribute('data-url');
-              const inventoryId = button.dataset.id;
-              console.log(inventoryId)
-
-              if (url && modal) {
-                const modalContent = modal.querySelector(`#modal-content-${inventoryId}`);
-                if (modalContent) {
-                  try {
-                    const response = await fetch(url);
+              if (selectedIds.length > 0) {
+                if (confirm("Are you sure you want to delete the selected items?")) {
+                  fetch("/inventories/bulk_delete", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                  }).then(response => {
                     if (response.ok) {
-                      const html = await response.text();
-                      console.log(html)
-                      console.log(url)
-                      modalContent.innerHTML = html;
+                      location.reload();
                     } else {
-                      modalContent.innerHTML = '<p class="text-red-500">Failed to load inventory data.</p>';
+                      alert("Failed to delete items.");
                     }
-                  } catch (error) {
-                    console.error('Error loading modal content:', error);
-                    modalContent.innerHTML = '<p class="text-red-500">Failed to load inventory data.</p>';
-                  }
+                  });
                 }
-                modal.classList.remove('hidden');
+              } else {
+                alert("No items selected.");
               }
             });
-          });
-        });
 
-        function updateRangeValue(value, type) {
-            if (type === 'min') {
-              document.getElementById('min-range-value').textContent = value;
-              document.getElementById('collection_amount_min').value = value;
-            } else if (type === 'max') {
-              document.getElementById('max-range-value').textContent = value;
-              document.getElementById('collection_amount_max').value = value;
-            }
-        }
-      </script>
+            openModalBtn.addEventListener("click", () => {
+              modal.classList.remove("hidden");
+            });
+
+            closeModalBtn.addEventListener("click", () => {
+              modal.classList.add("hidden");
+            });
+
+          });
+        </script>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('button[data-modal-toggle]').forEach(button => {
+              button.addEventListener('click', async () => {
+                const modalId = button.getAttribute('data-modal-target');
+                const modal = document.getElementById(modalId);
+                const url = button.getAttribute('data-url');
+                const inventoryId = button.dataset.id;
+                console.log(inventoryId)
+
+                if (url && modal) {
+                  const modalContent = modal.querySelector(`#modal-content-${inventoryId}`);
+                  if (modalContent) {
+                    try {
+                      const response = await fetch(url);
+                      if (response.ok) {
+                        const html = await response.text();
+                        console.log(html)
+                        console.log(url)
+                        modalContent.innerHTML = html;
+                      } else {
+                        modalContent.innerHTML = '<p class="text-red-500">Failed to load inventory data.</p>';
+                      }
+                    } catch (error) {
+                      console.error('Error loading modal content:', error);
+                      modalContent.innerHTML = '<p class="text-red-500">Failed to load inventory data.</p>';
+                    }
+                  }
+                  modal.classList.remove('hidden');
+                }
+              });
+            });
+          });
+
+          function updateRangeValue(value, type) {
+              if (type === 'min') {
+                document.getElementById('min-range-value').textContent = value;
+                document.getElementById('collection_amount_min').value = value;
+              } else if (type === 'max') {
+                document.getElementById('max-range-value').textContent = value;
+                document.getElementById('collection_amount_max').value = value;
+              }
+          }
+        </script>

@@ -10,6 +10,8 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.assets.debug = true
   
+  config.assets.debug = true
+  
   config.enable_reloading = true
 
   # Do not eager load code on boot.
@@ -80,6 +82,8 @@ Rails.application.configure do
 
   # Default URL option
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.assets.debug = true
 
   config.assets.debug = true
 end

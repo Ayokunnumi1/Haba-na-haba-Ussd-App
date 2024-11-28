@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full bg-white dark:bg-gray-800 dark:border-gray-700">
+<nav class="fixed top-0 z-50 w-full bg-white  drop-shadow-sm">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start rtl:justify-end">
@@ -9,8 +9,11 @@
           </svg>
         </button>
       </div>
-      <div class="flex justify-center ml-5 block lg:hidden">
-        <%= image_tag("hnh_admin_mobile_logo.png", alt: "Hnh mobile Logo", class: "h-8 w-8 md:h-10 md:w-10") %>
+      <div class="flex justify-center ml-[25%] lg:-ml-[21%] xl:-ml-[25%] 2xl:-ml-[28%] xxl:-ml-[26%] xxxl:-ml-[32%]">
+        <%= image_tag("hnh_admin_mobile_logo.png", alt: "Hnh mobile Logo", class: "h-10 md:h-14 lg:h-10 me-3") %>
+        <span class="self-center text-3xl font-semibold text-lightGreen hidden lg:block whitespace-nowrap">HabaNaHaba</span>
+      </div>
+      <div class="flex justify-center ml-5 block lg:ml-[20%]">
       </div>
       <div class="flex items-center">
         <div class="flex items-center ms-3">
@@ -29,7 +32,12 @@
           aria-expanded="false" 
           data-dropdown-toggle="dropdown-user">
                   <span class="sr-only">Open user menu</span>
-                  <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                  <% if current_user.image.attached? %>
+                    <img class="w-8 h-8 rounded-full" src="<%= url_for(current_user.image) %>" alt="user photo" onerror="this.style.display='none'; this.nextSibling.style.display='inline';">
+                    <i class="fas fa-user-circle w-8 h-8 text-gray-500" style="display: none;"></i>
+                  <% else %>
+                    <i class="fas fa-user-circle text-3xl text-gray-500"></i>
+                  <% end %>
                 </button>
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                   <div class="px-4 py-3" role="none">
@@ -45,13 +53,13 @@
                       <%= link_to "Dashboard", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
                     </li>
                     <li>
-                      <%= link_to "Settings", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+                      <%= link_to "Request", requests_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
                     </li>
                     <li>
-                      <%= link_to "Earnings", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+                      <%= link_to "Inventory", inventories_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
                     </li>
                     <li>
-                      <%= link_to "Sign out", "#", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem" %>
+                      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem", data: { turbo_method: :delete } %>
                     </li>
                   </ul>
                 </div>
@@ -62,17 +70,20 @@
       </div>
     </div>
   </nav>
-  <aside id="logo-sidebar" class="fixed top-8 lg:top-20 left-0 lg:left-5 z-40 w-60  h-full sm:h-full lg:h-[85%] xl:h-[90%] lg:rounded-lg pt-20 lg:pt-0 transition-transform -translate-x-full bg-lightGreen border-r border-gray-200 lg:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-lightGreen dark:bg-gray-800 md:rounded-lg">
-      <div class="flex justify-center hidden lg:block">
-        <%= image_tag("hnh_admin_logo.png", alt: "Hnh Logo", class: "h-15 w-15") %>
-      </div>
+  <aside id="logo-sidebar" class="fixed top-0 left-0  z-40 w-64  h-screen transition-transform -translate-x-full bg-lightGreen border-r border-gray-200 lg:translate-x-0 drop-shadow-xl" aria-label="Sidebar">
+    <div class="h-full px-3 pb-4 overflow-y-auto scrollbar-none bg-lightGreen lg:rounded-4xl pt-20 lg:pt-24">
       <p class="py-2 text-white font-Outfit font-normal text-sm mr-24">MANAGE</p>
-      <ul class="space-y-2 font-medium">
+      <ul class="space-y-3 font-medium">
         <li>
           <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
             <i class="fa-solid fa-table-columns group-hover:text-lightGreen text-base"></i>
             <span class="ms-3 group-hover:text-lightGreen text-base">Dashboard</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to branches_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+            <i class="fa-solid fa-warehouse hover:text-lightGreen group-hover:text-lightGreen text-sm"></i>
+            <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Branches</span>
           <% end %>
         </li>
         <li>
@@ -96,7 +107,7 @@
         <li>
           <details class="">
             <summary class="flex items-center p-2 text-white rounded-lg cursor-pointer hover:bg-white group">
-              <i class="fa-solid fa-user-group group-hover:text-lightGreen text-base"></i>
+              <i class="fa-solid fa-user-group group-hover:text-lightGreen text-sm"></i>
               <span class="ms-3 group-hover:text-lightGreen text-base">Beneficiaries</span>
               <i class="fa-solid fa-chevron-down group-hover:text-lightGreen ms-auto transition-transform duration-200"></i>
             </summary>
@@ -167,7 +178,7 @@
         <% end %>
         <p class="py-2 text-white font-Outfit font-normal text-sm mr-20">PREFERENCE</p>
         <li>
-          <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+          <%= link_to edit_user_path(current_user.id), class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
             <i class="fa-solid fa-gear group-hover:text-lightGreen text-base"></i>
             <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Profile</span>
           <% end %>

@@ -7,7 +7,24 @@
   <h3>Counties</h3>
   <div id="counties">
     <%= form.fields_for :counties do |county_fields| %>
-      <%= render 'county_fields', f: county_fields %>
+      <div class="nested-fields">
+        <%= county_fields.label :name, "County Name" %>
+        <%= county_fields.text_field :name %>
+        <h4>Sub-Counties</h4>
+        <div id="sub-counties">
+          <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>
+            <div class="nested-fields">
+              <%= sub_county_fields.label :name, "Sub-County Name" %>
+              <%= sub_county_fields.text_field :name %>
+              <%= sub_county_fields.check_box :_destroy %>
+              <%= sub_county_fields.label :_destroy, "Remove Sub-County" %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to_add_fields "Add Sub-County", county_fields, :sub_counties %>
+        <%= county_fields.check_box :_destroy %>
+        <%= county_fields.label :_destroy, "Remove County" %>
+      </div>
     <% end %>
   </div>
   <%= link_to_add_fields "Add County", form, :counties %>

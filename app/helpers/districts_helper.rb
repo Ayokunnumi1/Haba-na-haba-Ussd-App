@@ -1,10 +1,41 @@
 module DistrictsHelper
     def link_to_add_fields(name, form, association)
-        new_object = form.object.send(association).build
-        id = new_object.object_id
-        fields = form.fields_for(association, new_object, child_index: id) do |builder|
-          render("#{association.to_s.singularize}_fields", f: builder)
+      new_object = form.object.send(association).klass.new
+      id = new_object.object_id
+      fields = form.fields_for(association, new_object, child_index: id) do |builder|
+        if association == :counties
+          render_inline_county_fields(builder)
+        elsif association == :sub_counties
+          render_inline_sub_county_fields(builder)
         end
-        link_to(name, '#', class: "add_fields", data: { association: association, fields: fields.delete("\n") })
       end
-end
+      link_to(name, '#', class: "add_fields", data: { association: association, fields: fields.delete("\n") })
+    end
+  
+    private
+  
+    def render_inline_county_fields(builder)
+      content_tag(:div, class: "nested-fields") do
+        concat builder.label :name, "County Name"
+        concat builder.text_field :name
+        concat content_tag(:h4, "Sub-Counties") do
+          builder.fields_for :sub_counties do |sub_county_fields|
+            render_inline_sub_county_fields(sub_county_fields)
+          end
+        end
+        concat link_to_add_fields("Add Sub-County", builder, :sub_counties)
+        concat builder.check_box :_destroy
+        concat builder.label :_destroy, "Remove County"
+      end
+    end
+  
+    def render_inline_sub_county_fields(builder)
+      content_tag(:div, class: "nested-fields") do
+        concat builder.label :name, "Sub-County Name"
+        concat builder.text_field :name
+        concat builder.check_box :_destroy
+        concat builder.label :_destroy, "Remove Sub-County"
+      end
+    end
+  end
+  

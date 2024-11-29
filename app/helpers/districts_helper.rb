@@ -18,7 +18,7 @@ module DistrictsHelper
 
   # Render the inline fields for counties
   def render_inline_county_fields(builder)
-    content_tag(:div, class: "nested-fields mt-5") do
+    content_tag(:div, class: "nested-fields mt-5 mb-10") do
       concat builder.label :name,"County Name", class: "block text-gray-700 text-sm font-bold mb-2" 
       concat builder.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       concat builder.check_box :_destroy
@@ -29,8 +29,9 @@ module DistrictsHelper
         end
       end
       
+    
       concat link_to_add_fields("Add Sub-County", builder, :sub_counties)
-      
+   
     end
   end
 

@@ -1,32 +1,38 @@
 <%= form_with model: @district, local: true do |form| %>
-  <h2>District</h2>
-  <div>
-    <%= form.label :name, "District Name" %>
-    <%= form.text_field :name %>
+  <h2 class="text-2xl font-bold mb-4">District</h2>
+  <!-- District Name Field -->
+  <div class="mb-4">
+    <%= form.label :name, "District Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
-  <h3>Counties</h3>
+  <h3 class="text-xl font-bold mb-4">Counties</h3>
+  <!-- Counties Fields -->
   <div id="counties">
     <%= form.fields_for :counties do |county_fields| %>
-      <div class="nested-fields">
-        <%= county_fields.label :name, "County Name" %>
-        <%= county_fields.text_field :name %>
+      <div class="nested-fields mb-4">
+        <%= county_fields.label :name, "County Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= county_fields.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
         <%= county_fields.check_box :_destroy %>
-        <%= county_fields.label :_destroy, "Remove County" %>
-        <h4>Sub-Counties</h4>
+        <%= county_fields.label :_destroy, "Remove County", class: "text-red-500 ml-2" %>
+        <h4 class="text-lg font-semibold mt-4">Sub-Counties</h4>
+        <!-- Sub-Counties Fields -->
         <div id="sub-counties">
           <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>
-            <div class="nested-fields">
-              <%= sub_county_fields.label :name, "Sub-County Name" %>
-              <%= sub_county_fields.text_field :name %>
+            <div class="nested-fields mb-4">
+              <%= sub_county_fields.label :name, "Sub-County Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+              <%= sub_county_fields.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
               <%= sub_county_fields.check_box :_destroy %>
-              <%= sub_county_fields.label :_destroy, "Remove Sub-County" %>
+              <%= sub_county_fields.label :_destroy, "Remove Sub-County", class: "text-red-500 ml-2" %>
             </div>
           <% end %>
         </div>
-        <%= link_to_add_fields "Add Sub-County", county_fields, :sub_counties %>
+        <%= link_to(link_to_add_fields("Add Sub-County", county_fields, :sub_counties), class: "text-blue-500 underline mt-2") %>
       </div>
     <% end %>
   </div>
-  <%= link_to_add_fields "Add County", form, :counties %>
-  <%= form.submit "Save District" %>
+  <%= link_to(link_to_add_fields("Add County", form, :counties), class: "text-blue-500 underline mt-4") %>
+  <!-- Submit Button -->
+  <div class="flex items-center justify-between mt-6">
+    <%= form.submit "Save District", class: "bg-lightGreen hover:bg-darkBlue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
 <% end %>

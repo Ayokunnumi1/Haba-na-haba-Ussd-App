@@ -16,7 +16,7 @@
         <%= county_fields.label :_destroy, "Remove County", class: "text-red-500 ml-2" %>
         <h4 class="text-lg font-semibold mt-4">Sub-Counties</h4>
         <!-- Sub-Counties Fields -->
-        <div id="sub-counties">
+        <div id="sub-counties" >
           <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>
             <div class="nested-fields mb-4">
               <%= sub_county_fields.label :name, "Sub-County Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -30,7 +30,7 @@
       </div>
     <% end %>
   </div>
-  <%= link_to(link_to_add_fields("Add County", form, :counties), class: "text-blue-500 underline mt-4") %>
+  <%= link_to(link_to_add_fields("Add County", form, :counties), class: "text-blue-500 underline mt-10") %>
   <!-- Submit Button -->
   <div class="flex items-center justify-between mt-6">
     <%= form.submit "Save District", class: "bg-lightGreen hover:bg-darkBlue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>

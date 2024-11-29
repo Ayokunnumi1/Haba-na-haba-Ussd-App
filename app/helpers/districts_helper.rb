@@ -11,14 +11,14 @@ module DistrictsHelper
       end
     end
     # Return a link to add fields with the generated HTML for new fields
-    link_to(name, '#', class: "add_fields", data: { association: association, fields: fields.delete("\n") })
+    link_to(name, '#', class: "add_fields text-white bg-lightGreen font-bold py-3 px-6 rounded-md hover:bg-lightGreen-dark focus:outline-none focus:ring-2 focus:ring-lightGreen-dark active:bg-lightGreen-dark", data: { association: association, fields: fields.delete("\n") })
   end
 
   private
 
   # Render the inline fields for counties
   def render_inline_county_fields(builder)
-    content_tag(:div, class: "nested-fields") do
+    content_tag(:div, class: "nested-fields mt-5") do
       concat builder.label :name,"County Name", class: "block text-gray-700 text-sm font-bold mb-2" 
       concat builder.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       concat builder.check_box :_destroy
@@ -28,6 +28,7 @@ module DistrictsHelper
           render_inline_sub_county_fields(sub_county_fields)
         end
       end
+      
       concat link_to_add_fields("Add Sub-County", builder, :sub_counties)
       
     end
@@ -35,7 +36,7 @@ module DistrictsHelper
 
   # Render the inline fields for sub-counties
   def render_inline_sub_county_fields(builder)
-    content_tag(:div, class: "nested-fields") do
+    content_tag(:div, class: "nested-fields mb-5") do
       concat builder.label :name, "Sub-County Name" ,class: "block text-gray-700 text-sm font-bold mb-2"
       concat builder.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       concat builder.check_box :_destroy

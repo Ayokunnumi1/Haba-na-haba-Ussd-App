@@ -7,7 +7,7 @@
   </div>
   <h3 class="text-xl font-bold mb-4">Counties</h3>
   <!-- Counties Fields -->
-  <div id="counties" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  <div id="counties" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 lg">
     <%= form.fields_for :counties do |county_fields| %>
       <div class="nested-fields mb-4">
         <%= county_fields.label :name, "County Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -37,6 +37,6 @@
   </div>
   <!-- Submit Button -->
   <div class="flex items-center justify-between mt-6">
-    <%= form.submit "Save District", class: " w-full bg-lightGreen hover:bg-darkBlue text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline" %>
+    <%= form.submit "Create Location", class: " w-full bg-lightGreen hover:bg-darkBlue text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 <% end %>

@@ -4,7 +4,7 @@ class DistrictsController < ApplicationController
   before_action :set_district, only: %i[show edit update destroy]
 
   def index
-    @districts = District.includes(counties: :sub_counties).all
+    @districts = District.includes(counties: :sub_counties).order(created_at: :desc)
   end
 
   def new

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
   document.body.addEventListener("click", (e) => {
     if (e.target && e.target.matches(".add_fields")) {
       e.preventDefault();

@@ -1,12 +1,12 @@
 <section class="bg-white p-5">
-  <div class=" w-full lg:px-10">
+  <div class="w-full lg:px-10">
     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
       <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
         <div class="w-full md:w-1/2">
           <h2 class="text-2xl font-bold mb-4">Districts, Counties, and SubCounties</h2>
         </div>
         <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-          <%= link_to  new_district_path, class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' do %>
+          <%= link_to new_district_path, class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' do %>
             <i class="fa-solid fa-plus mr-2"></i>
             Create Location
           <% end %>
@@ -27,18 +27,29 @@
               <tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="px-6 py-3 text-left"><%= district.name %></td>
                 <td class="px-6 py-3 text-left">
-                  <% district.counties.each do |county| %>
+                  <% district.counties.first(3).each do |county| %>
                     <div class="mb-2">
                       <strong><%= county.name %></strong>
+                    </div>
+                  <% end %>
+                  <% if district.counties.count > 3 %>
+                    <div class="text-sm text-lightGreen font-bold ">
+                      <%= "+ #{district.counties.count - 3} more counties" %>
                     </div>
                   <% end %>
                 </td>
                 <td class="px-6 py-3 text-left">
                   <div class="ml-4 text-sm text-gray-600 dark:text-gray-400">
-                    <% district.counties.each do |county| %>
-                      <% county.sub_counties.each do |sub_county| %>
+                    <% district.counties.first(3).each do |county| %>
+                      <% county.sub_counties.first(1).each do |sub_county| %>
                         <div><%= sub_county.name %></div>
                       <% end %>
+                    <% end %>
+                    <% total_subcounties = district.counties.sum { |county| county.sub_counties.count } %>
+                    <% if total_subcounties > 3 %>
+                      <div class="text-sm text-lightGreen font-bold">
+                        <%= "+ #{total_subcounties - 3} more subcounties" %>
+                      </div>
                     <% end %>
                   </div>
                 </td>

@@ -1,36 +1,42 @@
 <section class="bg-white p-5">
   <div class="w-full lg:px-10">
-    <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-          <%= link_to  edit_district_path(@district), class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' do %>
-            <i class="fa-solid fa-pencil-alt mr-2"></i>
-            Edit District
-          <% end %>
-          <%= link_to 'Back', districts_path, class: 'flex items-center justify-center text-white bg-darkBlue hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
-        </div>
-      </div>
-      <div class="mt-6 overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left">District</th>
-              <th scope="col" class="px-6 py-3 text-left">County</th>
-              <th scope="col" class="px-6 py-3 text-left">SubCounty</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @district.counties.each do |county| %>
-              <% county.sub_counties.each do |sub_county| %>
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="px-6 py-3 text-left"><%= @district.name %></td>
-                  <td class="px-6 py-3 text-left"><%= county.name %></td>
-                  <td class="px-6 py-3 text-left"><%= sub_county.name %></td>
-                </tr>
-              <% end %>
+    <div class="">
+      <div class="bg-gradient-to-tr from-white from-40% via-lightGreen/50 via-90% to-red-600/40 to-100% text-white shadow-xl rounded-xl p-3 sm:p-8 mb-8">
+        <!-- Header Row -->
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+          <div class="text-lg font-semibold text-gray-800 dark:text-white">
+            District: <%= @district.name %> <!-- Display district name -->
+          </div>
+          <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+            <%= link_to edit_district_path(@district), class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' do %>
+              <i class="fa-solid fa-pencil-alt mr-2"></i>
+              Edit District
             <% end %>
-          </tbody>
-        </table>
+            <%= link_to 'Back', districts_path, class: 'flex items-center justify-center text-white bg-darkBlue hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+          </div>
+        </div>
+        <!-- County Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-5">
+          <% @district.counties.each do |county| %>
+            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+              <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4"> County: <%= county.name %></h2>
+              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead>
+                  <tr class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-800 dark:text-gray-400">
+                    <th scope="col" class="px-6 py-3">SubCounty</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% county.sub_counties.each do |sub_county| %>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                      <td class="px-6 py-3"><%= sub_county.name %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

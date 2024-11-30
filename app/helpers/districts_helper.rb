@@ -12,7 +12,8 @@ module DistrictsHelper
     end
     # Return a link to add fields with the generated HTML for new fields
     link_to(name, '#',
-            class: 'add_fields text-white bg-lightGreen font-bold py-3 px-6 rounded-md hover:bg-lightGreen-dark focus:outline-none focus:ring-2 focus:ring-lightGreen-dark active:bg-lightGreen-dark', data: { association: association, fields: fields.delete("\n") })
+            class: 'add_fields text-white bg-lightGreen font-bold py-3 px-6 rounded-md hover:bg-lightGreen-dark focus:outline-none focus:ring-2 focus:ring-lightGreen-dark active:bg-lightGreen-dark', 
+            data: { association: association, fields: fields.delete("\n") })
   end
 
   private

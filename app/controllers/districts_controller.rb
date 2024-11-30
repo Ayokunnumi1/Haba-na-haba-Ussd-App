@@ -57,7 +57,7 @@ class DistrictsController < ApplicationController
       :name,
       counties_attributes: [
         :id, :name, :_destroy,
-        sub_counties_attributes: [:id, :name, :_destroy]
+        { sub_counties_attributes: %i[id name _destroy] }
       ]
     )
   end

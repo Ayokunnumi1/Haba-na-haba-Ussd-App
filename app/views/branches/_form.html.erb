@@ -1,4 +1,3 @@
-<!-- app/views/branches/_form.html.erb -->
 <%= form_with(model: @branch, local: true, class: "space-y-6") do |form| %>
   <% if @branch.errors.any? %>
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
@@ -10,12 +9,10 @@
       </ul>
     </div>
   <% end %>
-  <!-- Name Field -->
   <div>
     <%= form.label :name, 'Branch Name', class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_field :name, class: "mt-1 block w-full", placeholder: "Enter branch name", required: true %>
   </div>
-  <!-- Phone Number Field -->
   <div>
     <%= form.label :phone_number, 'Phone Number', class: "block text-sm font-medium text-gray-700" %>
     <%= form.telephone_field :phone_number, class: "mt-1 block w-full", placeholder: "Enter phone number", required: true %>

@@ -31,7 +31,7 @@
     </div>
 
     <!-- Submit Button -->
-    <div class="flex space-x-4 mt-4">
-      <%= form.submit @branch.new_record? ? "Create Branch" : "Update Branch", class: "bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600" %>
+    <div class="flex items-center justify-between mt-4">
+      <%= form.submit @branch.new_record? ? "Create Branch" : "Update Branch", class: "w-full bg-lightGreen hover:bg-darkBlue text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline" %>
    </div>
   <% end %>

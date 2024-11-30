@@ -17,18 +17,19 @@
     <%= form.label :phone_number, 'Phone Number', class: "block text-sm font-medium text-gray-700" %>
     <%= form.telephone_field :phone_number, class: "mt-1 block w-full rounded-md", placeholder: "Enter phone number", required: true %>
   </div>
-  <!-- Districts Checkbox List -->
-    <div>
-      <%= form.label :district_ids, 'Select Districts', class: "block text-sm font-medium text-gray-700" %>
-      <div class="mt-2 max-h-40 overflow-y-scroll border rounded-md p-2 bg-gray-50 grid grid-cols-5 gap-4">
-        <% District.all.each do |district| %>
-          <div class="flex items-center space-x-2">
-            <%= check_box_tag "branch[district_ids][]", district.id, @branch.district_ids.include?(district.id), id: "district_#{district.id}" %>
-            <%= label_tag "district_#{district.id}", district.name, class: "text-sm text-gray-700" %>
-          </div>
-        <% end %>
+ <!-- Districts Checkbox List -->
+<div>
+  <%= form.label :district_ids, 'Select Districts', class: "block text-sm font-medium text-gray-700" %>
+  <div class="mt-2 max-h-40 overflow-y-auto border rounded-md p-4 bg-gray-50 grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <% District.all.each do |district| %>
+      <div class="flex items-center space-x-2">
+        <%= check_box_tag "branch[district_ids][]", district.id, @branch.district_ids.include?(district.id), id: "district_#{district.id}" %>
+        <%= label_tag "district_#{district.id}", district.name, class: "text-sm text-gray-700" %>
       </div>
-    </div>
+    <% end %>
+  </div>
+</div>
+
 
     <!-- Submit Button -->
     <div class="flex items-center justify-between mt-4">

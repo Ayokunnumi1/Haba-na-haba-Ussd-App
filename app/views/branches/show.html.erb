@@ -1,19 +1,61 @@
-<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-  <h1 class="text-3xl font-bold text-gray-800 mb-4">
-    Branch Name: <%= @branch.name %>
-  </h1>
-  <div class="mb-6">
-    <h2 class="text-xl font-semibold text-gray-700">Details</h2>
+<section class="p-5">
+  <div class="w-full ">
+   <div class="bg-gradient-to-tr from-white from-40% via-lightGreen/50 via-90% to-red-600/40 to-100% text-white shadow-xl rounded-xl p-3 sm:p-8 mb-8"> 
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+          <div class="text-lg lg:text-3xl text-darkBlue font-Outfit font-bold">
+            Branch Name: <%= @branch.name %>
+          </div>
+          <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+            <%= link_to edit_branch_path(@branch), class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' do %>
+              <i class="fa-solid fa-pencil-alt mr-2"></i>
+              Edit Branch
+            <% end %>
+            <%= link_to 'Back', branches_path, class: 'flex items-center justify-center text-white bg-darkBlue hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+          </div>
+        </div>
     
-    <ul class="list-disc pl-6 mt-2 text-gray-600">
-      <li><strong>Phone Number:</strong> <%= @branch.phone_number %></li>
-      <li><strong>District: </strong><%= @branch.districts.map(&:name).join(', ') %></li>
-    </ul>
-  
+    <!-- Accordion for Branch Details -->
+    <div id="branch-details-accordion" class="border border-gray-300 rounded-lg">
+      <button class="w-full flex justify-between items-center p-4 bg-gray-200 rounded-t-lg focus:outline-none focus:ring focus:ring-gray-400" type="button" data-accordion-toggle="branch-details-content">
+        <span class="text-lg font-medium text-gray-700">Branch Details</span>
+        <i class="fa fa-chevron-down text-gray-700"></i>
+      </button>
+      <div id="branch-details-content" class="hidden p-4 bg-gray-50 border-t border-gray-300">
+        <ul class="list-disc pl-6 text-gray-600">
+          <li><strong>Branch Number:</strong> <%= @branch.id %></li>
+          <li><strong>Districts:</strong> <%= @branch.districts.map(&:name).join(', ') %></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Role-Based User Cards -->
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <% @branch.users.group_by(&:role).each do |role, users| %>
+        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            Role: <%= role %>
+          </h2>
+          <ul class="list-disc pl-6 text-gray-600">
+            <% users.each do |user| %>
+              <li>
+                <strong><%= user.first_name %></strong>
+                <p class="text-sm text-gray-500"><%= user.email %></p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+ </div>
   </div>
-  <div class="flex space-x-4 mt-6">
-    <%= link_to 'Edit', edit_branch_path(@branch), class: 'bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600' %>
-    <%= link_to 'Back to Branches', branches_path, class: 'bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600' %>
-    <%= button_to 'Delete', branch_path(@branch), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600' %>
-  </div>
-</div>
+</section>
+<script>
+  document.querySelectorAll('[data-accordion-toggle]').forEach(button => {
+    button.addEventListener('click', () => {
+      const content = document.querySelector(`#${button.getAttribute('data-accordion-toggle')}`);
+      content.classList.toggle('hidden');
+      const icon = button.querySelector('i');
+      icon.classList.toggle('fa-chevron-down');
+      icon.classList.toggle('fa-chevron-up');
+    });
+  });
+</script>

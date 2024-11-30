@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   resources :districts
   resources :counties
   resources :sub_counties
-  resources :events
+resources :events do
+  resources :requests
+end
+
+  
 
   resources :event_users, only: [:create, :destroy]
   resources :branches do

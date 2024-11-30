@@ -85,6 +85,17 @@ class RequestsController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  def create_for_event
+    @event = Event.find(params[:event_id])
+    @request = @event.requests.new(request_params)
+
+    if @request.save
+      redirect_to @event, notice: "Request created successfully!"
+    else
+      render :new
+    end
+  end
+
   private
 
   def process_ussd(text, phone_number)
@@ -99,6 +110,6 @@ class RequestsController < ApplicationController
     params.require(:request).permit(:name, :phone_number, :request_type,
                                     :residence_address, :district_id,
                                     :county_id, :sub_county_id,
-                                    :branch_id)
+                                    :branch_id, :event_id)
   end
 end

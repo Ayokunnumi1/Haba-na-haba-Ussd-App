@@ -31,12 +31,14 @@
                   <% if county %>
                     <div>
                       <strong><%= county.name %></strong>
-                      <% if district.counties.count > 1 %>
-                        <span class="text-sm text-lightGreen font-bold ml-2">
+                    </div>
+                    <% if district.counties.count > 1 %>
+                      <div>
+                        <span class="text-sm text-lightGreen font-bold">
                           <%= link_to 'Show More', district %>
                         </span>
-                      <% end %>
-                    </div>
+                      </div>
+                    <% end %>
                   <% end %>
                 </td>
                 <td class="px-6 py-3 text-left">
@@ -45,12 +47,14 @@
                     <% sub_county = county.sub_counties.first %>
                     <div>
                       <%= sub_county.name %>
-                      <% if county.sub_counties.count > 1 %>
-                        <span class="text-sm text-lightGreen font-bold ml-2">
+                    </div>
+                    <% if county.sub_counties.count > 1 %>
+                      <div>
+                        <span class="text-sm text-lightGreen font-bold">
                           <%= link_to 'Show More', district %>
                         </span>
-                      <% end %>
-                    </div>
+                      </div>
+                    <% end %>
                   <% end %>
                 </td>
                 <td class="px-6 py-3 text-center">

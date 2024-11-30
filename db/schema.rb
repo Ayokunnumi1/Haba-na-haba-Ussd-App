@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_044700) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -123,9 +123,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_044700) do
     t.integer "number_of_meals_school"
     t.text "basic_FEH"
     t.text "basic_FES"
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "provided_food"
+    t.index ["branch_id"], name: "index_family_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_family_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_family_beneficiaries_on_district_id"
     t.index ["request_id"], name: "index_family_beneficiaries_on_request_id"
@@ -148,9 +151,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_044700) do
     t.bigint "district_id", null: false
     t.bigint "county_id", null: false
     t.bigint "sub_county_id", null: false
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "provided_food"
+    t.index ["branch_id"], name: "index_individual_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_individual_beneficiaries_on_district_id"
     t.index ["request_id"], name: "index_individual_beneficiaries_on_request_id"
@@ -173,9 +179,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_044700) do
     t.decimal "amount"
     t.string "head_of_institution"
     t.string "registration_no"
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "collection_amount"
+    t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["district_id"], name: "index_inventories_on_district_id"
     t.index ["request_id"], name: "index_inventories_on_request_id"
@@ -203,9 +212,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_044700) do
     t.text "head_of_institution"
     t.integer "number_of_meals_home"
     t.text "basic_FEH"
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "provided_food"
+    t.index ["branch_id"], name: "index_organization_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_organization_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_organization_beneficiaries_on_district_id"
     t.index ["request_id"], name: "index_organization_beneficiaries_on_request_id"
@@ -272,18 +284,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_044700) do
   add_foreign_key "events", "counties"
   add_foreign_key "events", "districts"
   add_foreign_key "events", "sub_counties"
+  add_foreign_key "family_beneficiaries", "branches"
   add_foreign_key "family_beneficiaries", "counties"
   add_foreign_key "family_beneficiaries", "districts"
   add_foreign_key "family_beneficiaries", "requests"
   add_foreign_key "family_beneficiaries", "sub_counties"
+  add_foreign_key "individual_beneficiaries", "branches"
   add_foreign_key "individual_beneficiaries", "counties"
   add_foreign_key "individual_beneficiaries", "districts"
   add_foreign_key "individual_beneficiaries", "requests"
   add_foreign_key "individual_beneficiaries", "sub_counties"
+  add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "counties"
   add_foreign_key "inventories", "districts"
   add_foreign_key "inventories", "requests"
   add_foreign_key "inventories", "sub_counties"
+  add_foreign_key "organization_beneficiaries", "branches"
   add_foreign_key "organization_beneficiaries", "counties"
   add_foreign_key "organization_beneficiaries", "districts"
   add_foreign_key "organization_beneficiaries", "requests"

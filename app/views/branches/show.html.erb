@@ -33,18 +33,18 @@
       </div>
 
       <!-- Role-Based User Cards -->
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
         <% User::ROLES.each do |role| %>
           <% users = @branch.users.where(role: role) %>
           <% if users.any? %>
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-md">
-              <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+              <h2 class="text-base font-semibold text-lightGreen  mb-4">
                 Role: <%= role.titleize %>
               </h2>
               <ul class="list-none">
                 <% users.each do |user| %>
                   <li class="py-2 border-b border-gray-300 last:border-none">
-                    <strong><%= user.first_name %> <%= user.last_name %></strong>
+                    <strong class="text-sm text-darkBlue"><%= user.first_name %> <%= user.last_name %></strong>
                     <p class="text-sm text-gray-500"><%= user.email %></p>
                   </li>
                 <% end %>

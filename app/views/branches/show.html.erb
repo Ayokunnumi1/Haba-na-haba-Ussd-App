@@ -27,6 +27,7 @@
             <ul class="list-none text-gray-600">
               <li><strong>Branch Number:</strong> <%= @branch.id %></li>
               <li><strong>Districts:</strong> <%= @branch.districts.map(&:name).join(', ') %></li>
+              <li><strong>Branch Phone:</strong> <%= @branch.phone_number %></li>
             </ul>
           </div>
         </div>

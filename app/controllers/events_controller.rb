@@ -23,8 +23,7 @@ class EventsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     @users = User.all

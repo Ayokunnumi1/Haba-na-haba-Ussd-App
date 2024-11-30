@@ -6,8 +6,7 @@ module UserFilterable
       users = User.all
       users = filter_by_name(users, params[:name])
       users = filter_by_role(users, params[:role])
-      users = filter_by_phone_number(users, params[:phone_number])
-      users
+      filter_by_phone_number(users, params[:phone_number])
     end
 
     private

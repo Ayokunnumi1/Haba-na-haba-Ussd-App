@@ -83,6 +83,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
+  create_table "event_users_events", id: false, force: :cascade do |t|
+    t.bigint "event_user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_users_events_on_event_id"
+    t.index ["event_user_id", "event_id"], name: "index_event_users_events_on_event_user_id_and_event_id", unique: true
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
@@ -239,9 +248,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_requests_on_branch_id"
     t.index ["county_id"], name: "index_requests_on_county_id"
     t.index ["district_id"], name: "index_requests_on_district_id"
+    t.index ["event_id"], name: "index_requests_on_event_id"
     t.index ["sub_county_id"], name: "index_requests_on_sub_county_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -281,6 +292,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
   add_foreign_key "counties", "districts"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"
+  add_foreign_key "event_users_events", "event_users"
+  add_foreign_key "event_users_events", "events"
   add_foreign_key "events", "counties"
   add_foreign_key "events", "districts"
   add_foreign_key "events", "sub_counties"

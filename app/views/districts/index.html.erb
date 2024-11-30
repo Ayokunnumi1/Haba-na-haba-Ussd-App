@@ -27,31 +27,31 @@
               <tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="px-6 py-3 text-left"><%= district.name %></td>
                 <td class="px-6 py-3 text-left">
-                  <% district.counties.first(3).each do |county| %>
-                    <div class="mb-2">
+                  <% county = district.counties.first %>
+                  <% if county %>
+                    <div>
                       <strong><%= county.name %></strong>
-                    </div>
-                  <% end %>
-                  <% if district.counties.count > 3 %>
-                    <div class="text-sm text-lightGreen font-bold ">
-                      <%= "+ #{district.counties.count - 3} more counties" %>
+                      <% if district.counties.count > 1 %>
+                        <span class="text-sm text-lightGreen font-bold ml-2">
+                          <%= link_to 'Show More', district %>
+                        </span>
+                      <% end %>
                     </div>
                   <% end %>
                 </td>
                 <td class="px-6 py-3 text-left">
-                  <div class="ml-4 text-sm text-gray-600 dark:text-gray-400">
-                    <% district.counties.first(3).each do |county| %>
-                      <% county.sub_counties.first(1).each do |sub_county| %>
-                        <div><%= sub_county.name %></div>
+                  <% county = district.counties.first %>
+                  <% if county && county.sub_counties.any? %>
+                    <% sub_county = county.sub_counties.first %>
+                    <div>
+                      <%= sub_county.name %>
+                      <% if county.sub_counties.count > 1 %>
+                        <span class="text-sm text-lightGreen font-bold ml-2">
+                          <%= link_to 'Show More', district %>
+                        </span>
                       <% end %>
-                    <% end %>
-                    <% total_subcounties = district.counties.sum { |county| county.sub_counties.count } %>
-                    <% if total_subcounties > 3 %>
-                      <div class="text-sm text-lightGreen font-bold">
-                        <%= "+ #{total_subcounties - 3} more subcounties" %>
-                      </div>
-                    <% end %>
-                  </div>
+                    </div>
+                  <% end %>
                 </td>
                 <td class="px-6 py-3 text-center">
                   <div class="relative">

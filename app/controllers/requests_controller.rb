@@ -4,7 +4,7 @@ class RequestsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
-    @requests = Request.all
+    @requests = Request.apply_filters(params)
   end
 
   def ussd

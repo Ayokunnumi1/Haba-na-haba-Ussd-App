@@ -10,5 +10,6 @@ import "./dropdown";
 import "flowbite";
 import "truncate";
 import "./eventUser";
+import "./eventTab";
 import "./users/filterUsers";
 import "./users/userDropDown";

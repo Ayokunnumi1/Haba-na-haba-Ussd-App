@@ -10,14 +10,14 @@
   </div>
   <p class="hidden md:block font-semi-bold text-lg">Requests</p>
   <div>
-    <div class="hidden md:inline-flex py-2 px-4 bg-lightGreen text-white rounded">
+    <div class="hidden md:inline-flex py-2 px-4 bg-lightGreen text-white rounded-xl">
       <%= link_to "Add New", new_request_path, class:"rounded" %>
     </div>
-    <button id="filter-modal-button" class="bg-gray-200 hover:bg-gray-400  font-medium py-2 px-4 rounded">
+    <button id="filter-modal-button" class="bg-gray-200 hover:bg-gray-400  font-medium py-1.5 px-4 rounded-xl border-2 border-gray-900">
       <i class="fa-solid fa-filter fa-xl"></i>
       <span>Filter</span>
     </button>
-    <%= link_to "Clear", requests_path, id:"reset-filter-button", class: "font-medium px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400" %>
+    <%= link_to "Clear", requests_path, id:"reset-filter-button", class: "font-medium px-4 py-2 bg-gray-200 text-black rounded-xl hover:bg-gray-400 border-2 border-gray-900" %>
   </div>
 </div>
 <div id="filter-modal" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -84,7 +84,7 @@
         </div>
         <!-- Submit and Clear Buttons -->
         <div class="flex space-x-4 mt-4">
-          <%= f.submit "Filter", class: "px-4 py-2 bg-lightGreen text-white rounded-md hover:bg-blue-600" %>
+          <%= f.submit "Filter", class: "px-4 py-2 bg-lightGreen text-white rounded-md hover:bg-lime-500" %>
           <%= link_to "Clear", requests_path, id:"reset-filter-button", class: "px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400" %>
         </div>
       <% end %>

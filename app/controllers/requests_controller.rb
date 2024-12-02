@@ -100,7 +100,7 @@ class RequestsController < ApplicationController
 
   def request_params
     params.require(:request).permit(:name, :phone_number, :request_type,
-                                    :residence_address, :district_id,
+                                    :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
                                     :branch_id)
   end

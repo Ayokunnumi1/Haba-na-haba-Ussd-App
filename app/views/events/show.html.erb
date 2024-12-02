@@ -23,7 +23,38 @@
 
     <!-- Tab content -->
     <div class="tab-content mt-4">
-        <div data-tab="profile" class="tab-panel hidden">Profile Content</div>
+        <div data-tab="profile" class="tab-panel hidden">Profile Content
+        <h1>Requests for <%= @event.name %></h1>
+
+<table class="table-auto w-full text-left border-collapse border border-gray-300">
+  <thead>
+    <tr>
+      <th class="border border-gray-300 px-4 py-2">Name</th>
+      <th class="border border-gray-300 px-4 py-2">Phone Number</th>
+      <th class="border border-gray-300 px-4 py-2">Address</th>
+      <th class="border border-gray-300 px-4 py-2">District</th>
+      <th class="border border-gray-300 px-4 py-2">County</th>
+      <th class="border border-gray-300 px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @requests.each do |request| %>
+      <tr>
+        <td class="border border-gray-300 px-4 py-2"><%= request.name %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= request.phone_number %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= request.residence_address %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= request.district&.name %></td>
+        <td class="border border-gray-300 px-4 py-2"><%= request.county&.name %></td>
+        <td class="border border-gray-300 px-4 py-2">
+          <%= link_to 'Show', request_path(request), class: "text-blue-500 underline" %>
+          <%= link_to 'Edit', edit_request_path(request), class: "text-yellow-500 underline" %>
+          <%= link_to 'Delete', request_path(request), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 underline" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
         <div data-tab="dashboard" class="tab-panel">
           <%= render "events/request_form" %>        
           </div>

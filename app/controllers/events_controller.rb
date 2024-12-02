@@ -22,12 +22,15 @@ class EventsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+  
   def show
     @event = Event.find(params[:id])
-    @districts = District.all  # Use the plural variable to match the view
+    @districts = District.all
     @counties = County.all
     @sub_counties = SubCounty.all
+    @requests = @event.requests.includes(:district, :county, :sub_county, :branch) # Eager loading for efficiency
   end
+  
   
 
   def edit

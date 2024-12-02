@@ -51,15 +51,15 @@
           <!-- Location Filters -->
           <div>
             <%= f.label :district_id, "District", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.text_field :district_id, value: params[:district_id], class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", 'data-context-path': 'requests' } %>
           </div>
           <div>
             <%= f.label :county_id, "County", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.text_field :county_id, value: params[:county_id], class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md", 'data-context-path': 'requests' } %>
           </div>
           <div>
             <%= f.label :sub_county_id, "Sub County", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.text_field :sub_county_id, value: params[:sub_county_id], class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" } %>
           </div>
           <!-- Is Selected Filter -->
           <div>
@@ -69,7 +69,7 @@
           <!-- Branch Filter -->
           <div>
             <%= f.label :branch_id, "Branch", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.text_field :branch_id, value: params[:branch_id], class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.collection_select :branch_id, Branch.all, :id, :name, { prompt: 'Select a branch' }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <!-- Date Range Filters -->
           <div>

@@ -28,7 +28,7 @@ class EventsController < ApplicationController
     @districts = District.all
     @counties = County.all
     @sub_counties = SubCounty.all
-    @requests = @event.requests.includes(:district, :county, :sub_county, :branch) # Eager loading for efficiency
+    @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
   
   

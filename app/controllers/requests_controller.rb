@@ -29,6 +29,8 @@ class RequestsController < ApplicationController
   end
 
   def edit
+    @request = Request.find(params[:id])
+    @event = Event.find_by(id: params[:event_id])
     @districts = District.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none

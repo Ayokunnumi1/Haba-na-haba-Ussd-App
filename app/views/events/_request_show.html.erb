@@ -99,9 +99,9 @@
               </button>
               <div id="dropdown-<%= request.id %>" class="hidden absolute z-10 right-0 <%= 'bottom-full mb-2' if index >= 4 %> w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                  <%= link_to 'Show', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= link_to 'Edit', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= button_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
+                  <%= link_to 'Details', event_request_path(@event, request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Edit', edit_event_request_path(@event, request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= button_to 'Destroy',event_request_path(@event, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
                   <%= link_to 'Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
                   <%= link_to 'Family Beneficiary', new_request_family_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
                   <%= link_to 'Organization Beneficiary', new_request_organization_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>

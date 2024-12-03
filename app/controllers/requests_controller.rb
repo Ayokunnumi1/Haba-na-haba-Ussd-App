@@ -90,7 +90,7 @@ class RequestsController < ApplicationController
     @request = @event.requests.new(request_params)
 
     if @request.save
-      redirect_to @event, notice: "Request created successfully!"
+      redirect_to event_path(@event), notice: "Request created successfully!"
     else
       render :new
     end

@@ -1,3 +1,18 @@
-<h2 class="text-3xl text-emerald-300 text-center mb-4">Inventory Management</h2>
+<h2 class="text-3xl text-lightGreen text-center mb-4">Inventory Management</h2>
+<div class="inventory_dropdwn_btn text-center">
+    <button class="bg-lightGreen hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+     Inventory type
+     <i class="fa-solid fa-caret-down"></i>
+    </button>
+</div>
+<ul>
+    <li>Food donation</li>
+</ul>
 <%= render 'form', request: @request %>
 <%= link_to 'Back to Requests', requests_path, class: "mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+
+<script>
+    const inventoryDropdwnBtn = document.querySelector('.inventory_dropdwn_btn');
+
+
+</script>

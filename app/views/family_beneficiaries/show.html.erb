@@ -18,7 +18,9 @@
             </div>
             <div class="flex-1 flex justify-end items-start">
               <p class="text-sm sm:text-base text-wrap break-all font-medium text-[#5a607a] truncate capitalize"><%= @family_beneficiary.fathers_name %></p>
-              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize"><%= @family_beneficiary.event.name %></p>
+              <p class="text-sm sm:text-base font-medium text-[#5a607a] truncate capitalize">
+  <%= @family_beneficiary.event&.name || 'Event not assigned' %>
+</p>
 
             </div>
           </div>

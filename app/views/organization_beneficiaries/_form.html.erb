@@ -1,95 +1,123 @@
-<%= form_with(model: [ @request, @organization_beneficiary ], url: request_organization_beneficiary_path(@request), local: true, class: "space-y-6") do |f| %>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="flex flex-col">
-      <%= f.label :organization_name, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :organization_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+<%= form_with(model: [@request, @organization_beneficiary], url: request_organization_beneficiary_path(@request), local: true, class: "space-y-6") do |form| %>
+  <section class="p-5">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <% if @organization_beneficiary.errors.any? %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+          <strong class="font-bold">Oops!</strong> <span class="block">Please fix the following errors:</span>
+          <ul class="list-disc pl-5">
+            <% @organization_beneficiary.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <h2 class="text-xl font-bold mb-4 text-gray-900">
+        <%= @organization_beneficiary.persisted? ? "Edit Organization Beneficiary" : "Create Organization Beneficiary" %>
+      </h2>
+
+      <div class="grid gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
+        <div>
+          <%= form.label :organization_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :organization_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Organization Name" %>
+        </div>
+         <div>
+          <%= form.label :male, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :male, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Number of Male" %>
+        </div>
+         <div>
+          <%= form.label :female, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :female, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Number of Female" %>
+        </div>
+         <div>
+          <%= form.label :adult_age_range, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :adult_age_range, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Adults Age Range" %>
+        </div>
+        <div>
+          <%= form.label :children_age_range, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :children_age_range, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Contact Age Range" %>
+        </div>
+      <div class="flex flex-col">
+      <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, { id: 'district-select', class: 'form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5', 'data-context-path': "requests/#{@organization_beneficiary.request_id}/organization_beneficiary" }%>
     </div>
     <div class="flex flex-col">
-      <%= f.label :male, class: "font-semibold text-gray-700" %>
-      <%= f.number_field :male, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County" }, { id: 'county-select', class: 'form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5', 'data-context-path': "requests/#{@organization_beneficiary.request_id}/family_beneficiary" } %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :female, class: "font-semibold text-gray-700" %>
-      <%= f.number_field :female, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= form.label :sub_county_id, "Sub County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County" }, { id: 'sub-county-select', class: 'form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5' } %>
     </div>
-    <div class="flex flex-col">
-      <%= f.label :adult_age_range, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :adult_age_range, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+
+      <div>
+          <%= form.label :village, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :village, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Village" %>
+        </div>
+
+        <div>
+          <%= form.label  :parish, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Parish" %>
+        </div>
+
+        <div>
+          <%= form.label :residence_address, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_area :residence_address, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Residence Address" %>
+        </div>
+
+        <div>
+          <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.telephone_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Phone Number" %>
+        </div>
+        <div>
+          <%= form.label :case_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :case_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Name" %>
+        </div>
+        <div>
+          <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_area :case_description, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Description" %>
+        </div>
+        <div>
+          <%= form.label :registration_no, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :registration_no, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Registration no" %>
+        </div>
+        <div>
+          <%= form.label :organization_no, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :organization_no, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Organization no" %>
+        </div>
+        <div>
+          <%= form.label :directors_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :directors_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Directors no" %>
+        </div>
+        <div>
+          <%= form.label  :head_of_institution, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :head_of_institution, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Head of Institution" %>
+        </div>
+        <div>
+          <%= form.label :number_of_meals_home, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :number_of_meals_home, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Number of Meals for Home" %>
+        </div>
+        <div>
+          <%= form.label :basic_FEH, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :basic_FEH, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Basic Food Eaten At Home" %>
+        </div>
+        <div>
+          <%= form.label :basic_FES, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :basic_FES, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Basic Food Eaten At School" %>
+        </div>
+        <div>
+          <%= form.label :provided_food, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :provided_food, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Provided Food" %>
+        </div>
+      </div>
+
+      <div class="actions grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div>
+          <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        </div>
+        <div>
+          <%= link_to 'Back to Beneficiaries', organization_beneficiaries_path, class: "w-full block py-2 px-4 bg-darkBlue text-white font-Outfit rounded-md text-center hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        </div>
+      </div>
     </div>
-    <div class="flex flex-col">
-      <%= f.label :children_age_range, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :children_age_range, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :district_id, "District", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District" }, { id: 'district-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@organization_beneficiary.request_id}/organization_beneficiary" }%>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :county_id, "County", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County" }, { id: 'county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@organization_beneficiary.request_id}/family_beneficiary" } %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :sub_county_id, "Sub County", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County" }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :residence_address, class: "font-semibold text-gray-700" %>
-      <%= f.text_area :residence_address, rows: 3, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :village, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :village, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :parish, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :parish, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :phone_number, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :case_name, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :case_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :case_description, class: "font-semibold text-gray-700" %>
-      <%= f.text_area :case_description, rows: 3, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :registration_no, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :registration_no, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :organization_no, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :organization_no, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :directors_name, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :directors_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :head_of_institution, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :head_of_institution, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :number_of_meals_home, class: "font-semibold text-gray-700" %>
-      <%= f.number_field :number_of_meals_home, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :basic_FEH, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :basic_FEH, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :basic_FES, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :basic_FES, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div>
-      <%= f.label :provided_food, class: "block font-medium text-gray-700" %>
-      <%= f.number_field :provided_food, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-  </div>
-  <div class="flex justify-end">
-    <%= f.submit "Save", class: "py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" %>
-  </div>
+  </section>
 <% end %>

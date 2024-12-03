@@ -64,6 +64,7 @@ class InventoriesController < ApplicationController
       redirect_to @request, alert: 'An Inventory already exists for this request.'
     else
       @inventory = @request.inventories.build(inventory_params)
+      @inventory.event_id = @request.event_id
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory was successfully created.'
       else
@@ -147,7 +148,7 @@ class InventoriesController < ApplicationController
                                       :expire_date, :village_address, :residence_address, :phone_number,
                                       :parish, :amount, :head_of_institution, :registration_no, :district_id,
                                       :county_id, :sub_county_id, :request_id,
-                                      :branch_id, :collection_amount)
+                                      :branch_id, :collection_amount, :event_id)
   end
 
   def sort_column

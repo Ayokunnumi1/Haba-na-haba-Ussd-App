@@ -6,6 +6,9 @@ class Event < ApplicationRecord
   has_many :event_users, dependent: :destroy
   has_many :users, through: :event_users
   has_many :individual_beneficiaries, dependent: :destroy
+  has_many :family_beneficiaries, dependent: :destroy
+  has_many :organization_beneficiaries, dependent: :destroy
+  has_many :inventories, dependent: :destroy
 
   validates :name, presence: true
   validates :start_date, presence: true

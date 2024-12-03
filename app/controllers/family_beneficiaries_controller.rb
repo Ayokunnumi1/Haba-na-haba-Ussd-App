@@ -28,6 +28,7 @@ class FamilyBeneficiariesController < ApplicationController
       redirect_to @request, alert: 'An Family Beneficiary already exists for this request.'
     else
       @family_beneficiary = @request.build_family_beneficiary(family_beneficiary_params)
+      @family_beneficiary.event_id = @request.event_id
       if @family_beneficiary.save
         redirect_to @family_beneficiary, notice: 'Family Beneficiary was successfully created.'
       else
@@ -121,6 +122,6 @@ class FamilyBeneficiariesController < ApplicationController
                                                :residence_address, :village, :parish, :phone_number, :case_name,
                                                :case_description, :fathers_name, :mothers_name,
                                                :fathers_occupation, :mothers_occupation, :number_of_meals_home,
-                                               :number_of_meals_school, :basic_FEH, :basic_FES, :request_id, :branch_id, :provided_food)
+                                               :number_of_meals_school, :basic_FEH, :basic_FES, :request_id, :branch_id, :provided_food, :event_id)
   end
 end

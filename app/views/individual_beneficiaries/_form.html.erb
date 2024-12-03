@@ -85,12 +85,6 @@
         <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= form.text_area :case_description, rows: 4, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Describe the case" %>
       </div>
-
-      <% if @individual_beneficiary.event.present? %>
-        <div>
-          <%= form.hidden_field :event_id, value: @individual_beneficiary.event.id %>
-        </div>
-      <% end %>
     </div>
     <div class="actions grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 px-6">
   <div>

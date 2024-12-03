@@ -65,70 +65,66 @@
           <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
           <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
         </div>
+        <div>
+          <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.telephone_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Phone Number" %>
+        </div>
+        <div>
+          <%= form.label :case_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :case_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Name" %>
+        </div>
+        <div>
+          <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_area :case_description, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Description" %>
+        </div>
+        <div>
+          <%= form.label :fathers_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :fathers_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Father's Name" %>
+        </div>
+        <div>
+          <%= form.label :mothers_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :mothers_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Mother's Name" %>
+        </div>
+        <div>
+          <%= form.label :fathers_occupation, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :fathers_occupation, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Father's Occupation" %>
+        </div>
+        <div>
+          <%= form.label :mothers_occupation, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :mothers_occupation, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Mother's Occupation" %>
+        </div>
+        <div>
+          <%= form.label :number_of_meals_home, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :number_of_meals_home, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Number of meals home" %>
+        </div>
+        <div>
+          <%= form.label :number_of_meals_school, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :number_of_meals_school, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Number of meals school" %>
+        </div>
+        <div>
+          <%= form.label :basic_FEH, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :basic_FEH, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Basic Food Eaten at Home" %>
+        </div>
+        <div>
+          <%= form.label :basic_FES, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :basic_FES, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Basic Food Eaten at School" %>
+        </div>
+        <div>
+          <%= form.label :provided_food, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%=  form.number_field :provided_food, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Provided Food" %>
+        </div>
       </div>
-
-      <div class="grid gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
-        <div>
-          <%= form.label :phone_number, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.telephone_field :phone_number, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-
-        <div>
-          <%= form.label :case_name, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :case_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-        <div>
-          <%= form.label :case_description, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_area :case_description, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-        <div>
-          <%= form.label :fathers_name, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :fathers_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-        <div>
-          <%= form.label :mothers_name, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :mothers_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-        <div>
-          <%= form.label :fathers_occupation, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :fathers_occupation, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-        <div>
-          <%= form.label :mothers_occupation, class: "block text-sm font-medium text-gray-700" %>
-          <%= form.text_field :mothers_occupation, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-       
-
-        <div>
-      <%= form.label :number_of_meals_home, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.number_field :number_of_meals_home, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-    </div>
-    <div>
-      <%= form.label :number_of_meals_school, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.number_field :number_of_meals_school, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-    </div>
-    <div class="sm:col-span-6">
-      <%= form.label :basic_FEH, "Basic Food Eaten at Home", class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_field :basic_FEH, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
-    </div>
-    <div class="sm:col-span-6">
-      <%= form.label :basic_FES, "Basic Food Eaten at School", class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_field :basic_FES, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
-    </div>
-    
-    <div>
-      <%= form.label :provided_food, class: "block font-medium text-gray-700" %>
-      <%= form.number_field :provided_food, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-      </div>
-
-      
+ 
+ <div class="actions grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+  <div>
+    <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
   </div>
+  <div>
+    <%= link_to 'Back to Beneficiaries', individual_beneficiaries_path, class: "w-full block py-2 px-4 bg-darkBlue text-white font-Outfit rounded-md text-center hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  </div>
+</div>
 
-      <div class="mt-6 flex justify-end gap-4">
-        <%= form.submit class: "px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" %>
-        <%= link_to 'Cancel', requests_path, class: "px-4 py-2 text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300" %>
-      </div>
     </div>
+     </div>
   </section>
 <% end %>

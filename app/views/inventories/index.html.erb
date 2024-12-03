@@ -1,175 +1,74 @@
-<div class="md:flex-row flex space-x-4">
-  <a href="#" class="flex flex-col justify-around w-1/2 bg-[#6DC13D] rounded-lg shadow-md text-white">
-    <div class="flex items-center space-x-2">
-      <%= image_tag 'inventory.svg', alt: 'Selected', class: 'icon-class' %>
+
+<section class="">
+    <!-- Two Cards -->
+    <div class="font-Outfit flex w-full justify-center gap-3 items-stretch px-2">
+      <!-- Card 1 -->
+      <div class="flex-1 p-2">
+        <div class="px-3 py-4 sm:px-4 sm:py-6 rounded-xl bg-lightGreen shadow-lg transition-shadow hover:shadow-2xl flex flex-col items-start space-y-3 sm:space-y-6">
+          <div class="mb-2 sm:mb-4 bg-gradient-to-r from-green-400 to-green-600 p-2 rounded-full">
+            <i class="fa-regular fa-folder text-white text-lg sm:text-xl lg:text-2xl"></i>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-lightGray">
+            <div class="flex flex-col items-start font-thin">
+              <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Food</p>
+              <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @food_inventory_count %></p>
+            </div>
+            <div class="flex flex-col items-start font-thin">
+              <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Cash</p>
+              <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">316</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="flex-1 p-2">
+        <div class="px-3 py-4 sm:px-4 sm:py-6 rounded-xl bg-white shadow-lg transition-shadow hover:shadow-2xl flex flex-col items-start space-y-3 sm:space-y-6">
+          <div class="mb-2 sm:mb-4 bg-gradient-to-r from-gray-400 to-gray-600 p-2 rounded-full">
+            <i class="fa-solid fa-user-group text-white text-lg sm:text-xl lg:text-2xl"></i>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-black">
+            <div class="flex flex-col items-start font-thin">
+              <p class="text-red-600 text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Low Stock</p>
+              <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">23</p>
+            </div>
+            <div class="flex flex-col items-start font-thin">
+              <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Other donations</p>
+              <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">3</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="content-start flex w-full">
-      <div class="flex flex-col w-1/2 mt-4">
-        <span class="text-xs">Total Food Amount</span>
-        <span class="text-xs"><%=  @food_inventory_count %></span>
-      </div>
-      <div class="grow flex flex-col mt-4 w-1/2">
-        <span class="text-xs">Donated</span>
-        <span class="text-xs"><%= @inventory_donated.count %></span>
-      </div>
-    </div>
-  </a>
-  <div class="flex flex-col w-1/2">
-    <a href="#" class="flex flex-col justify-between p-2 rounded-lg shadow-md">
-      <div class="flex justify-between w-fit ">
-        <div class="flex items-center space-x-2">
-          <%= image_tag 'users.svg', alt: 'Selected', class: 'icon-class' %>
-        </div>
-        <p class="font-weight-100 ">This Week </p>
-      </div>
-      <div class="content-start flex w-full">
-        <div class="flex flex-col w-1/2 mt-4">
-          <span class="">Low stock alert</span>
-          <span class=""><%= @inventory_stock_alert.count %> </span>
-        </div>
-        <div class=" grow flex flex-col mt-4 w-1/2">
-          <span class="">Expired</span>
-          <span class=""><%= @inventory_expired.count %> </span>
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
-<section class="md:flex md:justify-between mt-4 mb-4">
-  <h3 class="font-bold mb-4 mx-8 hidden md:block">Inventory Items</h3>
-  <div class="flex justify-end space-x-4">
-    <!-- Search Form -->
-    <form class="max-w-md hidden md:block" action="<%= inventories_path %>" method="get">
-      <div class="relative w-full">
-        <input type="search" id="input-search" name="query" class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search" required />
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+
+    <!-- Section -->
+    <div class="font-Outfit flex justify-between items-center p-5">
+      <!-- Small screen remove button -->
+      <button class="md:hidden bg-gray-200 p-3 rounded-full flex justify-center items-center shadow-md hover:bg-red-100 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <!-- Page title for medium and larger screens -->
+      <p class="hidden md:block font-semibold text-lg text-gray-800">Inventories</p>
+      <div class="flex items-center space-x-4">
+        <!-- Remove button for medium and larger screens -->
+        <div class="hidden md:flex items-center space-x-2 bg-red-100 hover:bg-red-200 px-4 py-2 rounded-lg shadow-md transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
+          <p class="text-sm font-medium text-gray-800">Clear</p>
         </div>
-      </div>
-    </form>
-    <!-- Filter Button -->
-    <div id="filter-action" class="border-gray-950 h-fit p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
-      <svg class="w-4 h-4 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
-      </svg>
-      <span class="ml-2 text-sm">Filter</span>
-    </div>
-    <!-- Add Button -->
-    <div id="modal" tabindex="-1" aria-hidden="true" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-neutral-950 bg-opacity-25">
-      <div class="relative w-full max-w-lg p-4">
-        <div class="bg-white rounded-lg shadow dark:bg-gray-700">
-          <!-- Modal Header -->
-          <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-600 rounded-t">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Inventory Filter</h3>
-            <button type="button" id="close-modal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-              </svg>
-              <span class="sr-only">Close modal</span>
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-              </svg>
-              <span class="sr-only">Close modal</span>
-            </button>
-          </div>
-          <!-- Modal Form -->
-          <%= form_with url: inventories_path, method: :get, local: true, class: "p-4 space-y-4" do |f| %>
-            <div>
-              <%= f.label :donor_type, "Donation Type", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-              <%= f.select :donor_type, [["Select Type", ""], ["Fresh Food", "fresh_food"], ["Dry Food", "dry_food"], ["Clothes", "clothing"], ["Cash", "cash"], ["Other", "other"]], {}, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
-            </div>
-            <div>
-              <%= f.label :collection_date, "Donation Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-              <%= f.date_field :collection_date, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
-            </div>
-            <div class="flex space-x-4">
-              <div class="w-1/2">
-                <%= f.label :start_date, "Expired Start Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-                <%= f.date_field :start_date, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
-              </div>
-              <div class="w-1/2">
-                <%= f.label :end_date, "Expired End Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
-                <%= f.date_field :end_date, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
-              </div>
-            </div>
-            <div class="relative mb-6">
-              <label for="collection-range" class="block text-sm font-medium text-gray-700 dark:text-white">Collection Amount Range</label>
-              <div class="flex justify-between">
-                <span class="text-sm text-gray-500 dark:text-gray-400">$<span id="min-range-value"><%= @min_collection_amount %></span></span>
-                <span class="text-sm text-gray-500 dark:text-gray-400">$<span id="max-range-value"><%= @max_collection_amount %></span></span>
-              </div>
-              <div class="flex space-x-4">
-                <div class="w-1/2">
-                  <%= f.hidden_field :min_amount, id: "collection_amount_min", value: @min_collection_amount %>
-                  <%= f.hidden_field :max_amount, id: "collection_amount_max", value: @max_collection_amount %>
-                  <input id="collection-range-min" type="range" min="<%= @min_collection_amount %>" max="<%= @max_collection_amount %>" step="10" value="<%= @min_collection_amount %>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateRangeValue(this.value, 'min')">
-                </div>
-                <div class="w-1/2">
-                  <input id="collection-range-max" type="range" min="<%= @min_collection_amount %>" max="<%= @max_collection_amount %>" step="10" value="<%= @max_collection_amount %>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateRangeValue(this.value, 'max')">
-                </div>
-              </div>
-            </div>
-            <!-- Modal Footer -->
-            <div class="flex justify-end p-4 border-t border-gray-200 dark:border-gray-600">
-              <%= f.submit "Apply Filter", class: "px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800" %>
-            </div>
-          <% end %>
-        </div>
+        <!-- Filter button -->
+        <button class="border-2 border-gray-300 hover:bg-gray-100 focus:outline-none px-4 py-2 flex items-center space-x-2 rounded-lg shadow-md transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-6.6 6.6a1 1 0 00-.293.707V17a1 1 0 01-.293.707l-2 2A1 1 0 0110 20v-3.586a1 1 0 00-.293-.707L3.293 6.707A1 1 0 013 6V4z" />
+          </svg>
+          <span class="text-sm font-medium text-gray-800">Filter</span>
+        </button>
       </div>
     </div>
-    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class=" h-fit p-2 border-gray-950 p-2 hover:border-green-400 rounded-lg flex border-2" type="button">
-      <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-      </svg>
-      <span class="ml-2 text-sm">Add</span>
-    </button>
-    <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-          <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-              <h2 class="text-center text-3xl font-bold text-green-500 mb-6">Request Create Form</h2>
-              <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                </svg>
-                <span class="sr-only">Close modal</span>
-              </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-            </div>
-            <%= render partial: "inventories/add_form" %>
-          </div>
-        </div>
-      </div>
-      <div class="h-fit p-2 border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
-        <svg  class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
-        </svg>
-        <span class="text-sm">Share</span>
-      </div>
-      <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="hidden md:block h-fit p-2 text-xs relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
-        Bulk Action
-        <svg class="w-4 h-4 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
-        </svg>
-      </div>
-      <!-- Dropdown menu -->
-      <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-        <!-- Dropdown menu -->
-        <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
-            <li id="bulk-delete" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Delete Selected</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+</section>
+
   <%= turbo_frame_tag "inventories" do %>
     <div class="flow-root mt-8">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

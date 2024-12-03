@@ -50,16 +50,7 @@
         <%= form.label :parish, class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= form.text_field :parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Parish" %>
       </div>
-      <div>
-        <%= form.label :case_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :case_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Name" %>
-      </div>
-      <div>
-        <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_area :case_description, rows: 4, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Describe the case" %>
-      </div>
-
-      <div>
+        <div>
         <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
       </div>
@@ -67,13 +58,11 @@
         <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
       </div>
-
-      <!-- Add event_id if present -->
-      <% if @individual_beneficiary.event.present? %>
-        <div>
-          <%= form.hidden_field :event_id, value: @individual_beneficiary.event.id %>
-        </div>
-      <% end %>
+      
+      <div>
+        <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+      </div>
 
       <div>
         <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
@@ -85,9 +74,22 @@
         <%= form.number_field :provided_food, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "0" %>
       </div>
       <div>
-        <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+        <%= form.label :case_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.text_field :case_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Name" %>
       </div>
+      <div>
+        <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.text_area :case_description, rows: 4, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Describe the case" %>
+      </div>
+
+    
+
+      <!-- Add event_id if present -->
+      <% if @individual_beneficiary.event.present? %>
+        <div>
+          <%= form.hidden_field :event_id, value: @individual_beneficiary.event.id %>
+        </div>
+      <% end %>
     </div>
 
     <div class="pt-6">

@@ -6,6 +6,7 @@ class FamilyBeneficiary < ApplicationRecord
   belongs_to :sub_county
   belongs_to :request, optional: true
   belongs_to :branch, optional: true
+  belongs_to :event, optional: true
 
   validates :family_members, :male, :female, :children, presence: true
   validates :residence_address, :village, :parish, :phone_number, presence: true

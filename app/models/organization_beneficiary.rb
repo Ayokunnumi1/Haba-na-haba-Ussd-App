@@ -6,6 +6,7 @@ class OrganizationBeneficiary < ApplicationRecord
   belongs_to :sub_county
   belongs_to :request, optional: true
   belongs_to :branch, optional: true
+  belongs_to :event, optional: true
 
   validates :organization_name, :male, :female, :residence_address, :village, :parish, :phone_number, presence: true
   validates :case_name, :case_description, :registration_no, :organization_no, :directors_name, :head_of_institution,

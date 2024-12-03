@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_03_055149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -81,15 +81,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_users_on_event_id"
     t.index ["user_id"], name: "index_event_users_on_user_id"
-  end
-
-  create_table "event_users_events", id: false, force: :cascade do |t|
-    t.bigint "event_user_id", null: false
-    t.bigint "event_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_event_users_events_on_event_id"
-    t.index ["event_user_id", "event_id"], name: "index_event_users_events_on_event_user_id_and_event_id", unique: true
   end
 
   create_table "events", force: :cascade do |t|
@@ -165,6 +156,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "provided_food"
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_individual_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_individual_beneficiaries_on_district_id"
@@ -252,7 +244,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.index ["branch_id"], name: "index_requests_on_branch_id"
     t.index ["county_id"], name: "index_requests_on_county_id"
     t.index ["district_id"], name: "index_requests_on_district_id"
-    t.index ["event_id"], name: "index_requests_on_event_id"
     t.index ["sub_county_id"], name: "index_requests_on_sub_county_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -292,8 +283,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
   add_foreign_key "counties", "districts"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"
-  add_foreign_key "event_users_events", "event_users"
-  add_foreign_key "event_users_events", "events"
   add_foreign_key "events", "counties"
   add_foreign_key "events", "districts"
   add_foreign_key "events", "sub_counties"

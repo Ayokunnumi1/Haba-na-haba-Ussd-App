@@ -29,6 +29,7 @@ class IndividualBeneficiariesController < ApplicationController
       redirect_to @request, alert: 'An Individual Beneficiary already exists for this request.'
     else
       @individual_beneficiary = @request.build_individual_beneficiary(individual_beneficiary_params)
+      @individual_beneficiary.event_id = @request.event_id
       if @individual_beneficiary.save
         redirect_to @individual_beneficiary, notice: 'Individual Beneficiary was successfully created.'
       else
@@ -40,7 +41,7 @@ class IndividualBeneficiariesController < ApplicationController
       end
     end
   end
-
+  
   def edit
     @districts = District.all
     @counties = if @individual_beneficiary.district.present?
@@ -123,7 +124,8 @@ class IndividualBeneficiariesController < ApplicationController
     params.require(:individual_beneficiary).permit(
       :name, :age, :gender, :residence_address, :village, :parish,
       :phone_number, :case_name, :case_description, :fathers_name,
-      :mothers_name, :sub_county_id, :county_id, :district_id, :request_id, :branch_id, :provided_food
+      :mothers_name, :sub_county_id, :county_id, :district_id, 
+      :request_id, :branch_id, :provided_food, :event_id
     )
-  end
+  end  
 end

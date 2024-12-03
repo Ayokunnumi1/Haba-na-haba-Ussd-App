@@ -84,19 +84,17 @@
         <%= form.text_area :case_description, rows: 4, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Describe the case" %>
       </div>
 
-    
-
-      <!-- Add event_id if present -->
       <% if @individual_beneficiary.event.present? %>
         <div>
           <%= form.hidden_field :event_id, value: @individual_beneficiary.event.id %>
         </div>
       <% end %>
+      <div class="pt-6">
+      <%= form.submit class: "bg-lightGreen font-Outfit text-white py-2 px-4 rounded hover:bg-darkBlue" %>
+    </div>
     </div>
 
-    <div class="pt-6">
-      <%= form.submit class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" %>
-    </div>
+    
   </div>
   </section>
 <% end %>

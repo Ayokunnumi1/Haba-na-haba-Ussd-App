@@ -7,6 +7,7 @@ class IndividualBeneficiariesController < ApplicationController
     @counties = County.none
     @sub_counties = SubCounty.none
     @branches = Branch.all
+    @individual_beneficiaries = IndividualBeneficiary.includes(:event).all
     @individual_beneficiaries = IndividualBeneficiary.includes(:request).apply_filters(params)
   end
 

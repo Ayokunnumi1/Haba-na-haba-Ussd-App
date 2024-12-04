@@ -7,7 +7,7 @@ class RequestsController < ApplicationController
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
-    @requests = Request.apply_filters(params)
+    @requests = Request.apply_filters(params).order(created_at: :desc)
   end
 
   def ussd

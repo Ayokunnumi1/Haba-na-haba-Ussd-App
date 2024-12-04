@@ -13,11 +13,11 @@
     <div class="hidden md:inline-flex py-2 px-4 bg-lightGreen text-white rounded-xl">
       <%= link_to "Add New", new_request_path, class:"rounded" %>
     </div>
-    <button id="filter-modal-button" class="bg-gray-200 hover:bg-gray-400  font-medium py-1.5 px-4 rounded-xl border-2 border-gray-900">
+    <button id="filter-modal-button" class="font-medium py-1.5 px-4 rounded-xl border-2 border-lightGreen text-lightGreen">
       <i class="fa-solid fa-filter fa-xl"></i>
       <span>Filter</span>
     </button>
-    <%= link_to "Clear", requests_path, id:"reset-filter-button", class: "font-medium px-4 py-2 bg-gray-200 text-black rounded-xl hover:bg-gray-400 border-2 border-gray-900" %>
+    <%= link_to "Clear", requests_path, id:"reset-filter-button", class: "font-medium px-4 py-2 text-lightGreen rounded-xl border-2 border-lightGreen" %>
   </div>
 </div>
 <div id="filter-modal" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -47,7 +47,7 @@
           <!-- Request Type Filter -->
           <div>
             <%= f.label :request_type, "Request Type", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.text_field :request_type, value: params[:request_type], class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.select :request_type, options_for_select([["Food Request", "food_request"], ["Donation Request", "donation_request"], ["Others", "others"]]), { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <!-- Location Filters -->
           <div>
@@ -62,9 +62,9 @@
             <%= f.label :sub_county_id, "Sub County", class: "block text-sm font-medium text-gray-700" %>
             <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" } %>
           </div>
-          <!-- Is Selected Filter -->
+          <!-- Approved Filter -->
           <div>
-            <%= f.label :is_selected, "Is Selected?", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.label :is_selected, "Approved?", class: "block text-sm font-medium text-gray-700" %>
             <%= f.select :is_selected, [["Yes", true], ["No", false]], { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <!-- Branch Filter -->
@@ -192,9 +192,9 @@
               </button>
               <div id="dropdown-<%= request.id %>" class="hidden absolute z-10 right-0 <%= 'bottom-full mb-2' if index >= 4 %> w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                  <%= link_to 'Show', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= link_to 'Edit', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= button_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
+                  <%= link_to 'Details', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Update', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= button_to 'Delete', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
                   <%= link_to 'Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
                   <%= link_to 'Family Beneficiary', new_request_family_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
                   <%= link_to 'Organization Beneficiary', new_request_organization_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>

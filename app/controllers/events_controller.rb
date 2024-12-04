@@ -25,10 +25,11 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
+    @individual_beneficiary = @event.individual_beneficiaries.build
     @districts = District.all
     @counties = County.all
     @sub_counties = SubCounty.all
-    @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
+    @branches = Branch.all
   end
   
   

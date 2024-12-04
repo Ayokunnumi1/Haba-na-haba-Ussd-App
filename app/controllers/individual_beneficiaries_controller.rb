@@ -1,5 +1,6 @@
 class IndividualBeneficiariesController < ApplicationController
   before_action :set_request, only: %i[new create edit update]
+  before_action :set_event, only: %i[new create]
   before_action :set_individual_beneficiary, only: %i[edit update show destroy]
 
   def index
@@ -13,34 +14,43 @@ class IndividualBeneficiariesController < ApplicationController
   def show; end
 
   def new
-    if @request.individual_beneficiary.present?
+    @request = Request.find(params[:request_id]) if params[:request_id].present?
+    if @request.present? && @request.individual_beneficiary.present?
       redirect_to individual_beneficiaries_path, alert: 'Individual Beneficiary already exists for this request.'
     else
-      @individual_beneficiary = @request.build_individual_beneficiary
-      @districts = District.all
-      @counties = County.none
-      @sub_counties = SubCounty.none
-      @branches = Branch.all
+      @individual_beneficiary = @request.present? ? @request.build_individual_beneficiary : IndividualBeneficiary.new(event_id: @event.id)
+      set_form_data
     end
   end
-
+  
   def create
-    if @request.individual_beneficiary.present?
+    if @request.present? && @request.individual_beneficiary.present?
       redirect_to @request, alert: 'An Individual Beneficiary already exists for this request.'
     else
-      @individual_beneficiary = @request.build_individual_beneficiary(individual_beneficiary_params)
-      @individual_beneficiary.event_id = @request.event_id
+      @individual_beneficiary = if @request
+                                  @request.build_individual_beneficiary(individual_beneficiary_params)
+                                else
+                                  IndividualBeneficiary.new(individual_beneficiary_params.merge(event_id: @event.id)) # Handle without request
+                                end
       if @individual_beneficiary.save
-        redirect_to @individual_beneficiary, notice: 'Individual Beneficiary was successfully created.'
+        if @request.present?
+          redirect_to request_path(@request), notice: 'Beneficiary was successfully created under the request.'
+        else
+          redirect_to event_individual_beneficiaries_url(@event), notice: 'Beneficiary was successfully created under the event.'
+        end
       else
-        @districts = District.all
-        @counties = County.none
-        @sub_counties = SubCounty.none
-        @branches = Branch.all
+        set_form_data
         render :new
       end
     end
   end
+  
+  
+
+  def edit
+    set_form_data
+  end
+
   
   def edit
     @districts = District.all
@@ -111,6 +121,10 @@ class IndividualBeneficiariesController < ApplicationController
     @request = Request.find(params[:request_id]) if params[:request_id]
   end
 
+  def set_event
+    @event = Event.find(params[:event_id]) if params[:event_id]
+  end
+
   def set_individual_beneficiary
     if params[:request_id]
       @request = Request.find(params[:request_id])
@@ -120,12 +134,20 @@ class IndividualBeneficiariesController < ApplicationController
     end
   end
 
+  def set_form_data
+    @districts = District.all
+    @counties = @individual_beneficiary.district.present? ? County.where(district_id: @individual_beneficiary.district_id) : County.none
+    @sub_counties = @individual_beneficiary.county.present? ? SubCounty.where(county_id: @individual_beneficiary.county_id) : SubCounty.none
+    @branches = Branch.all
+  end
+
   def individual_beneficiary_params
     params.require(:individual_beneficiary).permit(
-      :name, :age, :gender, :residence_address, :village, :parish,
-      :phone_number, :case_name, :case_description, :fathers_name,
-      :mothers_name, :sub_county_id, :county_id, :district_id, 
-      :request_id, :branch_id, :provided_food, :event_id
+      :name, :age, :gender, :phone_number, :fathers_name, :mothers_name, 
+      :residence_address, :village, :parish, :district_id, :county_ids, 
+      :sub_county_id, :branch_id, :provided_food, :case_name, :case_description
     )
-  end  
+    
+  end
+   
 end

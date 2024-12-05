@@ -62,6 +62,11 @@ Rails.application.routes.draw do
   end
   resources :inventories, only: [:index, :show, :destroy]
 
+  resources :requests do
+  resources :inventories, only: [:new, :create, :edit] do
+    get 'load_partial', on: :collection
+  end
+end
   # Conditional root route
   authenticated :user do
     root to: 'users#index', as: :authenticated_root

@@ -4,7 +4,10 @@ class RequestsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
-    @requests = Request.all
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    @requests = Request.apply_filters(params).order(created_at: :desc)
   end
 
   def ussd
@@ -110,7 +113,7 @@ class RequestsController < ApplicationController
 
   def request_params
     params.require(:request).permit(:name, :phone_number, :request_type,
-                                    :residence_address, :district_id,
+                                    :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
                                     :branch_id, :event_id)
   end

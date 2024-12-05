@@ -22,7 +22,7 @@ class EventsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def show
     @event = Event.find(params[:id])
     @districts = District.all
@@ -30,8 +30,6 @@ class EventsController < ApplicationController
     @sub_counties = SubCounty.all
     @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
-  
-  
 
   def edit
     @users = User.all

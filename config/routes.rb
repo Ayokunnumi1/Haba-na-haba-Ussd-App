@@ -62,11 +62,35 @@ Rails.application.routes.draw do
   end
   resources :inventories, only: [:index, :show, :destroy]
 
+#   resources :requests do
+#   resources :inventories, only: [:new, :create, :edit] do
+#     get 'load_partial', on: :collection
+#     get 'load_counties', on: :collection
+#     get 'load_sub_counties', on: :collection
+
+#     collection do
+#       get 'new_cash_donation'
+#       get 'new_food_donation'
+#       get 'new_cloth_donation'
+#       get 'new_other_items_donation'
+#     end
+#   end
+# end
+
   resources :requests do
-  resources :inventories, only: [:new, :create, :edit] do
-    get 'load_partial', on: :collection
+    resources :inventories, only: [:new, :create, :edit] do
+      collection do
+        get 'load_partial'
+        get 'load_counties'
+        get 'load_sub_counties'
+        get 'new_cash_donation'
+        get 'new_food_donation'
+        get 'new_cloth_donation'
+        get 'new_other_items_donation'
+      end
+    end
   end
-end
+  
   # Conditional root route
   authenticated :user do
     root to: 'users#index', as: :authenticated_root

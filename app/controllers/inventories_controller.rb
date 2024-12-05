@@ -1,7 +1,8 @@
 class InventoriesController < ApplicationController
   include Pagination
 
-  before_action :set_request, only: %i[new create edit update]
+  before_action :set_request, only: %i[new_cash_donation new_food_donation new_cloth_donation new_other_items_donation create edit update]
+ 
   before_action :set_inventory, only: %i[edit update show destroy]
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
@@ -54,29 +55,69 @@ class InventoriesController < ApplicationController
     @inventory = inventories.find(params[:id])
   end
 
-  def new
+  # def load_partial
+  #  @inventory = Inventory.new(request_id: params[:request_id])
+  #   @districts = District.all
+  #   @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+  #   @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
+
+  #   case params[:type]
+  #   when 'food_donation'
+  #     render partial: 'inventories/food_form', locals: { inventory: @inventory }
+  #   when 'cash_donation'
+  #     render partial: 'inventories/cash_form', locals: { inventory: @inventory }
+  #   else
+  #     render plain: 'Invalid type', status: :bad_request
+  #   end
+  # end
+
+  def new_food_donation
     if @request.inventories.exists?
       redirect_to inventories_path, alert: 'Inventory already exists for this request.'
     else
-      @inventory = @request.inventories.build
-      @districts = District.all
-      @counties = County.none
-      @sub_counties = SubCounty.none
+    @inventory = @request.inventories.build
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    render partial: 'inventories/food_form'
     end
   end
 
-  def load_partial
-    @inventory = Inventory.new
-    case params[:type]
-    when 'food_donation'
-      render partial: 'inventories/food_form', locals: { inventory: @inventory }
-    when 'cash_donation'
-      render partial: 'inventories/cash_form', locals: { inventory: @inventory }
+  def new_cloth_donation
+    if @request.inventories.exists?
+      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
     else
-      render plain: 'Invalid type', status: :bad_request
+    @inventory = @request.inventories.build
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    render partial: 'inventories/cloth_form'
     end
   end
 
+  def new_other_items_donation
+    if @request.inventories.exists?
+      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
+    else
+    @inventory = @request.inventories.build
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    render partial: 'inventories/other_items_form'
+    end
+  end
+
+  def new_cash_donation
+    if @request.inventories.exists?
+      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
+    else
+    @inventory = @request.inventories.build
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    render partial: 'inventories/cash_form'
+    end
+  end
 
   def create
     if @request.inventories.exists?
@@ -136,15 +177,6 @@ class InventoriesController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
-  def bulk_delete
-    ids = params[:ids]
-    Inventory.where(id: ids).destroy_all
-
-    respond_to do |format|
-      format.json { render json: { success: true, message: 'Items deleted successfully' } }
-      format.html { redirect_to inventories_path, notice: 'Selected items were deleted.' }
-    end
-  end
 
   private
 

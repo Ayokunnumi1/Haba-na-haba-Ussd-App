@@ -6,10 +6,10 @@
       <i class="fa-solid fa-caret-down"></i>
     </button>
     <ul class="hidden absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg inventory_dropdwn">
-      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="food_donation">Food donation</li>
-      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="cash_donation">Cash donation</li>
-      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="cloth_donation">Cloth donation</li>
-      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="other_items">Other Items</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="food_donation">Food donation form</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="cash_donation">Cash donation form</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="cloth_donation">Cloth donation form</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="other_items">Other Items form</li>
     </ul>
   </div>
   <div id="partial-container" class="w-full mt-4">
@@ -28,17 +28,15 @@
     inventoryDropdwn.addEventListener('click', (e) => {
     if (e.target.tagName === 'LI') {
     const type = e.target.getAttribute('data-type');
-    console.log("Dropdown item clicked:", type);
+   
     const url = window.location.href;
     const requestId = url.split('/')[4]; // Extract request ID from URL
-    console.log("Request ID:", requestId);
+    
     fetch(`/requests/${requestId}/inventories/load_partial?type=${type}`)
     .then(response => {
-    console.log("Response status:", response.status);
     return response.text();
     })
     .then(html => {
-    console.log("Received HTML:", html);
     partialContainer.innerHTML = html;
     })
     .catch(error => {

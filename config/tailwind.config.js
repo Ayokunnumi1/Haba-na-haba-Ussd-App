@@ -25,10 +25,6 @@ module.exports = {
         '2xl': '1536px',
         '3xl': '1920px',
       },
-      colors: {
-        darkBlue: "#302C51",
-        lightGreen: "#6DC13D",
-        moodyBlue: "#666099",
       spacing: {
         '16.5': '4.5rem', 
       },

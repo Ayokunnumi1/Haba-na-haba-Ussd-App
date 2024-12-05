@@ -1,4 +1,4 @@
-<% filtered_requests = @requests.reject { |request| request.event_id.present? } %>
+
 <%= render 'requests/cardLayout' %>
 <div class="flex justify-between items-center p-5">
   <div class="block md:hidden">
@@ -159,7 +159,8 @@
       </tr>
     </thead>
     <tbody>
-      <% filtered_requests.each_with_index do |request, index| %>
+   
+    <% @requests.each_with_index do |request, index| %>
         <tr class="bg-white border-b hover:bg-gray-50">
           <!-- Request Name -->
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -205,6 +206,7 @@
             </div>
           </td>
         </tr>
+       
       <% end %>
     </tbody>
   </table>

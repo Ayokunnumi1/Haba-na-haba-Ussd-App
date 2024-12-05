@@ -8,6 +8,7 @@ class RequestsController < ApplicationController
     @counties = County.none
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)
+    @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
   end
 
   def ussd

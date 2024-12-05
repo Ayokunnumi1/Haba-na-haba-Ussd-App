@@ -30,6 +30,7 @@ class InventoriesController < ApplicationController
 
     @min_collection_amount = @inventories.minimum(:amount) || 0
     @max_collection_amount = @inventories.maximum(:amount) || 1500
+    @inventories = Inventory.includes(:event).all
 
     @request = Request.new
     @districts = District.all

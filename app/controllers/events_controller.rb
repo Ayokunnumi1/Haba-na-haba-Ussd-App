@@ -7,12 +7,12 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = current_user.events.build
+    @event = Event.new
     @users = User.all
   end
 
   def create
-    @event = current_user.events.build(event_params)
+    @event = Event.new(event_params)
 
     if @event.save
       allocate_users_to_event(@event, params[:event][:user_ids])
@@ -24,7 +24,6 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
     @districts = District.all
     @counties = County.all
     @sub_counties = SubCounty.all

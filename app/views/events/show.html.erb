@@ -3,20 +3,21 @@
     <!-- Tab headers -->
     <div class=" flex justify-center border-b border-gray-200">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
-        
+  
          <li class="me-2">
+                <button data-tab-target="request" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg  hover:text-lightGreen hover:border-lightGreen">
+                    <i class="fa-solid fa-boxes-stacked pr-2"></i>Requests
+                </button>
+            </li>
+
+             <li class="me-2">
                 <button data-tab-target="eventDetails" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen ">
                     <i class="fa-solid fa-envelope pr-2"></i>Event Details
                 </button>
             </li>
 
-         <li class="me-2">
-                <button data-tab-target="dashboard" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg  hover:text-lightGreen hover:border-lightGreen">
-                    <i class="fa-solid fa-boxes-stacked pr-2"></i>Requests
-                </button>
-            </li>
             <li class="me-2">
-                <button data-tab-target="profile" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen ">
+                <button data-tab-target="request_form" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen ">
                     <i class="fa-solid fa-envelope pr-2"></i>Request Form
                 </button>
             </li>
@@ -28,14 +29,14 @@
     <!-- Tab content -->
     <div class="tab-content mt-4">
         <div data-tab="eventDetails" class="tab-panel hidden">
-          <%= render "events/request_form" %>        
+          <%= render "events/event_details" %>        
 </div>
     
     <div class="tab-content mt-4">
-        <div data-tab="profile" class="tab-panel hidden">
+        <div data-tab="request_form" class="tab-panel hidden">
           <%= render "events/request_form" %>        
 </div>
-        <div data-tab="dashboard" class="tab-panel">
+        <div data-tab="request" class="tab-panel">
         <%= render "events/request_show" %>  
           </div>
     </div>

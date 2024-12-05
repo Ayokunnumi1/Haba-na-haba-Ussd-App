@@ -1,0 +1,66 @@
+<section class="p-5">
+  <div class="w-full">
+    <div class="bg-gradient-to-tr from-white from-40% via-lightGreen/50 via-90% to-red-600/40 to-100% text-white shadow-xl rounded-xl p-3 sm:p-8 mb-8">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 pb-4">
+        <div class="text-lg lg:text-3xl text-darkBlue font-Outfit font-bold">
+          Event Name: <%= @event.name %>
+        </div>
+        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+          <%= link_to edit_event_path(@event), class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' do %>
+            <i class="fa-solid fa-pencil-alt mr-2"></i>
+            Edit Event
+          <% end %>
+          <%= link_to 'Back', events_path, class: 'flex items-center justify-center text-white bg-darkBlue hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+        </div>
+      </div>
+
+      <!-- Accordion for Event Details -->
+      <div id="accordion-collapse" data-accordion="collapse" class="rounded-lg bg-gray-100">
+        <h2 id="accordion-collapse-heading-1">
+          <button type="button" class="flex items-center justify-between w-full p-4 font-Outfit font-medium text-left text-darkBlue bg-gray-100 rounded-lg" data-accordion-target="#accordion-collapse-body-1" aria-expanded="false" aria-controls="accordion-collapse-body-1">
+            <span>Event Details</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </h2>
+        <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+          <div class="p-4 rounded-lg bg-gray-50">
+            <ul class="list-none text-gray-600">
+              <li><strong>Event ID:</strong> <%= @event.name %></li>
+              <li><strong>Start Date:</strong> <%= @event.start_date.strftime('%B %d, %Y') %></li>
+              <li><strong>End Date:</strong> <%= @event.end_date.strftime('%B %d, %Y') %></li>
+              <li><strong>Start Time:</strong> <%= @event.start_time.strftime('%I:%M %p') %></li>
+              <li><strong>End Time:</strong> <%= @event.end_time.strftime('%I:%M %p') %></li>
+              <li><strong>District:</strong> <%= @event.district.name %></li>
+              <li><strong>County:</strong> <%= @event.county.name %></li>
+              <li><strong>Sub-County:</strong> <%= @event.sub_county.name %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-base lg:text-xl text-darkBlue font-Outfit font-bold mt-4">
+          Assigned Users:
+        </div>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+  <% User::ROLES.each do |role| %>
+    <% users = @event.users.where(role: role).distinct %>
+    <% if users.any? %>
+      <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+        <h2 class="text-base font-semibold text-lightGreen mb-4">
+          Role: <%= role.titleize %>
+        </h2>
+        <ul class="list-none">
+          <% users.each do |user| %>
+            <li class="py-2 border-b border-gray-300 last:border-none">
+              <strong class="text-sm text-darkBlue"><%= user.first_name %> <%= user.last_name %></strong>
+              <p class="text-sm text-gray-500 break-words"><%= user.email %></p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+  </div>
+</section>

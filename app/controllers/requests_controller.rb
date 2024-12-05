@@ -28,6 +28,7 @@ class RequestsController < ApplicationController
     @districts = District.all
     @counties = County.none
     @branches = Branch.none
+    @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
   end
 
@@ -36,6 +37,7 @@ class RequestsController < ApplicationController
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
     @branches = Branch.all
+    @users = User.where(role: 'volunteer')
   end
 
   def create
@@ -102,6 +104,6 @@ class RequestsController < ApplicationController
     params.require(:request).permit(:name, :phone_number, :request_type,
                                     :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
-                                    :branch_id)
+                                    :branch_id, :user_id)
   end
 end

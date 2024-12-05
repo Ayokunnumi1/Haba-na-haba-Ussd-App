@@ -2,6 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :validatable, :rememberable
 
   belongs_to :branch, optional: true
+  has_many :request
   has_many :event_users
   has_many :events, through: :event_users
   has_one_attached :image

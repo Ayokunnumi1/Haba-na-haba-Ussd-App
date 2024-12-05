@@ -65,6 +65,19 @@ class InventoriesController < ApplicationController
     end
   end
 
+  def load_partial
+    @inventory = Inventory.new
+    case params[:type]
+    when 'food_donation'
+      render partial: 'inventories/food_form', locals: { inventory: @inventory }
+    when 'cash_donation'
+      render partial: 'inventories/cash_form', locals: { inventory: @inventory }
+    else
+      render plain: 'Invalid type', status: :bad_request
+    end
+  end
+
+
   def create
     if @request.inventories.exists?
       redirect_to @request, alert: 'An Inventory already exists for this request.'

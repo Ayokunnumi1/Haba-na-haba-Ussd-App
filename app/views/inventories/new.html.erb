@@ -1,18 +1,52 @@
 <h2 class="text-3xl text-lightGreen text-center mb-4">Inventory Management</h2>
-<div class="inventory_dropdwn_btn text-center">
-    <button class="bg-lightGreen hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-     Inventory type
-     <i class="fa-solid fa-caret-down"></i>
+<div class="flex flex-col justify-center items-center">
+  <div class="inventory_dropdwn_btn text-center relative">
+    <button class="bg-lightGreen hover:bg-green-700 text-white font-bold py-2 px-4 rounded" data-request-id="<%= @request.id %>">
+      Inventory type
+      <i class="fa-solid fa-caret-down"></i>
     </button>
-</div>
-<ul>
-    <li>Food donation</li>
-</ul>
-<%= render 'form', request: @request %>
-<%= link_to 'Back to Requests', requests_path, class: "mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
-
-<script>
+    <ul class="hidden absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg inventory_dropdwn">
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="food_donation">Food donation</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="cash_donation">Cash donation</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="cloth_donation">Cloth donation</li>
+      <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-type="other_items">Other Items</li>
+    </ul>
+  </div>
+  <div id="partial-container" class="w-full mt-4">
+    <!-- Partial will be rendered here -->
+  </div>
+  <%= link_to 'Back to Requests', requests_path, class: "mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+  <script>
+    document.addEventListener("turbo:load", () => {
     const inventoryDropdwnBtn = document.querySelector('.inventory_dropdwn_btn');
-
-
-</script>
+    const inventoryDropdwn = document.querySelector('.inventory_dropdwn');
+    const partialContainer = document.getElementById('partial-container');
+    if (inventoryDropdwnBtn && inventoryDropdwn) {
+    inventoryDropdwnBtn.addEventListener('click', (e) => {
+    inventoryDropdwn.classList.toggle('hidden');
+    });
+    inventoryDropdwn.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+    const type = e.target.getAttribute('data-type');
+    console.log("Dropdown item clicked:", type);
+    const url = window.location.href;
+    const requestId = url.split('/')[4]; // Extract request ID from URL
+    console.log("Request ID:", requestId);
+    fetch(`/requests/${requestId}/inventories/load_partial?type=${type}`)
+    .then(response => {
+    console.log("Response status:", response.status);
+    return response.text();
+    })
+    .then(html => {
+    console.log("Received HTML:", html);
+    partialContainer.innerHTML = html;
+    })
+    .catch(error => {
+    console.error("Error fetching partial:", error);
+    });
+    inventoryDropdwn.classList.add('hidden');
+    }
+    });
+    }
+    });
+  </script>

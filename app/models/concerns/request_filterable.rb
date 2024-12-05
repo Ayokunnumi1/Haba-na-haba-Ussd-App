@@ -11,6 +11,7 @@ module RequestFilterable
       requests = filter_by_is_selected(requests, params[:is_selected])
       requests = filter_by_branch(requests, params[:branch_id])
       filter_by_date_range(requests, params[:start_date], params[:end_date])
+      requests
     end
 
     private

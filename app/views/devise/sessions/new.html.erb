@@ -1,26 +1,59 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<section class="flex items-center justify-center h-screen bg-lightGreen bg-login-bg bg-cover bg-center bg-no-repeat overflow-hidden">
+  <div class="flex flex-col items-center justify-center w-full p-6 sm:p-0">
+    <a href="#" class="flex items-center mb-6">
+      <img class="w-full h-20 lg:h-32 object-contain" src="/assets/hnh_admin_logo.png" alt="logo">
+    </a>
+    <div class="w-[300px] lg:w-[400px] bg-white rounded-lg shadow-lg dark:border dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6">
+        <% if flash.any? %>
+          <div class="text-center mb-4">
+            <% flash.each do |type, message| %>
+              <div class="p-4 mb-4 text-sm font-medium rounded-lg
+                  <%= 'bg-green-100 text-green-800' if type == 'notice' %>
+                  <%= 'bg-red-100 text-red-800' if type == 'alert' %>
+                  <%= 'bg-yellow-100 text-yellow-800' if type == 'warning' %>
+              ">
+                <%= message %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <h2 class="text-xl font-Outfit font-semibold text-darkBlue text-center">
+          Login to Account
+        </h2>
+        <p class="text-xs font-Outfit font-normal text-darkBlue text-center md:text-base">
+          Please enter your email and password to continue
+        </p>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="space-y-4 md:space-y-6">
+            <!-- Email field -->
+            <div>
+              <%= f.label :email, "Email address", class: "block mb-2 text-sm font-medium font-Outfit text-darkBlue dark:text-white" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "bg-gray-50 border border-gray-300 text-darkBlue text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+            </div>
+            <!-- Password field -->
+            <div>
+              <%= f.label :password, "Password", class: "block mb-2 text-sm font-medium font-Outfit text-darkBlue dark:text-white" %>
+              <%= f.password_field :password, autocomplete: "current-password", placeholder: "••••••••", class: "bg-gray-50 border border-gray-300 text-darkBlue text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+            </div>
+            <% if devise_mapping.rememberable? %>
+              <!-- Remember me checkbox -->
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <%= f.check_box :remember_me, class: "w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" %>
+                </div>
+                <div class="ml-3 text-sm">
+                  <%= f.label :remember_me, class: "font-Outfit font-light text-gray-500 dark:text-gray-300" %>
+                </div>
+              </div>
+            <% end %>
+            <%= f.submit "Log in", class: "w-full font-Outfit text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:outline-none focus:ring-darkBlue font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+            <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+              <%= render "devise/shared/links" %>
+            </p>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>

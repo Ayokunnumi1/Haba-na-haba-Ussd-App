@@ -1,13 +1,64 @@
-<h1 class="text-2xl font-bold mb-6">User Details</h1>
-<div class="bg-white p-6 rounded-lg shadow-lg">
-  <p class="text-gray-700"><strong>First Name:</strong> <%= @user.first_name %></p>
-  <p class="text-gray-700"><strong>Last Name:</strong> <%= @user.last_name %></p>
-  <p class="text-gray-700"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-  <p class="text-gray-700"><strong>Email:</strong> <%= @user.email %></p>
-  <p class="text-gray-700"><strong>Role:</strong> <%= @user.role %></p>
-  <p class="text-gray-700"><strong>Branch:</strong> <%= @user.branch&.name %></p>
-</div>
-<div class="mt-6">
-  <%= link_to 'Edit', edit_user_path(@user), class: 'bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600' %>
-  <%= link_to 'Back to Users', users_path, class: 'bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none' %>
-</div>
+<section class="flex flex-col items-center overflow-hidden px-4 py-6 md:py-10 lg:py-14 font-Outfit">
+  <!-- Back Button -->
+  <div class="w-full max-w-3xl mb-6">
+    <%= button_to users_path, method: :get, class: "inline-flex items-center text-lightGreen hover:text-green-700 transition duration-150 ease-in-out mb-4" do %>
+      <i class="fas fa-arrow-left mr-2"></i> Back
+    <% end %>
+  </div>
+  <!-- Header Section -->
+  <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6 md:p-8">
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+      <!-- Profile Picture -->
+      <div class="flex-shrink-0">
+        <%= image_tag(@user.image.attached? ? url_for(@user.image) : "user.png", class: "rounded-full w-24 h-24 border-4 border-lightGreen shadow-md", alt: @user.first_name) %>
+      </div>
+      <!-- User Info -->
+      <div class="text-center md:text-left">
+        <p class="text-2xl font-bold"><%= @user.first_name %> <%= @user.last_name %></p>
+        <p class="text-lg text-gray-600 font-light"><%= @user.role %></p>
+      </div>
+    </div>
+  </div>
+  <!-- Social Links -->
+  <div class="flex justify-center gap-6 mt-6">
+    <% links = [
+    { url: "https://www.whatsapp.com/", icon: "fab fa-whatsapp text-green-500" },
+    { url: "https://zoom.us/signin#/login", icon: "fas fa-video text-blue-500" },
+    { url: "https://www.google.com/intl/en-US/gmail/about/", icon: "fas fa-envelope text-red-500" }
+    ] %>
+    <% links.each do |link| %>
+      <a href="<%= link[:url] %>" target="_blank" class="rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150">
+        <i class="<%= link[:icon] %> text-xl"></i>
+      </a>
+    <% end %>
+  </div>
+  <!-- User Details -->
+  <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6 mt-6">
+    <ul class="space-y-4 text-lg font-light">
+      <li class="flex items-center gap-3">
+        <i class="fas fa-user-check text-green-500"></i>
+        <span class="font-normal"><%= @user.first_name %> <%= @user.last_name %></span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fas fa-venus-mars text-blue-500"></i>
+        <span><%= @user.full_gender %></span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fas fa-phone text-blue-500"></i>
+        <span><%= @user.phone_number %></span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fas fa-envelope text-red-500"></i>
+        <span class="truncate"><%= @user.email %></span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fas fa-building text-gray-500"></i>
+        <span><%= @user.branch&.name.present? ? @user.branch.name : "No branch assigned" %></span>
+      </li>
+      <li class="flex items-center gap-3">
+        <i class="fas fa-map-marker-alt text-orange-500"></i>
+        <span><%= @user.location.present? ? @user.location : "No location" %></span>
+      </li>
+    </ul>
+  </div>
+</section>

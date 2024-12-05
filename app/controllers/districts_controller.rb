@@ -1,18 +1,20 @@
 class DistrictsController < ApplicationController
+  include ErrorHandler
+  before_action :authenticate_user!
   before_action :set_district, only: %i[show edit update destroy]
 
   def index
-    @districts = Distirct.all
+    @districts = District.all
   end
 
   def show; end
 
   def new
-    @distirct = Distirct.new
+    @district = District.new
   end
 
   def create
-    @distirct = District.new(district_params)
+    @district = District.new(district_params)
 
     if @district.save
       redirect_to @district, notice: 'District was successfully created.'
@@ -32,14 +34,21 @@ class DistrictsController < ApplicationController
   end
 
   def destroy
-    @district.destroy
-    redirect_to districts_url, notice: 'District was successfully destroyed.'
+    if @district.destroy
+      redirect_to districts_url, notice: 'District was successfully deleted.'
+    else
+      redirect_to districts_url, alert: @district.errors.full_messages.to_sentence
+    end
+  rescue StandardError => e
+    redirect_to districts_url, alert: handle_destroy_error(e)
   end
 
   private
 
   def set_district
     @district = District.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to districts_url, alert: 'District not found.'
   end
 
   def district_params

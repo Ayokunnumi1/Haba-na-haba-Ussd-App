@@ -10,19 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "branch_districts", force: :cascade do |t|
+    t.bigint "branch_id", null: false
+    t.bigint "district_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id", "district_id"], name: "index_branch_districts_on_branch_id_and_district_id", unique: true
+    t.index ["branch_id"], name: "index_branch_districts_on_branch_id"
+    t.index ["district_id"], name: "index_branch_districts_on_district_id"
+  end
 
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
-    t.bigint "district_id", null: false
-    t.bigint "county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["county_id"], name: "index_branches_on_county_id"
-    t.index ["district_id"], name: "index_branches_on_district_id"
   end
 
   create_table "counties", force: :cascade do |t|
@@ -86,9 +121,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.integer "number_of_meals_school"
     t.text "basic_FEH"
     t.text "basic_FES"
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "provided_food"
+    t.index ["branch_id"], name: "index_family_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_family_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_family_beneficiaries_on_district_id"
     t.index ["request_id"], name: "index_family_beneficiaries_on_request_id"
@@ -111,9 +149,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.bigint "district_id", null: false
     t.bigint "county_id", null: false
     t.bigint "sub_county_id", null: false
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "provided_food"
+    t.index ["branch_id"], name: "index_individual_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_individual_beneficiaries_on_district_id"
     t.index ["request_id"], name: "index_individual_beneficiaries_on_request_id"
@@ -136,9 +177,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.decimal "amount"
     t.string "head_of_institution"
     t.string "registration_no"
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "collection_amount"
+    t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["district_id"], name: "index_inventories_on_district_id"
     t.index ["request_id"], name: "index_inventories_on_request_id"
@@ -166,9 +210,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.text "head_of_institution"
     t.integer "number_of_meals_home"
     t.text "basic_FEH"
-    t.bigint "request_id", null: false
+    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "branch_id"
+    t.decimal "provided_food"
+    t.index ["branch_id"], name: "index_organization_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_organization_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_organization_beneficiaries_on_district_id"
     t.index ["request_id"], name: "index_organization_beneficiaries_on_request_id"
@@ -218,31 +265,39 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_174248) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "gender"
+    t.string "location"
     t.index ["branch_id"], name: "index_users_on_branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "branches", "counties"
-  add_foreign_key "branches", "districts"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "branch_districts", "branches"
+  add_foreign_key "branch_districts", "districts"
   add_foreign_key "counties", "districts"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"
   add_foreign_key "events", "counties"
   add_foreign_key "events", "districts"
   add_foreign_key "events", "sub_counties"
+  add_foreign_key "family_beneficiaries", "branches"
   add_foreign_key "family_beneficiaries", "counties"
   add_foreign_key "family_beneficiaries", "districts"
   add_foreign_key "family_beneficiaries", "requests"
   add_foreign_key "family_beneficiaries", "sub_counties"
+  add_foreign_key "individual_beneficiaries", "branches"
   add_foreign_key "individual_beneficiaries", "counties"
   add_foreign_key "individual_beneficiaries", "districts"
   add_foreign_key "individual_beneficiaries", "requests"
   add_foreign_key "individual_beneficiaries", "sub_counties"
+  add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "counties"
   add_foreign_key "inventories", "districts"
   add_foreign_key "inventories", "requests"
   add_foreign_key "inventories", "sub_counties"
+  add_foreign_key "organization_beneficiaries", "branches"
   add_foreign_key "organization_beneficiaries", "counties"
   add_foreign_key "organization_beneficiaries", "districts"
   add_foreign_key "organization_beneficiaries", "requests"

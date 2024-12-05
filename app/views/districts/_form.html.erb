@@ -1,10 +1,10 @@
-<%form_with(model: district, local: true, class: "space-y-6") do |form| %>
+<%= form_with(model: district, local: true, class: "space-y-6") do |form| %>
   <% if district.errors.any? %>
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-      <strong class="font-bold"> <%= pluralize(distirct.errors.count, "errors") %> prevented this district from being saved: </strong>
+      <strong class="font-bold"><%= pluralize(district.errors.count, "error") %> prevented this district from being saved:</strong>
       <ul class="mt-2">
         <% district.errors.full_messages.each do |message| %>
-          <li><%= message %> </li>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
@@ -14,6 +14,6 @@
     <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
   <div>
-    <%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    <%= form.submit class: "bg-lightGreen hover:bg-darkBlue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 <% end %>

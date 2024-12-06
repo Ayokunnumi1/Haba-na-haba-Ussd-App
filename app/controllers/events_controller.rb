@@ -24,6 +24,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @branches = Branch.all
     @districts = District.all
     @counties = County.all
     @sub_counties = SubCounty.all

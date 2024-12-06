@@ -65,23 +65,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def load_counties
-    @counties = if params[:district_id].present?
-                  County.where(district_id: params[:district_id])
-                else
-                  County.none
-                end
-    render json: @counties.map { |county| { id: county.id, name: county.name } }
-  end
-
-  def load_sub_counties
-    @sub_counties = if params[:county_id].present?
-                      SubCounty.where(county_id: params[:county_id])
-                    else
-                      SubCounty.none
-                    end
-    render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
-  end
 
   private
 

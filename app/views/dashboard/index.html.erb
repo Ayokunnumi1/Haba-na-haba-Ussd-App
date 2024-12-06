@@ -1,7 +1,7 @@
 <main>
-  <div class="cards flex gap-8 flex-wrap w-full ">
+  <div class="cards flex flex-wrap w-full justify-evenly">
     <% @guidelines.each do |guide| %>
-      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div style="background-color: <%= guide[:color] %>; " class="max-w-md p-4 bg-[<%= guide[:color] %>] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="<%= guide[:link] %>">
           <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"><%= guide[:title] %></h5>
         </a>
@@ -9,117 +9,116 @@
       </div>
     <% end %>
   </div>
-  <section class="bottom section">
-    <div class="sectional-data">
+  <section class="bottom section md:flex md:flex-wrap">
+    <div class="sectional-data md:w-1/2 p-4">
       <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-        <!-- Dropdown for Tabs -->
-        <div class="relative inline-block">
-          <button class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700" type="button" id="tabsDropdownButton" data-dropdown-toggle="tabsDropdown">
-            Select Tab
+        <div class="relative w-full inline-flex justify-between">
+          <button class="inline-flex w-full text-sm font-medium text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700" type="button" id="tabsDropdownButton" data-dropdown-toggle="tabsDropdown">
+            View Data analysis 
             <svg class="w-5 h-5 ml-2 -mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <!-- Dropdown Menu -->
           <div id="tabsDropdown" class="hidden z-10 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
               <li>
-                <button class="w-full px-4 py-2 text-left" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                <button class="w-full px-4 py-2 text-left" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">District Donations</button>
               </li>
               <li>
-                <button class="w-full px-4 py-2 text-left" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</button>
+                <button class="w-full px-4 py-2 text-left" data-tabs-target="#request-type" type="button" role="tab" aria-controls="request-type" aria-selected="false">Request Type</button>
               </li>
               <li>
-                <button class="w-full px-4 py-2 text-left" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
-              </li>
-              <li>
-                <button class="w-full px-4 py-2 text-left" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
+                <button class="w-full px-4 py-2 text-left" data-tabs-target="#daily-donation-types" type="button" role="tab" aria-controls="daily-donation-types" aria-selected="false">Daily donation type</button>
               </li>
             </ul>
           </div>
-        </div>
-      </div>
-      <!-- Tab Content -->
-      <div id="default-tab-content">
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            <%= pie_chart User.group(:first_name).count %>
-          </p>
-        </div>
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next.
-          </p>
-        </div>
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next.
-          </p>
-        </div>
-        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next.
-          </p>
+          <div class="flex">
+            <span class="p-2">2021</span>
+            <span class="p-2"><i class="fa-solid fa-share-nodes"></i></span>
+            <span class="p-2"><i class="fa-solid fa-download"></i></i></span>
         </div>
       </div>
     </div>
-    <div id="sectional-data2">
-      <div id=pill-cards-section">
-        <a href="#" class="block max-w-fit  bg-blue-950 border p-4 border-gray-200 rounded-xl shadow  text-white">
-          <h2>Total Staffs</h2>
-          <p>20000</p>
-        </a>
-        <a href="#" class="block max-w-fit  bg-blue-950 border p-4 border-gray-200 rounded-xl shadow  text-white">
-          <h2>Total Volunteer</h2>
-          <p>20000</p>
-        </a>
-        <a href="#" class="block max-w-fit  bg-blue-950 border p-4 border-gray-200 rounded-xl shadow  text-white">
-          <h2>Donor Success rate</h2>
-          <p>20000</p>
-        </a>
+    <!-- Tab Content -->
+    <div id="default-tab-content">
+      <div class=" p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          <%= column_chart @donations_by_district, colors: ["#4CAF50"], title: "Donations per district", downloadable: true %>
+        </p>
       </div>
-      <div id="beneficiary-ratio">
-        <div class="flex flex-col justify-center">
-          <h3>Beneficiary Tpye ratio</h3>
-          ...
-          <div>
-            <%= pie_chart @beneficiary_data, title: "Beneficiary Type Ratio", colors: ["#FF5733", "#33FF57", "#3357FF"] %>
-          </div>
+      <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="request-type" role="tabpanel" aria-labelledby="request-type-tab">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          <%= line_chart @chart_data, title: "Request type over time", ytitle: "Number of Requests", downloadable: true %>
+        </p>
+      </div>
+      <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="daily-donation-types" role="tabpanel" aria-labelledby="daily-donation-types-tab">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          <%= line_chart @inventory_trends, title: "Daily donation types", xtitle: "Inventory" %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div id="sectional-data2" class="flex flex-col md:w-1/2 md:flex-row">
+    <div id=pill-cards-section" class="flex justify-evenly md:w-1/4 md:flex-col">
+      <a href="#" class="block  bg-blue-950 border p-4 border-gray-200 rounded-xl shadow  text-white">
+        <h2>Total Staffs</h2>
+        <p><%= @staffs %></p>
+      </a>
+      <a href="#" class="block  bg-blue-950 border p-4 border-gray-200 rounded-xl shadow  text-white">
+        <h2>Total Volunteer</h2>
+        <p><%= @volunteers %></p>
+      </a>
+      <a href="#" class="block  bg-blue-950 border p-4 border-gray-200 rounded-xl shadow  text-white">
+        <h2>Donor Success rate</h2>
+        <p>75%</p>
+      </a>
+    </div>
+    <div id="beneficiary-ratio" class="md:w-3/4">
+      <div class="flex flex-col p-8 justify-center">
+        <div class="bg-gray-200 rounded-xl p-8">
+          <%= pie_chart @beneficiary_data, donut: true, title: "Beneficiary Type Ratio", colors: ["#FF5733", "#33FF57", "#3357FF"] %>
         </div>
       </div>
-    </section>
-  </main>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-    // Dropdown toggle
-    const dropdownButton = document.getElementById("tabsDropdownButton");
-    const dropdownMenu = document.getElementById("tabsDropdown");
-    dropdownButton.addEventListener("click", () => {
-      dropdownMenu.classList.toggle("hidden");
-    });
+    </div>
+  </section>
+  <section id="recent-activities" class="mt-4">
+    <h4 class="text-center">Recent Activities</h4>
+    <div class="flex  flex-row">
+      <p class="text-center">No new activities detected</p>
+    </div>
+  </section>
+</main>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // Dropdown toggle
+  const dropdownButton = document.getElementById("tabsDropdownButton");
+  const dropdownMenu = document.getElementById("tabsDropdown");
+  dropdownButton.addEventListener("click", () => {
+    dropdownMenu.classList.toggle("hidden");
+  });
 
-    // Tab switching
-    const tabButtons = document.querySelectorAll("[data-tabs-target]");
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        // Hide all tab contents
-        document.querySelectorAll("[role='tabpanel']").forEach((tab) => {
-          tab.classList.add("hidden");
-        });
-
-        // Remove active state from all buttons
-        tabButtons.forEach((btn) => {
-          btn.setAttribute("aria-selected", "false");
-        });
-
-        // Show the targeted tab and set active state
-        const target = document.querySelector(button.getAttribute("data-tabs-target"));
-        target.classList.remove("hidden");
-        button.setAttribute("aria-selected", "true");
-
-        // Hide the dropdown
-        dropdownMenu.classList.add("hidden");
+  // Tab switching
+  const tabButtons = document.querySelectorAll("[data-tabs-target]");
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      // Hide all tab contents
+      document.querySelectorAll("[role='tabpanel']").forEach((tab) => {
+        tab.classList.add("hidden");
       });
+
+      // Remove active state from all buttons
+      tabButtons.forEach((btn) => {
+        btn.setAttribute("aria-selected", "false");
+      });
+
+      // Show the targeted tab and set active state
+      const target = document.querySelector(button.getAttribute("data-tabs-target"));
+      target.classList.remove("hidden");
+      button.setAttribute("aria-selected", "true");
+
+      // Hide the dropdown
+      dropdownMenu.classList.add("hidden");
     });
-    });
-  </script>
+  });
+  });
+</script>

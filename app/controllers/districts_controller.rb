@@ -14,14 +14,14 @@ class DistrictsController < ApplicationController
 
   def create
     @district = District.new(district_params)
-  
+
     if @district.save
       redirect_to districts_path, notice: 'District, Counties, and SubCounties were successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     @district = District.find(params[:id])
   end

@@ -15,12 +15,6 @@
           <%= link_to 'Back', districts_path, class: 'flex items-center justify-center text-white bg-darkBlue hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
         </div>
       </div>
-
-      <!-- Counties Form -->
-      <div id="edit-district-form" class="hidden p-5">
-        <%= render 'form', district: @district %>
-      </div>
-      
       <!-- County Cards Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-3">
         <% @district.counties.each do |county| %>
@@ -42,6 +36,18 @@
             </table>
           </div>
         <% end %>
+      </div>
+
+      <!-- Counties Form -->
+      <div id="edit-district-form" class="hidden p-5">
+        <%= form_with model: @district, local: true do |form| %>
+        <div class="mt-10">
+          <%= link_to(link_to_add_fields("Add County", form, :counties), class: "text-blue-500 underline mt-10") %>
+        </div>
+        <div class="flex items-center justify-between mt-6">
+          <%= form.submit "Create Location", class: " w-full bg-lightGreen hover:bg-darkBlue text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline" %>
+        </div>
+      <% end %>
       </div>
     </div>
   </div>

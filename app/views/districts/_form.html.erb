@@ -1,11 +1,11 @@
 <%= form_with model: @district, local: true do |form| %>
-  <h2 class="text-2xl font-bold mb-4">District</h2>
+  <h2 class="text-2xl font-bold mb-4 text-darkBlue">District</h2>
   <!-- District Name Field -->
   <div class="mb-4">
     <%= form.label :name, "District Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
     <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
-  <h3 class="text-xl font-bold mb-4">Counties</h3>
+  <h3 class="text-xl font-bold mb-4 text-darkBlue">Counties</h3>
   <!-- Counties Fields -->
   <div id="counties" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 lg">
     <%= form.fields_for :counties do |county_fields| %>
@@ -14,7 +14,7 @@
         <%= county_fields.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
         <%= county_fields.check_box :_destroy %>
         <%= county_fields.label :_destroy, "Remove County", class: "text-red-500 ml-2" %>
-        <h4 class="text-lg font-semibold mt-4">Sub-Counties</h4>
+        <h4 class="text-lg font-semibold mt-4 text-darkBlue">Sub-Counties</h4>
         <!-- Sub-Counties Fields -->
         <div id="sub-counties" >
           <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>

@@ -8,6 +8,7 @@ import "requestDropdown";
 import "./controllers/toggleFilter";
 import "./dropdown";
 import "./nested_forms";
+import "./district";
 import "flowbite";
 import "truncate";
 import "./users/filterUsers";

@@ -21,11 +21,11 @@ module DistrictsHelper
   # Render the inline fields for counties
   def render_inline_county_fields(builder)
     content_tag(:div, class: 'nested-fields mt-5 mb-10') do
-      concat builder.label :name, 'County Name', class: 'block text-gray-700 text-sm font-bold mb-2'
+      concat builder.label :name, 'County Name', class: 'block text-gray-700 text-sm font-bold mb-2 text-darkBlue'
       concat builder.text_field :name, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
       concat builder.check_box :_destroy
       concat builder.label :_destroy, 'Remove County', class: 'text-red-500 ml-2'
-      concat content_tag(:h4, 'Sub-Counties', class: 'text-xl font-bold mb-4') do
+      concat content_tag(:h4, 'Sub-Counties', class: 'text-xl font-bold mb-4 text-darkBlue') do
         builder.fields_for :sub_counties do |sub_county_fields|
           render_inline_sub_county_fields(sub_county_fields)
         end

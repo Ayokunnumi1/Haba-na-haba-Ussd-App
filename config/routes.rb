@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   get 'home/index'
   post  'ussd_request', to: 'requests#ussd'
   resources :users
-  resources :districts
+  resources :districts do
+    resources :counties do
+      resources :sub_counties, only: [:new, :create]
+    end
+  end
+  
   resources :counties
   resources :sub_counties
   resources :branches do

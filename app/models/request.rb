@@ -1,4 +1,6 @@
 class Request < ApplicationRecord
+  include RequestFilterable
+
   belongs_to :district
   belongs_to :county
   belongs_to :sub_county

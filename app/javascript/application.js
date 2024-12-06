@@ -13,3 +13,5 @@ import "flowbite";
 import "truncate";
 import "./users/filterUsers";
 import "./users/userDropDown";
+import "./controllers/filter_modal";
+

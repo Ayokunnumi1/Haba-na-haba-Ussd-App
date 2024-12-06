@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       resources :sub_counties, only: [:new, :create]
     end
   end
-  
   resources :counties
   resources :sub_counties
   resources :branches do

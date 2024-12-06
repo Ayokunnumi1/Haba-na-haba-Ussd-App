@@ -12,7 +12,6 @@ module RequestFilterable
       requests = filter_by_branch(requests, params[:branch_id])
       requests = filter_by_date_range(requests, params[:start_date], params[:end_date]) # rubocop:disable Style/RedundantAssignment
       requests
-
     end
 
     private

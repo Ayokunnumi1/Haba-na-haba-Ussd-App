@@ -28,7 +28,6 @@ class RequestsController < ApplicationController
     @branches = Branch.all
     @districts = District.all
     @counties = County.none
-    @branches = Branch.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
   end

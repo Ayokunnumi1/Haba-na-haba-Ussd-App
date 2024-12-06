@@ -10,6 +10,8 @@ module OrganizationBeneficiaryFilterable
       beneficiaries = filter_by_phone_number(beneficiaries, params[:phone_number])
       beneficiaries = filter_by_people_count(beneficiaries, params[:min_people], params[:max_people])
       beneficiaries = filter_by_date_range(beneficiaries, params[:start_date], params[:end_date])
+      beneficiaries = filter_by_branch_id(beneficiaries, params[:branch_id])
+      beneficiaries = filter_by_provided_food(beneficiaries, params[:provided_food])
       filter_by_location(beneficiaries, params[:district_id], params[:county_id], params[:sub_county_id])
     end
 
@@ -45,6 +47,22 @@ module OrganizationBeneficiaryFilterable
     def filter_by_date_range(beneficiaries, start_date, end_date)
       if start_date.present? && end_date.present?
         beneficiaries.where(created_at: Date.parse(start_date)..Date.parse(end_date))
+      else
+        beneficiaries
+      end
+    end
+
+    def filter_by_branch_id(beneficiaries, branch_id)
+      branch_id.present? ? beneficiaries.where(branch_id:) : beneficiaries
+    end
+
+    def filter_by_provided_food(beneficiaries, provided_food)
+      return beneficiaries unless provided_food.present?
+
+      if provided_food == 'provided'
+        beneficiaries.where('provided_food > 0')
+      elsif provided_food == 'not_provided'
+        beneficiaries.where('provided_food <= 0 OR provided_food IS NULL')
       else
         beneficiaries
       end

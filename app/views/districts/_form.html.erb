@@ -1,43 +1,42 @@
-<%= form_with(model: district, class: "contents") do |form| %>
-  <% if district.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(district.errors.count, "error") %> prohibited this district from being saved:</h2>
-
-      <ul>
-        <% district.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+<%= form_with model: @district, local: true do |form| %>
+  <h2 class="text-2xl font-bold mb-4">District</h2>
+  <!-- District Name Field -->
+  <div class="mb-4">
+    <%= form.label :name, "District Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
-
-  <div class="my-4 flex flex-col" 
-     data-controller='nested-form'
-     data-nested-form-pattern-to-replace-with-index-value="COUNTY_INDEX"
-  >
-    <template data-nested-form-target="formTemplate">
-      <%= form.fields_for(:counties, County.new, child_index: "COUNTY_INDEX") do |county_form| %>
-      <%= render partial: 'counties/form', locals: { county_form: county_form } %>
-
-      <% end %>
-    </template>
-    <div class="text-right">
-      <span class="btn-primary cursor-pointer btn-sm" data-action="click->nested-form#addItem">Add county</span>
-    </div>
-    <div data-nested-form-target="itemsList">
-      <%= form.fields_for(:counties) do |county_form| %>
-        <%= render partial: 'sub_counties/form', locals: { county_form: } %>
-
-      <% end %>
-    </div>
+  <h3 class="text-xl font-bold mb-4">Counties</h3>
+  <!-- Counties Fields -->
+  <div id="counties" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 lg">
+    <%= form.fields_for :counties do |county_fields| %>
+      <div class="nested-fields mb-4">
+        <%= county_fields.label :name, "County Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= county_fields.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= county_fields.check_box :_destroy %>
+        <%= county_fields.label :_destroy, "Remove County", class: "text-red-500 ml-2" %>
+        <h4 class="text-lg font-semibold mt-4">Sub-Counties</h4>
+        <!-- Sub-Counties Fields -->
+        <div id="sub-counties" >
+          <%= county_fields.fields_for :sub_counties do |sub_county_fields| %>
+            <div class="nested-fields mb-4">
+              <%= sub_county_fields.label :name, "Sub-County Name", class: "block text-gray-700 text-sm font-bold mb-2" %>
+              <%= sub_county_fields.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+              <%= sub_county_fields.check_box :_destroy %>
+              <%= sub_county_fields.label :_destroy, "Remove Sub-County", class: "text-red-500 ml-2" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="mt-5">
+          <%= link_to(link_to_add_fields("Add Sub-County", county_fields, :sub_counties), class: "text-blue-500 underline mt-2") %>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="mt-10">
+    <%= link_to(link_to_add_fields("Add County", form, :counties), class: "text-blue-500 underline mt-10") %>
+  </div>
+  <!-- Submit Button -->
+  <div class="flex items-center justify-between mt-6">
+    <%= form.submit "Create Location", class: " w-full bg-lightGreen hover:bg-darkBlue text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 <% end %>

@@ -9,6 +9,7 @@ class DistrictsController < ApplicationController
 
   def new
     @district = District.new
+    @district.counties.build.sub_counties.build
   end
 
   def create
@@ -51,14 +52,13 @@ class DistrictsController < ApplicationController
     redirect_to districts_path, alert: 'District not found.'
   end
 
- 
   def district_params
-    params.require(:district).permit(:name,
-                                      counties_attributes: [
-                                        :id, :name, :_destroy,
-                                        sub_counties_attributes: [
-                                          :id, :name, :_destroy
-                                        ]
-                                      ])
+    params.require(:district).permit(
+      :name,
+      counties_attributes: [
+        :id, :name, :_destroy,
+        { sub_counties_attributes: %i[id name _destroy] }
+      ]
+    )
   end
 end

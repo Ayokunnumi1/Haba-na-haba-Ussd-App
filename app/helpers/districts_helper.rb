@@ -16,7 +16,7 @@ module DistrictsHelper
 
     # Return a link to add fields with the generated HTML for new fields
     link_to(name, '#',
-            id: button_id,  # Unique id for the button
+            id: button_id, # Unique id for the button
             class: 'add_fields text-white bg-lightGreen font-bold py-3 px-6 rounded-md hover:bg-lightGreen-dark focus:outline-none focus:ring-2 focus:ring-lightGreen-dark active:bg-lightGreen-dark',
             data: { association: association, fields: fields.delete("\n") },
             onclick: "hideAddButton('#{button_id}')") # JavaScript function to hide the button

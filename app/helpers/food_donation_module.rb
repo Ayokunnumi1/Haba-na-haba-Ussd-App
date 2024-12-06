@@ -27,7 +27,7 @@ module FoodDonationModule
     Request.create(
       phone_number:,
       name: request_name,
-      request_type: 'Donation',
+      request_type: 'Food donation',
       district_id: selected_district.id,
       county_id: selected_county.id,
       sub_county_id: selected_sub_county.id,

@@ -40,20 +40,23 @@
       </div>
     </div>
     <!-- District, County, Sub-County -->
+    
+<div class="mb-4">
+      <%= form.label :district_id, "District", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", 'data-context-path': 'requests' } %>
+    </div>
     <div class="mb-4">
-      <%= form.label :district_id, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.collection_select :district_id, District.all, :id, :name, {}, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <%= form.label :county_id, "County", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", 'data-context-path': 'requests' } %>
     </div>
-    <div class="mb-4 flex space-x-4">
-      <div class="w-1/2">
-        <%= form.label :county_id, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= form.collection_select :county_id, County.all, :id, :name, {}, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-      </div>
-      <div class="w-1/2">
-        <%= form.label :sub_county_id, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= form.collection_select :sub_county_id, SubCounty.all, :id, :name, {}, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-      </div>
+    <div class="mb-4">
+      <%= form.label :sub_county_id, "Sub-County", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" } %>
     </div>
+       
+   
+    
+    
     <!-- User Search and Role Filter -->
     <div class="mb-4">
       <%= form.label :search, "Search Users", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -93,5 +96,6 @@
         <%= link_to 'Back to Events', events_path %>
       </div>
     </div>
+  </div>
   </div>
 <% end %>

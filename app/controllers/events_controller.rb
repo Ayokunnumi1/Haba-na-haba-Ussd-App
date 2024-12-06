@@ -4,11 +4,17 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
   end
 
   def new
     @event = Event.new
     @users = User.all
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
   end
 
   def create
@@ -26,13 +32,16 @@ class EventsController < ApplicationController
   def show
     @branches = Branch.all
     @districts = District.all
-    @counties = County.all
-    @sub_counties = SubCounty.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
     @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
 
   def edit
     @users = User.all
+    @districts = District.all
+    @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
+    @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
   end
 
   def update
@@ -41,6 +50,9 @@ class EventsController < ApplicationController
       redirect_to @event, notice: 'Event and users were successfully updated.'
     else
       @users = User.all
+      @districts = District.all
+      @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
+      @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       render :edit, status: :unprocessable_entity
     end
   end
@@ -51,6 +63,24 @@ class EventsController < ApplicationController
     else
       redirect_to events_path, alert: 'Failed to delete the event.'
     end
+  end
+
+  def load_counties
+    @counties = if params[:district_id].present?
+                  County.where(district_id: params[:district_id])
+                else
+                  County.none
+                end
+    render json: @counties.map { |county| { id: county.id, name: county.name } }
+  end
+
+  def load_sub_counties
+    @sub_counties = if params[:county_id].present?
+                      SubCounty.where(county_id: params[:county_id])
+                    else
+                      SubCounty.none
+                    end
+    render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
   private

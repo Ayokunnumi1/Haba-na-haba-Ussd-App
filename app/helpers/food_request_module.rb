@@ -30,7 +30,7 @@ module FoodRequestModule
     new_request = Request.new(
       phone_number:,
       name: request_name,
-      request_type: 'Food',
+      request_type: 'Food Request',
       district_id: selected_district.id,
       county_id: selected_county.id,
       sub_county_id: selected_sub_county.id,
@@ -38,7 +38,7 @@ module FoodRequestModule
     )
 
     if new_request.save(validate: false)
-      message = "We are processing your request and will contact you shortly. Proceed to the branch #{branch_name} in #{selected_district.name} District."
+      message = "We are processing your request. Proceed to the branch #{branch_name} in #{selected_district.name} district to collect food."
       SmsHelper.send_sms(phone_number, message)
       "END #{message}"
     else

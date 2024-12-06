@@ -47,7 +47,7 @@
           <!-- Request Type Filter -->
           <div>
             <%= f.label :request_type, "Request Type", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.select :request_type, options_for_select([["Food Request", "food_request"], ["Donation Request", "donation_request"], ["Others", "others"]]), { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.select :request_type, options_for_select(["Food Request","Food donation", "Other Donations"]), { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <!-- Location Filters -->
           <div>

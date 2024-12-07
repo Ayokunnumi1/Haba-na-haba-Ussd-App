@@ -1,5 +1,9 @@
 class DashboardController < ApplicationController
   def index
+    group_by = params[:group_by] || "week" # Default to "week" if not provided
+    allowed_groupings = %w[day week month]
+    group_by = allowed_groupings.include?(group_by) ? group_by : "week" # Ensure valid input
+
     @staffs = User.all.count
     @volunteers = User.where(role: 'volunteer').count
     @guidelines = [
@@ -10,20 +14,16 @@ class DashboardController < ApplicationController
       { title: 'Food Events', color: '#FFFCE0', units: 'Event', count: Event.count, icon: 'LoanIcons4.png', link: '#' }
     ]
 
-    @donations_by_district = Inventory.joins(:district).group('districts.name')
-      .sum(:amount)
+    # Dynamically group data based on the selected group_by value
+    @donations_by_district = Inventory.joins(:district).group('districts.name').sum(:amount)
 
-    @inventory_trends = Inventory.group(:donor_type).group_by_day(:created_at).count
-    
-    # @requests_by_branch = Branch.includes(:districts).each_with_object({}) do |branch, series|
-    #   requests = Request.joins(:branch_districts)
-    #     .where(branch_districts: { branch_id: branch.id })
-    #   series[branch.name] = requests.group_by_month(:created_at).count
-    # end
+    @inventory_trends = Inventory.group(:donor_type).send("group_by_#{group_by}", :created_at).count
 
-    # @requests_by_branch = Request.joins(:branch).group(:request.branch_id)
-      
-    @chart_data = Request.group(:request_type).group_by_second(:created_at).count
+    @events_per_week = Event.joins(:event_users).send("group_by_#{group_by}", :created_at).distinct.count(:id)
+
+    @users_per_week = EventUser.send("group_by_#{group_by}", :created_at).distinct.count(:user_id)
+
+    @chart_data = Request.group(:request_type).send("group_by_#{group_by}", :created_at).count
 
     @beneficiary_data = {
       'Individual Beneficiaries' => IndividualBeneficiary.count,
@@ -31,5 +31,9 @@ class DashboardController < ApplicationController
       'Organization Beneficiaries' => OrganizationBeneficiary.count
     }
 
-end
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: "charts" }
+    end
+  end
 end

@@ -66,13 +66,13 @@ class InventoriesController < ApplicationController
 
       @inventory_partial = case params[:type]
                  when 'cash'
-                   'inventories/cash_form'
+                   'inventories/cash_donation_form'
                  when 'food'
-                   'inventories/food_form'
+                   'inventories/food_donation_form'
                    when 'cloth'
-                   'inventories/cloth_form'
+                   'inventories/cloth_donation_form'
                  when 'other_items'
-                   'inventories/other_items_form'
+                   'inventories/other_items_donation_form'
                  else
                    nil
                  end
@@ -108,13 +108,13 @@ class InventoriesController < ApplicationController
 
     @inventory_partial = case @inventory.donor_type
                  when 'cash'
-                   'inventories/cash_form'
+                   'inventories/cash_donation_form'
                  when 'food'
-                   'inventories/food_form'
+                   'inventories/food_donation_form'
                  when 'cloth'
-                   'inventories/cloth_form'
+                   'inventories/cloth_donation_form'
                  when 'other_items'
-                   'inventories/other_items_form'
+                   'inventories/other_items_donation_form'
                  else
                    nil
                  end

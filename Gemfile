@@ -88,7 +88,6 @@ gem 'devise'
 gem 'africastalking-ruby'
 
 gem 'faker'
+gem 'groupdate'
 gem 'kaminari', '~> 1.2'
-gem "groupdate"
 gem 'pg_search'
-

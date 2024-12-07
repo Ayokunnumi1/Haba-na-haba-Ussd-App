@@ -64,7 +64,7 @@ class InventoriesController < ApplicationController
       @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
       @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
 
-      @partial = case params[:type]
+      @inventory_partial = case params[:type]
                  when 'cash'
                    'inventories/cash_form'
                  when 'food'
@@ -77,7 +77,7 @@ class InventoriesController < ApplicationController
                    nil
                  end
 
-      if @partial
+      if @inventory_partial
         render :new
       else
         render plain: 'Invalid type', status: :bad_request
@@ -106,9 +106,7 @@ class InventoriesController < ApplicationController
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
 
-    Rails.logger.debug("donor_type: #{@inventory.donor_type}")
-    donor_type = @inventory.donor_type.downcase
-    @partial = case @inventory.donor_type
+    @inventory_partial = case @inventory.donor_type
                  when 'cash'
                    'inventories/cash_form'
                  when 'food'
@@ -120,7 +118,7 @@ class InventoriesController < ApplicationController
                  else
                    nil
                  end
-      if @partial
+      if @inventory_partial
         render :edit
       else
         render plain: 'Invalid type', status: :bad_request

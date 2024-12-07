@@ -44,14 +44,16 @@ class BranchesController < ApplicationController
   end
 
   def destroy
-    if @branch.destroy
-      redirect_to branches_url, notice: 'Branch was successfully deleted.'
+    branch = Branch.find(params[:id])
+    if branch.destroy
+      redirect_to branches_path, notice: "Branch deleted successfully."
     else
-      redirect_to branches_url, alert: 'Failed to delete branch.'
+      redirect_to branches_path, alert: branch.errors.full_messages.to_sentence
     end
   rescue StandardError => e
-    redirect_to branches_url, alert: handle_destroy_error(e)
+    redirect_to branches_path, alert: handle_destroy_error(e)
   end
+  
 
   def load_counties
     district_ids = params[:district_ids].split(',')

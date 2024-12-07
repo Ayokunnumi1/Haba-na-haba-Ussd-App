@@ -1,7 +1,7 @@
 class InventoriesController < ApplicationController
   include Pagination
 
-  before_action :set_request, only: %i[new_cash_donation new_food_donation new_cloth_donation new_other_items_donation create edit update]
+  before_action :set_request, only: %i[ new create edit update]
  
   before_action :set_inventory, only: %i[edit update show destroy]
   # rubocop:disable Metrics/MethodLength
@@ -55,67 +55,33 @@ class InventoriesController < ApplicationController
     @inventory = inventories.find(params[:id])
   end
 
-  # def load_partial
-  #  @inventory = Inventory.new(request_id: params[:request_id])
-  #   @districts = District.all
-  #   @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
-  #   @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-
-  #   case params[:type]
-  #   when 'food_donation'
-  #     render partial: 'inventories/food_form', locals: { inventory: @inventory }
-  #   when 'cash_donation'
-  #     render partial: 'inventories/cash_form', locals: { inventory: @inventory }
-  #   else
-  #     render plain: 'Invalid type', status: :bad_request
-  #   end
-  # end
-
-  def new_food_donation
+  def new
     if @request.inventories.exists?
       redirect_to inventories_path, alert: 'Inventory already exists for this request.'
     else
-    @inventory = @request.inventories.build
-    @districts = District.all
-    @counties = County.none
-    @sub_counties = SubCounty.none
-    render partial: 'inventories/food_form'
-    end
-  end
+      @inventory = @request.inventories.build
+      @districts = District.all
+      @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+      @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
 
-  def new_cloth_donation
-    if @request.inventories.exists?
-      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
-    else
-    @inventory = @request.inventories.build
-    @districts = District.all
-    @counties = County.none
-    @sub_counties = SubCounty.none
-    render partial: 'inventories/cloth_form'
-    end
-  end
+      @partial = case params[:type]
+                 when 'cash'
+                   'inventories/cash_form'
+                 when 'food'
+                   'inventories/food_form'
+                   when 'cloth'
+                   'inventories/cloth_form'
+                 when 'other_items'
+                   'inventories/other_items_form'
+                 else
+                   nil
+                 end
 
-  def new_other_items_donation
-    if @request.inventories.exists?
-      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
-    else
-    @inventory = @request.inventories.build
-    @districts = District.all
-    @counties = County.none
-    @sub_counties = SubCounty.none
-    render partial: 'inventories/other_items_form'
-    end
-  end
-
-  def new_cash_donation
-    if @request.inventories.exists?
-      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
-    else
-    @inventory = @request.inventories.build
-    @districts = District.all
-    @counties = County.none
-    @sub_counties = SubCounty.none
-    render partial: 'inventories/cash_form'
+      if @partial
+        render :new
+      else
+        render plain: 'Invalid type', status: :bad_request
+      end
     end
   end
 
@@ -139,6 +105,27 @@ class InventoriesController < ApplicationController
     @districts = District.all
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
+
+    Rails.logger.debug("donor_type: #{@inventory.donor_type}")
+    donor_type = @inventory.donor_type.downcase
+    @partial = case @inventory.donor_type
+                 when 'cash'
+                   'inventories/cash_form'
+                 when 'food'
+                   'inventories/food_form'
+                 when 'cloth'
+                   'inventories/cloth_form'
+                 when 'other_items'
+                   'inventories/other_items_form'
+                 else
+                   nil
+                 end
+      if @partial
+        render :edit
+      else
+        render plain: 'Invalid type', status: :bad_request
+      end
+  
   end
 
   def update

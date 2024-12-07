@@ -80,7 +80,6 @@ Rails.application.routes.draw do
   resources :requests do
     resources :inventories, only: [:new, :create, :edit] do
       collection do
-        get 'load_partial'
         get 'load_counties'
         get 'load_sub_counties'
         get 'new_cash_donation'

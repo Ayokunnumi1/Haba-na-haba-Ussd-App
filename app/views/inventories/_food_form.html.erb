@@ -1,4 +1,4 @@
-<p>Food Form</p>
+<p>Food Donation Form</p>
 <%= form_with(model: [@request, @inventory], local: true, class: "space-y-6 mx-44") do |f| %>
   <div class="grid mx-44 grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col">
@@ -7,7 +7,7 @@
     </div>
     <div class="flex flex-col">
       <%= f.label :donor_type, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :donor_type, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.select :donor_type, options_for_select(["food","cash", "cloth", "other_items"]), { prompt: 'select donor type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :collection_date, class: "font-semibold text-gray-700" %>
@@ -23,15 +23,15 @@
     </div>
     <div class="flex flex-col">
       <%= f.label :district_id, "District", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: @inventory.district_id}, { id: 'request-district-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
+      <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: @inventory.district_id}, { id: 'district-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
     <div class="flex flex-col">
       <%= f.label :county_id, "County", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: @inventory.county_id }, { id: 'request-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
+      <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: @inventory.county_id }, { id: 'county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
     <div class="flex flex-col">
       <%= f.label :sub_county_id, "Sub County", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: @inventory.sub_county_id }, { id: 'request-sub-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
+      <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: @inventory.sub_county_id }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
     </div>
     <div class="flex flex-col">
       <%= f.label :village_address, class: "font-semibold text-gray-700" %>

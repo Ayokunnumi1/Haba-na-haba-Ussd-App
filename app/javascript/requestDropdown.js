@@ -13,7 +13,7 @@ const toggleDropdown = (requestId) => {
     const links = requestDropDown.querySelectorAll("a, form");
 
     links.forEach((link) => {
-      if (requestType === "Donation") {
+      if (requestType === "Food donation" && requestType === "Other donations") {
         // Show all links except 'Individual Beneficiary', 'Family Beneficiary', and 'Organization Beneficiary'
         if (
           link.href &&
@@ -25,7 +25,7 @@ const toggleDropdown = (requestId) => {
         } else {
           link.style.display = "block";
         }
-      } else if (requestType === "Food") {
+      } else if (requestType === "Food Request") {
         // Show all links except the one with 'inventories/new' in its href
         if (link.href && link.href.includes("inventories/new")) {
           link.style.display = "none";

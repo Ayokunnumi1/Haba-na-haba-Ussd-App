@@ -82,10 +82,6 @@ Rails.application.routes.draw do
       collection do
         get 'load_counties'
         get 'load_sub_counties'
-        get 'new_cash_donation'
-        get 'new_food_donation'
-        get 'new_cloth_donation'
-        get 'new_other_items_donation'
       end
     end
   end

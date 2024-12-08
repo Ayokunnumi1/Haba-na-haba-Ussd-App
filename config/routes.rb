@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
-  root 'home#index'
+  root "home#index"
+  post "create_request", to: "home#create_request"
   get 'home/index'
   post  'ussd_request', to: 'requests#ussd'
   resources :users

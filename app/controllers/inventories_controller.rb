@@ -23,7 +23,7 @@ class InventoriesController < ApplicationController
                        .by_donor_type(params[:donor_type])
                        .by_collection_date(params[:collection_date])
                        .by_place_of_collection(params[:place_of_collection])
-                       .by_branch(params[:branch_id])
+                       .by_branch(params[:branch_id])                       
                        .order("#{sort_column} #{sort_direction}")
                        .search_query(params[:query])
                    else
@@ -33,7 +33,8 @@ class InventoriesController < ApplicationController
                        .by_collection_date(params[:collection_date])
                        .by_place_of_collection(params[:place_of_collection])
                        .by_branch(params[:branch_id])
-                       .search_query(params[:query])
+                       .search_query(params[:query])                       
+                       .order("#{sort_column} #{sort_direction}")
                        .page(@page_no)
                        .per(@per_page)
                    end
@@ -57,20 +58,28 @@ class InventoriesController < ApplicationController
   end
 
   def new 
-      @inventory = @request.inventories.build
+      @inventory = @request.inventories.build(
+      donor_name: @request.name,
+      phone_number: @request.phone_number,
+      district_id: @request.district_id,
+      county_id: @request.county_id,
+      sub_county_id: @request.sub_county_id,
+      branch_id: @request.branch_id,
+      residence_address: @request.residence_address
+      )
       @districts = District.all
       @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
       @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
       @branches =  Branch.all
       @inventory_partial = case params[:type]
                  when 'cash'
-                   'inventories/cash_collection_form'
+                   'inventories/collection_forms/cash_collection_form'
                  when 'food'
-                   'inventories/food_collection_form'
+                   'inventories/collection_forms/food_collection_form'
                    when 'cloth'
-                   'inventories/cloth_collection_form'
+                   'inventories/collection_forms/cloth_collection_form'
                  when 'other_items'
-                   'inventories/other_items_collection_form'
+                   'inventories/collection_forms/other_items_collection_form'
                  else
                    nil
                  end
@@ -83,8 +92,7 @@ class InventoriesController < ApplicationController
   end
 
   def create    
-      @inventory = @request.inventories.build(inventory_params)
-      Rails.logger.debug("Inventory Params: #{inventory_params.inspect}")
+      @inventory = @request.inventories.build(inventory_params)      
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory was successfully created.'
       else
@@ -102,17 +110,15 @@ class InventoriesController < ApplicationController
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
     @branches =  Branch.all
     
-    Rails.logger.debug("donation_type: #{@inventory.donation_type}")
-    
     @inventory_partial = case @inventory.donation_type
                 when 'food'
-                  'inventories/food_collection_form'
+                  'inventories/collection_forms/food_collection_form'
                  when 'cash'
-                   'inventories/cash_collection_form'
+                   'inventories/collection_forms/cash_collection_form'
                  when 'cloth'
-                   'inventories/cloth_collection_form'
+                   'inventories/collection_forms/cloth_collection_form'
                  when 'other_items'
-                   'inventories/other_items_collection_form'
+                   'inventories/collection_forms/other_items_collection_form'
                  else
                    nil
                  end
@@ -125,7 +131,6 @@ class InventoriesController < ApplicationController
   end
 
   def update
-    Rails.logger.debug("Inventory Params: #{inventory_params.inspect}")
     if @inventory.update(inventory_params)
       redirect_to @inventory, notice: 'Inventory was successfully updated.'
     else
@@ -193,6 +198,6 @@ class InventoriesController < ApplicationController
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 end

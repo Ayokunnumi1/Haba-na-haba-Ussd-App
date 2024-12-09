@@ -1,6 +1,10 @@
-<p>Food Donation Form</p>
+<h2>Individual Food Donation Form</h2>
 <%= form_with(model: [@request, @inventory], local: true, class: "space-y-6 mx-44") do |f| %>
   <div class="grid mx-44 grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex flex-col">
+      <%= f.label :food_name, class: "font-semibold text-gray-700" %>
+      <%= f.text_field :food_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
     <div class="flex flex-col">
       <%= f.label :donor_name, class: "font-semibold text-gray-700" %>
       <%= f.text_field :donor_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
@@ -12,10 +16,6 @@
     <div class="flex flex-col">
       <%= f.label :collection_date, class: "font-semibold text-gray-700" %>
       <%= f.date_field :collection_date, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :food_name, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :food_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :expire_date, class: "font-semibold text-gray-700" %>
@@ -34,32 +34,16 @@
       <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: @inventory.sub_county_id }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :village_address, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :village_address, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
       <%= f.label :residence_address, class: "font-semibold text-gray-700" %>
       <%= f.text_field :residence_address, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :phone_number, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.number_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :parish, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :parish, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :amount, class: "font-semibold text-gray-700" %>
-      <%= f.number_field :amount, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :head_of_institution, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :head_of_institution, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :registration_no, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :registration_no, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :branch_id, "branch", class: "font-semibold text-gray-700" %>
+      <%= f.collection_select :branch_id, @branches, :id, :name, { include_blank: "Select branch", selected: @inventory.branch_id }, { id: 'branch-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
   </div>
   <div class="flex justify-end">

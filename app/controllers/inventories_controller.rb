@@ -19,19 +19,20 @@ class InventoriesController < ApplicationController
     # Check if 'Show All' is selected (per_page is 0)
     @inventories = if @per_page.zero?
                      Inventory.includes(:request)
-                       .by_donation_type(params[:donor_type])
-                       .by_donation_date(params[:collection_date])
-                       .by_expire_range(params[:start_date], params[:end_date])
-                       .by_collection_amount(params[:min_amount], params[:max_amount])
+                       .by_donation_type(params[:donation_type])
+                       .by_donor_type(params[:donor_type])
+                       .by_collection_date(params[:collection_date])
+                       .by_place_of_collection(params[:place_of_collection])
+                       .by_branch(params[:branch_id])
                        .order("#{sort_column} #{sort_direction}")
                        .search_query(params[:query])
                    else
                      Inventory.includes(:request)
-                       .by_donation_type(params[:donor_type])
-                       .by_donation_date(params[:collection_date])
-                       .by_expire_range(params[:start_date], params[:end_date])
-                       .by_collection_amount(params[:min_amount], params[:max_amount])
-                       .order("#{sort_column} #{sort_direction}")
+                       .by_donation_type(params[:donation_type])
+                       .by_donor_type(params[:donor_type])
+                       .by_collection_date(params[:collection_date])
+                       .by_place_of_collection(params[:place_of_collection])
+                       .by_branch(params[:branch_id])
                        .search_query(params[:query])
                        .page(@page_no)
                        .per(@per_page)
@@ -55,10 +56,7 @@ class InventoriesController < ApplicationController
     @inventory = inventories.find(params[:id])
   end
 
-  def new
-    if @request.inventories.exists?
-      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
-    else
+  def new 
       @inventory = @request.inventories.build
       @districts = District.all
       @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
@@ -66,13 +64,13 @@ class InventoriesController < ApplicationController
       @branches =  Branch.all
       @inventory_partial = case params[:type]
                  when 'cash'
-                   'inventories/cash_donation_form'
+                   'inventories/cash_collection_form'
                  when 'food'
-                   'inventories/food_donation_form'
+                   'inventories/food_collection_form'
                    when 'cloth'
-                   'inventories/cloth_donation_form'
+                   'inventories/cloth_collection_form'
                  when 'other_items'
-                   'inventories/other_items_donation_form'
+                   'inventories/other_items_collection_form'
                  else
                    nil
                  end
@@ -81,15 +79,12 @@ class InventoriesController < ApplicationController
         render :new
       else
         render plain: 'Invalid type', status: :bad_request
-      end
-    end
+      end  
   end
 
-  def create
-    if @request.inventories.exists?
-      redirect_to @request, alert: 'An Inventory already exists for this request.'
-    else
+  def create    
       @inventory = @request.inventories.build(inventory_params)
+      Rails.logger.debug("Inventory Params: #{inventory_params.inspect}")
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory was successfully created.'
       else
@@ -98,8 +93,7 @@ class InventoriesController < ApplicationController
         @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
         @branches =  Branch.all        
         render :new, status: :unprocessable_entity
-      end
-    end
+      end  
   end
 
   def edit
@@ -108,15 +102,17 @@ class InventoriesController < ApplicationController
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
     @branches =  Branch.all
     
-    @inventory_partial = case @inventory.donor_type
+    Rails.logger.debug("donation_type: #{@inventory.donation_type}")
+    
+    @inventory_partial = case @inventory.donation_type
+                when 'food'
+                  'inventories/food_collection_form'
                  when 'cash'
-                   'inventories/cash_donation_form'
-                 when 'food'
-                   'inventories/food_donation_form'
+                   'inventories/cash_collection_form'
                  when 'cloth'
-                   'inventories/cloth_donation_form'
+                   'inventories/cloth_collection_form'
                  when 'other_items'
-                   'inventories/other_items_donation_form'
+                   'inventories/other_items_collection_form'
                  else
                    nil
                  end
@@ -129,10 +125,15 @@ class InventoriesController < ApplicationController
   end
 
   def update
+    Rails.logger.debug("Inventory Params: #{inventory_params.inspect}")
     if @inventory.update(inventory_params)
       redirect_to @inventory, notice: 'Inventory was successfully updated.'
     else
-      render :edit, alert: 'Failed to update the Inventory.'
+      @districts = District.all
+      @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+      @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
+      @branches = Branch.all
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -172,20 +173,19 @@ class InventoriesController < ApplicationController
   end
 
   def set_inventory
-    if params[:request_id]
-      @request = Request.find(params[:request_id])
-      @inventory = @request.inventories.find(params[:id])
-    else
-      @inventory = Inventory.find(params[:id])
-    end
+    @inventory = if @request
+                   @request.inventories.find(params[:id])
+                 else
+                   Inventory.find(params[:id])
+                 end
   end
 
   def inventory_params
     params.require(:inventory).permit(:donor_name, :donor_type, :collection_date, :food_name,
-                                      :expire_date, :village_address, :residence_address, :phone_number,
+                                      :expire_date, :place_of_collection, :residence_address, :phone_number,
                                       :amount, :district_id, :county_id, :sub_county_id, :request_id,
-                                      :branch_id, :collection_amount, :account_number, :cloth_condition, :cloth_name,
-                                      :cloth_size, :cloth_quantity, :parish)
+                                      :branch_id, :collection_amount, :food_quantity, :cloth_condition, :cloth_name,
+                                      :cloth_size, :cloth_quantity, :food_type, :donation_type, :cost_of_food, :cloth_type)
   end
   
   def sort_column

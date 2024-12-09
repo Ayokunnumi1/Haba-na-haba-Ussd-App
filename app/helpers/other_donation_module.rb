@@ -6,6 +6,7 @@ module OtherDonationModule
     district_name = input_parts[2]
     county_name = input_parts[3]
     sub_county_name = input_parts[4]
+    donation_type_selection = input_parts[5]
 
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first
@@ -16,13 +17,24 @@ module OtherDonationModule
     return 'END No matching county found.' if selected_county.nil?
     return 'END No matching Sub county found.' if selected_sub_county.nil?
 
+    
+    donation_type_mapping = {
+      '1' => 'Cash Donation',
+      '2' => 'Cloth Donation',
+      '3' => 'Other Items Donation'
+    }
+
+    donation_request_type = donation_type_mapping[donation_type_selection]
+    puts "#{donation_request_type}, type donation"
+    
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id })
     return 'END No branch found for the selected district and county.' if branch.nil?
 
+   
     Request.create(
       phone_number:,
       name: request_name,
-      request_type: 'Other Donations',
+      request_type: donation_request_type,
       district_id: selected_district.id,
       county_id: selected_county.id,
       sub_county_id: selected_sub_county.id,

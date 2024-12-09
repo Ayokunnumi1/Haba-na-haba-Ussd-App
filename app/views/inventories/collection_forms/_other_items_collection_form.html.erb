@@ -12,7 +12,7 @@ Other item form
     </div>
     <div class="flex flex-col">
       <%= f.label :donation_type, class: "font-semibold text-gray-700" %>
-      <%= f.select :donation_type, options_for_select(["food","cash", "cloth", "other_items"]), { prompt: 'select donation type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.select :donation_type, options_for_select(["food", "cash", "cloth", "other_items"], @inventory.donation_type), { prompt: 'select donation type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :other_item_name, class: "font-semibold text-gray-700" %>
@@ -20,7 +20,7 @@ Other item form
     </div>
     <div class="flex flex-col">
       <%= f.label :other_item_condition, class: "font-semibold text-gray-700" %>
-      <%= f.select :other_item_condition, options_for_select(["good_condition","bad_condition", "average_condition"]), { prompt: 'select cloth condition' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.select :other_item_condition, options_for_select(["good_condition","bad_condition", "average_condition"]), { prompt: 'select other items condition' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :other_item_quantity, class: "font-semibold text-gray-700" %>
@@ -56,7 +56,7 @@ Other item form
     </div>
     <div class="flex flex-col">
       <%= f.label :phone_number, class: "font-semibold text-gray-700" %>
-      <%= f.number_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.text_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
   </div>
   <div class="flex justify-end">

@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
   get 'home/index'
-  get 'filter_results', to: 'your_controller#filter_results'
   post  'ussd_request', to: 'requests#ussd'
   resources :users
   resources :districts

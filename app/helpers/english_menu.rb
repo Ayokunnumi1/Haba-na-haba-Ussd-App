@@ -3,69 +3,66 @@ module EnglishMenu
   include FoodDonationModule
   include OtherDonationModule
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Lint/DuplicateBranch
+  MENU_ACTIONS = {
+    '1' => {
+      module: FoodRequestModule,
+      process_method: :process_request
+    },
+    '2' => {
+      module: FoodDonationModule,
+      process_method: :process_request,
+      extra_steps: [
+        "What are you donating:\n1. Fresh Food\n2. Dry Food",
+        'Enter food name',
+        'Enter the donation amount (kgs)'
+      ]
+    },
+    '3' => {
+      module: OtherDonationModule,
+      process_method: :process_menu_request,
+      extra_steps: [
+        "Choose your Donation.\n1. Cash\n2. Clothing\n3. Other",
+        'Enter the donation Amount'
+      ]
+    }
+  }.freeze
+
   def self.process_menu(text, phone_number, session)
-    request = Request.find_by(phone_number:)
+    return welcome_menu if text.blank?
 
-    # Directly welcome the user and show the main menu
-    if text == ''
-      return "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations" if request
+    action, *inputs = text.split('*')
+    action_config = MENU_ACTIONS[action]
 
-      # If request exists, welcome the user by their name
+    return invalid_choice unless action_config
 
-      return welcome_menu
-
-    end
-
-    # Continue with menu processing as before
-    case text
-    when '1'
+    case inputs.length
+    when 0
       enter_name
-    when /^1\*([\w\s]+)$/
+    when 1
       enter_district
-    when /^1\*[\w\s]+\*([\w\s]+)$/
+    when 2
       enter_county
-    when /^1\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
+    when 3
       enter_sub_county
-    when /^1\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      FoodRequestModule.process_request(text, phone_number, session)
-    when '2'
-      enter_name
-    when /^2\*([\w\s]+)$/
-      enter_district
-    when /^2\*[\w\s]+\*([\w\s]+)$/
-      enter_county
-    when /^2\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      enter_sub_county
-    when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      "CON What are you donating:\n1. Fresh Food\n2. Dry Food"
-    when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      'CON Enter food name'
-    when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      'CON Enter the donation amount (kgs)'
-    when /^2\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      FoodDonationModule.process_request(text, phone_number, session)
-    when '3'
-      enter_name
-    when /^3\*([\w\s]+)$/
-      enter_district
-    when /^3\*[\w\s]+\*([\w\s]+)$/
-      enter_county
-    when /^3\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      enter_sub_county
-    when /^3\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      "CON Choose your Donation.\n1. Cash\n2. Clothing\n3. Other"
-    when /^3\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      'CON Enter the donation Amount'
-    when /^3\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*[\w\s]+\*([\w\s]+)$/
-      OtherDonationModule.process_menu_request(text, phone_number, session)
     else
-      'END Invalid choice'
+      handle_extra_steps(inputs, action_config, text, phone_number, session)
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Lint/DuplicateBranch
+
+  def self.handle_extra_steps(inputs, action_config, text, phone_number, session)
+    extra_steps = action_config[:extra_steps]
+    step_index = inputs.length - 4
+
+    if extra_steps && step_index < extra_steps.length
+      "CON #{extra_steps[step_index]}"
+    else
+      action_config[:module].send(action_config[:process_method], text, phone_number, session)
+    end
+  end
+
+  def self.welcome_menu
+    "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations"
+  end
 
   def self.enter_name
     'CON Enter your name'
@@ -83,7 +80,7 @@ module EnglishMenu
     'CON Enter your County'
   end
 
-  def self.welcome_menu
-    "CON Welcome to Haba na Haba\n1. Request Food\n2. Donate Food\n3. Other Donations"
+  def self.invalid_choice
+    'END Invalid choice'
   end
 end

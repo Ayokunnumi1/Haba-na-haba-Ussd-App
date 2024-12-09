@@ -63,7 +63,7 @@ class InventoriesController < ApplicationController
       @districts = District.all
       @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
       @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-
+      @branches =  Branch.all
       @inventory_partial = case params[:type]
                  when 'cash'
                    'inventories/cash_donation_form'
@@ -96,7 +96,8 @@ class InventoriesController < ApplicationController
         @districts = District.all
         @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
         @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-        render :new, alert: 'Failed to create the Inventory.'
+        @branches =  Branch.all        
+        render :new, status: :unprocessable_entity
       end
     end
   end
@@ -105,7 +106,8 @@ class InventoriesController < ApplicationController
     @districts = District.all
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-
+    @branches =  Branch.all
+    
     @inventory_partial = case @inventory.donor_type
                  when 'cash'
                    'inventories/cash_donation_form'
@@ -181,11 +183,11 @@ class InventoriesController < ApplicationController
   def inventory_params
     params.require(:inventory).permit(:donor_name, :donor_type, :collection_date, :food_name,
                                       :expire_date, :village_address, :residence_address, :phone_number,
-                                      :parish, :amount, :head_of_institution, :registration_no, :district_id,
-                                      :county_id, :sub_county_id, :request_id,
-                                      :branch_id, :collection_amount)
+                                      :amount, :district_id, :county_id, :sub_county_id, :request_id,
+                                      :branch_id, :collection_amount, :account_number, :cloth_condition, :cloth_name,
+                                      :cloth_size, :cloth_quantity, :parish)
   end
-
+  
   def sort_column
     Inventory.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end

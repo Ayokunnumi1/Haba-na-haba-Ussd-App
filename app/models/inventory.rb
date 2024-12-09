@@ -13,9 +13,12 @@ class Inventory < ApplicationRecord
   scope :stock_alert, -> { joins(:request).where(requests: { is_selected: true }) }
   scope :expired, -> { where('expire_date < ?', Date.today) }
 
-  scope :by_donation_type, ->(type) { where(donor_type: type) if type.present? }
-  scope :by_donation_date, ->(date) { where(collection_date: date) if date.present? }
-
+  scope :by_donation_type, ->(type) { where(donation_type: type) if type.present? }
+  scope :by_donor_type, ->(type) { where(donor_type: type) if type.present? }
+  scope :by_collection_date, ->(date) { where(collection_date: date) if date.present? }
+  scope :by_place_of_collection, ->(place) { where(place_of_collection: place) if place.present? }
+  scope :by_branch, ->(branch_id) { where(branch_id: branch_id) if branch_id.present? }
+  
   scope :by_expire_range, lambda { |start_date, end_date|
     where(expire_date: start_date..end_date) if start_date.present? && end_date.present?
   }

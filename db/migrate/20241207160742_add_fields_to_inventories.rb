@@ -4,6 +4,6 @@ class AddFieldsToInventories < ActiveRecord::Migration[7.1]
     add_column :inventories, :cloth_condition, :string
     add_column :inventories, :cloth_name, :string
     add_column :inventories, :cloth_size, :string
-    add_column :inventories, :cloth_quantity, :integer
+    add_column :inventories, :cloth_quantity, :integer    
   end
 end

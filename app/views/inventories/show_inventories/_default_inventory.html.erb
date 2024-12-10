@@ -40,25 +40,25 @@
 </div>
 <!-- Additional fields for family donors -->
 <% if @inventory.donor_type == 'family_donor' %>
-  <div class="md:pl-6">
+  <div class="md:pr-6">
     <p class="text-sm font-bold text-green-700">Family Name</p>
     <p class="text-gray-800"><%= @inventory.family_name || 'N/A' %></p>
   </div>
-  <div class="md:pr-6">
+  <div class="md:pl-6">
     <p class="text-sm font-bold text-green-700">Number of Family Members</p>
     <p class="text-gray-800"><%= @inventory.family_member_count || 'N/A' %></p>
   </div>
   <!-- Additional fields for organization donors -->
 <% elsif @inventory.donor_type == 'organization_donor' %>
-  <div class="md:pl-6">
+  <div class="md:pr-6">
     <p class="text-sm font-bold text-green-700">Organization Name</p>
     <p class="text-gray-800"><%= @inventory.organization_name || 'N/A' %></p>
   </div>
-  <div class="md:pr-6">
+  <div class="md:pl-6">
     <p class="text-sm font-bold text-green-700">Organization Contact Person</p>
     <p class="text-gray-800"><%= @inventory.organization_contact_person || 'N/A' %></p>
   </div>
-  <div class="md:pl-6">
+  <div class="md:pr-6">
     <p class="text-sm font-bold text-green-700">Organization Contact Phone</p>
     <p class="text-gray-800"><%= @inventory.organization_contact_phone || 'N/A' %></p>
   </div>

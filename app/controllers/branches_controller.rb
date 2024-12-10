@@ -1,9 +1,12 @@
 class BranchesController < ApplicationController
+  include ErrorHandler
   before_action :authenticate_user!
   before_action :set_branch, only: %i[show edit update destroy]
+  before_action :load_districts, only: %i[new edit create update]
+  before_action :load_counties_for_branch, only: %i[edit create update]
 
   def index
-    @branches = Branch.includes(:districts).all
+    @branches = Branch.includes(:districts).order(created_at: :desc)
   end
 
   def show; end
@@ -11,15 +14,10 @@ class BranchesController < ApplicationController
   def new
     @branch = Branch.new
     @branches = Branch.all
-    @districts = District.all
     @counties = County.none
   end
 
-  def edit
-    @districts = District.all
-    # Loading counties related to the branch’s associated districts
-    @counties = @branch.districts.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
-  end
+  def edit; end
 
   def create
     @branch = Branch.new(branch_params)
@@ -27,8 +25,6 @@ class BranchesController < ApplicationController
     if @branch.save
       redirect_to @branch, notice: 'Branch was successfully created.'
     else
-      @districts = District.all
-      @counties = @branch.districts.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
       render :new, alert: 'Failed to create branch.'
     end
   end
@@ -37,20 +33,18 @@ class BranchesController < ApplicationController
     if @branch.update(branch_params)
       redirect_to @branch, notice: 'Branch was successfully updated.'
     else
-      @districts = District.all
-      @counties = @branch.districts.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
       render :edit, alert: 'Failed to update branch.'
     end
   end
 
   def destroy
     if @branch.destroy
-      redirect_to branches_url, notice: 'Branch was successfully deleted.'
+      redirect_to branches_path, notice: 'Branch deleted successfully.'
     else
-      redirect_to branches_url, alert: 'Failed to delete branch.'
+      redirect_to branches_path, alert: @branch.errors.full_messages.to_sentence
     end
   rescue StandardError => e
-    redirect_to branches_url, alert: handle_destroy_error(e)
+    redirect_to branches_path, alert: handle_destroy_error(e)
   end
 
   def load_counties
@@ -64,12 +58,19 @@ class BranchesController < ApplicationController
 
   def set_branch
     @branch = Branch.includes(:districts).find(params[:id])
-    @districts = District.all
   rescue ActiveRecord::RecordNotFound
     redirect_to branches_url, alert: 'Branch not found.'
   end
 
   def branch_params
     params.require(:branch).permit(:name, :phone_number, district_ids: [])
+  end
+
+  def load_districts
+    @districts = District.all
+  end
+
+  def load_counties_for_branch
+    @counties = @branch&.districts&.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
   end
 end

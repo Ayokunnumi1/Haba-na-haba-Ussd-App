@@ -96,26 +96,4 @@
     <%= f.submit "Save", class: "py-2 px-4 bg-green-600 text-gray rounded-md shadow-sm " %>
   </div>
 <% end %>
-<script>
-  document.addEventListener("turbo:load", function() {
-  const donorTypeSelect = document.getElementById("donor-type-select");
-  const familyFields = document.getElementById("family-fields");
-  const organizationFields = document.getElementById("organization-fields");
-  function toggleFields() {
-  const selectedType = donorTypeSelect.value;
-  // Hide all additional fields initially
-  familyFields.classList.add("hidden");
-  organizationFields.classList.add("hidden");
-  // Show relevant fields based on selected donor type
-  if (selectedType === "family_donor") {
-  familyFields.classList.remove("hidden");
-  } else if (selectedType === "organization_donor") {
-  organizationFields.classList.remove("hidden");
-  }
-  }
-  // Initial check when the page loads
-  toggleFields();
-  // Check when the donor type changes
-  donorTypeSelect.addEventListener("change", toggleFields);
-  });
-</script>
+

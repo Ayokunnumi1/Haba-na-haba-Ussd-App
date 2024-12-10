@@ -67,28 +67,12 @@ class InventoriesController < ApplicationController
       branch_id: @request.branch_id,
       residence_address: @request.residence_address
       )
+      set_inventory_partial(params[:type])
       @districts = District.all
       @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
       @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-      @branches =  Branch.all
-      @inventory_partial = case params[:type]
-                 when 'cash'
-                   'inventories/collection_forms/cash_collection_form'
-                 when 'food'
-                   'inventories/collection_forms/food_collection_form'
-                   when 'cloth'
-                   'inventories/collection_forms/cloth_collection_form'
-                 when 'other_items'
-                   'inventories/collection_forms/other_items_collection_form'
-                 else
-                   nil
-                 end
-
-      if @inventory_partial
-        render :new
-      else
-        render plain: 'Invalid type', status: :bad_request
-      end  
+      @branches =  Branch.all  
+      render :new      
   end
 
   def create    
@@ -96,6 +80,9 @@ class InventoriesController < ApplicationController
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory was successfully created.'
       else
+        Rails.logger.debug "params[:inventory][:donation_type]: #{params[:inventory][:donation_type]}"
+        set_inventory_partial(params[:inventory][:donation_type])
+        Rails.logger.debug "@inventory_partial: #{@inventory_partial}"
         @districts = District.all
         @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
         @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
@@ -109,31 +96,14 @@ class InventoriesController < ApplicationController
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
     @branches =  Branch.all
-    
-    @inventory_partial = case @inventory.donation_type
-                when 'food'
-                  'inventories/collection_forms/food_collection_form'
-                 when 'cash'
-                   'inventories/collection_forms/cash_collection_form'
-                 when 'cloth'
-                   'inventories/collection_forms/cloth_collection_form'
-                 when 'other_items'
-                   'inventories/collection_forms/other_items_collection_form'
-                 else
-                   nil
-                 end
-      if @inventory_partial
-        render :edit
-      else
-        render plain: 'Invalid type', status: :bad_request
-      end
-  
+    set_inventory_partial(@inventory.donation_type)    
   end
 
   def update
     if @inventory.update(inventory_params)
       redirect_to @inventory, notice: 'Inventory was successfully updated.'
     else
+      set_inventory_partial(@inventory.donation_type)
       @districts = District.all
       @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
       @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
@@ -173,6 +143,21 @@ class InventoriesController < ApplicationController
 
   private
 
+   def set_inventory_partial(type)
+    @inventory_partial = case type
+                 when 'cash'
+                   'inventories/collection_forms/cash_collection_form'
+                 when 'food'
+                   'inventories/collection_forms/food_collection_form'
+                   when 'cloth'
+                   'inventories/collection_forms/cloth_collection_form'
+                 when 'other_items'
+                   'inventories/collection_forms/other_items_collection_form'
+                 else
+                   'inventories/collection_forms/default_collection_form'
+                 end
+  end  
+
   def set_request
     @request = Request.find(params[:request_id]) if params[:request_id]
   end
@@ -191,8 +176,9 @@ class InventoriesController < ApplicationController
                                       :amount, :district_id, :county_id, :sub_county_id, :request_id,
                                       :branch_id, :collection_amount, :food_quantity, :cloth_condition, :cloth_name,
                                       :cloth_size, :cloth_quantity, :food_type, :donation_type, :cost_of_food, :cloth_type,
-                                      :family_member_count, :family_name, :organization_name,
-                                      :organization_contact_person, :organization_contact_phone)
+                                      :family_member_count, :family_name, :organization_name, :organization_contact_person, 
+                                      :organization_contact_phone, :other_items_name, :other_items_condition,
+                                      :other_items_quantity)
   end
   
   def sort_column

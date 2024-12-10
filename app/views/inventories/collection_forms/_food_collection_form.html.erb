@@ -31,7 +31,7 @@
     </div>
     <div class="flex flex-col">
       <%= f.label :donor_type, class: "font-semibold text-gray-700" %>
-      <%= f.select :donor_type, options_for_select(["individual_donor","family_donor","organization_donor"]), { prompt: 'select donor type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.select :donor_type, options_for_select(["individual_donor","family_donor","organization_donor"], @inventory.donor_type), { prompt: 'select donor type' }, id: "donor-type-select", class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :collection_date, class: "font-semibold text-gray-700" %>
@@ -66,7 +66,56 @@
       <%= f.collection_select :branch_id, @branches, :id, :name, { include_blank: "Select branch", selected: @inventory.branch_id }, { id: 'branch-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
   </div>
+  <!-- Additional fields for family donors -->
+  <div id="family-fields" class="<%= 'hidden' unless @inventory.donor_type == 'family_donor' %>">
+    <div class="flex flex-col">
+      <%= f.label :family_member_count, "Number of Family Members", class: "font-semibold text-gray-700" %>
+      <%= f.number_field :family_member_count, value: @inventory.family_member_count, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <div class="flex flex-col">
+      <%= f.label :family_name, "Family Name", class: "font-semibold text-gray-700" %>
+      <%= f.text_field :family_name, value: @inventory.family_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+  </div>
+  <!-- Additional fields for organization donors -->
+  <div id="organization-fields" class="<%= 'hidden' unless @inventory.donor_type == 'organization_donor' %>">
+    <div class="flex flex-col">
+      <%= f.label :organization_name, "Organization Name", class: "font-semibold text-gray-700" %>
+      <%= f.text_field :organization_name, value: @inventory.organization_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <div class="flex flex-col">
+      <%= f.label :organization_contact_person, "Contact Person", class: "font-semibold text-gray-700" %>
+      <%= f.text_field :organization_contact_person, value: @inventory.organization_contact_person, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <div class="flex flex-col">
+      <%= f.label :organization_contact_phone, "Contact Phone", class: "font-semibold text-gray-700" %>
+      <%= f.text_field :organization_contact_phone, value: @inventory.organization_contact_phone, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+  </div>
   <div class="flex justify-end">
     <%= f.submit "Save", class: "py-2 px-4 bg-green-600 text-gray rounded-md shadow-sm " %>
   </div>
 <% end %>
+<script>
+  document.addEventListener("turbo:load", function() {
+  const donorTypeSelect = document.getElementById("donor-type-select");
+  const familyFields = document.getElementById("family-fields");
+  const organizationFields = document.getElementById("organization-fields");
+  function toggleFields() {
+  const selectedType = donorTypeSelect.value;
+  // Hide all additional fields initially
+  familyFields.classList.add("hidden");
+  organizationFields.classList.add("hidden");
+  // Show relevant fields based on selected donor type
+  if (selectedType === "family_donor") {
+  familyFields.classList.remove("hidden");
+  } else if (selectedType === "organization_donor") {
+  organizationFields.classList.remove("hidden");
+  }
+  }
+  // Initial check when the page loads
+  toggleFields();
+  // Check when the donor type changes
+  donorTypeSelect.addEventListener("change", toggleFields);
+  });
+</script>

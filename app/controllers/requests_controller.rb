@@ -42,10 +42,11 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-
+     
     if @request.save
       redirect_to @request, notice: 'Request was successfully created.'
     else
+      @branches = Branch.all
       @districts = District.all
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none

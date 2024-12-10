@@ -24,129 +24,49 @@
                 </div>
             
             <!-- Modal Body - Step 1 -->
-            <div id="step-1" class="modal-step p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh]">
-                <label class="block text-sm font-medium text-gray-700">Full Name <span class="text-red-500">*</span></label>
-                <div class="flex gap-2">
-                    <input type="text" required placeholder="First Name" class="w-full p-2 border border-gray-300 rounded-md"/>
-                    <input type="text" required placeholder="Last Name" class="w-full p-2 border border-gray-300 rounded-md"/>
-                </div>
-
-                <div class="flex gap-2">
-                    <div class="w-1/2">
-                        <label class="block text-sm font-medium text-gray-700">Phone Number <span class="text-red-500">*</span></label>
-                        <input type="tel" required placeholder="Enter phone number" class="w-full p-2 border border-gray-300 rounded-md"/>
-                    </div>
-                    <div class="w-1/2">
-                        <label class="block text-sm font-medium text-gray-700">Donor Type</label>
-                        <select required class="w-full p-2 border border-gray-300 rounded-md">
-                            <option value="" disabled selected>Select type</option>
-                            <option>Individual</option>
-                            <option>Family</option>
-                            <option>Organization</option>
-                        </select>
-                    </div>
-                </div>
-
-                <label class="block text-sm font-medium text-gray-700">Address</label>
-                <input type="text" required placeholder="Street Address" class="w-full p-2 border border-gray-300 rounded-md"/>
-                <div class="flex gap-2">
-                    <select required class="w-full p-2 border border-gray-300 rounded-md">
-                        <option value="" disabled selected>District</option>
-                        <option  >District</option>
-                        <!-- Add district options here -->
-                    </select>
-                    <select required class="w-full p-2 border border-gray-300 rounded-md">
-                        <option value="" disabled selected>County</option>
-                        <option  >District</option>
-                        <!-- Add county options here -->
-                    </select>
-                </div>
-                <div class="flex gap-2">
-                    <input type="text" required placeholder="Sub-county" class="w-full p-2 border border-gray-300 rounded-md"/>
-                    <input type="text" required placeholder="Village" class="w-full p-2 border border-gray-300 rounded-md"/>
-                </div>
-                <input type="text" required placeholder="Parish" class="w-full p-2 border border-gray-300 rounded-md"/>
-
-                <!-- Next Button -->
-                <button type="button" onclick="showNextStep('step-2')" class="px-4 py-2 bg-lightGreen text-white rounded-md hover:bg-darkBlue font-Outfit w-[100%] align-center">Next</button>
+            <div class=" p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh]">
+                        
+        <%= form_with(model: @request, url: create_request_path, local: true) do |form| %>
+            <div class="grid gap-6 mt-4 md:grid-cols-2 p-5">
+            <div>
+            <%= form.label :name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "John" %>
             </div>
-
-            <!-- Modal Body - Step 2 -->
-            <div id="step-2" class="modal-step p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh] hidden">
-                <input type="text" placeholder="Registration No." class="w-full p-2 border border-gray-300 rounded-md"/>
-                <input type="text" placeholder="Head of the Institution" class="w-full p-2 border border-gray-300 rounded-md"/>
-
-                <div class="flex justify-between">
-                    <button type="button" onclick="showPreviousStep('step-1')" class="px-4 py-2 bg-darkBlue text-white  font-Outfit w-[40%] rounded-md">Back</button>
-                    <button type="button" onclick="showNextStep('step-3')" class="px-4 py-2 bg-lightGreen text-white rounded-md hover:bg-darkBlue font-Outfit w-[40%]">Next</button>
-                </div>
+            <div>
+            <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.text_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "123-45-678" %>
             </div>
-
-            <!-- Modal Body - Step 3 -->
-            <div id="step-3" class="modal-step p-4 md:p-5 space-y-4 overflow-y-auto max-h-[75vh] hidden">
-                <input type="text" placeholder="Donation Type" class="w-full p-2 border border-gray-300 rounded-md"/>
-                <input type="text" placeholder="Food Name" class="w-full p-2 border border-gray-300 rounded-md"/>
-
-                <label class="block text-sm font-medium text-gray-700">Collection & Expiry Date</label>
-                <div class="flex gap-2">
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md"/>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md"/>
-                </div>
-
-                <input type="number" placeholder="Donation Amount" class="w-full p-2 border border-gray-300 rounded-md"/>
-
-                <label class="block text-sm font-medium text-gray-700">How Did You Hear About Us?</label>
-                <select class="w-full p-2 border border-gray-300 rounded-md">
-                    <option value="" disabled selected>Select source</option>
-                    <!-- Add options here -->
-                </select>
-
-                <div class="flex justify-between">
-                    <button type="button" onclick="showPreviousStep('step-2')" class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Back</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Submit</button>
-                </div>
+            <div>
+            <%= form.label :residence_address, class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.text_field :residence_address, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Buziga Hill PO BOX 16562" %>
             </div>
+            <div>
+            <%= form.label :request_type, "Donation type",class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.select :request_type, options_for_select([["Food Request", "food_request"], ["Donation Request", "donation_request"], ["Others", "others"]]), { prompt: 'select request type' }, id: 'request_type', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+            </div>
+            <div>
+            <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>
+            </div>
+            <div>
+            <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>
+            </div>
+            <div>
+            <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+            </div>
+            <div>   
+            <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { id: 'branch-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>    
+            </div>
+            <div class="md:col-span-2">
+            <%= form.submit class: "text-white bg-lightGreen hover:bg-darkGreen focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+            </div>
+        </div>
+        <% end %>
+</div>
+
         </div>
     </div>
 </div>
-
-<!-- JavaScript -->
-<script>
-    function toggleModal(id) {
-        document.getElementById(id).classList.toggle('hidden');
-    }
-
-    function showNextStep(stepId) {
-        // Get the current step element
-        const currentStep = document.querySelector('.modal-step:not(.hidden)');
-        
-        // Find all required inputs in the current step
-        const requiredInputs = currentStep.querySelectorAll('input[required], select[required]');
-        let allFilled = true;
-
-        // Check if all required fields are filled
-        requiredInputs.forEach(input => {
-            if (!input.value) {
-                allFilled = false;
-                // Optionally, add a visual indication for missing fields
-                input.classList.add('border-red-500');
-            } else {
-                // Remove any previous indication if filled
-                input.classList.remove('border-red-500');
-            }
-        });
-
-        if (allFilled) {
-            // Hide all steps and show the next step if validation passed
-            document.querySelectorAll('.modal-step').forEach(el => el.classList.add('hidden'));
-            document.getElementById(stepId).classList.remove('hidden');
-        } else {
-            alert("Please fill out all required fields before proceeding.");
-        }
-    }
-
-    function showPreviousStep(stepId) {
-        document.querySelectorAll('.modal-step').forEach(el => el.classList.add('hidden'));
-        document.getElementById(stepId).classList.remove('hidden');
-    }
-</script>

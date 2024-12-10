@@ -80,9 +80,7 @@ class InventoriesController < ApplicationController
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory was successfully created.'
       else
-        Rails.logger.debug "params[:inventory][:donation_type]: #{params[:inventory][:donation_type]}"
         set_inventory_partial(params[:inventory][:donation_type])
-        Rails.logger.debug "@inventory_partial: #{@inventory_partial}"
         @districts = District.all
         @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
         @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none

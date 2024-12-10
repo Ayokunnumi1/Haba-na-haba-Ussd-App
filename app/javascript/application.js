@@ -12,4 +12,5 @@ import "flowbite";
 import "truncate";
 import "./users/filterUsers";
 import "./users/userDropDown";
+import "inventoryDonorType";
 

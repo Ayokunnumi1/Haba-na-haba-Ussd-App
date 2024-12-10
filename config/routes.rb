@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     collection do
       get :load_counties
       get :load_sub_counties
+      get :load_branches 
     end
     resource :individual_beneficiary, only: [:new, :create, :edit, :update] do
       collection do

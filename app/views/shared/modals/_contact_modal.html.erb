@@ -51,10 +51,11 @@
       <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
       <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
     </div>
-    <div>
-      <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
-      <%= form.collection_select :branch_id, Branch.all, :id, :name, { prompt: 'Select a branch' }, { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
-    </div>
+    <div>   
+     <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
+     <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { id: 'branch-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>    
+     </div>
+   
     <!-- Add the is_selected dropdown select -->
     <div>
       <%= form.label :is_selected, "Approved?", class: "block mb-2 text-sm font-medium text-gray-900" %>

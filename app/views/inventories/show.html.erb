@@ -28,7 +28,7 @@
     <% when 'other_items' %>
       <%= render 'inventories/show_inventories/other_items_inventory', inventory: @inventory %>
     <% else %>
-      <p>Invalid donation type.</p>
+      <%= render 'inventories/show_inventories/default_inventory', inventory: @inventory %>
     <% end %>
   </div>
   <div class="flex justify-center space-x-4 mt-6">

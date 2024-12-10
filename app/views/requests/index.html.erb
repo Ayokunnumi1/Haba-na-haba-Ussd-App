@@ -1,3 +1,4 @@
+
 <%= render 'requests/cardLayout' %>
 <div class="flex justify-between items-center p-5">
   <div class="block md:hidden">
@@ -158,7 +159,8 @@
       </tr>
     </thead>
     <tbody>
-      <% @requests.each_with_index do |request, index| %>
+   
+    <% @requests.each_with_index do |request, index| %>
         <tr class="bg-white border-b hover:bg-gray-50">
           <!-- Request Name -->
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -211,10 +213,12 @@
                 <%= link_to 'Add Inventory', new_request_inventory_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+          </td>
+        </tr>
+       
+      <% end %>
+    </tbody>
+  </table>
+
 </div>

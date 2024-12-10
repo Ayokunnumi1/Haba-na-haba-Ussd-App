@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   end
   resources :counties
   resources :sub_counties
+resources :events do
+  resources :requests
+end
+
+  
+
+  resources :event_users, only: [:create, :destroy]
   resources :branches do
     collection do
       get :load_counties

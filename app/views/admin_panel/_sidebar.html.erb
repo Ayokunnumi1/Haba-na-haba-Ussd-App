@@ -140,12 +140,12 @@
           <% end %>
         </li>
         <li>
-          <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+          <%= link_to events_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
             <i class="fa-solid fa-arrow-trend-up group-hover:text-lightGreen text-base"></i>
             <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Events</span>
           <% end %>
         </li>
-        <% if current_user.role.in?(%w[super_admin admin branch_manager]) %>
+         <% if current_user.role.in?(%w[super_admin admin branch_manager]) %>
           <li>
             <%= link_to districts_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
               <i class="fa-solid fa-location group-hover:text-lightGreen text-base"></i>

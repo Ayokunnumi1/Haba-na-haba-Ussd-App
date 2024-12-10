@@ -11,6 +11,8 @@ import "./nested_forms";
 import "./district";
 import "flowbite";
 import "truncate";
+import "./eventUser";
+import "./eventTab";
 import "./users/filterUsers";
 import "./users/userDropDown";
 import "./controllers/filter_modal";

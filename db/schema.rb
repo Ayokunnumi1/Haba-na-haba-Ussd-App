@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_05_154504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.bigint "sub_county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "start_time"
+    t.time "end_time"
     t.index ["county_id"], name: "index_events_on_county_id"
     t.index ["district_id"], name: "index_events_on_district_id"
     t.index ["sub_county_id"], name: "index_events_on_sub_county_id"
@@ -126,6 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "provided_food"
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_family_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_family_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_family_beneficiaries_on_district_id"
@@ -154,6 +157,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "provided_food"
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_individual_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_individual_beneficiaries_on_district_id"
@@ -182,6 +186,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "collection_amount"
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["district_id"], name: "index_inventories_on_district_id"
@@ -215,6 +220,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "provided_food"
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_organization_beneficiaries_on_branch_id"
     t.index ["county_id"], name: "index_organization_beneficiaries_on_county_id"
     t.index ["district_id"], name: "index_organization_beneficiaries_on_district_id"
@@ -237,6 +243,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_144052) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_id"
     t.index ["branch_id"], name: "index_requests_on_branch_id"
     t.index ["county_id"], name: "index_requests_on_county_id"
     t.index ["district_id"], name: "index_requests_on_district_id"

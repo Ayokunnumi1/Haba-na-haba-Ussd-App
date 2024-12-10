@@ -5,6 +5,7 @@ import "./modal";
 import "./controllers";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
+import "./controllers/load_counties_modal";
 import "requestDropdown";
 import "./controllers/toggleFilter";
 import "./dropdown";

@@ -190,7 +190,9 @@ class InventoriesController < ApplicationController
                                       :expire_date, :place_of_collection, :residence_address, :phone_number,
                                       :amount, :district_id, :county_id, :sub_county_id, :request_id,
                                       :branch_id, :collection_amount, :food_quantity, :cloth_condition, :cloth_name,
-                                      :cloth_size, :cloth_quantity, :food_type, :donation_type, :cost_of_food, :cloth_type)
+                                      :cloth_size, :cloth_quantity, :food_type, :donation_type, :cost_of_food, :cloth_type,
+                                      :family_member_count, :family_name, :organization_name,
+                                      :organization_contact_person, :organization_contact_phone)
   end
   
   def sort_column

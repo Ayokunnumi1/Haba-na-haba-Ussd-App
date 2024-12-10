@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_09_212741) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_09_213155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -191,6 +191,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_212741) do
     t.string "other_items_condition"
     t.string "other_items_name"
     t.integer "other_items_quantity"
+    t.string "organization_name"
+    t.string "organization_contact_person"
+    t.string "organization_contact_phone"
+    t.string "family_name"
+    t.integer "family_member_count"
     t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["district_id"], name: "index_inventories_on_district_id"

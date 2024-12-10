@@ -6,7 +6,7 @@ class BranchesController < ApplicationController
   before_action :load_counties_for_branch, only: %i[edit create update]
 
   def index
-    @branches = Branch.includes(:districts).all
+    @branches = Branch.includes(:districts).order(created_at: :desc)
   end
 
   def show; end

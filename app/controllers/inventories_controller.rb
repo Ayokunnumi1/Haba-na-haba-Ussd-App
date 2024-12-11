@@ -19,6 +19,7 @@ class InventoriesController < ApplicationController
     # Check if 'Show All' is selected (per_page is 0)
     @inventories = if @per_page.zero?
                      Inventory.includes(:request)
+                       .apply_filters(params).order(created_at: :desc)
                        .by_donation_type(params[:donation_type])
                        .by_donor_type(params[:donor_type])
                        .by_collection_date(params[:collection_date])
@@ -28,6 +29,7 @@ class InventoriesController < ApplicationController
                        .search_query(params[:query])
                    else
                      Inventory.includes(:request)
+                       .apply_filters(params).order(created_at: :desc)
                        .by_donation_type(params[:donation_type])
                        .by_donor_type(params[:donor_type])
                        .by_collection_date(params[:collection_date])
@@ -36,7 +38,7 @@ class InventoriesController < ApplicationController
                        .search_query(params[:query])                       
                        .order("#{sort_column} #{sort_direction}")
                        .page(@page_no)
-                       .per(@per_page)
+                       .per(@per_page)                       
                    end
 
     @total_pages = @per_page.zero? ? 1 : (Inventory.count.to_f / @per_page).ceil
@@ -45,9 +47,9 @@ class InventoriesController < ApplicationController
 
     @request = Request.new
     @districts = District.all
-    @counties = County.none
-    @branches = Branch.none
-    @sub_counties = SubCounty.none
+    @counties = County.all
+    @branches = Branch.all
+    @sub_counties = SubCounty.all
   end
 
   # rubocop:enable Metrics/AbcSize
@@ -90,11 +92,11 @@ class InventoriesController < ApplicationController
   end
 
   def edit
+    set_inventory_partial(@inventory.donation_type) 
     @districts = District.all
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-    @branches =  Branch.all
-    set_inventory_partial(@inventory.donation_type)    
+    @branches =  Branch.all      
   end
 
   def update

@@ -51,7 +51,8 @@
                 <%= link_to 'View', user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-DarkBlue" %>
               </li>
               <li>
-                <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen" %>
+               <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen", 
+                unless: current_user.role == 'admin' && (user.role == 'admin' || user.role == 'super_admin') %>
               </li>
               <li>
                 <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray text-red-500" do %>

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user!, only: [:create, :update, :destroy]
+  before_action :check_admin_access, only: [:edit]
 
   def index
     @users = User.order(created_at: :desc)
@@ -59,6 +60,18 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+
+
+  def check_admin_access
+    # Only restrict access to the edit page for admin and super_admin users
+    if current_user.role == 'admin' 
+      # Prevent admins or super admins from editing themselves or other admin/super_admin users
+      if @user.role == 'admin' || @user.role == 'super_admin'
+        redirect_to users_path, alert: "You do not have permission to edit this user."
+      end
+    end
+  end
+  
 
   def authorize_user!
     if current_user.role == 'admin'

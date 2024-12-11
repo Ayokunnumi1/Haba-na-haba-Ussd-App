@@ -15,10 +15,7 @@ class Ability
       cannot [:create, :update, :destroy], User, role: 'super_admin' # No permissions for super_admin
       
     when 'branch_manager'
-      # Branch managers can read all branches
       can :read, Branch
-
-      # Branch managers can manage only their assigned branch
       can [:create, :update], Branch, id: user.branch_id
       cannot [:create, :destroy], Branch
 

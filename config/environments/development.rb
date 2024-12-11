@@ -5,6 +5,7 @@ Rails.application.configure do
   config.hosts << "76ad-41-90-36-99.ngrok-free.app"
   config.hosts << "a806-105-113-60-45.ngrok-free.app"
   config.hosts << "7a7d-105-113-118-28.ngrok-free.app"
+  config.hosts << "d902-105-113-118-77.ngrok-free.app"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time

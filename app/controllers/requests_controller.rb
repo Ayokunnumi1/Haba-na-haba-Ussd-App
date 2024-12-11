@@ -4,7 +4,11 @@ class RequestsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
-    @requests = Request.all
+    @districts = District.all
+    @counties = County.none
+    @sub_counties = SubCounty.none
+    @requests = Request.apply_filters(params).order(created_at: :desc)
+    @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
   end
 
   def ussd
@@ -24,15 +28,18 @@ class RequestsController < ApplicationController
     @branches = Branch.all
     @districts = District.all
     @counties = County.none
-    @branches = Branch.none
+    @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
   end
 
   def edit
+    @request = Request.find(params[:id])
+    @event = Event.find_by(id: params[:event_id])
     @districts = District.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
     @branches = Branch.all
+    @users = User.where(role: 'volunteer')
   end
 
   def create
@@ -85,6 +92,17 @@ class RequestsController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  def create_for_event
+    @event = Event.find(params[:event_id])
+    @request = @event.requests.new(request_params)
+
+    if @request.save
+      redirect_to event_path(@event), notice: 'Request created successfully!'
+    else
+      render :new
+    end
+  end
+
   private
 
   def process_ussd(text, phone_number)
@@ -97,8 +115,8 @@ class RequestsController < ApplicationController
 
   def request_params
     params.require(:request).permit(:name, :phone_number, :request_type,
-                                    :residence_address, :district_id,
+                                    :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
-                                    :branch_id)
+                                    :branch_id, :user_id, :event_id)
   end
 end

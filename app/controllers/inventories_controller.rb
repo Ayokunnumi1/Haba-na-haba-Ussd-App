@@ -4,8 +4,7 @@ class InventoriesController < ApplicationController
   before_action :set_request, only: %i[ new create edit update]
  
   before_action :set_inventory, only: %i[edit update show destroy]
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
+  
   def index
     @per_page = params[:per_page].to_i
     @page_no = (params[:page] || 1).to_i
@@ -54,8 +53,6 @@ class InventoriesController < ApplicationController
     @sub_counties = SubCounty.all
   end
 
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
   def show
     inventories = Inventory.includes(:request)
     @inventory = inventories.find(params[:id])

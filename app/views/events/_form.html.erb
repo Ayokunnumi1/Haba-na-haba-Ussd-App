@@ -1,0 +1,101 @@
+<%= form_with(model: event, local: true) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation" class="bg-red-100 text-red-700 p-4 rounded-lg mb-4">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <ul>
+        <% event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 font-Outfit">
+    <% title = event.persisted? ? "Edit Event" : "Create New Event" %>
+    <h1 class="text-2xl font-bold text-center mb-6"><%= title %></h1>
+    <!-- Event name input -->
+    <div class="mb-4">
+      <%= form.label :name, "Event Theme", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.text_field :name, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+    <!-- Start Date and Time -->
+    <div class="flex space-x-4 mb-4">
+      <div class="w-1/2">
+        <%= form.label :start_date, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.date_field :start_date, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      <div class="w-1/2">
+        <%= form.label :start_time, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.time_field :start_time, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+    </div>
+    <!-- End Date and Time -->
+    <div class="flex space-x-4 mb-4">
+      <div class="w-1/2">
+        <%= form.label :end_date, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.date_field :end_date, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      <div class="w-1/2">
+        <%= form.label :end_time, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= form.time_field :end_time, class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+    </div>
+    <!-- District, County, Sub-County -->
+    
+<div class="mb-4">
+      <%= form.label :district_id, "District", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", 'data-context-path': 'requests' } %>
+    </div>
+    <div class="mb-4">
+      <%= form.label :county_id, "County", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500", 'data-context-path': 'requests' } %>
+    </div>
+    <div class="mb-4">
+      <%= form.label :sub_county_id, "Sub-County", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" } %>
+    </div>
+       
+   
+    
+    
+    <!-- User Search and Role Filter -->
+    <div class="mb-4">
+      <%= form.label :search, "Search Users", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <input type="text" id="user_search" placeholder="Search by name or phone number" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+    <div class="mb-4">
+      <%= form.label :role, "Filter by Role", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <select id="role_filter" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="all">All Roles</option>
+        <option value="super_admin">Super Admin</option>
+        <option value="admin">Admin</option>
+        <option value="branch_manager">Branch Manager</option>
+        <option value="volunteer">Volunteer</option>
+      </select>
+    </div>
+    <!-- Users List -->
+    <div class="mb-4">
+      <%= form.label :user_ids, "Select Users to Add", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <ul id="users-list">
+        <input type="hidden" name="event[user_ids][]" value="">
+        <% @users.each do |user| %>
+          <li class="user-item">
+            <input type="checkbox" name="event[user_ids][]" value="<%= user.id %>" <%= 'checked' if @event.users.include?(user) %> />
+            <span class="user-name"><%= user.first_name %> <%= user.last_name %></span> - 
+            <span class="user-phone"><%= user.phone_number %></span> - 
+            <span class="user-role"><%= user.role %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <!-- Submit and Back Buttons -->
+    <div class="actions flex flex-row space-x-4">
+      <div class="w-1/2">
+        <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      <div class="w-1/2 bg-darkBlue text-white font-Outfit py-2 px-4 rounded-md text-center">
+        <%= link_to 'Back to Events', events_path %>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>

@@ -1,23 +1,32 @@
-<%= form_with(model: sub_county, local: true, class: "space-y-6") do |form| %>
-  <% if sub_county.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-      <strong class="font-bold"><%= pluralize(sub_county.errors.count, "error") %> prevented this SubCounty from being saved:</strong>
+<%= form_with(model: sub_counties, class: "contents") do |form| %>
+  <% if sub_counties.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(sub_counties.errors.count, "error") %> prohibited this sub_counties from being saved:</h2>
+
       <ul>
-        <% sub_county.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <% sub_counties.errors.each do |error| %>
+          <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-  <div>
-    <%= form.label :name, class: "block text-gray-700 font-bold" %>
-    <%= form.text_field :name, class: "block mt-1 w-full border border-gray-300 rounded-lg px-4 py-2" %>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-  <div>
-    <%= form.label :county_id, "Select County", class: "block text-gray-700 font-bold" %>
-    <%= form.collection_select :county_id, County.all, :id, :name, prompt: "Select a County", class: "block mt-1 w-full border border-gray-300 rounded-lg px-4 py-2" %>
+
+  <div class="my-5">
+    <%= form.label :county_id %>
+    <%
+      options = County.includes(:district).map { |c| 
+        ["#{c.district.name} - #{c.name}", c.id]
+      }.sort
+    %>
+    <%= form.select :county_id,  options, { required: :true }, class: "input-primary" %>
   </div>
-  <div class="mt-6">
-    <%= form.submit 'Update SubCounty', class: "bg-lightGreen text-white px-4 py-2 rounded-lg shadow hover:bg-darkBlue focus:outline-none" %>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

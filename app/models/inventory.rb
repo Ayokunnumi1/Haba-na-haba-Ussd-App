@@ -1,6 +1,6 @@
 class Inventory < ApplicationRecord
   include InventoriesFilterable
-  
+
   belongs_to :district
   belongs_to :county
   belongs_to :sub_county
@@ -20,7 +20,7 @@ class Inventory < ApplicationRecord
   scope :by_collection_date, ->(date) { where(collection_date: date) if date.present? }
   scope :by_place_of_collection, ->(place) { where(place_of_collection: place) if place.present? }
   scope :by_branch, ->(branch_id) { where(branch_id: branch_id) if branch_id.present? }
-  
+
   # Define the low stock threshold
   LOW_STOCK_THRESHOLD = 30
 
@@ -28,7 +28,7 @@ class Inventory < ApplicationRecord
   scope :low_stock, -> { where('food_quantity < ? AND donation_type = ?', LOW_STOCK_THRESHOLD, 'food') }
 
   # Scope to handle search queries
-  scope :search_query, ->(query) {
+  scope :search_query, lambda { |query|
     where('donor_name ILIKE :query OR food_name ILIKE :query OR cloth_name ILIKE :query OR other_items_name ILIKE :query', query: "%#{query}%") if query.present?
   }
 end

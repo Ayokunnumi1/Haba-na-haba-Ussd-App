@@ -1,10 +1,10 @@
 class InventoriesController < ApplicationController
   include Pagination
 
-  before_action :set_request, only: %i[ new create edit update]
- 
+  before_action :set_request, only: %i[new create edit update]
+
   before_action :set_inventory, only: %i[edit update show destroy]
-  
+
   def index
     @per_page = params[:per_page].to_i
     @page_no = (params[:page] || 1).to_i
@@ -25,7 +25,7 @@ class InventoriesController < ApplicationController
                        .by_donor_type(params[:donor_type])
                        .by_collection_date(params[:collection_date])
                        .by_place_of_collection(params[:place_of_collection])
-                       .by_branch(params[:branch_id])                       
+                       .by_branch(params[:branch_id])
                        .order("#{sort_column} #{sort_direction}")
                        .search_query(params[:query])
                    else
@@ -36,10 +36,10 @@ class InventoriesController < ApplicationController
                        .by_collection_date(params[:collection_date])
                        .by_place_of_collection(params[:place_of_collection])
                        .by_branch(params[:branch_id])
-                       .search_query(params[:query])                       
+                       .search_query(params[:query])
                        .order("#{sort_column} #{sort_direction}")
                        .page(@page_no)
-                       .per(@per_page)                       
+                       .per(@per_page)
                    end
 
     @total_pages = @per_page.zero? ? 1 : (Inventory.count.to_f / @per_page).ceil
@@ -58,8 +58,8 @@ class InventoriesController < ApplicationController
     @inventory = inventories.find(params[:id])
   end
 
-  def new 
-      @inventory = @request.inventories.build(
+  def new
+    @inventory = @request.inventories.build(
       donor_name: @request.name,
       phone_number: @request.phone_number,
       district_id: @request.district_id,
@@ -67,35 +67,35 @@ class InventoriesController < ApplicationController
       sub_county_id: @request.sub_county_id,
       branch_id: @request.branch_id,
       residence_address: @request.residence_address
-      )
-      set_inventory_partial(params[:type])
-      @districts = District.all
-      @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
-      @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-      @branches =  Branch.all  
-      render :new      
-  end
-
-  def create    
-      @inventory = @request.inventories.build(inventory_params)      
-      if @inventory.save
-        redirect_to @inventory, notice: 'Inventory was successfully created.'
-      else
-        set_inventory_partial(params[:inventory][:donation_type])
-        @districts = District.all
-        @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
-        @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-        @branches =  Branch.all        
-        render :new, status: :unprocessable_entity
-      end  
-  end
-
-  def edit
-    set_inventory_partial(@inventory.donation_type) 
+    )
+    set_inventory_partial(params[:type])
     @districts = District.all
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-    @branches =  Branch.all      
+    @branches = Branch.all
+    render :new
+  end
+
+  def create
+    @inventory = @request.inventories.build(inventory_params)
+    if @inventory.save
+      redirect_to @inventory, notice: 'Inventory was successfully created.'
+    else
+      set_inventory_partial(params[:inventory][:donation_type])
+      @districts = District.all
+      @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+      @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
+      @branches = Branch.all
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    set_inventory_partial(@inventory.donation_type)
+    @districts = District.all
+    @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+    @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
+    @branches = Branch.all
   end
 
   def update
@@ -142,20 +142,20 @@ class InventoriesController < ApplicationController
 
   private
 
-   def set_inventory_partial(type)
+  def set_inventory_partial(type)
     @inventory_partial = case type
-                 when 'cash'
-                   'inventories/collection_forms/cash_collection_form'
-                 when 'food'
-                   'inventories/collection_forms/food_collection_form'
-                   when 'cloth'
-                   'inventories/collection_forms/cloth_collection_form'
-                 when 'other_items'
-                   'inventories/collection_forms/other_items_collection_form'
-                 else
-                   'inventories/collection_forms/default_collection_form'
-                 end
-  end  
+                         when 'cash'
+                           'inventories/collection_forms/cash_collection_form'
+                         when 'food'
+                           'inventories/collection_forms/food_collection_form'
+                         when 'cloth'
+                           'inventories/collection_forms/cloth_collection_form'
+                         when 'other_items'
+                           'inventories/collection_forms/other_items_collection_form'
+                         else
+                           'inventories/collection_forms/default_collection_form'
+                         end
+  end
 
   def set_request
     @request = Request.find(params[:request_id]) if params[:request_id]
@@ -175,11 +175,11 @@ class InventoriesController < ApplicationController
                                       :amount, :district_id, :county_id, :sub_county_id, :request_id,
                                       :branch_id, :collection_amount, :food_quantity, :cloth_condition, :cloth_name,
                                       :cloth_size, :cloth_quantity, :food_type, :donation_type, :cost_of_food, :cloth_type,
-                                      :family_member_count, :family_name, :organization_name, :organization_contact_person, 
+                                      :family_member_count, :family_name, :organization_name, :organization_contact_person,
                                       :organization_contact_phone, :other_items_name, :other_items_condition,
                                       :other_items_quantity)
   end
-  
+
   def sort_column
     Inventory.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end

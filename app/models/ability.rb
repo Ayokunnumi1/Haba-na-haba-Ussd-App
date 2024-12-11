@@ -20,7 +20,7 @@ class Ability
 
       # Branch managers can manage only their assigned branch
       can [:create, :update], Branch, id: user.branch_id
-      cannot :create, Branch
+      cannot [:create, :destroy], Branch
 
       # Branch managers can manage requests belonging to their branch
       can :manage, Request, branch_id: user.branch_id

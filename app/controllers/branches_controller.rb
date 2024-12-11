@@ -2,6 +2,7 @@ class BranchesController < ApplicationController
   include ErrorHandler
   before_action :authenticate_user!
   before_action :set_branch, only: %i[show edit update destroy]
+  before_action :authorize_branch_access, only: %i[edit update destroy]
   before_action :load_districts, only: %i[new edit create update]
   before_action :load_counties_for_branch, only: %i[edit create update]
 
@@ -12,6 +13,7 @@ class BranchesController < ApplicationController
   def show; end
 
   def new
+    authorize! :create, Branch
     @branch = Branch.new
     @branches = Branch.all
     @counties = County.none
@@ -20,6 +22,7 @@ class BranchesController < ApplicationController
   def edit; end
 
   def create
+    authorize! :create, Branch
     @branch = Branch.new(branch_params)
 
     if @branch.save
@@ -38,6 +41,7 @@ class BranchesController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, Branch
     if @branch.destroy
       redirect_to branches_path, notice: 'Branch deleted successfully.'
     else
@@ -72,5 +76,11 @@ class BranchesController < ApplicationController
 
   def load_counties_for_branch
     @counties = @branch&.districts&.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
+  end
+
+  def authorize_branch_access
+    unless can?(:update, @branch)
+      redirect_to branches_path, alert: 'You are not authorized to perform this action.'
+    end
   end
 end

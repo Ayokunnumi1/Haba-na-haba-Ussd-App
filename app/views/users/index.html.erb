@@ -1,5 +1,11 @@
 <section class="p-5">
   <!-- Navigation -->
+  <% if flash[:alert] %>
+  <div class="bg-red-500 text-white p-4 rounded-md">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
   <div class="flex flex-row justify-between items-center font-Outfit">
     <div class="ssm:block mmd:hidden">
       <%= button_to new_user_path, method: :get do %>

@@ -10,9 +10,12 @@ class Ability
       # Super admin can do everything
       can :manage, :all
     when 'admin'
-      # Admin can manage all except users and roles
-      can :manage, :all
-      cannot :manage, User
+     # Admin can manage everything
+     can :manage, :all
+     # Restrict creating, updating, and deleting users to specific roles
+     can [:create, :update, :destroy], User, role: %w[branch_manager volunteer]
+     # Restrict admin from managing 'super_admin' and 'admin' roles
+     cannot [:create, :update, :destroy], User, role: %w[super_admin admin]
     when 'branch_manager'
       # Branch managers can only manage resources within their branch
       can :manage, Request, branch_id: user.branch_id
@@ -27,6 +30,7 @@ class Ability
     else
       # Default to no access for users without a valid role
       cannot :manage, :all
+      can :update, User, id: user.id # Can update own profile
     end
   end
 end

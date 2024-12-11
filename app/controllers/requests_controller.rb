@@ -36,9 +36,8 @@ class RequestsController < ApplicationController
     @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-     @users = User.where(role: 'volunteer')
-  end  # Missing 'end' added here
-
+    @users = User.where(role: 'volunteer')
+  end # Missing 'end' added here
 
   def create
     @request = Request.new(request_params)
@@ -50,7 +49,7 @@ class RequestsController < ApplicationController
       @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      render :new, alert: 'Failed to create request.'  # render :new instead of render :edit
+      render :new, alert: 'Failed to create request.' # render :new instead of render :edit
     end
   end
 
@@ -86,7 +85,7 @@ class RequestsController < ApplicationController
   def load_branches
     if params[:district_id].present?
       branches = Branch.joins(:branch_districts)
-                       .where(branch_districts: { district_id: params[:district_id] })
+        .where(branch_districts: { district_id: params[:district_id] })
       render json: branches.map { |branch| { id: branch.id, name: branch.name } }
     else
       render json: { error: "District ID is required" }, status: :bad_request

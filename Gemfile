@@ -5,6 +5,8 @@ ruby '3.1.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.4'
 
+gem 'cancancan'
+
 # Rubocop for linters
 gem 'rubocop', '>= 1.0', '< 2.0'
 

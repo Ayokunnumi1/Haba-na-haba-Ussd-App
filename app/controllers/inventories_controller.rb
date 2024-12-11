@@ -9,13 +9,15 @@ class InventoriesController < ApplicationController
   def index
     @per_page = params[:per_page].to_i
     @page_no = (params[:page] || 1).to_i
-    @inventory_food = Inventory.includes(:request).by_food_type
-    @inventory_donated = Inventory.includes(:request).donated
-    @inventory_stock_alert = Inventory.includes(:request).stock_alert
+    @inventory_food = Inventory.includes(:request).by_food_name(params[:food_name])
+    @inventory_cash_collected = Inventory.includes(:request).by_collection_amount(params[:collection_amount])
+    @inventory_stock_alert = Inventory.includes(:request).low_stock
     @inventory_expired = Inventory.includes(:request).expired
 
     @food_inventory_count = @inventory_food.count
-
+    @total_cash_donated = @inventory_cash_collected.sum(:collection_amount)
+    @low_stock_count = @inventory_stock_alert.count
+    @expired_food = @inventory_expired.count
     # Check if 'Show All' is selected (per_page is 0)
     @inventories = if @per_page.zero?
                      Inventory.includes(:request)

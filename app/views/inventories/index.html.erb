@@ -1,6 +1,6 @@
 <section class="">
   <!-- Two Cards -->
-  <div class="font-Outfit flex w-full justify-center gap-3 items-stretch px-2">
+  <div class="font-Outfit flex w-full justify-center gap-3 items-stretch px-2">  
     <!-- Card 1 -->
     <div class="flex-1 p-2">
       <div class="px-3 py-4 sm:px-4 sm:py-6 rounded-xl bg-lightGreen shadow-lg transition-shadow hover:shadow-2xl flex flex-col items-start space-y-3 sm:space-y-6">
@@ -13,8 +13,8 @@
             <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @food_inventory_count %></p>
           </div>
           <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Cash</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">316</p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Cash(ugx)</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_cash_donated %></p>
           </div>
         </div>
       </div>
@@ -27,12 +27,12 @@
         </div>
         <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-black">
           <div class="flex flex-col items-start font-thin">
-            <p class="text-red-600 text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Low Stock</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">23</p>
+            <p class="text-red-600 text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Low food stock</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @low_stock_count %></p>
           </div>
           <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Other Items</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">3</p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Expired</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @expired_food %></p>
           </div>
         </div>
       </div>
@@ -280,4 +280,4 @@
             </div>
           </div>
         </div>
-      </section>
+</section>

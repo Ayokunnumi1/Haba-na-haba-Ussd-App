@@ -2,19 +2,14 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities based on user role
-    user ||= User.new  # guest user (not logged in)
+    user ||= User.new 
 
     case user.role
     when 'super_admin'
-      # Super admin can do everything
       can :manage, :all
     when 'admin'
-     # Admin can manage everything
      can :manage, :all
-     # Restrict creating, updating, and deleting users to specific roles
      can [:create, :update, :destroy], User, role: %w[branch_manager volunteer]
-     # Restrict admin from managing 'super_admin' and 'admin' roles
      cannot [:create, :update, :destroy], User, role: %w[super_admin admin]
     when 'branch_manager'
       # Branch managers can only manage resources within their branch

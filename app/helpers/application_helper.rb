@@ -10,7 +10,7 @@ module ApplicationHelper
     def display_navbar?
       users_actions = %w[new edit show]
       requests_actions = %w[new edit show]
-  
+
       controller_name == 'users' && action_name.in?(users_actions) &&
         !(controller_name == 'requests' && action_name.in?(requests_actions))
     end

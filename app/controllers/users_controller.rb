@@ -77,7 +77,7 @@ class UsersController < ApplicationController
     if current_user.role == 'admin'
       if action_name.to_sym == :create
         # Admin should not be able to create super_admin or admin users
-        if %w[super_admin admin].include?(params[:user][:role])
+        if %w[super_admin].include?(params[:user][:role])
           begin
             raise CanCan::AccessDenied.new("Not authorized to create users with role #{params[:user][:role]}")
           rescue CanCan::AccessDenied => e

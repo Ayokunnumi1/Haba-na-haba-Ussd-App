@@ -28,7 +28,7 @@
         <%= form.label :role, class: "block mb-2 text-sm font-medium text-gray-900" %>
        <% available_roles = User::ROLES.reject do |role| 
         # If the user is an admin, they cannot create or assign 'admin' or 'super_admin'
-        !can?(:manage, User.new(role: role)) || (role == 'admin' && current_user.role != 'super_admin') || (role == 'super_admin' && current_user.role != 'super_admin')
+        !can?(:manage, User.new(role: role)) ||  (role == 'super_admin' && current_user.role != 'super_admin')
         end %>
 
         <%= form.select :role, available_roles.map { |role| [role.humanize, role] }, { prompt: 'select role' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>

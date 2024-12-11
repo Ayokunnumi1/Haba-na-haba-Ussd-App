@@ -8,16 +8,34 @@ class Ability
     when 'super_admin'
       can :manage, :all
     when 'admin'
-     can :manage, :all
-     can [:create, :update, :destroy], User, role: %w[branch_manager volunteer]
-     cannot [:create, :update, :destroy], User, role: %w[super_admin admin]
+      can :manage, :all
+      can [:create], User, role: 'admin' # Allow admin to create other admins
+      cannot [:update, :destroy], User, role: 'admin' # Disallow updating or destroying admins
+      can [:create, :update, :destroy], User, role: %w[branch_manager volunteer] # Manage branch_manager and volunteer
+      cannot [:create, :update, :destroy], User, role: 'super_admin' # No permissions for super_admin
+      
     when 'branch_manager'
-      # Branch managers can only manage resources within their branch
+      # Branch managers can read all branches
+      can :read, Branch
+
+      # Branch managers can manage only their assigned branch
+      can [:create, :update], Branch, id: user.branch_id
+      cannot :create, Branch
+
+      # Branch managers can manage requests belonging to their branch
       can :manage, Request, branch_id: user.branch_id
-      can :read, Event
-      can :update, User, branch_id: user.branch_id
-      # If branch manager is authorized to read events assigned to their branch
-      can :read, EventUser, user_id: user.id
+
+      # Branch managers can create and update volunteers in their branch
+      can [:create, :update], User, role: 'volunteer', branch_id: user.branch_id
+
+      # Branch managers cannot edit or delete other branch managers, admins, or super admins
+      cannot [:create, :update, :destroy], User, role: %w[branch_manager admin super_admin]
+
+      # Branch managers can only update their own profile
+      can :update, User, id: user.id
+
+      # Branch managers cannot create districts
+      cannot :create, District
     when 'volunteer'
       # Volunteers can read events and requests
       can :read, Event

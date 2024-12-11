@@ -178,6 +178,7 @@
                 <%= sortable_table_header 'Donation Amount', :amount, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Events', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
                 <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
               </tr>
@@ -200,6 +201,9 @@
                   <td class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600  text-center">
                     <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
                   </td>
+                  <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6">
+              <%= inventory.event&.name || 'N/A' %>
+            </td>
                   <td class="py-2 px-4 text-sm  hidden rounded-lg text-gray-600">
                     <% if inventory.request.is_selected %>
                       <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>

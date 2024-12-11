@@ -13,4 +13,5 @@ import "truncate";
 import "./users/filterUsers";
 import "./users/userDropDown";
 import "inventoryDonorType";
+import "./controllers/filter_modal";
 

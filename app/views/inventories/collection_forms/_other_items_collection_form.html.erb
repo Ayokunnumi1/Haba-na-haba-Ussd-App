@@ -1,91 +1,91 @@
-Other item form
-<h2>Individual Other Items Donation Form</p>
-<%= form_with(model: [@request, @inventory], local: true, class: "space-y-6 mx-44") do |f| %>
-  <div class="grid mx-44 grid-cols-1 md:grid-cols-2 gap-6">
+<h2 class="text-2xl font-bold text-darkBlue mb-6">Other Items Donation Form</h2>
+<%= form_with(model: [@request, @inventory], local: true, class: "space-y-6") do |f| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col">
-      <%= f.label :donor_name, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :donor_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :donor_name, "Donor Name", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :donor_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :donor_type, class: "font-semibold text-gray-700" %>
-      <%= f.select :donor_type, options_for_select(["individual_donor","family_donor","organization_donor"], @inventory.donor_type), { prompt: 'select donor type' }, id: "donor-type-select", class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :residence_address, "Residence Address", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :residence_address, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :donation_type, class: "font-semibold text-gray-700" %>
-      <%= f.select :donation_type, options_for_select(["food", "cash", "cloth", "other_items"], @inventory.donation_type), { prompt: 'select donation type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :phone_number, "Phone Number", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :other_items_name, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :other_items_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :donor_type, "Donor Type", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.select :donor_type, options_for_select(["individual_donor","family_donor","organization_donor"], @inventory.donor_type), { prompt: 'Select donor type' }, id: "donor-type-select", class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :other_items_condition, class: "font-semibold text-gray-700" %>
-      <%= f.select :other_items_condition, options_for_select(["good_condition","bad_condition", "average_condition"]), { prompt: 'select other items condition' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :donation_type, "Donation Type", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.select :donation_type, options_for_select(["food", "cash", "cloth", "other_items"], @inventory.donation_type), { prompt: 'Select donation type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :other_items_quantity, class: "font-semibold text-gray-700" %>
-      <%= f.number_field :other_items_quantity, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :other_items_name, "Other Items Name", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :other_items_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :collection_date, class: "font-semibold text-gray-700" %>
-      <%= f.date_field :collection_date, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :other_items_condition, "Other Items Condition", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.select :other_items_condition, options_for_select(["good_condition","bad_condition", "average_condition"]), { prompt: 'Select other items condition' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :district_id, "District", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: @inventory.district_id}, { id: 'district-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
+      <%= f.label :other_items_quantity, "Other Items Quantity", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.number_field :other_items_quantity, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :county_id, "County", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: @inventory.county_id }, { id: 'county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
+      <%= f.label :collection_date, "Collection Date", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.date_field :collection_date, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :sub_county_id, "Sub County", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: @inventory.sub_county_id }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
+      <%= f.label :district_id, "District", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: @inventory.district_id}, { id: 'district-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :branch_id, "branch", class: "font-semibold text-gray-700" %>
-      <%= f.collection_select :branch_id, @branches, :id, :name, { include_blank: "Select branch", selected: @inventory.branch_id }, { id: 'branch-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
+      <%= f.label :county_id, "County", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: @inventory.county_id }, { id: 'county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :place_of_collection, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :place_of_collection, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :sub_county_id, "Sub County", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: @inventory.sub_county_id }, { id: 'sub-county-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen' } %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :residence_address, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :residence_address, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :branch_id, "Branch", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.collection_select :branch_id, @branches, :id, :name, { include_blank: "Select branch", selected: @inventory.branch_id }, { id: 'branch-select', class: 'form-select mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen', 'data-context-path': "requests/#{@inventory.request_id}/inventories" } %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :phone_number, class: "font-semibold text-gray-700" %>
-      <%= f.text_field :phone_number, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :place_of_collection, "Place of Collection", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :place_of_collection, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
   </div>
   <!-- Additional fields for family donors -->
-  <div id="family-fields" class="<%= 'hidden' unless @inventory.donor_type == 'family_donor' %>">
+  <div id="family-fields" class="<%= 'hidden' unless @inventory.donor_type == 'family_donor' %> md:col-span-2">
     <div class="flex flex-col">
-      <%= f.label :family_member_count, "Number of Family Members", class: "font-semibold text-gray-700" %>
-      <%= f.number_field :family_member_count, value: @inventory.family_member_count, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :family_member_count, "Number of Family Members", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.number_field :family_member_count, value: @inventory.family_member_count, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :family_name, "Family Name", class: "font-semibold text-gray-700" %>
-      <%= f.text_field :family_name, value: @inventory.family_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :family_name, "Family Name", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :family_name, value: @inventory.family_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
   </div>
   <!-- Additional fields for organization donors -->
-  <div id="organization-fields" class="<%= 'hidden' unless @inventory.donor_type == 'organization_donor' %>">
+  <div id="organization-fields" class="<%= 'hidden' unless @inventory.donor_type == 'organization_donor' %> md:col-span-2">
     <div class="flex flex-col">
-      <%= f.label :organization_name, "Organization Name", class: "font-semibold text-gray-700" %>
-      <%= f.text_field :organization_name, value: @inventory.organization_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :organization_name, "Organization Name", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :organization_name, value: @inventory.organization_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :organization_contact_person, "Contact Person", class: "font-semibold text-gray-700" %>
-      <%= f.text_field :organization_contact_person, value: @inventory.organization_contact_person, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :organization_contact_person, "Contact Person", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :organization_contact_person, value: @inventory.organization_contact_person, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
-      <%= f.label :organization_contact_phone, "Contact Phone", class: "font-semibold text-gray-700" %>
-      <%= f.text_field :organization_contact_phone, value: @inventory.organization_contact_phone, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <%= f.label :organization_contact_phone, "Contact Phone", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :organization_contact_phone, value: @inventory.organization_contact_phone, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
   </div>
-  <div class="flex justify-end">
-    <%= f.submit "Save", class: "py-2 px-4 bg-green-600 text-gray rounded-md shadow-sm " %>
+  <div class="flex justify-between mt-6">
+    <%= link_to 'Back', requests_path, class: "py-2 px-4 bg-darkBlue text-white font-bold rounded-md shadow-sm hover:bg-blue-700" %>
+    <%= f.submit "Save", class: "py-2 px-4 bg-lightGreen text-white font-bold rounded-md shadow-sm hover:bg-green-700" %>
   </div>
 <% end %>

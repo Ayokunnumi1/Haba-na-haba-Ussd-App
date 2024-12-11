@@ -90,7 +90,7 @@ class RequestsController < ApplicationController
         .where(branch_districts: { district_id: params[:district_id] })
       render json: branches.map { |branch| { id: branch.id, name: branch.name } }
     else
-      render json: { error: "District ID is required" }, status: :bad_request
+      render json: { error: 'District ID is required' }, status: :bad_request
     end
   rescue StandardError => e
     render json: { error: e.message }, status: :internal_server_error

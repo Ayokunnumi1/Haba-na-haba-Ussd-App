@@ -1,8 +1,8 @@
 <% if @inventory.errors.any? %>
-  <div id="form-container" class="">
+  <div id="form-container" class="p-5">
     <p>Please fill form correctly to add new inventory</p>
   </div>
-<% end %>
-<div id="form-container" class="">
-  <%= render partial: @inventory_partial %>
+  <% end %>
+  <div id="form-container" class="p-5">
+    <%= render partial: @inventory_partial %>
 </div>

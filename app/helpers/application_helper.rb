@@ -8,7 +8,7 @@ module ApplicationHelper
       concat content_tag(:p, description, class: 'font-normal text-sm lg:text-base lg:mt-4')
     end
     def display_navbar?
-      controller_name == 'users' && action_name.in?(%w[new edit show])
+      controller_name == 'users' && action_name.in?(%w[new edit show]) &&
       !(controller_name == 'requests' && action_name.in?(%w[new edit show]))
     end
   end

@@ -38,10 +38,10 @@
       <%= form.select :is_selected, [["Yes", true], ["No", false]], { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
     </div>
     <div>
-      <%= form.label :user_id, "User", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.label :user_id, "Staffs", class: "block mb-2 text-sm font-medium text-gray-900" %>
       <%= form.collection_select :user_id, @users, :id,
   ->(user) { "#{user.first_name} #{user.last_name}" },
-  { prompt: 'Select a user' },
+  { prompt: 'Select a staff' },
   { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
     </div>
     <div class="md:col-span-2">

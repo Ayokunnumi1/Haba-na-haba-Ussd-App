@@ -12,7 +12,6 @@ class Inventory < ApplicationRecord
 
   scope :by_food_name, ->(food_name) { where(food_name: food_name) if food_name.present? }
   scope :by_collection_amount, ->(amount) { where(collection_amount: amount) if amount.present? }
-  
   scope :expired, -> { where('expire_date < ?', Date.today) }
 
   scope :by_donation_type, ->(type) { where(donation_type: type) if type.present? }

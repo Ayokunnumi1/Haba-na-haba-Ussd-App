@@ -39,28 +39,28 @@ module InventoryLoader
 
   def load_all_inventories
     Inventory.includes(:request)
-             .apply_filters(params).order(created_at: :desc)
-             .by_donation_type(params[:donation_type])
-             .by_donor_type(params[:donor_type])
-             .by_collection_date(params[:collection_date])
-             .by_place_of_collection(params[:place_of_collection])
-             .by_branch(params[:branch_id])
-             .order("#{sort_column} #{sort_direction}")
-             .search_query(params[:query])
+      .apply_filters(params).order(created_at: :desc)
+      .by_donation_type(params[:donation_type])
+      .by_donor_type(params[:donor_type])
+      .by_collection_date(params[:collection_date])
+      .by_place_of_collection(params[:place_of_collection])
+      .by_branch(params[:branch_id])
+      .order("#{sort_column} #{sort_direction}")
+      .search_query(params[:query])
   end
 
   def load_paginated_inventories
     Inventory.includes(:request)
-             .apply_filters(params).order(created_at: :desc)
-             .by_donation_type(params[:donation_type])
-             .by_donor_type(params[:donor_type])
-             .by_collection_date(params[:collection_date])
-             .by_place_of_collection(params[:place_of_collection])
-             .by_branch(params[:branch_id])
-             .search_query(params[:query])
-             .order("#{sort_column} #{sort_direction}")
-             .page(@page_no)
-             .per(@per_page)
+      .apply_filters(params).order(created_at: :desc)
+      .by_donation_type(params[:donation_type])
+      .by_donor_type(params[:donor_type])
+      .by_collection_date(params[:collection_date])
+      .by_place_of_collection(params[:place_of_collection])
+      .by_branch(params[:branch_id])
+      .search_query(params[:query])
+      .order("#{sort_column} #{sort_direction}")
+      .page(@page_no)
+      .per(@per_page)
   end
 
   def calculate_counts

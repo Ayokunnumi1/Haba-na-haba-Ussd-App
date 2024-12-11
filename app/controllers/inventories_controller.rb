@@ -66,7 +66,7 @@ class InventoriesController < ApplicationController
     else
       redirect_to inventories_path, alert: 'Failed to delete Inventory.'
     end
-    rescue StandardError => e
+  rescue StandardError => e
     redirect_to inventories_path, alert: handle_destroy_error(e)
   end
 

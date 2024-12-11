@@ -4,11 +4,8 @@ const toggleDropdown = (requestId) => {
   const button = document.querySelector(
     `button[onclick="toggleDropdown(${requestId})"]`
   );
-  console.log("clicked");
-  console.log(button);
 
   const requestType = button.getAttribute("data-request-type");
-  console.log(requestType);
 
   if (requestDropDown) {
     requestDropDown.classList.toggle("hidden");
@@ -20,11 +17,25 @@ const toggleDropdown = (requestId) => {
         // Hide specific links for food_request
         if (
           link.href &&
-          (link.href.includes("organization_beneficiary") ||
-            link.href.includes("inventories/new?type=food") ||
+          (link.href.includes("inventories/new?type=food") ||
             link.href.includes("inventories/new?type=cash") ||
             link.href.includes("inventories/new?type=cloth") ||
             link.href.includes("inventories/new?type=other_items"))
+        ) {
+          link.style.display = "none";
+        } else {
+          link.style.display = "block";
+        }
+      } else if (
+        requestType === "donation_request" ||
+        requestType === "others"
+      ) {
+        // Hide specific links for donation_request and others
+        if (
+          link.href &&
+          (link.href.includes("individual_beneficiary") ||
+            link.href.includes("family_beneficiary") ||
+            link.href.includes("organization_beneficiary"))
         ) {
           link.style.display = "none";
         } else {

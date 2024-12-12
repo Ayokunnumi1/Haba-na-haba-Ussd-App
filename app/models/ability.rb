@@ -10,7 +10,7 @@ class Ability
       can :read, Event
       can :read, Request, branch_id: user.branch_id
     when 'branch_manager'
-      can :read, User
+     
       can :read, Branch
       can [:create, :update], Branch, id: user.branch_id
       cannot [:create, :destroy], Branch
@@ -20,7 +20,7 @@ class Ability
       cannot [:create, :update, :destroy], User, role: 'super_admin' 
 
       # Branch managers can create and update volunteers in their branch
-      can [:create, :update], User, role: 'volunteer'
+      can :manage, User, role: 'volunteer'
 
       # Branch managers cannot edit or delete other branch managers, admins, or super admins
       cannot [:create, :update, :destroy], User, role: %w[branch_manager admin super_admin]

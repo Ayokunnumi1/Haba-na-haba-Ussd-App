@@ -39,22 +39,22 @@
             </svg>
           </button>
           <!-- Dropdown menu -->
-          <div id="userDropDwnMenu<%= user.id %>" class="hidden absolute right-0 mt-0 w-38 bg-white hover:text-white rounded-md shadow-lg z-10">
+                   <div id="userDropDwnMenu<%= user.id %>" class="hidden absolute right-0 mt-0 w-38 bg-white hover:text-white rounded-md shadow-lg z-10">
             <ul class="py-1 text-sm text-black font-bold font-Outfit">
               <li>
                 <%= link_to 'View', user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-DarkBlue" %>
               </li>
               <li>
-              <% if can? :update, @user %>
-                <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen" %>
-              <% end %>
+                <% if can? :update, user %>
+                  <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen" %>
+                <% end %>
               </li>
               <li>
-              <% if can? :destroy, @user %>
-                <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray text-red-500" do %>
-                  Delete
+                <% if can? :destroy, user %>
+                  <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray text-red-500" do %>
+                    Delete
+                  <% end %>
                 <% end %>
-                 <% end %>
               </li>
             </ul>
           </div>

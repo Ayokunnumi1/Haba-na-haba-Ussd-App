@@ -1,5 +1,20 @@
 module OtherDonationModule
   extend SmsHelper
+
+  # Determine the request type based on user input
+  DONATION_TYPE_MAP = {
+    '1' => 'cash_donation',
+    '2' => 'cloth_donation',
+    '3' => 'other_donation'
+  }.freeze
+
+  # Map the donation type input to human-readable values
+  DONATION_TYPE_HUMAN_READABLE_MAP = {
+    '1' => 'Cash',
+    '2' => 'Clothing',
+    '3' => 'Other'
+  }.freeze
+
   def self.process_menu_request(text, phone_number, _session)
     input_parts = text.split('*')
     request_name = input_parts[1]
@@ -9,26 +24,11 @@ module OtherDonationModule
     donation_type_input = input_parts[5]
 
     # Determine the request type based on user input
-    request_type = case donation_type_input
-                   when '1'
-                     'cash_donation'
-                   when '2'
-                     'cloth_donation'
-                   when '3'
-                     'other_donation'
-                   else
-                     return 'END Invalid donation type selected.'
-                   end
-    
+    request_type = DONATION_TYPE_MAP[donation_type_input]
+    return 'END Invalid donation type selected.' if request_type.nil?
+
     # Map the donation type input to human-readable values
-    donation_type_human_readable = case donation_type_input
-                                   when '1'
-                                     'Cash'
-                                   when '2'
-                                     'Clothing'
-                                   when '3'
-                                     'Other items'
-                                   end
+    donation_type_human_readable = DONATION_TYPE_HUMAN_READABLE_MAP[donation_type_input]
 
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first

@@ -13,7 +13,7 @@ module EnglishMenu
       process_method: :process_request,
       extra_steps: [
         "What are you donating:\n1. Fresh Food\n2. Dry Food",
-        'Enter food name'      
+        'Enter food name'
       ]
     },
     '3' => {

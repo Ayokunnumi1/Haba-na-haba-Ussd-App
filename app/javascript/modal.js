@@ -3,6 +3,5 @@ function toggleModal(modalId) {
     modal.classList.toggle('hidden');
   }
   
-  // Export function to be accessible globally
   window.toggleModal = toggleModal;
   

@@ -21,7 +21,7 @@ class Ability
       can :manage, Request, branch_id: user.branch_id
 
       # Branch managers can create and update volunteers in their branch
-      can [:create, :update], User, role: 'volunteer', branch_id: user.branch_id
+      can [:create, :update], User, role: 'volunteer'
 
       # Branch managers cannot edit or delete other branch managers, admins, or super admins
       cannot [:create, :update, :destroy], User, role: %w[branch_manager admin super_admin]

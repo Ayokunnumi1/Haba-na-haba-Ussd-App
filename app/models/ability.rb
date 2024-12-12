@@ -13,7 +13,7 @@ class Ability
       cannot [:create, :update, :destroy], User, role: 'super_admin' 
       can :update, User, id: user.id
     when 'branch_manager'
-      can :manage, User
+      can :read, User
       can :read, Branch
       can [:create, :update], Branch, id: user.branch_id
       cannot [:create, :destroy], Branch

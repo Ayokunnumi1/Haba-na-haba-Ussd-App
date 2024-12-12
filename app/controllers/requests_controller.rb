@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  load_and_authorize_resource
   include EnglishMenu
   before_action :set_request, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token, only: [:ussd]
@@ -101,6 +102,10 @@ class RequestsController < ApplicationController
     else
       render :new
     end
+  end
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_back(fallback_location: requests_path)
   end
 
   private

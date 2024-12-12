@@ -9,17 +9,15 @@ class Ability
       can :manage, :all
     when 'admin'
       can :manage, :all
-      can [:create], User, role: 'admin' # Allow admin to create other admins
-      cannot [:update, :destroy], User, role: 'admin' # Disallow updating or destroying admins
-      can [:create, :update, :destroy], User, role: %w[branch_manager volunteer] # Manage branch_manager and volunteer
-      cannot [:create, :update, :destroy], User, role: 'super_admin' # No permissions for super_admin
+      can [:create], User, role: 'admin' 
+      cannot [:update, :destroy], User, role: 'admin'
+      can [:create, :update, :destroy], User, role: %w[branch_manager volunteer] 
+      cannot [:create, :update, :destroy], User, role: 'super_admin' 
       
     when 'branch_manager'
       can :read, Branch
       can [:create, :update], Branch, id: user.branch_id
       cannot [:create, :destroy], Branch
-
-      # Branch managers can manage requests belonging to their branch
       can :manage, Request, branch_id: user.branch_id
 
       # Branch managers can create and update volunteers in their branch
@@ -30,9 +28,6 @@ class Ability
 
       # Branch managers can only update their own profile
       can :update, User, id: user.id
-
-      # Branch managers cannot create districts
-      cannot :create, District
     when 'volunteer'
       # Volunteers can read events and requests
       can :read, Event

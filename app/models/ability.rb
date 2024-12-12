@@ -10,7 +10,7 @@ class Ability
       can :read, Event
       can :read, Request, branch_id: user.branch_id
     when 'branch_manager'
-     
+      can :read, User
       can :read, Branch
       can [:create, :update], Branch, id: user.branch_id
       cannot [:create, :destroy], Branch

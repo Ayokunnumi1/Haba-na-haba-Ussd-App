@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    authorize! :update, User  
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
@@ -48,6 +49,11 @@ class UsersController < ApplicationController
       flash[:notice] = 'User was successfully deleted.'
     end
     redirect_to users_path
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_back(fallback_location: users_path)
   end
 
   private

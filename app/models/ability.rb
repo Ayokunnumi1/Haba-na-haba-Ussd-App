@@ -6,7 +6,7 @@ class Ability
   def initialize(user)
     case user.role
     when 'volunteer'
-      # Volunteers can read events and requests
+      can :read, User
       can :read, Event
       can :read, Request, branch_id: user.branch_id
     when 'branch_manager'

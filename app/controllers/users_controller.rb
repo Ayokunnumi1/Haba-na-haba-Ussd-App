@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
+  include ErrorHandler
 
   def index
     @users = User.order(created_at: :desc)
@@ -30,7 +31,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    authorize! :update, User  
     @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
@@ -49,7 +49,9 @@ class UsersController < ApplicationController
       flash[:notice] = 'User was successfully deleted.'
     end
     redirect_to users_path
-  end
+rescue StandardError => e
+  redirect_to users_path, alert: handle_destroy_error(e)
+end
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = "You are not authorized to perform this action."

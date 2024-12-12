@@ -18,6 +18,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    if current_user.admin? && user_params[:role] == 'super_admin'
+      flash[:alert] = "Admins cannot update users to the role of super_admin."
+      redirect_to users_path and return
+    end
 
     if @user.save
       redirect_to users_path, notice: 'user was successfully created.'
@@ -30,14 +34,23 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+
   def update
     @user = User.find(params[:id])
+    
+    if current_user.admin? && user_params[:role] == 'super_admin'
+      flash[:alert] = "Admins cannot update users to the role of super_admin."
+      redirect_to users_path and return
+    end
+  
+  
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
     end
   end
+    
 
   def destroy
     @user = User.find(params[:id])

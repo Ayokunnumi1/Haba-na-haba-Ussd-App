@@ -11,6 +11,7 @@ class Ability
       can :manage, :all
       cannot [:update, :destroy], User, role: 'admin'
       cannot [:create, :update, :destroy], User, role: 'super_admin' 
+      can :update, User, id: user.id
     when 'branch_manager'
       can :manage, User
       can :read, Branch

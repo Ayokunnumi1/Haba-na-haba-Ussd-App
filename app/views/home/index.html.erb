@@ -20,16 +20,22 @@
                 <a href="/" class="block py-2 px-3 text-white bg-lightGreen rounded lg:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen " aria-current="Page">Home</a>
               </li>
               <li>
-                <a href="javascript:void(0)" onclick="toggleModal('donateModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen dark:hover:text-white lg:dark:hover:bg-transparent">Donate Food</a>
+                <a href="javascript:void(0)" onclick="toggleModal('donateModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen dark:hover:text-white lg:dark:hover:bg-transparent">
+                Donate Food
+                <%= render 'shared/modals/donate_modal' %>
+                </a>
               </li>
               <li>
-                <a href="javascript:void(0)" onclick="toggleModal('requestModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen lg:dark:hover:bg-transparent">Request Food</a>
+                <a href="javascript:void(0)" onclick="toggleModal('requestModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen lg:dark:hover:bg-transparent">
+                Request Food
+                <%= render 'shared/modals/request_modal' %>
+                </a>
               </li>
               <li>
                 <a href="#about" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white  lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen ">About Us</a>
               </li>
               <li>
-                <a href="#contact" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen ">Contact Us</a>
+                <a href="#footer" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen ">Contact Us</a>
               </li>
             </ul>
           </div>
@@ -274,13 +280,19 @@
                   <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Legal</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
                         <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('cookie-modal')" class="hover:underline">Cookie Policy</a>
+                    <a href="javascript:void(0)" onclick="toggleModal('cookie-modal')" class="hover:underline">
+                    <%= render 'shared/modals/cookie_modal' %>
+                    Cookie Policy</a>
                   </li>
                   <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('privacy-modal')" class="hover:underline">Privacy Policy</a>
+                    <a href="javascript:void(0)" onclick="toggleModal('privacy-modal')" class="hover:underline">
+                    <%= render 'shared/modals/privacy_modal' %>
+                    Privacy Policy</a>
                   </li>
                   <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('terms-modal')"  class="hover:underline">Terms of Use</a>
+                    <a href="javascript:void(0)" onclick="toggleModal('terms-modal')"  class="hover:underline">
+                    <%= render 'shared/modals/terms_modal' %>
+                    Terms of Use</a>
                   </li>
                   <li>
                     <a href="" class="hover:underline">Sitemap</a>
@@ -348,11 +360,11 @@
     </div>
 </footer>
 
-<%= render 'shared/modals/donate_modal' %>
-<%= render 'shared/modals/request_modal' %>
+
+
 <%= render 'shared/modals/volunteer_modal' %>
 <%= render 'shared/modals/contact_modal' %>
-<%= render 'shared/modals/terms_modal' %>
-<%= render 'shared/modals/privacy_modal' %>
-<%= render 'shared/modals/cookie_modal' %>
+
+
+
 </main>

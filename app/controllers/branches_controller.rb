@@ -1,4 +1,5 @@
 class BranchesController < ApplicationController
+  load_and_authorize_resource
   include ErrorHandler
   before_action :authenticate_user!
   before_action :set_branch, only: %i[show edit update destroy]
@@ -52,6 +53,11 @@ class BranchesController < ApplicationController
     @counties = County.where(district_id: district_ids)
 
     render json: @counties.map { |county| { id: county.id, name: county.name } }
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_back(fallback_location: users_path)
   end
 
   private

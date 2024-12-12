@@ -24,20 +24,10 @@
         <%= form.label :image, class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= form.file_field :image, class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" %>
       </div>
-    <div>
-  <%= form.label :role, class: "block mb-2 text-sm font-medium text-gray-900" %>
-  <% available_roles = User::ROLES.reject do |role| 
-    # If the user is an admin, they cannot create or assign 'admin' or 'super_admin'
-    !can?(:manage, User.new(role: role)) || 
-    (role == 'super_admin' && current_user.role != 'super_admin') || 
-    # Branch manager can only assign 'volunteer'
-    (current_user.role == 'branch_manager' && role != 'volunteer')
-  end %>
-
-  <%= form.select :role, available_roles.map { |role| [role.humanize, role] }, { prompt: 'select role' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
-</div>
-
-
+      <div>
+        <%= form.label :role, class: "block mb-2 text-sm font-medium text-gray-900" %>
+        <%= form.select :role, User::ROLES.map { |role| [role.humanize, role] }, { prompt: 'select role' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+      </div>
       <div>
         <%= form.label :email, class: "block mb-2 text-sm font-medium text-gray-900" %>
         <%= form.email_field :email, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "john.doe@company.com" %>

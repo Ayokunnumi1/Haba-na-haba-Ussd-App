@@ -5,13 +5,10 @@ class Ability
 
   def initialize(user)
     case user.role
-    when 'super_admin'
-      can :manage, :all
-    when 'admin'
-      can :manage, :all
-      cannot [:update, :destroy], User, role: 'admin'
-      cannot [:create, :update, :destroy], User, role: 'super_admin' 
-      can :update, User, id: user.id
+    when 'volunteer'
+      # Volunteers can read events and requests
+      can :read, Event
+      can :read, Request, branch_id: user.branch_id
     when 'branch_manager'
       can :read, User
       can :read, Branch
@@ -30,10 +27,13 @@ class Ability
 
       # Branch managers can only update their own profile
       can :update, User, id: user.id
-    when 'volunteer'
-      # Volunteers can read events and requests
-      can :read, Event
-      can :read, Request, branch_id: user.branch_id
+    when 'admin'
+      can :manage, :all
+      cannot [:update, :destroy], User, role: 'admin'
+      cannot [:create, :update, :destroy], User, role: 'super_admin' 
+      can :update, User, id: user.id
+    when 'super_admin'
+      can :manage, :all
     end
   end
 end

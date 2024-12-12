@@ -1,5 +1,9 @@
 require 'faker'
 
+# Reset Faker unique constraints
+Faker::UniqueGenerator.clear
+Faker::Config.random = Random.new
+
 # Seed 100 Districts
 districts = 100.times.map do
   District.find_or_create_by!(name: "#{Faker::Address.unique.city} District")
@@ -9,7 +13,7 @@ puts "Seeded #{districts.count} districts."
 # Seed Counties with District Associations
 counties = 100.times.map do
   County.create!(
-    name: Faker::Address.city,
+    name: "#{Faker::Address.unique.city} County",
     district: districts.sample
   )
 end
@@ -18,7 +22,7 @@ puts "Seeded #{counties.count} counties."
 # Seed Sub-counties with County Associations
 sub_counties = 100.times.map do
   SubCounty.create!(
-    name: Faker::Address.community,
+    name: "#{Faker::Address.community} Sub-county",
     county: counties.sample
   )
 end
@@ -27,18 +31,18 @@ puts "Seeded #{sub_counties.count} sub-counties."
 # Seed Branches
 branches = 100.times.map do
   Branch.create!(
-    name: "#{Faker::Address.city} Branch",
-    phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+    name: "#{Faker::Address.unique.city} Branch",
+    phone_number: Faker::PhoneNumber.cell_phone_in_e164
   )
 end
 puts "Seeded #{branches.count} branches."
 
-# Associate branches with districts through BranchDistrict join table
+# Associate Branches with Districts (BranchDistrict join table)
 branch_district_data = 100.times.map do
- branch_id = branches.sample.id
-district_id = districts.sample.id
-
-BranchDistrict.find_or_create_by(branch_id: branch_id, district_id: district_id)
+  BranchDistrict.find_or_create_by!(
+    branch: branches.sample,
+    district: districts.sample
+  )
 end
 puts "Seeded #{branch_district_data.count} branch-district associations."
 
@@ -52,12 +56,11 @@ users = 100.times.map do
     role: roles.sample,
     email: Faker::Internet.unique.email,
     password: 'password',
-    gender: Faker::Gender.unique.type,
+    gender: Faker::Gender.binary_type, # Updated for consistency
     location: Faker::Address.unique.city,
     branch: branches.sample
   )
 end
-
 puts "Seeded #{users.count} users."
 
 # Seed Requests
@@ -75,7 +78,6 @@ requests = 100.times.map do
     county: counties.sample,
     sub_county: sub_counties.sample,
     branch: branches.sample,
-
     user: users.sample
   )
 end
@@ -84,7 +86,6 @@ puts "Seeded #{requests.count} requests."
 # Seed Inventories
 donor_types = ["fresh_food", "dry_food", "clothing", "cash", "other"]
 inventories = 100.times.map do
-
   Inventory.create!(
     donor_name: Faker::Name.name,
     donor_type: donor_types.sample,

@@ -1,0 +1,37 @@
+<section class ="p-5">
+  <div class="bg-white border border-gray-200 rounded-lg shadow-md p-5">
+    <!-- Tab headers -->
+    <div class=" flex justify-center border-b border-gray-200">
+      <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
+        <li class="me-2">
+          <button data-tab-target="request" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg  hover:text-lightGreen hover:border-lightGreen">
+            <i class="fa-solid fa-boxes-stacked pr-2"></i>Requests
+          </button>
+        </li>
+        <li class="me-2">
+          <button data-tab-target="eventDetails" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen ">
+            <i class="fa-solid fa-envelope pr-2"></i>Event Details
+          </button>
+        </li>
+        <li class="me-2">
+          <button data-tab-target="request_form" class="tab-btn inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-lightGreen hover:border-lightGreen ">
+            <i class="fa-solid fa-envelope pr-2"></i>Request Form
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- Tab content -->
+    <div class="tab-content mt-4">
+      <div data-tab="eventDetails" class="tab-panel hidden">
+        <%= render "events/event_details" %>
+      </div>
+      <div class="tab-content mt-4">
+        <div data-tab="request_form" class="tab-panel hidden">
+          <%= render "events/request_form" %>
+        </div>
+        <div data-tab="request" class="tab-panel">
+          <%= render "events/request_show" %>
+        </div>
+      </div>
+    </div>
+  </section>

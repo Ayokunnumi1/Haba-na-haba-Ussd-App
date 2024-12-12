@@ -8,6 +8,8 @@ gem 'rails', '~> 7.1.4'
 # Rubocop for linters
 gem 'rubocop', '>= 1.0', '< 2.0'
 
+gem 'cancancan'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 

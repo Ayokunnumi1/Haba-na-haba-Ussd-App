@@ -8,12 +8,13 @@ class Ability
     when 'volunteer'
       can :read, User
       can :read, Branch
-      can [:create, :update], Inventory
-      can [:create, :update], Request
-      can [:create, :update], IndividualBeneficiary
-      
+      can [:create, :update, :read], Inventory, user_id: user.id
+      can [:create, :update, :read], Request, user_id: user.id
+      can [:create, :update, :read], IndividualBeneficiary, user_id: user.id
+      can [:create, :update, :read], FamilyBeneficiary, user_id: user.id
+      can [:create, :update, :read], OrganizationBeneficiary, user_id: user.id
       can :read, Event
-      can :read, Request, branch_id: user.branch_id
+      can :read, District
     when 'branch_manager'
       can :read, User
       can :read, Branch

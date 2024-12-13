@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if current_user.admin? && user_params[:role] == 'super_admin'
-      flash[:alert] = "Admins cannot update users to the role of super_admin."
+      flash[:alert] = 'Admins cannot update users to the role of super_admin.'
       redirect_to users_path and return
     end
 
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if current_user.admin? && user_params[:role] == 'super_admin'
-      flash[:alert] = "Admins cannot update users to the role of super_admin."
+      flash[:alert] = 'Admins cannot update users to the role of super_admin.'
       redirect_to users_path and return
     end
 

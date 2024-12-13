@@ -42,3 +42,4 @@ class Ability
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

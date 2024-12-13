@@ -67,7 +67,6 @@ class UsersController < ApplicationController
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to users_path
   end
-  
 
   private
 

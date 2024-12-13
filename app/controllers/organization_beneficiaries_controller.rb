@@ -108,7 +108,6 @@ class OrganizationBeneficiariesController < ApplicationController
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to organization_beneficiaries_path
   end
-  
 
   private
 

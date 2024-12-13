@@ -59,7 +59,7 @@ class BranchesController < ApplicationController
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to branches_path
   end
-  
+
   private
 
   def set_branch

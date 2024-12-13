@@ -89,7 +89,6 @@ class EventsController < ApplicationController
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to events_path
   end
-  
 
   private
 

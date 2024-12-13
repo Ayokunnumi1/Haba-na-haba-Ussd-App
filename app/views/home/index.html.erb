@@ -263,11 +263,11 @@
               <div>
                   <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Quick access</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
-                       <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('donateModal')" class="hover:underline">Make Donation</a>
+                  <li class="mb-2">
+                    <%= link_to 'Make Donation', 'javascript:void(0)', onclick: "toggleModal('donateModal')", class: 'hover:underline' %>
                   </li>
                   <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('requestModal')"  class="hover:underline">Request Food</a>
+                    <%= link_to 'Request Food', 'javascript:void(0)', onclick: "toggleModal('requestModal')", class: 'hover:underline' %>
                   </li>
                   </ul>
               </div>
@@ -276,12 +276,10 @@
                   <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Legal</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
                   <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('privacy-modal')" class="hover:underline">
-                    Privacy Policy</a>
+                    <%= link_to 'Privacy Policy', 'javascript:void(0)', onclick: "toggleModal('privacy-modal')", class: 'hover:underline' %>
                   </li>
                   <li class="mb-2">
-                    <a href="javascript:void(0)" onclick="toggleModal('terms-modal')"  class="hover:underline">
-                    Terms of Use</a>
+                    <%= link_to 'Terms of Use', 'javascript:void(0)', onclick: "toggleModal('terms-modal')", class: 'hover:underline' %>
                   </li>
                   </ul>
               </div>

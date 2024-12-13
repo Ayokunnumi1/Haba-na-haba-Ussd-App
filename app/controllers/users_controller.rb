@@ -34,23 +34,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-
   def update
     @user = User.find(params[:id])
-    
+
     if current_user.admin? && user_params[:role] == 'super_admin'
       flash[:alert] = "Admins cannot update users to the role of super_admin."
       redirect_to users_path and return
     end
-  
-  
+
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
     end
   end
-    
 
   def destroy
     @user = User.find(params[:id])
@@ -62,9 +59,9 @@ class UsersController < ApplicationController
       flash[:notice] = 'User was successfully deleted.'
     end
     redirect_to users_path
-    rescue StandardError => e
-      redirect_to users_path, alert: handle_destroy_error(e)
-    end
+  rescue StandardError => e
+    redirect_to users_path, alert: handle_destroy_error(e)
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = "You are not authorized to perform this action."

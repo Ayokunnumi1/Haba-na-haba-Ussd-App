@@ -6,13 +6,14 @@ class Ability
     when 'volunteer'
       can :read, User
       can :read, Branch
-      can [:create, :update, :read], Inventory, user_id: user.id
       can [:create, :update, :read], Request, user_id: user.id
-      can [:create, :update, :read], IndividualBeneficiary, user_id: user.id
-      can [:create, :update, :read], FamilyBeneficiary, user_id: user.id
-      can [:create, :update, :read], OrganizationBeneficiary, user_id: user.id
+      can [:create, :update, :read], Inventory
+      can [:create, :update, :read], IndividualBeneficiary
+      can [:create, :update, :read], FamilyBeneficiary
+      can [:create, :update, :read], OrganizationBeneficiary
       can :read, Event
       can :read, District
+      can :update, User, id: user.id
     when 'branch_manager'
       can :read, User
       can :read, Branch
@@ -23,13 +24,9 @@ class Ability
       cannot [:create, :update, :destroy], User, role: %w[branch_manager admin super_admin]
       can :manage, Request, branch_id: user.branch_id
       can :manage, Inventory, branch_id: user.branch_id
-      cannot :destroy, Inventory
       can :manage, IndividualBeneficiary, branch_id: user.branch_id
-      cannot :destroy, IndividualBeneficiary
       can :manage, FamilyBeneficiary, branch_id: user.branch_id
-      cannot :destroy, FamilyBeneficiary
       can :manage, OrganizationBeneficiary, branch_id: user.branch_id
-      cannot :destroy, OrganizationBeneficiary
       can :manage, Event
       cannot :destroy, Event
       can :manage, District

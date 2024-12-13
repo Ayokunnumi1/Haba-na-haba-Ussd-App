@@ -306,13 +306,13 @@
       <div class="sm:flex sm:items-center sm:justify-between">
            <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
             Haba Na Haba Food Bank™ 
-            <a href="#" class="hover:underline text-lightGreen">©2024</a> <br>
+            <%= link_to "©#{Time.now.year}", '#', class: 'hover:underline text-lightGreen' %> <br>
             All Rights Reserved
           </span>
           <br class="block md:hidden">
           <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
             Design & Developed By<br>
-            <a href="#" class="hover:underline text-lightGreen">The Winning Team</a>
+            <%= link_to 'The Winning Team', '#', class: 'hover:underline text-lightGreen' %>
           </span>
           <div class="flex mt-4 sm:justify-center sm:mt-0">
               <%= link_to 'https://www.facebook.com/hnhfoodbank', class: 'text-white hover:text-gray-900 dark:hover:text-white',target: '_blank' do %>

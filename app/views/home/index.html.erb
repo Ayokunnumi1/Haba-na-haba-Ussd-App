@@ -22,13 +22,12 @@
               <li>
                 <a href="javascript:void(0)" onclick="toggleModal('donateModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen dark:hover:text-white lg:dark:hover:bg-transparent">
                 Donate Food
-                <%= render 'shared/modals/donate_modal' %>
                 </a>
               </li>
               <li>
                 <a href="javascript:void(0)" onclick="toggleModal('requestModal')" class="block py-2 px-3 text-darkBlue rounded hover:bg-lightGreen hover:text-white lg:text-white lg:hover:bg-transparent lg:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-lightGreen lg:p-0 lg:active:text-lightGreen lg:dark:hover:bg-transparent">
                 Request Food
-                <%= render 'shared/modals/request_modal' %>
+                
                 </a>
               </li>
               <li>
@@ -278,12 +277,10 @@
                   <ul class="text-white dark:text-gray-400 font-medium">
                   <li class="mb-2">
                     <a href="javascript:void(0)" onclick="toggleModal('privacy-modal')" class="hover:underline">
-                    <%= render 'shared/modals/privacy_modal' %>
                     Privacy Policy</a>
                   </li>
                   <li class="mb-2">
                     <a href="javascript:void(0)" onclick="toggleModal('terms-modal')"  class="hover:underline">
-                    <%= render 'shared/modals/terms_modal' %>
                     Terms of Use</a>
                   </li>
                   </ul>
@@ -344,6 +341,10 @@
       </div>
     </div>
 </footer>
+<%= render 'shared/modals/donate_modal' %>
+<%= render 'shared/modals/request_modal' %>
+<%= render 'shared/modals/privacy_modal' %>
+<%= render 'shared/modals/terms_modal' %>
 <%= render 'shared/modals/volunteer_modal' %>
 <%= render 'shared/modals/contact_modal' %>
 </main>

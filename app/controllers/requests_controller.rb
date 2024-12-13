@@ -22,7 +22,15 @@ class RequestsController < ApplicationController
     render plain: response
   end
 
-  def show; end
+  def show
+    if params[:notification_id].present?
+      notification = current_user.notifications.find_by(id: params[:notification_id])
+      if notification && !notification.read
+        Rails.logger.info "Marking notification #{notification.id} as read"
+        notification.update(read: true)  # Update the clicked notification only
+      end
+    end
+  end
 
   def new
     @request = Request.new

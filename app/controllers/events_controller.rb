@@ -85,6 +85,11 @@ class EventsController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_back(fallback_location: users_path)
+  end
+
   private
 
   def set_event

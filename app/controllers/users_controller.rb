@@ -62,9 +62,9 @@ class UsersController < ApplicationController
       flash[:notice] = 'User was successfully deleted.'
     end
     redirect_to users_path
-rescue StandardError => e
-  redirect_to users_path, alert: handle_destroy_error(e)
-end
+    rescue StandardError => e
+      redirect_to users_path, alert: handle_destroy_error(e)
+    end
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = "You are not authorized to perform this action."

@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
   include EnglishMenu
+
   before_action :set_request, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
@@ -46,6 +47,7 @@ class RequestsController < ApplicationController
     @request = Request.new(request_params)
 
     if @request.save
+      self.notify_branch_managers(@request, current_user)
       redirect_to @request, notice: 'Request was successfully created.'
     else
       @districts = District.all
@@ -56,6 +58,7 @@ class RequestsController < ApplicationController
 
   def update
     if @request.update(request_params)
+      self.notify_request_user(@request, current_user)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
       @districts = District.all
@@ -118,5 +121,30 @@ class RequestsController < ApplicationController
                                     :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
                                     :branch_id, :user_id, :event_id)
+  end
+
+  def notify_branch_managers(request, current_user)
+    branch_managers = User.where(role: 'branch_manager', branch_id: request.branch_id)
+                          .where.not(id: current_user.id)
+
+    branch_managers.each do |manager|
+      Notification.create(
+        user: manager,
+        notifiable: request,
+        message: "A new request has been created in your branch."
+      )
+    end
+  end
+
+  def notify_request_user(request, current_user)
+    return if request.user_id.nil? || request.user_id == current_user.id
+
+    user = User.find(request.user_id)
+
+    Notification.create(
+      user: user,
+      notifiable: request,
+      message: "Your request has been updated."
+    )
   end
 end

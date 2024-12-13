@@ -1,0 +1,6 @@
+<h2>Notifications</h2>
+<% @notifications.each do |notification| %>
+  <div class="notification <%= 'unread' unless notification.read %>">
+    <%= link_to notification.message, notification.target_url, data: { turbo_frame: '_top' }, class: "block p-4 hover:bg-gray-100" %>
+  </div>
+<% end %>

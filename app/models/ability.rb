@@ -65,6 +65,6 @@ class Ability
   end
 
   def guest_permissions
-    cannnot :manage, :all
+    cannot :manage, :all
   end
 end

@@ -1,4 +1,5 @@
 class InventoriesController < ApplicationController
+  load_and_authorize_resource
   include Pagination
 
   before_action :set_request, only: %i[new create edit update]

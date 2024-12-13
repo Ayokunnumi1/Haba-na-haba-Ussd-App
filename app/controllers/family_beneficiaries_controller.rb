@@ -1,4 +1,5 @@
 class FamilyBeneficiariesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_request, only: %i[new create edit update]
   before_action :set_family_beneficiary, only: %i[edit update show destroy]
 

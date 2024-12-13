@@ -117,10 +117,11 @@ class RequestsController < ApplicationController
       render :new
     end
   end
-  rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_back(fallback_location: requests_path)
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to requests_path
   end
+  
 
   private
 

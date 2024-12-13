@@ -108,6 +108,11 @@ class IndividualBeneficiariesController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to individual_beneficiaries_path
+  end
+  
   private
 
   def set_request

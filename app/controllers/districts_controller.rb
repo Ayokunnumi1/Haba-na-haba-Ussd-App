@@ -44,10 +44,11 @@ class DistrictsController < ApplicationController
   rescue StandardError => e
     redirect_to districts_path, alert: handle_destroy_error(e)
   end
-  rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_back(fallback_location: districts_path)
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to districts_path
   end
+  
 
   private
 

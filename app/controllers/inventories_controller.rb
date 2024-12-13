@@ -130,6 +130,11 @@ class InventoriesController < ApplicationController
     end
   end
 
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to inventories_path
+  end
+  
   private
 
   def set_request

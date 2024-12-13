@@ -55,11 +55,11 @@ class BranchesController < ApplicationController
     render json: @counties.map { |county| { id: county.id, name: county.name } }
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_back(fallback_location: users_path)
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to branches_path
   end
-
+  
   private
 
   def set_branch

@@ -9,7 +9,7 @@ module InventoriesFilterable
       inventories = filter_by_donor_type(inventories, params[:donor_type])
       inventories = filter_by_collection_date(inventories, params[:start_date], params[:end_date])
       inventories = filter_by_location(inventories, params[:district_id], params[:county_id], params[:sub_county_id])
-      filter_by_branch(inventories, params[:branch_id])
+      inventories = filter_by_branch(inventories, params[:branch_id])      
     end
 
     private

@@ -9,7 +9,7 @@ module InventoryLoader
     load_inventory_food
     load_inventory_cash_collected
     load_inventory_stock_alert
-    load_inventory_expired
+    load_inventory_other_items_name
     load_inventory_list
   end
 
@@ -25,8 +25,8 @@ module InventoryLoader
     @inventory_stock_alert = Inventory.includes(:request).low_stock
   end
 
-  def load_inventory_expired
-    @inventory_expired = Inventory.includes(:request).expired
+  def load_inventory_other_items_name
+    @inventory_other_items_name = Inventory.includes(:request).by_other_items_name(params[:other_items_name])
   end
 
   def load_inventory_list
@@ -67,7 +67,7 @@ module InventoryLoader
     @food_inventory_count = @inventory_food.count
     @total_cash_donated = @inventory_cash_collected.sum(:collection_amount)
     @low_stock_count = @inventory_stock_alert.count
-    @expired_food = @inventory_expired.count
+    @other_items_name = @inventory_other_items_name.count
   end
 
   def load_filters

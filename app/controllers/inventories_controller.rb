@@ -26,7 +26,8 @@ class InventoriesController < ApplicationController
       county_id: @request.county_id,
       sub_county_id: @request.sub_county_id,
       branch_id: @request.branch_id,
-      residence_address: @request.residence_address
+      residence_address: @request.residence_address,
+      donation_type: params[:type]
     )
     assign_inventory_partial(params[:type])
     load_location_data

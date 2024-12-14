@@ -9,13 +9,6 @@ class HomeController < ApplicationController
     @sub_counties = SubCounty.none
   end
 
-  def edit
-    @districts = District.all
-    @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
-    @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branches = Branch.all
-  end
-
   def create_request
     @request = Request.new(request_params)
 

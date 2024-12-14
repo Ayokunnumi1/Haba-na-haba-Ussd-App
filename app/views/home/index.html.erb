@@ -1,43 +1,42 @@
 <main>
   <section>
     <div class="bg-custom-image bg-cover bg-center w-full h-screen relative bottom-0">
-    <div class="flex justify-center items-center pt-6">
-     <% if notice.present? %>
-      <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
-        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-          </svg>
-          <span class="sr-only">Success</span>
-        </div>
-        <div class="ms-3 text-sm font-normal"><%= notice %></div>
-        <button type="button" class="ms-auto bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
-          <span class="sr-only">Close</span>
-          <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-        </button>
+      <div class="flex justify-center items-center pt-6">
+        <% if notice.present? %>
+          <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+              </svg>
+              <span class="sr-only">Success</span>
+            </div>
+            <div class="ms-3 text-sm font-normal"><%= notice %></div>
+            <button type="button" class="ms-auto bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+              <span class="sr-only">Close</span>
+              <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+            </button>
+          </div>
+        <% end %>
+        <% if alert.present? %>
+          <div id="toast-danger" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+              </svg>
+              <span class="sr-only">Error</span>
+            </div>
+            <div class="ms-3 text-sm font-normal"><%= alert %></div>
+            <button type="button" class="ms-auto bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+              <span class="sr-only">Close</span>
+              <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+            </button>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-
-    <% if alert.present? %>
-      <div id="toast-danger" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
-        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
-          </svg>
-          <span class="sr-only">Error</span>
-        </div>
-        <div class="ms-3 text-sm font-normal"><%= alert %></div>
-        <button type="button" class="ms-auto bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
-          <span class="sr-only">Close</span>
-          <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-        </button>
-      </div>
-    <% end %>
-    </div>
       <nav class="bg-transparent font-Outfit px-2 pt-6 z-50  relative">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <%= link_to root_path, class: 'flex items-center space-x-3 rtl:space-x-reverse' do %>
@@ -87,44 +86,41 @@
       </div>
     </div>
   </section>
- <section id="No_one" 
+  <section id="No_one" 
   class="bg-lightGreen text-white mt-0"
   style="background-image: url('../assets/Flower pattern print.png'); background-size: cover; background-position: center;">
-  <div class="max-w-screen-lg mx-auto px-6 sm:px-12 lg:px-20 py-16">
-    <div class="flex flex-col md:flex-row items-start justify-between gap-8">
-      <!-- Left Side - Main Heading -->
-      <div class="flex-[0.4] md:flex-[0.3] text-left font-Outfit">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-tight">
-          No one <br class="hidden md:block">
-          should ever <br class="hidden md:block" >
-          go hungry
-        </h2>
-      </div>
-
-      <!-- Right Side - Description and Buttons -->
-      <div class="flex-[0.6] md:flex-[0.7] font-Outfit text-sm md:text-base lg:text-lg text-left">
-        <p class="font-light mb-8 leading-relaxed">
-          That's why we connect people with food today and build community power to end hunger at its roots, eliminating barriers to employment.
-        </p>
-
-        <!-- Buttons Section -->
-        <div class="flex flex-wrap gap-4">
-          <!-- Request Food Button -->
-          <button type="button" onclick="toggleModal('requestModal')" 
+    <div class="max-w-screen-lg mx-auto px-6 sm:px-12 lg:px-20 py-16">
+      <div class="flex flex-col md:flex-row items-start justify-between gap-8">
+        <!-- Left Side - Main Heading -->
+        <div class="flex-[0.4] md:flex-[0.3] text-left font-Outfit">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-tight">
+            No one <br class="hidden md:block">
+            should ever <br class="hidden md:block" >
+            go hungry
+          </h2>
+        </div>
+        <!-- Right Side - Description and Buttons -->
+        <div class="flex-[0.6] md:flex-[0.7] font-Outfit text-sm md:text-base lg:text-lg text-left">
+          <p class="font-light mb-8 leading-relaxed">
+            That's why we connect people with food today and build community power to end hunger at its roots, eliminating barriers to employment.
+          </p>
+          <!-- Buttons Section -->
+          <div class="flex flex-wrap gap-4">
+            <!-- Request Food Button -->
+            <button type="button" onclick="toggleModal('requestModal')" 
             class="text-lightGreen bg-white border border-transparent hover:border-white hover:bg-lightGreen hover:text-white focus:ring-4 focus:ring-lightGreen rounded-md px-6 py-3 text-xs md:text-sm transition duration-300">
-            Request Food
-          </button>
-          <!-- Donate Food Button -->
-          <button type="button" onclick="toggleModal('donateModal')" 
+              Request Food
+            </button>
+            <!-- Donate Food Button -->
+            <button type="button" onclick="toggleModal('donateModal')" 
             class="text-white bg-darkBlue hover:bg-opacity-90 focus:ring-4 focus:ring-darkBlue rounded-md px-6 py-3 text-xs md:text-sm transition duration-300">
-            Donate Food
-          </button>
+              Donate Food
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
   <section class="max-w-screen-xl  mx-auto font-Outfit text-darkBlue p-4 flex flex-col justify-center items-center">
     <div class="flex flex-col md:flex-row items-center">
       <div class="w-full md:w-60%">
@@ -238,32 +234,32 @@
             </h4>
             <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
               <div class="p-5 border border-lightGreen rounded-xl dark:border-gray-700">
-              <ol class="list-decimal list-inside  space-y-4">
-                <li>
-                  <strong>Food Collection:</strong> Food banks collect donations from various sources, including:
-                  <ul class="list-disc list-inside ml-6">
-                    <li>Individuals donating non-perishable food items.</li>
-                    <li>Grocery stores and supermarkets providing surplus or unsold food.</li>
-                    <li>Farms and manufacturers offering fresh produce or packaged goods.</li>
-                    <li>Partnerships with local businesses, schools, and community organizations.</li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Storage and Organization:</strong> Once collected, the food is sorted and stored in warehouses to ensure it is safe and ready for distribution. Items are categorized by type, expiration date, and nutritional value.
-                </li>
-                <li>
-                  <strong>Distribution to Partner Agencies:</strong> Food banks typically work with partner organizations, such as shelters, soup kitchens, and community groups, to distribute the food to those in need. These agencies handle direct distribution to individuals and families.
-                </li>
-                <li>
-                  <strong>Emergency and Direct Support:</strong> Some food banks also provide direct support to individuals and families during emergencies, offering food boxes or meals.
-                </li>
-                <li>
-                  <strong>Community Programs and Education:</strong> Food banks often run programs to educate the community about nutrition, food preparation, and reducing food waste.
-                </li>
-                <li>
-                  <strong>Funding and Volunteer Support:</strong> Food banks rely heavily on donations, grants, and volunteers to sustain operations. Volunteers help with food sorting, packing, and distribution.
-                </li>
-              </ol>
+                <ol class="list-decimal list-inside  space-y-4">
+                  <li>
+                    <strong>Food Collection:</strong> Food banks collect donations from various sources, including:
+                    <ul class="list-disc list-inside ml-6">
+                      <li>Individuals donating non-perishable food items.</li>
+                      <li>Grocery stores and supermarkets providing surplus or unsold food.</li>
+                      <li>Farms and manufacturers offering fresh produce or packaged goods.</li>
+                      <li>Partnerships with local businesses, schools, and community organizations.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Storage and Organization:</strong> Once collected, the food is sorted and stored in warehouses to ensure it is safe and ready for distribution. Items are categorized by type, expiration date, and nutritional value.
+                  </li>
+                  <li>
+                    <strong>Distribution to Partner Agencies:</strong> Food banks typically work with partner organizations, such as shelters, soup kitchens, and community groups, to distribute the food to those in need. These agencies handle direct distribution to individuals and families.
+                  </li>
+                  <li>
+                    <strong>Emergency and Direct Support:</strong> Some food banks also provide direct support to individuals and families during emergencies, offering food boxes or meals.
+                  </li>
+                  <li>
+                    <strong>Community Programs and Education:</strong> Food banks often run programs to educate the community about nutrition, food preparation, and reducing food waste.
+                  </li>
+                  <li>
+                    <strong>Funding and Volunteer Support:</strong> Food banks rely heavily on donations, grants, and volunteers to sustain operations. Volunteers help with food sorting, packing, and distribution.
+                  </li>
+                </ol>
               </div>
             </div>
             <!-- Accordion item 3 -->
@@ -278,7 +274,7 @@
             <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
               <div class="p-5 border border-lightGreen rounded-xl dark:border-gray-700">
                 <p class="mb-2">Yes, you will receive a receipt for your donation. For online donations, the receipt is emailed immediately after the transaction. 
-                For in-person donations, a physical receipt is provided. If you need a duplicate, contact our support team.</p>
+                  For in-person donations, a physical receipt is provided. If you need a duplicate, contact our support team.</p>
               </div>
             </div>
             <!-- Accordion item 4 -->
@@ -297,136 +293,130 @@
             </div>
           </div>
         </section>
-       
-<footer id="footer" class="bg-darkBlue dark:bg-gray-900 py-5">
-    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div class="md:flex md:justify-between">
-          <div class="mb-6 md:mb-0 flex-shrink-0">
-              <%= link_to root_path, class: 'flex items-center' do %>
-                <%= image_tag "hnh_admin_mobile_logo.png", class: "h-12 me-3", alt: "Haba na haba Logo" %>
-                <span class="self-center text-2xl font-semibold whitespace-nowrap text-lightGreen">HabaNaHaba</span>
-              <% end %>
-          </div>
-          <div class="grid grid-cols-2 gap-8 sm:gap-2 sm:grid-cols-4 w-full md:ml-10">
-               <div>
-          <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Contact us</h2>
-          <ul class="text-white dark:text-gray-400 font-medium">
-            <li class="mb-4">
-              <p  class="mb-2 flex flex-row items-center uppercase font-Outfit font-medium text-base text-lightGreen">
-                <i class="fas fa-map-marker-alt text-lightGreen me-2"></i>
-                Find us
-              </p>
-              <p class="text-white dark:text-gray-400 font-light font-Outfit text-base uppercase">
-                Busibante Rd, Nabaweesi Close Najjera, Kampala, Uganda
-              </p>
-            </li>
-            <li class="mb-4">
-              <p class="mb-2 flex flex-row items-center uppercase font-Outfit font-medium text-base text-lightGreen">
-                <i class="fas fa-phone-alt text-lightGreen me-2"></i>
-                Call us
-              </p>
-              <div class="flex flex-col">
-                <%= link_to '(256) 782-611246', 'tel:(256) 782-611246', class: 'hover:underline text-lightGreen dark:text-gray-400 font-light font-Outfit text-base' %>
-                <%= link_to '(256) 702-878225', 'tel:(256) 702-878225', class: 'hover:underline text-white dark:text-gray-400 font-light font-Outfit text-base' %>
+        <footer id="footer" class="bg-darkBlue dark:bg-gray-900 py-5">
+          <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div class="md:flex md:justify-between">
+              <div class="mb-6 md:mb-0 flex-shrink-0">
+                <%= link_to root_path, class: 'flex items-center' do %>
+                  <%= image_tag "hnh_admin_mobile_logo.png", class: "h-12 me-3", alt: "Haba na haba Logo" %>
+                  <span class="self-center text-2xl font-semibold whitespace-nowrap text-lightGreen">HabaNaHaba</span>
+                <% end %>
               </div>
-            </li>
-            <li class="mb-4">
-              <p class="mb-2  flex flex-row items-center uppercase font-Outfit font-medium text-base text-lightGreen">
-                <i class="fas fa-envelope text-lightGreen me-2"></i>
-                Email us
-              </p>
-                <%= link_to 'info@hnhfoodbank.org', 'mailto:info@hnhfoodbank.org?subject=Inquiry&body=Hello, I would like to know more about...', class: 'hover:underline text-white dark:text-gray-400 font-light font-Outfit text-base uppercase' %>
-            </li>
-          </ul>
-        </div>
-              <div>
+              <div class="grid grid-cols-2 gap-8 sm:gap-2 sm:grid-cols-4 w-full md:ml-10">
+                <div>
+                  <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Contact us</h2>
+                  <ul class="text-white dark:text-gray-400 font-medium">
+                    <li class="mb-4">
+                      <p  class="mb-2 flex flex-row items-center uppercase font-Outfit font-medium text-base text-lightGreen">
+                        <i class="fas fa-map-marker-alt text-lightGreen me-2"></i>
+                        Find us
+                      </p>
+                      <p class="text-white dark:text-gray-400 font-light font-Outfit text-base uppercase">
+                        Busibante Rd, Nabaweesi Close Najjera, Kampala, Uganda
+                      </p>
+                    </li>
+                    <li class="mb-4">
+                      <p class="mb-2 flex flex-row items-center uppercase font-Outfit font-medium text-base text-lightGreen">
+                        <i class="fas fa-phone-alt text-lightGreen me-2"></i>
+                        Call us
+                      </p>
+                      <div class="flex flex-col">
+                        <%= link_to '(256) 782-611246', 'tel:(256) 782-611246', class: 'hover:underline text-lightGreen dark:text-gray-400 font-light font-Outfit text-base' %>
+                        <%= link_to '(256) 702-878225', 'tel:(256) 702-878225', class: 'hover:underline text-white dark:text-gray-400 font-light font-Outfit text-base' %>
+                      </div>
+                    </li>
+                    <li class="mb-4">
+                      <p class="mb-2  flex flex-row items-center uppercase font-Outfit font-medium text-base text-lightGreen">
+                        <i class="fas fa-envelope text-lightGreen me-2"></i>
+                        Email us
+                      </p>
+                      <%= link_to 'info@hnhfoodbank.org', 'mailto:info@hnhfoodbank.org?subject=Inquiry&body=Hello, I would like to know more about...', class: 'hover:underline text-white dark:text-gray-400 font-light font-Outfit text-base uppercase' %>
+                    </li>
+                  </ul>
+                </div>
+                <div>
                   <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Quick access</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
-                  <li class="mb-2">
-                    <%= link_to 'Make Donation', 'javascript:void(0)', onclick: "toggleModal('donateModal')", class: 'hover:underline' %>
-                  </li>
-                  <li class="mb-2">
-                    <%= link_to 'Request Food', 'javascript:void(0)', onclick: "toggleModal('requestModal')", class: 'hover:underline' %>
-                  </li>
+                    <li class="mb-2">
+                      <%= link_to 'Make Donation', 'javascript:void(0)', onclick: "toggleModal('donateModal')", class: 'hover:underline' %>
+                    </li>
+                    <li class="mb-2">
+                      <%= link_to 'Request Food', 'javascript:void(0)', onclick: "toggleModal('requestModal')", class: 'hover:underline' %>
+                    </li>
                   </ul>
-              </div>
-             
-              <div>
+                </div>
+                <div>
                   <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Legal</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
-                  <li class="mb-2">
-                    <%= link_to 'Privacy Policy', 'javascript:void(0)', onclick: "toggleModal('privacy-modal')", class: 'hover:underline' %>
-                  </li>
-                  <li class="mb-2">
-                    <%= link_to 'Terms of Use', 'javascript:void(0)', onclick: "toggleModal('terms-modal')", class: 'hover:underline' %>
-                  </li>
+                    <li class="mb-2">
+                      <%= link_to 'Privacy Policy', 'javascript:void(0)', onclick: "toggleModal('privacy-modal')", class: 'hover:underline' %>
+                    </li>
+                    <li class="mb-2">
+                      <%= link_to 'Terms of Use', 'javascript:void(0)', onclick: "toggleModal('terms-modal')", class: 'hover:underline' %>
+                    </li>
                   </ul>
-              </div>
-               <div>
+                </div>
+                <div>
                   <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Follow us</h2>
                   <ul class="text-white dark:text-gray-400 font-medium">
-                      <li class="mb-4">
-                        <%= link_to 'Facebook', 'https://www.facebook.com/hnhfoodbank', { target: "_blank", class: "hover:underline" } %>
-                      </li>
-                      <li  class="mb-4">
+                    <li class="mb-4">
+                      <%= link_to 'Facebook', 'https://www.facebook.com/hnhfoodbank', { target: "_blank", class: "hover:underline" } %>
+                    </li>
+                    <li  class="mb-4">
                       <%= link_to 'Twitter', 'https://x.com/hnhfoodbank', { target: "_blank", class: "hover:underline" } %>
-                      </li>
-                      <li  class="mb-4">
+                    </li>
+                    <li  class="mb-4">
                       <%= link_to 'Youtube', 'https://www.youtube.com/channel/UCYCwLfY_LQhHOfe0lRWgrng', { target: "_blank", class: "hover:underline" } %>
-                      </li>
-                       <li  class="mb-4">
+                    </li>
+                    <li  class="mb-4">
                       <%= link_to 'Linkedin', 'https://www.linkedin.com/company/hnhfoodbank/posts/?feedView=all', { target: "_blank", class: "hover:underline" } %>
-                      </li>
+                    </li>
                   </ul>
+                </div>
               </div>
-          </div>
-      </div>
-      <hr class="my-6 border-lightGreen sm:mx-auto lg:my-8" />
-      <div class="sm:flex sm:items-center sm:justify-between">
-           <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
-            Haba Na Haba Food Bank™ 
-            <%= link_to "©#{Time.now.year}", '#', class: 'hover:underline text-lightGreen' %> <br>
-            All Rights Reserved
-          </span>
-          <br class="block md:hidden">
-          <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
-            Design & Developed By<br>
-            <%= link_to 'The Winning Team', '#', class: 'hover:underline text-lightGreen' %>
-          </span>
-          <div class="flex mt-4 sm:justify-center sm:mt-0">
-              <%= link_to 'https://www.facebook.com/hnhfoodbank', class: 'text-white hover:text-gray-900 dark:hover:text-white',target: '_blank' do %>
+            </div>
+            <hr class="my-6 border-lightGreen sm:mx-auto lg:my-8" />
+            <div class="sm:flex sm:items-center sm:justify-between">
+              <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
+                Haba Na Haba Food Bank™ 
+                <span class= "hover:underline text-lightGreen">©<%= Time.now.year %></span><br>
+                All Rights Reserved
+              </span>
+              <br class="block md:hidden">
+              <span class="text-sm text-white text-center dark:text-gray-400 font-Outfit">
+                Design & Developed By<br>
+                <%= link_to 'The Winning Team', '#', class: 'hover:underline text-lightGreen' %>
+              </span>
+              <div class="flex mt-4 sm:justify-center sm:mt-0">
+                <%= link_to 'https://www.facebook.com/hnhfoodbank', class: 'text-white hover:text-gray-900 dark:hover:text-white',target: '_blank' do %>
                   <i class="fa-brands fa-facebook-f"></i>
                   <span class="sr-only">Facebook page</span>
                 <% end %>
-
                 <%= link_to 'https://x.com/hnhfoodbank', class: 'text-white hover:text-gray-900 dark:hover:text-white ms-5', target: '_blank' do %>
                   <i class="fa-brands fa-x-twitter"></i>
                   <span class="sr-only">X community</span>
                 <% end %>
-
                 <%= link_to 'https://www.youtube.com/channel/UCYCwLfY_LQhHOfe0lRWgrng', class: 'text-white hover:text-gray-900 dark:hover:text-white ms-5', target: '_blank' do %>
                   <i class="fa-brands fa-youtube"></i>
                   <span class="sr-only">youtube</span>
                 <% end %>
-
                 <%= link_to 'https://www.linkedin.com/company/hnhfoodbank/posts/?feedView=all', class: 'text-white hover:text-gray-900 dark:hover:text-white ms-5', target: '_blank' do %>
                   <i class="fa-brands fa-linkedin"></i>
                   <span class="sr-only">linkedin</span>
                 <% end %>
-
+              </div>
+            </div>
           </div>
-      </div>
-    </div>
-</footer>
-<%= render 'shared/modals/donate_modal' %>
-<%= render 'shared/modals/request_modal' %>
-<%= render 'shared/modals/privacy_modal' %>
-<%= render 'shared/modals/terms_modal' %>
-<%= render 'shared/modals/volunteer_modal' %>
-<%= render 'shared/modals/contact_modal' %>
-<button id="scrollToTopBtn" class="fixed bottom-4 right-4 bg-lightGreen text-white p-3 rounded-full shadow-lg hover:bg-darkGreen focus:outline-none focus:ring-2 focus:ring-lightGreen hidden">
-  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
-  </svg>
-</button>
-</main>
+        </footer>
+        <%= render 'shared/modals/donate_modal' %>
+        <%= render 'shared/modals/request_modal' %>
+        <%= render 'shared/modals/privacy_modal' %>
+        <%= render 'shared/modals/terms_modal' %>
+        <%= render 'shared/modals/volunteer_modal' %>
+        <%= render 'shared/modals/contact_modal' %>
+        <button id="scrollToTopBtn" class="fixed bottom-4 right-4 bg-lightGreen text-white p-3 rounded-full shadow-lg hover:bg-darkGreen focus:outline-none focus:ring-2 focus:ring-lightGreen hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+          </svg>
+        </button>
+      </main>

@@ -6,6 +6,10 @@
       <%= f.text_field :donor_name, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
+      <%= f.label :donation_type, "Donation Type", class: "font-semibold text-darkBlue mb-2" %>
+      <%= f.text_field :donation_type, value: @inventory.donation_type, readonly: true, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen bg-gray-100" %>
+    </div>
+    <div class="flex flex-col">
       <%= f.label :residence_address, "Residence Address", class: "font-semibold text-darkBlue mb-2" %>
       <%= f.text_field :residence_address, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
@@ -16,10 +20,6 @@
     <div class="flex flex-col">
       <%= f.label :donor_type, "Donor Type", class: "font-semibold text-darkBlue mb-2" %>
       <%= f.select :donor_type, options_for_select(["individual_donor", "family_donor", "organization_donor"], @inventory.donor_type), { prompt: 'Select donor type' }, id: "donor-type-select", class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
-    </div>
-    <div class="flex flex-col">
-      <%= f.label :donation_type, "Donation Type", class: "font-semibold text-darkBlue mb-2" %>
-      <%= f.select :donation_type, options_for_select(["food", "cash", "cloth", "other_items"], @inventory.donation_type), { prompt: 'Select donation type' }, class: "mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-lightGreen focus:border-lightGreen" %>
     </div>
     <div class="flex flex-col">
       <%= f.label :amount, "Amount", class: "font-semibold text-darkBlue mb-2" %>

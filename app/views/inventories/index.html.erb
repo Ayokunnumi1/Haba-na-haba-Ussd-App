@@ -205,23 +205,23 @@
         <tr class="bg-white border-b hover:bg-gray-50">
           <!-- Donation Type -->
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-            <%= inventory.donation_type.titleize %>
+            <%= inventory.donation_type %>
           </th>
           <!-- Donor Type -->
           <td class="px-6 py-4">
-            <%= inventory.donor_type %>
+            <%= inventory.donor_type.present? ? inventory.donor_type.titleize : 'N/A' %>
           </td>
           <!-- Collection Date -->
           <td class="px-6 py-4">
-            <%= inventory.collection_date %>
+            <%= inventory.collection_date.present? ? inventory.collection_date : 'N/A' %>
           </td>
           <!-- Place of collection -->
           <td class="px-6 py-4">
-            <%= inventory.place_of_collection %>
+            <%= inventory.place_of_collection.present? ? inventory.place_of_collection : 'N/A' %>
           </td>
           <!-- Branch -->
           <td class="px-6 py-4">
-            <%= inventory.branch&.name %>
+            <%= inventory.branch&.name.present? ? inventory.branch&.name : 'N/A'  %>
           </td>
           <!-- Dropdown Menu for Actions -->
           <td class="px-6 py-4">

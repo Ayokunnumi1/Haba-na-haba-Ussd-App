@@ -27,8 +27,10 @@ const toggleDropdown = (requestId) => {
           link.style.display = "block";
         }
       } else if (
-        requestType === "donation_request" ||
-        requestType === "others"
+        requestType === "food_donation" ||
+        requestType === "cash_donation" ||
+        requestType === "cloth_donation" ||
+        requestType === "other_donation"
       ) {
         // Hide specific links for donation_request and others
         if (

@@ -3,8 +3,9 @@
   <div class="flex flex-row justify-between items-center font-Outfit">
     <div class="ssm:block mmd:hidden">
       <%= button_to new_user_path, method: :get do %>
-        <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
-      <% end %>
+          <div class="w-6 h-6 bg-lightGreen rounded-full flex items-center justify-center">
+            <i class="fas fa-plus text-white"></i>
+          </div>      <% end %>
     </div>
     <p class="ssm:hidden mmd:block font-bold mmd:text-lg">Staffs</p>
     <div class="ssm:hidden mmd:block p-4 bg-lightGreen text-white rounded-xl">

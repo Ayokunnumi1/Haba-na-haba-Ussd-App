@@ -5,7 +5,7 @@ module InventoryLoader
     before_action :set_pagination_params, only: [:index]
   end
 
-  def load_inventories        
+  def load_inventories
     load_inventory_list
     calculate_weekly_food_inventory
     calculate_weekly_cash_inventory
@@ -68,7 +68,7 @@ module InventoryLoader
       .per(@per_page)
   end
 
-  def calculate_counts    
+  def calculate_counts
     @total_inventory_count = Inventory.count
     @weekly_food_inventory_count = calculate_weekly_food_inventory
     @weekly_cash_inventory_count = calculate_weekly_cash_inventory

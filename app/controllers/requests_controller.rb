@@ -29,6 +29,7 @@ class RequestsController < ApplicationController
     @counties = County.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
+    @branches = Branch.none
   end
 
   def edit

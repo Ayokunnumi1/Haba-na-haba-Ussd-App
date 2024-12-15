@@ -10,6 +10,21 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        "xxs": "10px",
+        "1xxs": "11px",
+        "xmxs": "15px",
+        "3.5xl":"32px",
+        "3.8xl":"40px",
+      },
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+        '3xl': '1920px',
+      },
       spacing: {
         '16.5': '4.5rem', 
       },
@@ -42,6 +57,8 @@ module.exports = {
         "users-image": "url('/assets/users-image.svg')",
         "users-show": "url('/assets/users-show.svg')",
         'login-bg': "url('/assets/Shape.svg')",
+        "custom-image": "url('/assets/african-kid.png')",
+        "community-image":"url('/assets/community.png')",
       },
       screens: {
         ssm: "200px",
@@ -52,10 +69,10 @@ module.exports = {
     },
   },
   plugins: [
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/container-queries"),
     require("flowbite/plugin"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/container-queries"),
     require('tailwind-scrollbar'),
     
   ],

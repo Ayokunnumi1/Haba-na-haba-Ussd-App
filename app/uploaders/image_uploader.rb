@@ -1,4 +1,3 @@
-# app/uploaders/image_uploader.rb
 class ImageUploader < CarrierWave::Uploader::Base
   include ImageProcessing::MiniMagick
 
@@ -9,7 +8,6 @@ class ImageUploader < CarrierWave::Uploader::Base
       img.format('webp') do |c|
         c.quality '80'
       end
-      img
     end
   end
 end

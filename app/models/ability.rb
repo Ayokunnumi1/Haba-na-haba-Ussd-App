@@ -36,7 +36,7 @@ class Ability
   def branch_manager_permissions(user)
     can :read, User
     can :read, Branch
-    can %i[create update], Branch, id: user.branch_id
+    can :update, Branch, id: user.branch_id
     cannot %i[create destroy], Branch
     can :manage, User, role: 'volunteer'
     cannot :update, User, role: 'volunteer'

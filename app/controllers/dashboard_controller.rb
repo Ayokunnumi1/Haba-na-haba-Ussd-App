@@ -34,11 +34,10 @@ class DashboardController < ApplicationController
 
   def build_guidelines
     [
-      { title: 'In Progress Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).count, icon: 'LoanIcons1.svg', link: '#' },
-      { title: 'Pending Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).count, icon: 'LoanIcons2.png', link: '#' },
-      { title: 'Low Stock', color: '#FFE0E0', units: 'Price', count: Inventory.where('expire_date <= ?', Date.today + 15).count, icon: 'LoanIcons3.svg', link: '#' },
-      { title: 'Expiring Soon', color: '#FFFCE0', units: 'Pieces', count: Inventory.where('expire_date <= ?', Date.today + 15).count, icon: 'LoanIcons4.png', link: '#' },
-      { title: 'Food Events', color: '#FFFCE0', units: 'Event', count: Event.count, icon: 'LoanIcons4.png', link: '#' }
+      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).count, icon: 'LoanIcons1.svg', link: '#' },
+      { title: 'Approved Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).count, icon: 'LoanIcons2.svg', link: '#' },
+      { title: 'Low Stock Alert', color: '#FFE0E0', units: 'Price', count: Inventory.where('expire_date <= ?', Date.today + 15).count, icon: 'LoanIcons3.svg', link: '#' },      
+      { title: 'Food Events', color: '#FFFCE0', units: 'Event', count: Event.count, icon: 'LoanIcons4.svg', link: '#' }
     ]
   end
 

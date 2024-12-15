@@ -4,7 +4,7 @@ class RequestsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
-    @districts = District.all    
+    @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)

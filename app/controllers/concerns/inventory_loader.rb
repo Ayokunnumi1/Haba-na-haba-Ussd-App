@@ -5,28 +5,33 @@ module InventoryLoader
     before_action :set_pagination_params, only: [:index]
   end
 
-  def load_inventories
-    load_inventory_food
-    load_inventory_cash_collected
-    load_inventory_stock_alert
-    load_inventory_other_items_name
+  def load_inventories        
     load_inventory_list
-  end
-
-  def load_inventory_food
-    @inventory_food = Inventory.includes(:request).by_food_name(params[:food_name])
-  end
-
-  def load_inventory_cash_collected
-    @inventory_cash_collected = Inventory.includes(:request).by_collection_amount(params[:collection_amount])
+    calculate_weekly_food_inventory
+    calculate_weekly_cash_inventory
+    calculate_weekly_cloth_inventory
   end
 
   def load_inventory_stock_alert
     @inventory_stock_alert = Inventory.includes(:request).low_stock
   end
 
-  def load_inventory_other_items_name
-    @inventory_other_items_name = Inventory.includes(:request).by_other_items_name(params[:other_items_name])
+  def calculate_weekly_food_inventory
+    start_of_week = Time.current.beginning_of_week
+    end_of_week = Time.current.end_of_week
+    Inventory.where(donation_type: 'food', created_at: start_of_week..end_of_week).count
+  end
+
+  def calculate_weekly_cash_inventory
+    start_of_week = Time.current.beginning_of_week
+    end_of_week = Time.current.end_of_week
+    Inventory.where(donation_type: 'cash', created_at: start_of_week..end_of_week).sum(:collection_amount)
+  end
+
+  def calculate_weekly_cloth_inventory
+    start_of_week = Time.current.beginning_of_week
+    end_of_week = Time.current.end_of_week
+    Inventory.where(donation_type: 'cloth', created_at: start_of_week..end_of_week).count
   end
 
   def load_inventory_list
@@ -63,11 +68,11 @@ module InventoryLoader
       .per(@per_page)
   end
 
-  def calculate_counts
-    @food_inventory_count = @inventory_food.count
-    @total_cash_donated = @inventory_cash_collected.sum(:collection_amount)
-    @low_stock_count = @inventory_stock_alert.count
-    @other_items_name = @inventory_other_items_name.count
+  def calculate_counts    
+    @total_inventory_count = Inventory.count
+    @weekly_food_inventory_count = calculate_weekly_food_inventory
+    @weekly_cash_inventory_count = calculate_weekly_cash_inventory
+    @weekly_cloth_inventory_count = calculate_weekly_cloth_inventory
   end
 
   def load_filters

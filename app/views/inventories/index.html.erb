@@ -9,12 +9,12 @@
         </div>
         <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-lightGray">
           <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Food</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @food_inventory_count %></p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Inventory</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_inventory_count.presence || 'N/A' %></p>
           </div>
           <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Cash(ugx)</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_cash_donated %></p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Cash Per Wk(ugx)</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @weekly_cash_inventory_count.presence || 'N/A' %></p>
           </div>
         </div>
       </div>
@@ -27,13 +27,13 @@
         </div>
         <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-black">
           <div class="flex flex-col items-start font-thin">
-            <p class="text-red-600 text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Low food stock</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @low_stock_count %></p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Food per wk</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @weekly_food_inventory_count.presence || 'N/A' %></p>
           </div>
           <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Other Items</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @other_items_name %></p>
-          </div>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Cloth per wk</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @weekly_cloth_inventory_count.presence || 'N/A' %></p>
+          </div>          
         </div>
       </div>
     </div>

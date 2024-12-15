@@ -11,12 +11,11 @@ class Inventory < ApplicationRecord
   validates :phone_number, format: { with: /\A[\d+]+\z/, message: 'only allows numbers' }
   validates :collection_amount, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
-  scope :by_food_name, ->(food_name) {
-  Rails.logger.info "Filtering by food_name: #{food_name}"  
+  scope :by_food_name, ->(food_name) {  
   where(food_name: food_name) if food_name.present? }
   scope :by_collection_amount, ->(amount) { where(collection_amount: amount) if amount.present? }
   scope :by_other_items_name, ->(other_items_name) { where(other_items_name: other_items_name) if other_items_name.present? }
-
+  
   scope :by_donation_type, ->(type) { where(donation_type: type) if type.present? }
   scope :by_donor_type, ->(type) { where(donor_type: type) if type.present? }
   scope :by_collection_date, ->(date) { where(collection_date: date) if date.present? }

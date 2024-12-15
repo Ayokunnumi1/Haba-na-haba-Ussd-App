@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
+  root "home#index"
+  post "create_request", to: "home#create_request"
   get 'home/index'
   post  'ussd_request', to: 'requests#ussd'
   resources :users
@@ -27,6 +29,7 @@ end
     collection do
       get :load_counties
       get :load_sub_counties
+      get :load_branches 
     end
     resource :individual_beneficiary, only: [:new, :create, :edit, :update] do
       collection do

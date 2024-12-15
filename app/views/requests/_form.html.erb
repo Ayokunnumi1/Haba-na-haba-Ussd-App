@@ -44,17 +44,21 @@
     </div>
     <div>
       <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
-      <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
-    </div>
-
-
-    
-      <div>
-        <%= form.label :is_selected, "Approved?", class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.select :is_selected, [["Yes", true], ["No", false]], { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+      <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { id: 'branch-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>    
       </div>
-  
 
+      <div>
+      <%= form.label :is_selected, "Approved?", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.select :is_selected, [["Yes", true], ["No", false]], { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+    </div>
+    <div>
+      <%= form.label :user_id, "User", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.collection_select :user_id, @users, :id,
+  ->(user) { "#{user.first_name} #{user.last_name}" },
+  { prompt: 'Select a user' },
+  { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+    </div>
+    
 
     <div class="md:col-span-2">
       <%= form.submit class: "text-white bg-lightGreen hover:bg-darkGreen focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
@@ -62,5 +66,10 @@
     <div>
       <%= link_to 'Back', (event.present? ? event_request_path(event) : requests_path), class: 'inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
     </div>
+    </div>
+
+    <!-- Add the is_selected dropdown select -->
+
+    
   </div>
 <% end %>

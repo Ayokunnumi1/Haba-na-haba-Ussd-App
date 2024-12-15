@@ -34,6 +34,7 @@ class EventsController < ApplicationController
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
+    @users = User.where(role: 'volunteer')
     @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
 

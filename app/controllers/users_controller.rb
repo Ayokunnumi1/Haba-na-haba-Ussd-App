@@ -20,7 +20,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to users_path, notice: 'user was successfully created.'
     else
-      render :new
+      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +34,8 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
-      render :edit
+      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      render :edit, status: :unprocessable_entity
     end
   end
 

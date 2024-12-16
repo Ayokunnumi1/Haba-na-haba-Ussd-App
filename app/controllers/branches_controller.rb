@@ -13,8 +13,8 @@ class BranchesController < ApplicationController
 
   def new
     @branch = Branch.new
-    @branches = Branch.all
-    @counties = County.none
+    @districts = District.left_joins(:branch_districts)
+                       .where(branch_districts: { id: nil })
   end
 
   def edit; end
@@ -25,6 +25,8 @@ class BranchesController < ApplicationController
     if @branch.save
       redirect_to @branch, notice: 'Branch was successfully created.'
     else
+      @districts = District.left_joins(:branch_districts)
+      .where(branch_districts: { id: nil })
       flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity
     end
@@ -49,13 +51,6 @@ class BranchesController < ApplicationController
     redirect_to branches_path, alert: handle_destroy_error(e)
   end
 
-  def load_counties
-    district_ids = params[:district_ids].split(',')
-    @counties = County.where(district_id: district_ids)
-
-    render json: @counties.map { |county| { id: county.id, name: county.name } }
-  end
-
   private
 
   def set_branch
@@ -71,8 +66,5 @@ class BranchesController < ApplicationController
   def load_districts
     @districts = District.all
   end
-
-  def load_counties_for_branch
-    @counties = @branch&.districts&.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
-  end
+  
 end

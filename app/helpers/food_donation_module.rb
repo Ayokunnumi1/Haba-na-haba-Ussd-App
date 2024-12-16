@@ -16,14 +16,14 @@ module FoodDonationModule
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No matching district found.' unless selected_district
 
-    # Create donation request
     Request.create(
       phone_number:,
       name: request_name,
       request_type: 'food_donation',
+      amount: donation_amount,
+      food_type:,
+      food_name:,
       district_id: selected_district.id,
-      county_id: selected_county.id,
-      sub_county_id: selected_sub_county.id,
       branch_id: branch.id
     )
 

@@ -2,7 +2,7 @@ module EnglishMenu
   include FoodRequestModule
   include FoodDonationModule
   include OtherDonationModule
-
+  
   MENU_ACTIONS = {
     '1' => {
       module: FoodRequestModule,
@@ -12,23 +12,25 @@ module EnglishMenu
       module: FoodDonationModule,
       process_method: :process_request,
       extra_steps: [
-        "What are you donating:\n1. Fresh Food\n2. Dry Food",
-        'Enter food name'
+        "Choose type of food:\n1. Fresh Food\n2. Dry Food",
+        'Enter food name',
+        'Enter the donation amount (kgs)'
       ]
     },
     '3' => {
       module: OtherDonationModule,
       process_method: :process_menu_request,
       extra_steps: [
-        "Choose your Donation.\n1. Cash\n2. Clothing\n3. Others",
+        "Choose your Donation.\n1. Cash\n2. Clothing\n3. Other",
         'Enter the donation Amount'
       ]
     }
   }.freeze
 
   def self.process_menu(text, phone_number, session)
-    return welcome_menu if text.blank?
 
+    return welcome_menu if text.blank?
+    
     action, *inputs = text.split('*')
     action_config = MENU_ACTIONS[action]
 
@@ -65,14 +67,6 @@ module EnglishMenu
 
   def self.enter_district
     'CON Enter your District'
-  end
-
-  def self.enter_sub_county
-    'CON Enter your Sub-County'
-  end
-
-  def self.enter_county
-    'CON Enter your County'
   end
 
   def self.invalid_choice

@@ -1,283 +1,373 @@
-<section class="">
-  <!-- Two Cards -->
-  <div class="font-Outfit flex w-full justify-center gap-3 items-stretch px-2">  
-    <!-- Card 1 -->
-    <div class="flex-1 p-2">
-      <div class="px-3 py-4 sm:px-4 sm:py-6 rounded-xl bg-lightGreen shadow-lg transition-shadow hover:shadow-2xl flex flex-col items-start space-y-3 sm:space-y-6">
-        <div class="mb-2 sm:mb-4 bg-gradient-to-r from-green-400 to-green-600 p-2 rounded-full">
-          <i class="fa-regular fa-folder text-white text-lg sm:text-xl lg:text-2xl"></i>
-        </div>
-        <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-lightGray">
-          <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Inventory</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_inventory_count.presence || 'N/A' %></p>
-          </div>
-          <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Cash Per Wk(ugx)</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @weekly_cash_inventory_count.presence || 'N/A' %></p>
-          </div>
-        </div>
+<div class="md:flex-row flex space-x-4">
+  <a href="#" class="flex flex-col items-start w-1/2 p-2 bg-[#6DC13D] rounded-lg shadow-md text-white">
+    <div class="flex items-center space-x-2">
+    </div>
+    <div class="content-start flex w-full">
+      <div class="flex flex-col w-1/2 mt-4">
+        <span class="">Total Food Amount</span>
+        <span class=""><%= @inventory_food.count %></span>
+      </div>
+      <div class="grow flex flex-col mt-4 w-1/2">
+        <span class="">Donated</span>
+        <span class=""><%= @inventory_donated.count %> 86%</span>
       </div>
     </div>
-    <!-- Card 2 -->
-    <div class="flex-1 p-2">
-      <div class="px-3 py-4 sm:px-4 sm:py-6 rounded-xl bg-white shadow-lg transition-shadow hover:shadow-2xl flex flex-col items-start space-y-3 sm:space-y-6">
-        <div class="mb-2 sm:mb-4 bg-gradient-to-r from-gray-400 to-gray-600 p-2 rounded-full">
-          <i class="fa-solid fa-user-group text-white text-lg sm:text-xl lg:text-2xl"></i>
+  </a>
+  <div class="flex flex-col w-1/2">
+    <a href="#" class="flex flex-col items-start p-2 rounded-lg shadow-md">
+      <div class="flex justify-between items-center space-x-2">
+        <div class="flex items-center space-x-2">
+          <%= image_tag 'users.svg', alt: 'Selected', class: 'icon-class' %>
         </div>
-        <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-black">
-          <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Food per wk</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @weekly_food_inventory_count.presence || 'N/A' %></p>
-          </div>
-          <div class="flex flex-col items-start font-thin">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Cloth per wk</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @weekly_cloth_inventory_count.presence || 'N/A' %></p>
-          </div>          
+        <p class="font-weight-100 ">This Week </p>
+      </div>
+      <div class="content-start flex w-full">
+        <div class="flex flex-col w-1/2 mt-4">
+          <span class="">Low stock alert</span>
+          <span class=""><%= @inventory_stock_alert.count %> </span>
+        </div>
+        <div class=" grow flex flex-col mt-4 w-1/2">
+          <span class="">Expired</span>
+          <span class=""><%= @inventory_expired.count %> </span>
         </div>
       </div>
-    </div>
+    </a>
   </div>
-  <!-- Section -->
-  <div class="font-Outfit flex justify-between items-center p-5">
-    <!-- Small screen remove button -->
-    <button id="clear-filters-small" class="md:hidden bg-gray-200 p-3 rounded-full flex justify-center items-center shadow-md hover:bg-red-100 transition-all">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-    <!-- Page title for medium and larger screens -->
-    <p class="hidden md:block font-semibold text-lg text-gray-800">Inventories</p>
-    <div class="flex items-center space-x-4">
-      <!-- Remove button for medium and larger screens -->
-      <div id="clear-filters-large" class="hidden md:flex items-center space-x-2 bg-red-100 hover:bg-red-200 px-4 py-2 rounded-lg shadow-md transition-all cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-        <p class="text-sm font-medium text-gray-800">Clear</p>
-      </div>
-      <!-- Filter button -->
-      <button id="filter-modal-button" class="border-2 border-gray-300 hover:bg-gray-100 focus:outline-none px-4 py-2 flex items-center space-x-2 rounded-lg shadow-md transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-6.6 6.6a1 1 0 00-.293.707V17a1 1 0 01-.293.707l-2 2A1 1 0 0110 20v-3.586a1 1 0 00-.293-.707L3.293 6.707A1 1 0 013 6V4z" />
-        </svg>
-        <span class="text-sm font-medium text-gray-800">Filter</span>
-      </button>
-    </div>
-  </div>
-  <!-- Clear Filters Form -->
-  <%= form_with url: inventories_path, method: :get, id: "clear-filters-form", local: true do |f| %>
-    <%= f.hidden_field :donor_name, value: nil %>
-    <%= f.hidden_field :donation_type, value: nil %>
-    <%= f.hidden_field :donor_type, value: nil %>
-    <%= f.hidden_field :start_date, value: nil %>
-    <%= f.hidden_field :end_date, value: nil %>
-    <%= f.hidden_field :district_id, value: nil %>
-    <%= f.hidden_field :county_id, value: nil %>
-    <%= f.hidden_field :sub_county_id, value: nil %>
-    <%= f.hidden_field :branch_id, value: nil %>
-  <% end %>
-  <!-- Filter Modal -->
-  <div id="filter-modal" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-50 flex justify-center items-center p-4">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl p-6 max-h-full overflow-y-auto">
-      <div class="flex justify-between items-center pb-3 border-b">
-        <h3 class="text-lg font-medium text-gray-900">Filter Inventories</h3>
-        <button id="close-modal-button" class="text-gray-400 hover:text-gray-600">
-          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+</div>
+<section class="md:flex md:justify-between mt-4 mb-4">
+  <h3 class="font-bold mb-4 mx-8 hidden">Inventory Items</h3>
+  <div class="flex justify-end space-x-4">
+    <!-- Search Form -->
+    <form class="max-w-md hidden md:block" action="<%= inventories_path %>" method="get">
+      <div class="relative w-full">
+        <input type="search" id="input-search" name="query" class="block p-2.5 pl-8 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Search" required />
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
           </svg>
-        </button>
+        </div>
       </div>
-      <!-- Filter Form -->
-      <%= form_with url: inventories_path, method: :get, local: true, class: "space-y-6 mt-4" do |f| %>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="flex flex-col">
-            <%= f.label :donor_name, "Donor Name", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.text_field :donor_name, value: params[:donor_name], class: "mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :donation_type, "Donation Type", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.select :donation_type, options_for_select(["food", "cash", "cloth", "other_items"], params[:donation_type]), { prompt: 'Select donation type' }, class: "mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :donor_type, "Donor Type", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.select :donor_type, options_for_select(["individual_donor", "family_donor", "organization_donor"], params[:donor_type]), { prompt: 'Select donor type' }, class: "mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :start_date, "Start Date", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.date_field :start_date, value: params[:start_date], class: "mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :end_date, "End Date", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.date_field :end_date, value: params[:end_date], class: "mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :district_id, "District", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: params[:district_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :county_id, "County", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: params[:county_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :sub_county_id, "Sub County", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: params[:sub_county_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
-          </div>
-          <div class="flex flex-col">
-            <%= f.label :branch_id, "Branch", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :branch_id, @branches, :id, :name, { include_blank: "Select Branch", selected: params[:branch_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
-          </div>
-        </div>
-        <div class="flex justify-end mt-6">
-          <%= f.submit "Apply Filters", class: "py-3 px-6 bg-lightGreen text-white font-bold rounded-md shadow-sm hover:bg-green-700 transition-all" %>
-        </div>
-      <% end %>
+    </form>
+    <!-- Filter Button -->
+    <div id="filter-action" class="border-gray-950 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
+      </svg>
+      <span class="ml-2">Filter</span>
     </div>
-  </div>
-  <!-- Table -->
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-      <tr>
-        <th scope="col" class="px-6 py-3 text-left">
-          <span class="flex items-center gap-2">
-            Donation Type
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
-              <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
-              <path d="M9.33366 11.8333H6.66699C6.39366 11.8333 6.16699 11.6066 6.16699 11.3333C6.16699 11.0599 6.39366 10.8333 6.66699 10.8333H9.33366C9.60699 10.8333 9.83366 11.0599 9.83366 11.3333C9.83366 11.6066 9.60699 11.8333 9.33366 11.8333Z" fill="#00092E"/>
-            </svg>
-          </span>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <span class="flex items-center gap-2">
-            Donor Type
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
-              <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
-              <path d="M9.33366 11.8333H6.66699C6.39366 11.8333 6.16699 11.6066 6.16699 11.3333C6.16699 11.0599 6.39366 10.8333 6.66699 10.8333H9.33366C9.60699 10.8333 9.83366 11.0599 9.83366 11.3333C9.83366 11.6066 9.60699 11.8333 9.33366 11.8333Z" fill="#00092E"/>
-            </svg>
-          </span>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <span class="flex items-center gap-2">
-            Collection Date
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
-              <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
-              <path d="M9.33366 11.8333H6.66699C6.39366 11.8333 6.16699 11.6066 6.16699 11.3333C6.16699 11.0599 6.39366 10.8333 6.66699 10.8333H9.33366C9.60699 10.8333 9.83366 11.0599 9.83366 11.3333C9.83366 11.6066 9.60699 11.8333 9.33366 11.8333Z" fill="#00092E"/>
-            </svg>
-          </span>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <span class="flex items-center gap-2">
-            Place Of Collection
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
-              <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
-              <path d="M9.33366 11.8333H6.66699C6.39366 11.8333 6.16699 11.6066 6.16699 11.3333C6.16699 11.0599 6.39366 10.8333 6.66699 10.8333H9.33366C9.60699 10.8333 9.83366 11.0599 9.83366 11.3333C9.83366 11.6066 9.60699 11.8333 9.33366 11.8333Z" fill="#00092E"/>
-            </svg>
-          </span>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <span class="flex items-center gap-2">
-            Branch
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
-              <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
-              <path d="M9.33366 11.8333H6.66699C6.39366 11.8333 6.16699 11.6066 6.16699 11.3333C6.16699 11.0599 6.39366 10.8333 6.66699 10.8333H9.33366C9.60699 10.8333 9.83366 11.0599 9.83366 11.3333C9.83366 11.6066 9.60699 11.8333 9.33366 11.8333Z" fill="#00092E"/>
-            </svg>
-          </span>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <span class="flex items-center gap-2">
-            Actions
-            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
-              <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
-              <path d="M9.33366 11.8333H6.66699C6.39366 11.8333 6.16699 11.6066 6.16699 11.3333C6.16699 11.0599 6.39366 10.8333 6.66699 10.8333H9.33366C9.60699 10.8333 9.83366 11.0599 9.83366 11.3333C9.83366 11.6066 9.60699 11.8333 9.33366 11.8333Z" fill="#00092E"/>
-            </svg>
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @inventories.each_with_index do |inventory, index| %>
-        <tr class="bg-white border-b hover:bg-gray-50">
-          <!-- Donation Type -->
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-            <%= inventory.donation_type.present? ? inventory.donation_type.titleize : 'N/A' %>
-          </th>
-          <!-- Donor Type -->
-          <td class="px-6 py-4">
-            <%= inventory.donor_type.present? ? inventory.donor_type.titleize : 'N/A' %>
-          </td>
-          <!-- Collection Date -->
-          <td class="px-6 py-4">
-            <%= inventory.collection_date.present? ? inventory.collection_date : 'N/A' %>
-          </td>
-          <!-- Place of collection -->
-          <td class="px-6 py-4">
-            <%= inventory.place_of_collection.present? ? inventory.place_of_collection : 'N/A' %>
-          </td>
-          <!-- Branch -->
-          <td class="px-6 py-4">
-            <%= inventory.branch&.name.present? ? inventory.branch&.name : 'N/A'  %>
-          </td>
-          <!-- Dropdown Menu for Actions -->
-          <td class="px-6 py-4">
-            <div class="relative inline-block text-left">
-              <button type="button" onclick="toggleDropdown(<%= inventory.id %>)" data-inventory-type="" class="rounded-md border border-gray-300 shadow-sm p-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none flex justify-center items-center">
-                Actions
-                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </button>
-              <div id="dropdown-<%= inventory.id %>" class="hidden absolute z-10 right-0 <%= 'bottom-full mb-2' if index >= 4 %> w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                  <%= link_to 'Details', inventory_path(inventory), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= link_to 'Update', edit_request_inventory_path(inventory.request, inventory), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= button_to 'Delete', inventory_path(inventory), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
+    <!-- Add Button -->
+    <div id="modal" tabindex="-1" aria-hidden="true" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-neutral-950 bg-opacity-25">
+      <div class="relative w-full max-w-lg p-4">
+        <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-600 rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Inventory Filter</h3>
+            <button type="button" id="close-modal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal Form -->
+          <%= form_with url: inventories_path, method: :get, local: true, class: "p-4 space-y-4" do |f| %>
+            <div>
+              <%= f.label :donor_type, "Donation Type", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+              <%= f.select :donor_type, [["Select Type", ""], ["Fresh Food", "fresh_food"], ["Dry Food", "dry_food"], ["Clothes", "clothing"], ["Cash", "cash"], ["Other", "other"]], {}, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+            </div>
+            <div>
+              <%= f.label :collection_date, "Donation Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+              <%= f.date_field :collection_date, class: "mt-1 block w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+            </div>
+            <div class="flex space-x-4">
+              <div class="w-1/2">
+                <%= f.label :start_date, "Collection Start Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+                <%= f.date_field :start_date, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+              </div>
+              <div class="w-1/2">
+                <%= f.label :end_date, "Collection End Date", class: "block text-sm font-medium text-gray-700 dark:text-white" %>
+                <%= f.date_field :end_date, class: "mt-1 w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+              </div>
+            </div>
+            <div class="relative mb-6">
+              <label for="collection-range" class="block text-sm font-medium text-gray-700 dark:text-white">Collection Amount Range</label>
+              <div class="flex justify-between">
+                <span class="text-sm text-gray-500 dark:text-gray-400">$<span id="min-range-value"><%= @min_collection_amount %></span></span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">$<span id="max-range-value"><%= @max_collection_amount %></span></span>
+              </div>
+              <div class="flex space-x-4">
+                <div class="w-1/2">
+                  <%= f.hidden_field :min_amount, id: "collection_amount_min", value: @min_collection_amount %>
+                  <%= f.hidden_field :max_amount, id: "collection_amount_max", value: @max_collection_amount %>
+                  <input id="collection-range-min" type="range" min="<%= @min_collection_amount %>" max="<%= @max_collection_amount %>" step="10" value="<%= @min_collection_amount %>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateRangeValue(this.value, 'min')">
+                </div>
+                <div class="w-1/2">
+                  <input id="collection-range-max" type="range" min="<%= @min_collection_amount %>" max="<%= @max_collection_amount %>" step="10" value="<%= @max_collection_amount %>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateRangeValue(this.value, 'max')">
                 </div>
               </div>
             </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <!-- Pagination -->
-  <div class="pagination-container flex flex-col md:flex-row items-center justify-between p-4 space-y-4 md:space-y-0">
-    <!-- Items per page dropdown -->
-    <div class="items-per-page flex items-center space-x-2">
-      <label for="items-per-page" class="text-sm font-medium text-gray-700">Items per page:</label>
-      <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="rounded-lg bg-gray-200 px-2 py-1">
-        <% [10, 25, 50, 100, 'All'].each do |count| %>
-          <option class="text-sm" value="<%= count == 'All' ? 0 : count %>" <%= 'selected' if count == @per_page || (count == 'All' && @per_page == 0) %>>
-          <%= count == 'All' ? 'Show All' : count %>
-        </option>
-          <% end %>
-        </select>
-      </div>
-      <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
-        <!-- Current page display -->
-        <div class="page-display flex items-center space-x-2">
-          <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class="rounded-lg px-2 py-1 bg-gray-200 text-center w-12"
-        onchange="window.location.href='?page=' + this.value + '&per_page=' + document.getElementById('items-per-page').value">
-          <span class="text-sm font-medium text-gray-700">of <%= @total_pages %> pages</span>
-        </div>
-        <!-- Navigation buttons -->
-        <div class="pagination-buttons flex items-center space-x-2">
-          <% if @page_no > 1 %>
-            <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page), class: "px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300 text-gray-700" %>
-          <% else %>
-            <span class="px-3 py-1 bg-gray-200 rounded-lg text-gray-400 cursor-not-allowed"><</span>
-              <% end %>
-              <% if @page_no < @total_pages %>
-                <%= link_to '>', inventories_path(page: @page_no + 1, per_page: @per_page), class: "px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300 text-gray-700" %>
-              <% else %>
-                <span class="px-3 py-1 bg-gray-200 rounded-lg text-gray-400 cursor-not-allowed">></span>
-              <% end %>
+            <!-- Modal Footer -->
+            <div class="flex justify-end p-4 border-t border-gray-200 dark:border-gray-600">
+              <%= f.submit "Apply Filter", class: "px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800" %>
             </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="border-gray-950 p-2 hover:border-green-400 rounded-lg flex border-2" type="button">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+      <span class="ml-2">Add</span>
+    </button>
+    <!-- Share Button -->
+    <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-center p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <h2 class="text-center text-3xl font-bold text-green-500 mb-6">Request Create Form</h2>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-4 md:p-5 space-y-4">
+          </div>
+          <%= render partial: "inventories/add_form" %>
+        </div>
+      </div>
+    </div>
+    <div class="border-gray-950	p-2 hover:border-green-400 rounded-lg flex border-2">
+      <svg  class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"/>
+      </svg>
+      <span>Share</span>
+    </div>
+    <div id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="relative border-gray-950 p-2 hover:border-green-400 rounded-lg flex items-center border-2 cursor-pointer">
+      Bulk Action
+      <svg class="w-6 h-6 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+      </svg>
+    </div>
+    <!-- Dropdown menu -->
+    <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+        <li id="bulk-delete" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Delete Selected</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<%= turbo_frame_tag "inventories" do %>
+  <div class="flow-root mt-8">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="inventories__table--shadow overflow-hidden border border-gray-200 rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50 font-bold">
+              <tr>
+                <td class="py-2 px-4 text-sm ">
+                  <input type="checkbox" id="select-all" class="form-checkbox hidden md:flex rounded-md" aria-label="Select all items">
+                </td>
+                <%= sortable_table_header 'Food Name', :food_name, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Donation Amount', :amount, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Collection Date', :collection_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Expired Date', :expire_date, :inventories_path, class: 'inventories__row--header  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Events', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Status', :status, :inventories_path, class: 'inventories__row--header md:flex hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+                <%= sortable_table_header 'Actions', :nil, :inventories_path, class: 'inventories__row--header hidden  py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider' %>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <% @inventories.each do |inventory| %>
+                <tr class="hover:bg-gray-100 transition-colors" data-url="<%= inventory_path(inventory.id) %>">
+                  <td class="py-2 px-4 text-sm text-gray-900">
+                    <input type="checkbox" name="selected_inventories[]" value="<%= inventory.id %>" class=" md:flex hidden form-checkbox rounded-md inventory-checkbox" aria-label="Select inventory <%= inventory.id %>">
+                  </td>
+                  <td class="inventories__row inventories__row--donation-type py-2 px-4 text-sm text-gray-600  text-center">
+                    <%= inventory.food_name %>
+                  </td>
+                  <td class="inventories__row inventories__row--collection-amount py-2 px-4 text-sm text-gray-600  text-center">
+                    <%= number_to_human(inventory.amount) %>
+                  </td>
+                  <td class="inventories__row inventories__row--created-at py-2 px-4 text-sm text-gray-600  text-center">
+                    <%= inventory.collection_date ? inventory.collection_date : 'N/A' %>
+                  </td>
+                  <td class="inventories__row inventories__row--expire-date py-2 px-4 text-sm text-gray-600  text-center">
+                    <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
+                  </td>
+                  <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6">
+                    <%= inventory.event&.name || 'N/A' %>
+                  </td>
+                  <td class="py-2 px-4 text-sm  hidden rounded-lg text-gray-600">
+                    <% if inventory.request.is_selected %>
+                      <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>
+                    <% else %>
+                      <%= image_tag 'Alert circle.svg', alt: 'Not Selected', class: 'icon-class' %>
+                    <% end %>
+                  </td>
+                  <td class="inventories__row inventories__row--expire-date md:flex hidden py-2 px-4 text-sm text-gray-600 flex justify-between" data-url="<%= inventory_path(inventory) %>">
+                    <button data-id="<%= inventory.id %>" data-modal-target="show-modal" data-modal-toggle="show-modal" data-remote="true" data-url="<%= inventory_path(inventory) %>" type="button">
+                      <%= image_tag("Icon.svg", alt: "show-icon", class: "show-action-icon") %>
+                    </button>
+                    <button data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="" type="button">
+                      <%= image_tag("Edit.svg", alt: "edit-icon", class: "action-icon") %>
+                    </button>
+                    <!-- Share Button -->
+                    <div id="show-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                      <div class="relative p-4 w-full max-w-2xl max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                          <!-- Modal header -->
+                          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-green-900 dark:text-white">
+                              Inventory Information  <%= inventory.id %>
+                            </h3>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="show-modal">
+                              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                              </svg>
+                              <span class="sr-only">Close modal</span>
+                            </button>
+                          </div>
+                          <!-- Modal body -->
+                          <div  class="p-4 md:p-5 space-y-4" id="modal-content-<%= inventory.id %>">
+                            <div class="border border-green-600 rounded-t dark:border-gray-600" data-url="<%= inventory_path(inventory) %>">
+                              <!-- Row content here -->
+                              <%= render partial: "inventories/modal", locals: { inventory: inventory } %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
           </div>
         </div>
-</section>
+      </div>
+    </div>
+  <% end %>
+  <div class="pagination-container flex items-center justify-between mt-4">
+    <!-- Items per page dropdown -->
+    <div class="items-per-page">
+      <select id="items-per-page" name="per_page" onchange="window.location.href='?per_page=' + this.value" class="border rounded px-2 py-1">
+        <% [2, 10, 25, 50, 100].each do |count| %>
+          <option value="<%= count %>" <%= 'selected' if count == @per_page %>><%= count %></option>
+          <% end %>
+        </select>
+        <label for="items-per-page" class="mr-2">Items per page</label>
+      </div>
+      <!-- Current page display -->
+      <div class="page-display flex items-center">
+        <label for="current-page" class="mr-2">Page</label>
+        <input id="current-page" type="number" min="1" max="<%= @total_pages %>" value="<%= @page_no %>" class="border rounded px-2 py-1 text-center w-12"
+      onchange="window.location.href='?page=' + this.value + '&per_page=' + document.getElementById('items-per-page').value">
+        <span class="ml-2">of <%= @total_pages %> pages</span>
+      </div>
+      <!-- Navigation buttons -->
+      <div class="pagination-buttons flex items-center">
+        <% if @page_no > 1 %>
+          <%= link_to '<', inventories_path(page: @page_no - 1, per_page: @per_page)%>
+        <% else %>
+          <span><</span>
+            <% end %>
+            <% if @page_no < @total_pages %>
+              <%= link_to '>', inventories_path(page: @page_no + 1, per_page: @per_page)  %>
+            <% else %>
+              <span >></span>
+            <% end %>
+          </div>
+        </div>
+        <script>
+          document.addEventListener("turbo:load", function() {
+            const modal = document.getElementById("modal");
+            const openModalBtn = document.getElementById("filter-action");
+            const closeModalBtn = document.getElementById("close-modal");
+            const selectAllCheckbox = document.getElementById("select-all");
+            const inventoryCheckboxes = document.querySelectorAll(".inventory-checkbox");
+            const bulkDeleteBtn = document.querySelector("#bulk-delete");
+
+            selectAllCheckbox.addEventListener("change", () => {
+                inventoryCheckboxes.forEach(checkbox => {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+            });
+
+
+            bulkDeleteBtn.addEventListener("click", () => {
+              const selectedIds = Array.from(inventoryCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+              if (selectedIds.length > 0) {
+                if (confirm("Are you sure you want to delete the selected items?")) {
+                  fetch("/inventories/bulk_delete", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                  }).then(response => {
+                    if (response.ok) {
+                      location.reload();
+                    } else {
+                      alert("Failed to delete items.");
+                    }
+                  });
+                }
+              } else {
+                alert("No items selected.");
+              }
+            });
+
+            openModalBtn.addEventListener("click", () => {
+              modal.classList.remove("hidden");
+            });
+
+            closeModalBtn.addEventListener("click", () => {
+              modal.classList.add("hidden");
+            });
+
+          });
+        </script>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('button[data-modal-toggle]').forEach(button => {
+              button.addEventListener('click', async () => {
+                const modalId = button.getAttribute('data-modal-target');
+                const modal = document.getElementById(modalId);
+                const url = button.getAttribute('data-url');
+                const inventoryId = button.dataset.id;
+                console.log(inventoryId)
+
+                if (url && modal) {
+                  const modalContent = modal.querySelector(`#modal-content-${inventoryId}`);
+                  if (modalContent) {
+                    try {
+                      const response = await fetch(url);
+                      if (response.ok) {
+                        const html = await response.text();
+                        console.log(html)
+                        console.log(url)
+                        modalContent.innerHTML = html;
+                      } else {
+                        modalContent.innerHTML = '<p class="text-red-500">Failed to load inventory data.</p>';
+                      }
+                    } catch (error) {
+                      console.error('Error loading modal content:', error);
+                      modalContent.innerHTML = '<p class="text-red-500">Failed to load inventory data.</p>';
+                    }
+                  }
+                  modal.classList.remove('hidden');
+                }
+              });
+            });
+          });
+        </script>

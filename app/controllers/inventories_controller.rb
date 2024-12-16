@@ -18,6 +18,22 @@ class InventoriesController < ApplicationController
     @inventory = inventories.find(params[:id])
   end
 
+  def top_donors
+    start_date = params[:start_date].presence && Date.parse(params[:start_date])
+    end_date = params[:end_date].presence && Date.parse(params[:end_date])
+
+    start_date ||= 30.days.ago.to_date
+    end_date ||= Date.today
+
+    @top_donors = Inventory
+      .where(collection_date: start_date..end_date)
+      .select('donor_name, phone_number, COUNT(*) as donation_count, SUM(collection_amount) as total_collected')
+      .group('donor_name, phone_number')
+      .order('donation_count DESC')
+
+    flash.now[:notice] = "Showing top donors from #{start_date} to #{end_date}."
+  end
+
   def new
     @inventory = @request.inventories.build(
       donor_name: @request.name,

@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  layout 'home'
-
   def index
     @request = Request.new
     @branches = Branch.all

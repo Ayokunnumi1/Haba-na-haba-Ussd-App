@@ -50,15 +50,19 @@ class InventoriesController < ApplicationController
   end
 
   def top_donors
-    start_date = params[:start_date].presence || Date.today.beginning_of_month
-    end_date = params[:end_date].presence || Date.today.end_of_month
+    start_date = params[:start_date].presence && Date.parse(params[:start_date]) rescue nil
+    end_date = params[:end_date].presence && Date.parse(params[:end_date]) rescue nil
+
+    start_date ||= 30.days.ago.to_date
+    end_date ||= Date.today
 
     @top_donors = Inventory
       .where(collection_date: start_date..end_date)
       .select('donor_name, phone_number, COUNT(*) as donation_count, SUM(collection_amount) as total_collected')
       .group('donor_name, phone_number')
       .order('donation_count DESC')
-      .limit(10)
+
+    flash.now[:notice] = "Showing top donors from #{start_date} to #{end_date}."
   end
 
   def new

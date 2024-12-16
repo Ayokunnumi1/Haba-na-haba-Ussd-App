@@ -20,6 +20,7 @@ class DashboardController < ApplicationController
   def set_counts
     @staffs = User.count
     @volunteers = User.where(role: 'volunteer').count
+    @total_beneficiaries = (IndividualBeneficiary.count || 0) + (FamilyBeneficiary.count || 0) + (OrganizationBeneficiary.count || 0)
   end
 
   def set_dashboard_data

@@ -23,13 +23,13 @@ class RequestsController < ApplicationController
   end
 
   def show
-    if params[:notification_id].present?
-      notification = current_user.notifications.find_by(id: params[:notification_id])
-      if notification.present? && !notification.read
-        notification.update(read: true)
-        Rails.logger.info "Notification #{notification.id} marked as read"
-      end
-    end
+    return unless params[:notification_id].present?
+
+    notification = current_user.notifications.find_by(id: params[:notification_id])
+    return unless notification.present? && !notification.read
+
+    notification.update(read: true)
+    Rails.logger.info "Notification #{notification.id} marked as read"
   end
 
   def new
@@ -55,7 +55,7 @@ class RequestsController < ApplicationController
     @request = Request.new(request_params)
 
     if @request.save
-      self.notify_branch_managers(@request, current_user)
+      notify_branch_managers(@request, current_user)
       redirect_to @request, notice: 'Request was successfully created.'
     else
       @districts = District.all
@@ -66,8 +66,8 @@ class RequestsController < ApplicationController
 
   def update
     if @request.update(request_params)
-      self.notify_branch_managers(@request, current_user)
-      self.notify_request_user(@request, current_user)
+      notify_branch_managers(@request, current_user)
+      notify_request_user(@request, current_user)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
       @districts = District.all
@@ -134,13 +134,13 @@ class RequestsController < ApplicationController
 
   def notify_branch_managers(request, current_user)
     branch_managers = User.where(role: 'branch_manager', branch_id: request.branch_id)
-                          .where.not(id: current_user.id)
+      .where.not(id: current_user.id)
 
     branch_managers.each do |manager|
       Notification.create(
         user: manager,
         notifiable: request,
-        message: "A new request has been created in your branch."
+        message: 'A new request has been created in your branch.'
       )
     end
   end
@@ -153,7 +153,7 @@ class RequestsController < ApplicationController
     Notification.create(
       user: user,
       notifiable: request,
-      message: "Your request has been updated."
+      message: 'Your request has been updated.'
     )
   end
 end

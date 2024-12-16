@@ -1,20 +1,16 @@
 module RequestNotificationConcern
   extend ActiveSupport::Concern
 
-  included do
-
-  end
-
   # Notify branch managers when a new request is created
   def notify_branch_managers(request, current_user)
     branch_managers = User.where(role: 'branch_manager', branch_id: request.branch_id)
-                          .where.not(id: current_user.id)
+      .where.not(id: current_user.id)
 
     branch_managers.each do |manager|
       Notification.create(
         user: manager,
         notifiable: request,
-        message: "A new request has been created in your branch."
+        message: 'A new request has been created in your branch.'
       )
     end
   end
@@ -28,7 +24,7 @@ module RequestNotificationConcern
     Notification.create(
       user: user,
       notifiable: request,
-      message: "Your request has been updated."
+      message: 'Your request has been updated.'
     )
   end
 end

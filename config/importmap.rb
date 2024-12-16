@@ -13,3 +13,5 @@ pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
 pin_all_from "app/javascript/users", under: "users"
 pin "dashboard", to: "dashboard.js"
+pin "inventoryDonorType", to: "inventoryDonorType.js"
+

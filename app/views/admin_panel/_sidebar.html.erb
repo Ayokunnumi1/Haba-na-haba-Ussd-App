@@ -27,9 +27,9 @@
                 <p class="text-gray-500 dark:text-gray-400"><%= current_user.role.titleize %></p>
               </div>
               <div class="relative">
-                <button type="button" 
-          class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" 
-          aria-expanded="false" 
+                <button type="button"
+          class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          aria-expanded="false"
           data-dropdown-toggle="dropdown-user">
                   <span class="sr-only">Open user menu</span>
                   <% if current_user.image.attached? %>
@@ -92,6 +92,7 @@
             <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Staffs</span>
           <% end %>
         </li>        
+        </li>
         <li>
           <%= link_to requests_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
             <i class="fa-regular fa-circle-check group-hover:text-lightGreen text-base"></i>
@@ -134,7 +135,7 @@
           </details>
         </li>
         <li>
-          <%= link_to "#", class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
+          <%= link_to top_donors_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
             <i class="fa-solid fa-gift group-hover:text-lightGreen text-base"></i>
             <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Donors</span>
           <% end %>
@@ -145,14 +146,12 @@
             <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Events</span>
           <% end %>
         </li>
-         <% if current_user.role.in?(%w[super_admin admin branch_manager]) %>
           <li>
             <%= link_to districts_path, class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>
               <i class="fa-solid fa-location group-hover:text-lightGreen text-base"></i>
               <span class="flex-1 ms-3 whitespace-nowrap group-hover:text-lightGreen text-base">Locations</span>
             <% end %>
           </li>
-        <% end %>
         <p class="py-2 text-white font-Outfit font-normal text-sm mr-20">PREFERENCE</p>
         <li>
           <%= link_to edit_user_path(current_user.id), class: "flex items-center p-2 text-white rounded-lg hover:bg-white group" do %>

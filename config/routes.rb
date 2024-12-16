@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
+  # Conditional root route
+  authenticated :user do
+    root to: 'users#index', as: :authenticated_root
+  end
+
+  unauthenticated do
+    root to: 'home#index', as: :unauthenticated_root
+  end
+
   root "home#index"
   post "create_request", to: "home#create_request"
   get 'home/index'
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   post  'ussd_request', to: 'requests#ussd'
+  get 'top_donors', to: 'inventories#top_donors'
   resources :users
   resources :districts do
     resources :counties do
@@ -14,11 +24,9 @@ Rails.application.routes.draw do
   end
   resources :counties
   resources :sub_counties
-resources :events do
-  resources :requests
-end
-
-  
+  resources :events do
+    resources :requests
+  end
 
   resources :event_users, only: [:create, :destroy]
   resources :branches do
@@ -30,7 +38,7 @@ end
     collection do
       get :load_counties
       get :load_sub_counties
-      get :load_branches 
+      get :load_branches
     end
     resource :individual_beneficiary, only: [:new, :create, :edit, :update] do
       collection do
@@ -77,12 +85,12 @@ end
   end
   resources :inventories, only: [:index, :show, :destroy]
 
-  # Conditional root route
-  authenticated :user do
-    root to: 'dashboard#index', as: :authenticated_root
-  end
-
-  unauthenticated do
-    root to: 'home#index', as: :unauthenticated_root
+  resources :requests do
+    resources :inventories, only: [:new, :create, :edit] do
+      collection do
+        get 'load_counties'
+        get 'load_sub_counties'
+      end
+    end
   end
 end

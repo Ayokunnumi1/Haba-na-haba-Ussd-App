@@ -91,6 +91,7 @@ GEM
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     builder (3.3.0)
+    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -120,7 +121,6 @@ GEM
       dotenv (= 3.1.6)
       railties (>= 6.1)
     drb (2.2.1)
-    error_highlight (0.7.0)
     erubi (1.13.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
@@ -193,13 +193,14 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.17.2-x64-mingw-ucrt)
+    nokogiri (1.16.8-x64-mingw-ucrt)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.26.3)
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
     pg (1.5.9-x64-mingw-ucrt)
     pg_search (2.3.7)
       activerecord (>= 6.1)
@@ -333,11 +334,13 @@ GEM
     zeitwerk (2.7.1)
 
 PLATFORMS
+  arm64-darwin-23
   x64-mingw-ucrt
 
 DEPENDENCIES
   africastalking-ruby
   bootsnap
+  cancancan
   capybara
   chartkick (~> 5.1, >= 5.1.2)
   debug
@@ -370,4 +373,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.5.23
+   2.5.9

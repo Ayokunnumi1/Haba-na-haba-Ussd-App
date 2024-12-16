@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  load_and_authorize_resource
   include EnglishMenu
   before_action :set_request, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token, only: [:ussd]
@@ -9,6 +10,8 @@ class RequestsController < ApplicationController
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)
     @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
+    # Restrict to branch_manager's branch
+    @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
   end
 
   def ussd
@@ -25,6 +28,7 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @branches = Branch.all
     @districts = District.all
     @counties = County.none
     @users = User.where(role: 'volunteer')
@@ -44,6 +48,8 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
+    # Restrict branch_id for branch_manager
+    @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
 
     if @request.save
       redirect_to @request, notice: 'Request was successfully created.'
@@ -59,6 +65,11 @@ class RequestsController < ApplicationController
   end
 
   def update
+    # Prevent branch_manager from updating requests outside their branch
+    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
+      redirect_to requests_path, alert: 'You are not authorized to update this request.' and return
+    end
+
     if @request.update(request_params)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
@@ -73,6 +84,11 @@ class RequestsController < ApplicationController
   end
 
   def destroy
+    # Prevent branch_manager from deleting requests
+    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
+      redirect_to requests_path, alert: 'You are not authorized to delete this request.' and return
+    end
+
     if @request.destroy
       redirect_to requests_url, notice: 'Request was successfully destroyed.'
     else
@@ -119,6 +135,10 @@ class RequestsController < ApplicationController
     else
       render :new
     end
+  end
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to requests_path
   end
 
   private

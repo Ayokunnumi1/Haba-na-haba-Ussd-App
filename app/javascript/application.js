@@ -12,10 +12,16 @@ import "./dropdown";
 import "./nested_forms";
 import "./district";
 import "truncate";
+import "chartkick";
+import "Chart.bundle";
+import "./users/filterUsers";
+import "./users/userDropDown";
+import "./controllers/filter_modal";
+import "./dashboard";
 import "./eventUser";
 import "./eventTab";
 import "./users/filterUsers";
 import "./users/userDropDown";
+import "inventoryDonorType";
 import "./controllers/filter_modal";
 import "./scroll_to_top";
-

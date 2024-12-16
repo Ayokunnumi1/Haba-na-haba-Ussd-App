@@ -9,5 +9,9 @@ pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.t
 pin "requestDropdown", to: "requestDropdown.js"
 pin "truncate", to: "truncate.js"
 pin "dropdown", to: "dropdown.js"
+pin "chartkick", to: "chartkick.js"
+pin "Chart.bundle", to: "Chart.bundle.js"
 pin_all_from "app/javascript/users", under: "users"
+pin "dashboard", to: "dashboard.js"
+pin "inventoryDonorType", to: "inventoryDonorType.js"
 

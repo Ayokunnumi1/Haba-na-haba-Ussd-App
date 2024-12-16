@@ -34,12 +34,15 @@ class DashboardController < ApplicationController
   end
 
   def build_guidelines
-  [
-    { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg', link: '#' },
-    { title: 'Approved Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons2.svg', link: '#' },
-    { title: 'Low Stock Alert', color: '#FFE0E0', units: 'Price', count: Inventory.where('expire_date <= ?', Date.today + 15).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons3.svg', link: '#' },
-    { title: 'Food Events', color: '#FFFCE0', units: 'Event', count: Event.group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons4.svg', link: '#' }
-  ]
+    [
+      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg',
+        link: '#' },
+      { title: 'Approved Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons2.svg',
+        link: '#' },
+      { title: 'Low Stock Alert', color: '#FFE0E0', units: 'Price', count: Inventory.where('expire_date <= ?', Date.today + 15).group_by_week(:created_at).count.values.last || 'N/A',
+        icon: 'LoanIcons3.svg', link: '#' },
+      { title: 'Food Events', color: '#FFFCE0', units: 'Event', count: Event.group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons4.svg', link: '#' }
+    ]
   end
 
   def build_beneficiary_data

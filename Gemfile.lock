@@ -338,6 +338,7 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
+  activerecord (~> 7.1.4)
   africastalking-ruby
   bootsnap
   cancancan

@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_09_213155) do
-
+ActiveRecord::Schema[7.1].define(version: 2024_12_12_094414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -209,6 +208,42 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_213155) do
     t.index ["sub_county_id"], name: "index_inventories_on_sub_county_id"
   end
 
+  create_table "noticed_events", force: :cascade do |t|
+    t.string "type"
+    t.string "record_type"
+    t.bigint "record_id"
+    t.jsonb "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "notifications_count"
+    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
+  end
+
+  create_table "noticed_notifications", force: :cascade do |t|
+    t.string "type"
+    t.bigint "event_id", null: false
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.datetime "read_at", precision: nil
+    t.datetime "seen_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.string "message"
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "organization_beneficiaries", force: :cascade do |t|
     t.text "organization_name"
     t.integer "male"
@@ -319,6 +354,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_213155) do
   add_foreign_key "inventories", "districts"
   add_foreign_key "inventories", "requests"
   add_foreign_key "inventories", "sub_counties"
+  add_foreign_key "notifications", "users"
   add_foreign_key "organization_beneficiaries", "branches"
   add_foreign_key "organization_beneficiaries", "counties"
   add_foreign_key "organization_beneficiaries", "districts"

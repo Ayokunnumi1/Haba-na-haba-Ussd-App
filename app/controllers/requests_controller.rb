@@ -32,7 +32,7 @@ class RequestsController < ApplicationController
     notification = current_user.notifications.find_by(id: params[:notification_id])
     return unless notification.present? && !notification.read
 
-    notification.update(read: true)    
+    notification.update(read: true)
   end
 
   def new

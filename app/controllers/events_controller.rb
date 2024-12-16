@@ -11,8 +11,7 @@ class EventsController < ApplicationController
     @sub_counties = SubCounty.none
   end
 
-  def new
-  end
+  def new; end
 
   def create
     @event.assign_attributes(event_params)
@@ -36,8 +35,7 @@ class EventsController < ApplicationController
     @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @event.update(event_params)

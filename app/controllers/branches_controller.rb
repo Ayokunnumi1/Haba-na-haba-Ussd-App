@@ -13,12 +13,13 @@ class BranchesController < ApplicationController
   def new
     @branch = Branch.new
     @districts = District.left_joins(:branch_districts)
-                       .where(branch_districts: { id: nil })
+      .where(branch_districts: { id: nil })
   end
-def edit
-  @districts = District.left_joins(:branch_districts)
-                       .where('branch_districts.branch_id IS NULL OR branch_districts.branch_id = ?', @branch.id)
-end
+
+  def edit
+    @districts = District.left_joins(:branch_districts)
+      .where('branch_districts.branch_id IS NULL OR branch_districts.branch_id = ?', @branch.id)
+  end
 
   def create
     @branch = Branch.new(branch_params)
@@ -27,7 +28,7 @@ end
       redirect_to @branch, notice: 'Branch was successfully created.'
     else
       @districts = District.left_joins(:branch_districts)
-      .where(branch_districts: { id: nil })
+        .where(branch_districts: { id: nil })
       flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity
     end
@@ -67,5 +68,4 @@ end
   def load_districts
     @districts = District.all
   end
-  
 end

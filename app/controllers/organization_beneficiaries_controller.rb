@@ -72,7 +72,7 @@ class OrganizationBeneficiariesController < ApplicationController
                       else
                         SubCounty.none
                       end
-      
+
       flash.now[:alert] = "Error: #{@organization_beneficiary.errors.full_messages.to_sentence}"
       render :edit, status: :unprocessable_entity
     end

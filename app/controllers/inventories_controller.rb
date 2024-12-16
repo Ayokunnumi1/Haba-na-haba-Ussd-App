@@ -117,8 +117,6 @@ class InventoriesController < ApplicationController
     redirect_to inventories_path
   end
 
-  private
-
   def assign_inventory_partial(type)
     @inventory_partial = case type
                          when 'cash'

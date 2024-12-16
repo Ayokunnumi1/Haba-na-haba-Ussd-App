@@ -4,43 +4,44 @@ class DistrictsController < ApplicationController
   before_action :set_district, only: %i[show edit update destroy]
 
   def index
-    @districts = District.all
+    @districts = District.includes(counties: :sub_counties).order(created_at: :desc)
   end
-
-  def show; end
 
   def new
     @district = District.new
+    @district.counties.build.sub_counties.build
   end
 
   def create
     @district = District.new(district_params)
 
     if @district.save
-      redirect_to @district, notice: 'District was successfully created.'
+      redirect_to districts_path, notice: 'District, Counties, and SubCounties were successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
-  def edit; end
+  def edit
+    @district = District.find(params[:id])
+  end
 
   def update
     if @district.update(district_params)
-      redirect_to @district, notice: 'District was successfully updated.'
+      redirect_to district_path(@district), notice: 'District, Counties, and SubCounties were successfully updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     if @district.destroy
-      redirect_to districts_url, notice: 'District was successfully deleted.'
+      redirect_to districts_path, notice: 'District was successfully deleted.'
     else
-      redirect_to districts_url, alert: @district.errors.full_messages.to_sentence
+      redirect_to districts_path, alert: @district.errors.full_messages.to_sentence
     end
   rescue StandardError => e
-    redirect_to districts_url, alert: handle_destroy_error(e)
+    redirect_to districts_path, alert: handle_destroy_error(e)
   end
 
   private
@@ -48,10 +49,16 @@ class DistrictsController < ApplicationController
   def set_district
     @district = District.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to districts_url, alert: 'District not found.'
+    redirect_to districts_path, alert: 'District not found.'
   end
 
   def district_params
-    params.require(:district).permit(:name)
+    params.require(:district).permit(
+      :name,
+      counties_attributes: [
+        :id, :name, :_destroy,
+        { sub_counties_attributes: %i[id name _destroy] }
+      ]
+    )
   end
 end

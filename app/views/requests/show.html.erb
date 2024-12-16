@@ -34,8 +34,13 @@
       <p><%= @request.branch.name if @request.branch.present? %></p>
     </div>
     <div class="mt-4 md:pr-4">
-      <%= link_to 'Edit', edit_request_path(@request), class: "bg-lightGreen text-white py-2 px-4 rounded hover:bg-green-800" %>
-      <%= link_to 'Back', requests_path, class: "bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+      <% if @request.event.present? %>
+        <%= link_to 'Edit', edit_event_request_path(@request.event, @request), class: "bg-lightGreen text-white py-2 px-4 rounded hover:bg-green-800" %>
+        <%= link_to 'Back', event_path(@request.event), class: "bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+      <% else %>
+        <%= link_to 'Edit', edit_request_path(@request), class: "bg-lightGreen text-white py-2 px-4 rounded hover:bg-green-800" %>
+        <%= link_to 'Back', requests_path, class: "bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+      <% end %>
     </div>
   </div>
 </section>

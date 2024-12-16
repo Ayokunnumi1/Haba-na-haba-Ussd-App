@@ -15,11 +15,7 @@ Rails.application.routes.draw do
     resources :requests
   end
 
-  resources :notifications, only: [:index] do
-    member do
-      patch :mark_as_read
-    end
-  end
+  resources :notifications, only: [:index]
 
   resources :event_users, only: [:create, :destroy]
   resources :branches do

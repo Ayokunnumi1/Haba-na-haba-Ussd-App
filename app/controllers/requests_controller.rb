@@ -25,9 +25,9 @@ class RequestsController < ApplicationController
   def show
     if params[:notification_id].present?
       notification = current_user.notifications.find_by(id: params[:notification_id])
-      if notification && !notification.read
-        Rails.logger.info "Marking notification #{notification.id} as read"
-        notification.update(read: true)  # Update the clicked notification only
+      if notification.present? && !notification.read
+        notification.update(read: true)
+        Rails.logger.info "Notification #{notification.id} marked as read"
       end
     end
   end
@@ -66,6 +66,7 @@ class RequestsController < ApplicationController
 
   def update
     if @request.update(request_params)
+      self.notify_branch_managers(@request, current_user)
       self.notify_request_user(@request, current_user)
       redirect_to @request, notice: 'Request was successfully updated.'
     else

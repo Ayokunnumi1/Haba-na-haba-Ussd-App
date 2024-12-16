@@ -1,7 +1,6 @@
 <div class="md:flex-row flex space-x-4">
   <a href="#" class="flex flex-col items-start w-1/2 p-2 bg-[#6DC13D] rounded-lg shadow-md text-white">
     <div class="flex items-center space-x-2">
-      <%= image_tag 'inventory.svg', alt: 'Selected', class: 'icon-class' %>
     </div>
     <div class="content-start flex w-full">
       <div class="flex flex-col w-1/2 mt-4">
@@ -202,8 +201,8 @@
                     <%= inventory.expire_date ? inventory.expire_date.strftime('%Y-%m-%d') : 'N/A' %>
                   </td>
                   <td class="px-6 py-4 text-sm font-semibold font-Outfit text-[#5a607a] w-1/6">
-              <%= inventory.event&.name || 'N/A' %>
-            </td>
+                    <%= inventory.event&.name || 'N/A' %>
+                  </td>
                   <td class="py-2 px-4 text-sm  hidden rounded-lg text-gray-600">
                     <% if inventory.request.is_selected %>
                       <%= image_tag 'Check circle.svg', alt: 'Selected', class: 'icon-class' %>

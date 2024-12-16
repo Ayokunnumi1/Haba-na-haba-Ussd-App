@@ -1,94 +1,79 @@
 class InventoriesController < ApplicationController
   load_and_authorize_resource
   include Pagination
+  include InventoryLoader
 
   before_action :set_request, only: %i[new create edit update]
+
   before_action :set_inventory, only: %i[edit update show destroy]
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
 
   def index
-    @per_page = (params[:per_page] || 2).to_i
-    @page_no = (params[:page] || 1).to_i
-    @inventory_food = Inventory.includes(:request).by_food_type
-    @inventory_donated = Inventory.includes(:request).donated
-    @inventory_stock_alert = Inventory.includes(:request).stock_alert
-    @inventory_expired = Inventory.includes(:request).expired
-
-    @food_inventory_count = @inventory_food.count
-    total_count = Inventory.count
-    @total_pages = (total_count.to_f / @per_page).ceil
-
-    @inventories = Inventory.includes(:request)
-      .by_donation_type(params[:donor_type])
-      .by_donation_date(params[:collection_date])
-      .by_expire_range(params[:start_date], params[:end_date])
-      .by_collection_amount(params[:min_amount], params[:max_amount])
-      .order("#{sort_column} #{sort_direction}")
-      .search_query(params[:query])
-      .page(@page_no)
-      .per(@per_page)
-
-    @min_collection_amount = @inventories.minimum(:amount) || 0
-    @max_collection_amount = @inventories.maximum(:amount) || 1500
-    @inventories = Inventory.includes(:event).all
-
-    @request = Request.new
-    @districts = District.all
-    @counties = County.none
-    @branches = Branch.none
-    @sub_counties = SubCounty.none
+    set_pagination_params
+    load_inventories
+    calculate_counts
+    load_filters
   end
 
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
   def show
-    inventory = Inventory.find(params[:id])
-    respond_to do |format|
-      format.html { render partial: 'inventories/modal', locals: { inventory: @inventory } }
-      format.json { render json: inventory }
-    end
+    inventories = Inventory.includes(:request)
+    @inventory = inventories.find(params[:id])
+  end
+
+  def top_donors
+    start_date = params[:start_date].presence && Date.parse(params[:start_date])
+    end_date = params[:end_date].presence && Date.parse(params[:end_date])
+
+    start_date ||= 30.days.ago.to_date
+    end_date ||= Date.today
+
+    @top_donors = Inventory
+      .where(collection_date: start_date..end_date)
+      .select('donor_name, phone_number, COUNT(*) as donation_count, SUM(collection_amount) as total_collected')
+      .group('donor_name, phone_number')
+      .order('donation_count DESC')
+
+    flash.now[:notice] = "Showing top donors from #{start_date} to #{end_date}."
   end
 
   def new
-    if @request.inventories.exists?
-      redirect_to inventories_path, alert: 'Inventory already exists for this request.'
-    else
-      @inventory = @request.inventories.build
-      @districts = District.all
-      @counties = County.none
-      @sub_counties = SubCounty.none
-    end
+    @inventory = @request.inventories.build(
+      donor_name: @request.name,
+      phone_number: @request.phone_number,
+      district_id: @request.district_id,
+      county_id: @request.county_id,
+      sub_county_id: @request.sub_county_id,
+      branch_id: @request.branch_id,
+      residence_address: @request.residence_address,
+      donation_type: params[:type]
+    )
+    assign_inventory_partial(params[:type])
+    load_location_data
   end
 
   def create
-    if @request.inventories.exists?
-      redirect_to @request, alert: 'An Inventory already exists for this request.'
+    @inventory = @request.inventories.build(inventory_params)
+    if @inventory.save
+      redirect_to @inventory, notice: 'Inventory was successfully created.'
     else
-      @inventory = @request.inventories.build(inventory_params)
-      @inventory.event_id = @request.event_id
-      if @inventory.save
-        redirect_to @inventory, notice: 'Inventory was successfully created.'
-      else
-        @districts = District.all
-        @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
-        @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
-        render :new, alert: 'Failed to create the Inventory.'
-      end
+      assign_inventory_partial(params[:inventory][:donation_type])
+      load_location_data
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    assign_inventory_partial(@inventory.donation_type)
     @districts = District.all
-    @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
-    @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
+    load_location_data
   end
 
   def update
     if @inventory.update(inventory_params)
       redirect_to @inventory, notice: 'Inventory was successfully updated.'
     else
-      render :edit, alert: 'Failed to update the Inventory.'
+      assign_inventory_partial(@inventory.donation_type)
+      load_location_data
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -120,14 +105,11 @@ class InventoriesController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
-  def bulk_delete
-    ids = params[:ids]
-    Inventory.where(id: ids).destroy_all
+  private
 
-    respond_to do |format|
-      format.json { render json: { success: true, message: 'Items deleted successfully' } }
-      format.html { redirect_to inventories_path, notice: 'Selected items were deleted.' }
-    end
+  def set_pagination_params
+    @per_page = params[:per_page].to_i
+    @page_no = (params[:page] || 1).to_i
   end
 
   rescue_from CanCan::AccessDenied do |_|
@@ -137,25 +119,42 @@ class InventoriesController < ApplicationController
 
   private
 
+  def assign_inventory_partial(type)
+    @inventory_partial = case type
+                         when 'cash'
+                           'inventories/collection_forms/cash_collection_form'
+                         when 'food'
+                           'inventories/collection_forms/food_collection_form'
+                         when 'cloth'
+                           'inventories/collection_forms/cloth_collection_form'
+                         when 'other_items'
+                           'inventories/collection_forms/other_items_collection_form'
+                         else
+                           'inventories/collection_forms/default_collection_form'
+                         end
+  end
+
   def set_request
     @request = Request.find(params[:request_id]) if params[:request_id]
   end
 
   def set_inventory
-    if params[:request_id]
-      @request = Request.find(params[:request_id])
-      @inventory = @request.inventories.find(params[:id])
-    else
-      @inventory = Inventory.find(params[:id])
-    end
+    @inventory = if @request
+                   @request.inventories.find(params[:id])
+                 else
+                   Inventory.find(params[:id])
+                 end
   end
 
   def inventory_params
     params.require(:inventory).permit(:donor_name, :donor_type, :collection_date, :food_name,
-                                      :expire_date, :village_address, :residence_address, :phone_number,
-                                      :parish, :amount, :head_of_institution, :registration_no, :district_id,
-                                      :county_id, :sub_county_id, :request_id,
-                                      :branch_id, :collection_amount, :event_id)
+                                      :expire_date, :place_of_collection, :residence_address, :phone_number,
+                                      :amount, :district_id, :county_id, :sub_county_id, :request_id,
+                                      :branch_id, :collection_amount, :food_quantity, :cloth_condition, :cloth_name,
+                                      :cloth_size, :cloth_quantity, :food_type, :donation_type, :cost_of_food, :cloth_type,
+                                      :family_member_count, :family_name, :organization_name, :organization_contact_person,
+                                      :organization_contact_phone, :other_items_name, :other_items_condition,
+                                      :other_items_quantity)
   end
 
   def sort_column
@@ -163,6 +162,6 @@ class InventoriesController < ApplicationController
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 end

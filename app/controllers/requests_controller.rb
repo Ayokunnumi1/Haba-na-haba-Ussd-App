@@ -39,9 +39,9 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @event = Event.find_by(id: params[:event_id])
     @districts = District.all
+    @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branches = Branch.all
     @users = User.where(role: 'volunteer')
   end
 
@@ -54,8 +54,10 @@ class RequestsController < ApplicationController
       redirect_to @request, notice: 'Request was successfully created.'
     else
       @districts = District.all
+      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
+      render :new, alert: 'Failed to create request.' # render :new instead of render :edit
     end
   end
 
@@ -69,7 +71,7 @@ class RequestsController < ApplicationController
       redirect_to @request, notice: 'Request was successfully updated.'
     else
       @districts = District.all
-      @branches = Branch.all
+      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       render :edit, alert: 'Failed to update request.'
@@ -96,6 +98,18 @@ class RequestsController < ApplicationController
                   County.none
                 end
     render json: @counties.map { |county| { id: county.id, name: county.name } }
+  end
+
+  def load_branches
+    if params[:district_id].present?
+      branches = Branch.joins(:branch_districts)
+        .where(branch_districts: { district_id: params[:district_id] })
+      render json: branches.map { |branch| { id: branch.id, name: branch.name } }
+    else
+      render json: { error: 'District ID is required' }, status: :bad_request
+    end
+  rescue StandardError => e
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   def load_sub_counties

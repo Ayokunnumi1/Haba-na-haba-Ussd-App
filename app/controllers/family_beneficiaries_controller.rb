@@ -1,4 +1,5 @@
 class FamilyBeneficiariesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_request, only: %i[new create edit update]
   before_action :set_family_beneficiary, only: %i[edit update show destroy]
 
@@ -100,6 +101,10 @@ class FamilyBeneficiariesController < ApplicationController
                       SubCounty.none
                     end
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
+  end
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to family_beneficiaries_path
   end
 
   private

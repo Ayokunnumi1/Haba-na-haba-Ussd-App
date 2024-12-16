@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  load_and_authorize_resource
   include EnglishMenu
   before_action :set_request, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token, only: [:ussd]
@@ -9,6 +10,8 @@ class RequestsController < ApplicationController
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)
     @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
+    # Restrict to branch_manager's branch
+    @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
   end
 
   def ussd
@@ -36,30 +39,39 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @event = Event.find_by(id: params[:event_id])
     @districts = District.all
+    @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branches = Branch.all
     @users = User.where(role: 'volunteer')
   end
 
   def create
     @request = Request.new(request_params)
+    # Restrict branch_id for branch_manager
+    @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
 
     if @request.save
       redirect_to @request, notice: 'Request was successfully created.'
     else
       @districts = District.all
+      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
+      render :new, alert: 'Failed to create request.' # render :new instead of render :edit
     end
   end
 
   def update
+    # Prevent branch_manager from updating requests outside their branch
+    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
+      redirect_to requests_path, alert: 'You are not authorized to update this request.' and return
+    end
+
     if @request.update(request_params)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
       @districts = District.all
-      @branches = Branch.all
+      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       render :edit, alert: 'Failed to update request.'
@@ -67,6 +79,11 @@ class RequestsController < ApplicationController
   end
 
   def destroy
+    # Prevent branch_manager from deleting requests
+    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
+      redirect_to requests_path, alert: 'You are not authorized to delete this request.' and return
+    end
+
     if @request.destroy
       redirect_to requests_url, notice: 'Request was successfully destroyed.'
     else
@@ -81,6 +98,18 @@ class RequestsController < ApplicationController
                   County.none
                 end
     render json: @counties.map { |county| { id: county.id, name: county.name } }
+  end
+
+  def load_branches
+    if params[:district_id].present?
+      branches = Branch.joins(:branch_districts)
+        .where(branch_districts: { district_id: params[:district_id] })
+      render json: branches.map { |branch| { id: branch.id, name: branch.name } }
+    else
+      render json: { error: 'District ID is required' }, status: :bad_request
+    end
+  rescue StandardError => e
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   def load_sub_counties
@@ -101,6 +130,10 @@ class RequestsController < ApplicationController
     else
       render :new
     end
+  end
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to requests_path
   end
 
   private

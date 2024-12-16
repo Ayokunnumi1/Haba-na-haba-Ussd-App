@@ -1,0 +1,105 @@
+<main class="bg-gray-100 dark:bg-gray-900 min-h-screen p-6">
+  <h2 class="py-4 font-bold text-xl font-Outfit">Overview</h2>
+  <div class="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <% @guidelines.each do |guide| %>
+      <div style="background-color: <%= guide[:color] %>;" class="p-6 border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col items-center transition-transform transform hover:scale-105">
+        <div class="rounded-full w-16 h-16 bg-black p-2 mb-4 flex items-center justify-center">
+          <%= image_tag(guide[:icon], alt: guide[:title], class: 'h-10 w-10') %>
+        </div>
+        <%= link_to guide[:link], class: "no-underline text-center" do %>
+          <h5 class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            <%= guide[:title] %>
+          </h5>
+        <% end %>
+        <p class="mb-3 font-normal text-gray-600 dark:text-gray-400">
+          <%= guide[:count] %> <%= guide[:units] %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <section class="bottom section md:flex md:flex-wrap mt-8">
+    <div class="sectional-data w-full p-4">
+      <div class="mb-4 border-b border-gray-300 dark:border-gray-700">
+        <div class="relative w-full flex flex-col md:flex-row justify-between items-center">
+          <button class="inline-flex w-full md:w-auto text-sm font-medium text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg p-2 mb-2 md:mb-0" type="button" id="tabsDropdownButton" data-dropdown-toggle="tabsDropdown">
+            View Data Analysis 
+            <svg class="w-5 h-5 ml-2 -mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="tabsDropdown" class="hidden z-10 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+              <li>
+                <button class="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">District Donations</button>
+              </li>
+              <li>
+                <button class="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" data-tabs-target="#request-type" type="button" role="tab" aria-controls="request-type" aria-selected="false">Request Type</button>
+              </li>
+              <li>
+                <button class="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" data-tabs-target="#daily-donation-types" type="button" role="tab" aria-controls="daily-donation-types" aria-selected="false">Daily Donation Type</button>
+              </li>
+              <li>
+                <button class="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" data-tabs-target="#users-and-events-weekly" type="button" role="tab" aria-controls="users-and-events-weekly" aria-selected="false">Users and Events Weekly</button>
+              </li>
+            </ul>
+          </div>
+          <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+            <form id="group_by_form" class="flex items-center space-x-2" action="<%= authenticated_root_path %>" method="get" data-turbo-frame="_charts">
+              <label for="group_by" class="text-sm font-medium text-gray-700 dark:text-gray-300">Group By:</label>
+              <select id="group_by" class="rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-lightGreen focus:border-lightGreen dark:bg-gray-700 dark:border-gray-600 dark:text-white" name="group_by" onchange="this.form.requestSubmit();">
+                <option value="seconds" <%= 'selected' if params[:group_by] == 'seconds' %>>Seconds</option>
+                            <option value="day" <%= 'selected' if params[:group_by] == 'day' %>>Day</option>
+                            <option value="week" <%= 'selected' if params[:group_by] == 'week' %>>Week</option>
+                            <option value="month" <%= 'selected' if params[:group_by] == 'month' %>>Month</option>
+                          </select>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tab Content -->
+                  <turbo-frame id="_charts" class="w-full">
+                    <div id="default-tab-content">
+                                  <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel">
+                                    <%= column_chart @donations_by_district, stacked: true, title: "Donations per District", downloadable: true %>
+                                  </div>
+                  <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 hidden" id="request-type" role="tabpanel">
+                    <%= line_chart @chart_data, title: "Request Types", ytitle: "Number of Requests", downloadable: true %>
+                  </div>
+                  <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 hidden" id="daily-donation-types" role="tabpanel">
+                    <%= line_chart @inventory_trends, title: "Inventory Trends", xtitle: "Inventory" %>
+                  </div>
+                  <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 hidden" id="users-and-events-weekly" role="tabpanel">
+                    <%= line_chart [{ name: "Events", data: @events_per_week }, { name: "Users", data: @users_per_week }], title: "Users and Events" %>
+                  </div>
+                </div>
+              </turbo-frame>
+            </section>
+            <section id="sectional-data2" class="flex flex-col md:flex-row mt-8 space-y-4 md:space-y-0 md:space-x-4">
+              <div id="beneficiary-ratio" class="md:w-3/4">
+                <div class="flex flex-col p-8 justify-center">
+                  <div class="bg-gray-200 rounded-xl p-8">
+                    <%= pie_chart @beneficiary_data, donut: true, title: "Beneficiary Type Ratio", colors: ["#FF5733", "#33FF57", "#3357FF"] %>
+                  </div>
+                </div>
+              </div>
+              <div id="pill-cards-section" class="flex flex-col space-y-4 md:w-1/4">
+                <a href="#" class="block bg-[#302C51] border p-4 border-gray-200 rounded-xl shadow text-white">
+                  <h2 class="text-lg font-semibold">Total Staffs</h2>
+                  <p class="text-2xl"><%= @staffs %></p>
+                </a>
+                <a href="#" class="block bg-[#302C51] border p-4 border-gray-200 rounded-xl shadow text-white">
+                  <h2 class="text-lg font-semibold">Total Volunteers</h2>
+                  <p class="text-2xl"><%= @volunteers %></p>
+                </a>
+                <a href="#" class="block bg-[#302C51] border p-4 border-gray-200 rounded-xl shadow text-white">
+                  <h2 class="text-lg font-semibold">Total Donors</h2>
+                  <p class="text-2xl">75</p>
+                </a>
+                <a href="#" class="block bg-[#302C51] border p-4 border-gray-200 rounded-xl shadow text-white">
+                  <h2 class="text-lg font-semibold">Total Beneficiaries</h2>
+                  <p class="text-2xl"><%= @total_beneficiaries %></p>
+                </a>
+              </div>
+            </section>
+          </main>

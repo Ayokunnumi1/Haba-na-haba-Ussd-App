@@ -1,0 +1,85 @@
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Donor Name</p>
+  <p class="text-gray-800"><%= @inventory.donor_name || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Donor Type</p>
+  <p class="text-gray-800"><%= @inventory.donor_type || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Donation Type</p>
+  <p class="text-gray-800"><%= @inventory.donation_type || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Food Name</p>
+  <p class="text-gray-800"><%= @inventory.food_name || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Food Quantity</p>
+  <p class="text-gray-800"><%= @inventory.food_quantity || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Food Type</p>
+  <p class="text-gray-800"><%= @inventory.food_type || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Expire Date</p>
+  <p class="text-gray-800"><%= @inventory.expire_date || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Place of Collection</p>
+  <p class="text-gray-800"><%= @inventory.place_of_collection || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Collection Date</p>
+  <p class="text-gray-800"><%= @inventory.collection_date || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">District</p>
+  <p class="text-gray-800"><%= @inventory.district.name || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">County</p>
+  <p class="text-gray-800"><%= @inventory.county.name || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Sub County</p>
+  <p class="text-gray-800"><%= @inventory.sub_county.name || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Branch</p>
+  <p class="text-gray-800"><%= @inventory.branch.name || 'N/A' %></p>
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Residence Address</p>
+  <p class="text-gray-800"><%= @inventory.residence_address || 'N/A' %></p>
+</div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Phone Number</p>
+  <p class="text-gray-800"><%= @inventory.phone_number || 'N/A' %></p>
+</div>
+<!-- Additional fields for family donors -->
+<% if @inventory.donor_type == 'family_donor' %>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Family Name</p>
+  <p class="text-gray-800"><%= @inventory.family_name || 'N/A' %></p>
+ </div>
+<div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Number of Family Members</p>
+  <p class="text-gray-800"><%= @inventory.family_member_count || 'N/A' %></p>
+</div>   
+<!-- Additional fields for organization donors -->
+<% elsif @inventory.donor_type == 'organization_donor' %> 
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Organization Name</p>
+  <p class="text-gray-800"><%= @inventory.organization_name || 'N/A' %></p>
+ </div>
+ <div class="md:pr-6">
+  <p class="text-sm font-bold text-lightGreen">Organization  Contact Person</p>
+  <p class="text-gray-800"><%= @inventory.organization_contact_person || 'N/A' %></p> 
+</div>
+<div class="md:pl-6">
+  <p class="text-sm font-bold text-lightGreen">Organization Contact Phone</p>
+  <p class="text-gray-800"><%= @inventory.organization_contact_phone || 'N/A' %></p>
+</div>  
+<% end %>

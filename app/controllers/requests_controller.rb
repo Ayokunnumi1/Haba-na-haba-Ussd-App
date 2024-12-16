@@ -11,7 +11,6 @@ class RequestsController < ApplicationController
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)
     @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
-    # Restrict to branch_manager's branch
     @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
   end
 
@@ -32,7 +31,6 @@ class RequestsController < ApplicationController
     return unless notification.present? && !notification.read
 
     notification.update(read: true)
-    Rails.logger.info "Notification #{notification.id} marked as read"
   end
 
   def new
@@ -56,7 +54,6 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-    # Restrict branch_id for branch_manager
     @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
 
     if @request.save
@@ -72,7 +69,6 @@ class RequestsController < ApplicationController
   end
 
   def update
-    # Prevent branch_manager from updating requests outside their branch
     unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
       redirect_to requests_path, alert: 'You are not authorized to update this request.' and return
     end
@@ -91,7 +87,6 @@ class RequestsController < ApplicationController
   end
 
   def destroy
-    # Prevent branch_manager from deleting requests
     unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
       redirect_to requests_path, alert: 'You are not authorized to delete this request.' and return
     end

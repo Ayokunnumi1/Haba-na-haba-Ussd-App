@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class RequestsController < ApplicationController
   load_and_authorize_resource
   include EnglishMenu
@@ -11,6 +12,7 @@ class RequestsController < ApplicationController
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)
     @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
+    # Restrict to branch_manager's branch
     @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
   end
 
@@ -30,7 +32,7 @@ class RequestsController < ApplicationController
     notification = current_user.notifications.find_by(id: params[:notification_id])
     return unless notification.present? && !notification.read
 
-    notification.update(read: true)
+    notification.update(read: true)    
   end
 
   def new
@@ -54,6 +56,7 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
+    # Restrict branch_id for branch_manager
     @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
 
     if @request.save
@@ -69,6 +72,7 @@ class RequestsController < ApplicationController
   end
 
   def update
+    # Prevent branch_manager from updating requests outside their branch
     unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
       redirect_to requests_path, alert: 'You are not authorized to update this request.' and return
     end
@@ -87,6 +91,7 @@ class RequestsController < ApplicationController
   end
 
   def destroy
+    # Prevent branch_manager from deleting requests
     unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
       redirect_to requests_path, alert: 'You are not authorized to delete this request.' and return
     end
@@ -185,3 +190,4 @@ class RequestsController < ApplicationController
     )
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -14,3 +14,4 @@ import "Chart.bundle";
 import "./users/filterUsers";
 import "./users/userDropDown";
 import "./controllers/filter_modal";
+import "./dashboard";

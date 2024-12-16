@@ -25,6 +25,10 @@ class EventsController < ApplicationController
       redirect_to @event, notice: 'Event and users were successfully created.'
     else
       @users = User.all
+      @districts = District.all
+      @counties = County.none
+      @sub_counties = SubCounty.none
+      flash.now[:alert] = "Error: #{@event.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -53,9 +57,10 @@ class EventsController < ApplicationController
     else
       @users = User.all
       @districts = District.all
-      @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
-      @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      render :edit, status: :unprocessable_entity
+      @counties = County.none
+      @sub_counties = SubCounty.none
+      flash.now[:alert] = "Error: #{@event.errors.full_messages.to_sentence}"
+      render :new, status: :unprocessable_entity
     end
   end
 

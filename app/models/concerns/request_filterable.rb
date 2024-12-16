@@ -10,7 +10,8 @@ module RequestFilterable
       requests = filter_by_location(requests, params[:district_id], params[:county_id], params[:sub_county_id])
       requests = filter_by_is_selected(requests, params[:is_selected])
       requests = filter_by_branch(requests, params[:branch_id])
-      filter_by_date_range(requests, params[:start_date], params[:end_date])
+      requests = filter_by_date_range(requests, params[:start_date], params[:end_date]) # rubocop:disable Style/RedundantAssignment
+      requests
     end
 
     private

@@ -1,7 +1,8 @@
 class District < ApplicationRecord
   include Matchable
 
-  has_many :counties
+  has_many :counties, dependent: :destroy
+  accepts_nested_attributes_for :counties, allow_destroy: true
   has_many :branch_districts, dependent: :destroy
   has_many :branches, through: :branch_districts
   has_many :individual_beneficiaries, dependent: :nullify

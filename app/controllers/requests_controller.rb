@@ -8,6 +8,7 @@ class RequestsController < ApplicationController
     @counties = County.none
     @sub_counties = SubCounty.none
     @requests = Request.apply_filters(params).order(created_at: :desc)
+    @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
   end
 
   def ussd
@@ -24,19 +25,19 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
-    @branches = Branch.all
     @districts = District.all
     @counties = County.none
-    @branches = Branch.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
   end
 
   def edit
+    @request = Request.find(params[:id])
+    @event = Event.find_by(id: params[:event_id])
     @districts = District.all
+    @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-    @branches = Branch.all
     @users = User.where(role: 'volunteer')
   end
 
@@ -47,8 +48,10 @@ class RequestsController < ApplicationController
       redirect_to @request, notice: 'Request was successfully created.'
     else
       @districts = District.all
+      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
+      render :new, alert: 'Failed to create request.' # render :new instead of render :edit
     end
   end
 
@@ -57,7 +60,7 @@ class RequestsController < ApplicationController
       redirect_to @request, notice: 'Request was successfully updated.'
     else
       @districts = District.all
-      @branches = Branch.all
+      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       render :edit, alert: 'Failed to update request.'
@@ -81,6 +84,18 @@ class RequestsController < ApplicationController
     render json: @counties.map { |county| { id: county.id, name: county.name } }
   end
 
+  def load_branches
+    if params[:district_id].present?
+      branches = Branch.joins(:branch_districts)
+        .where(branch_districts: { district_id: params[:district_id] })
+      render json: branches.map { |branch| { id: branch.id, name: branch.name } }
+    else
+      render json: { error: 'District ID is required' }, status: :bad_request
+    end
+  rescue StandardError => e
+    render json: { error: e.message }, status: :internal_server_error
+  end
+
   def load_sub_counties
     @sub_counties = if params[:county_id].present?
                       SubCounty.where(county_id: params[:county_id])
@@ -88,6 +103,17 @@ class RequestsController < ApplicationController
                       SubCounty.none
                     end
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
+  end
+
+  def create_for_event
+    @event = Event.find(params[:event_id])
+    @request = @event.requests.new(request_params)
+
+    if @request.save
+      redirect_to event_path(@event), notice: 'Request created successfully!'
+    else
+      render :new
+    end
   end
 
   private
@@ -104,6 +130,6 @@ class RequestsController < ApplicationController
     params.require(:request).permit(:name, :phone_number, :request_type,
                                     :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
-                                    :branch_id, :user_id)
+                                    :branch_id, :user_id, :event_id)
   end
 end

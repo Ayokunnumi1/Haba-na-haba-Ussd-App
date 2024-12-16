@@ -7,6 +7,7 @@ class OrganizationBeneficiariesController < ApplicationController
     @counties = County.none
     @sub_counties = SubCounty.none
     @branches = Branch.all
+    @organization_beneficiaries = OrganizationBeneficiary.includes(:event).all
     @organization_beneficiaries = OrganizationBeneficiary.includes(:request).apply_filters(params)
   end
 
@@ -28,6 +29,7 @@ class OrganizationBeneficiariesController < ApplicationController
       redirect_to @request, alert: 'An Organization Beneficiary already exists for this request.'
     else
       @organization_beneficiary = @request.build_organization_beneficiary(organization_beneficiary_params)
+      @organization_beneficiary.event_id = @request.event_id
       if @organization_beneficiary.save
         redirect_to @organization_beneficiary, notice: 'Organization Beneficiary was successfully created.'
       else
@@ -120,7 +122,7 @@ class OrganizationBeneficiariesController < ApplicationController
       :organization_name, :male, :female, :adult_age_range, :children_age_range, :district_id, :county_id,
       :sub_county_id, :residence_address, :village, :parish, :phone_number, :case_name, :case_description,
       :registration_no, :organization_no, :directors_name, :head_of_institution, :number_of_meals_home, :basic_FEH,
-      :request_id, :branch_id, :provided_food
+      :request_id, :branch_id, :provided_food, :event_id
     )
   end
 end

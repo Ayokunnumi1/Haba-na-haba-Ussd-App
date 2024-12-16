@@ -1,9 +1,54 @@
-<div class="flex justify-center items-center h-[90%] w-full">
-  <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6">
-    <h2 class="text-3xl font-bold mb-4 text-center">District: <%= @district.name %></h2>
-    <div class="mt-6 text-center ">
-      <%= link_to 'Edit', edit_district_path(@district), class: 'inline-block px-4 py-2 bg-lightGreen text-white font-semibold rounded-lg hover:bg-yellow-600' %>
-      <%= link_to 'Back', districts_path, class: 'inline-block ml-4 px-4 py-2 bg-darkBlue text-white font-semibold rounded-lg hover:bg-gray-600' %>
+<section class="p-5">
+  <div class="w-full lg:px-10">
+    <div class="bg-gradient-to-tr from-white from-40% via-lightGreen/50 via-90% to-red-600/40 to-100% text-white shadow-xl rounded-xl p-3 sm:p-8 mb-8">
+      
+      <!-- Header Row -->
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div class="text-lg lg:text-3xl text-darkBlue font-Outfit font-bold">
+          District: <%= @district.name %> <!-- Display district name -->
+        </div>
+        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+          <%= link_to '#', class: 'flex items-center justify-center text-white bg-lightGreen hover:bg-darkBlue focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2', id: 'edit-district-toggle' do %>
+            <i class="fa-solid fa-pencil-alt mr-2"></i>
+            Edit District
+          <% end %>
+          <%= link_to 'Back', districts_path, class: 'flex items-center justify-center text-white bg-darkBlue hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+        </div>
+      </div>
+      <!-- County Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-3">
+        <% @district.counties.each do |county| %>
+          <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">County: <%= county.name %></h2>
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead>
+                <tr class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-800 dark:text-gray-400">
+                  <th scope="col" class="px-6 py-3">SubCounty</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% county.sub_counties.each do |sub_county| %>
+                  <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="px-6 py-3"><%= sub_county.name %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Counties Form -->
+      <div id="edit-district-form" class="hidden p-5">
+        <%= form_with model: @district, local: true do |form| %>
+        <div class="mt-10">
+          <%= link_to(link_to_add_fields("Add County", form, :counties), class: "text-blue-500 underline mt-10") %>
+        </div>
+        <div class="flex items-center justify-between mt-6">
+          <%= form.submit "Create Location", class: " w-full bg-lightGreen hover:bg-darkBlue text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline" %>
+        </div>
+      <% end %>
+      </div>
     </div>
   </div>
-</div>
+</section>

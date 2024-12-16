@@ -1,13 +1,16 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails";
 import "controllers";
+import "flowbite";
+import "./modal";
 import "./controllers";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
+import "./controllers/load_counties_modal";
 import "requestDropdown";
 import "./controllers/toggleFilter";
 import "./dropdown";
-import "flowbite";
+import "./nested_forms";
+import "./district";
 import "truncate";
 import "chartkick";
 import "Chart.bundle";
@@ -15,3 +18,9 @@ import "./users/filterUsers";
 import "./users/userDropDown";
 import "./controllers/filter_modal";
 import "./dashboard";
+import "./eventUser";
+import "./eventTab";
+import "./users/filterUsers";
+import "./users/userDropDown";
+import "./controllers/filter_modal";
+import "./scroll_to_top";

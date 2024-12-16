@@ -1,13 +1,23 @@
-<%= form_with(model: county, local: true) do |form| %>
-  <div class="mb-4">
-    <%= form.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+<%= form_with(model: county_form.object, class: "contents") do |form| %>
+  <% if county_form.object.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(county_form.object.errors.count, "error") %> prohibited this county from being saved:</h2>
+
+      <ul>
+        <% county_form.object.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= county_form.label :name, "County Name" %>
+    <%= county_form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-  <div class="mb-4">
-    <%= form.label :district_id, 'District', class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= form.collection_select :district_id, District.all, :id, :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-  </div>
-  <div class="flex items-center justify-between">
-    <%= form.submit class: "bg-lightGreen hover:bg-darkBlue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+
+  <div class="my-5">
+    <%= county_form.label :name, "Description" %>
+    <%= county_form.text_area :name, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 <% end %>

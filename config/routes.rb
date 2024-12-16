@@ -1,13 +1,26 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
 
+  root "home#index"
+  post "create_request", to: "home#create_request"
   get 'home/index'
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   post  'ussd_request', to: 'requests#ussd'
   resources :users
-  resources :districts
+  resources :districts do
+    resources :counties do
+      resources :sub_counties, only: [:new, :create]
+    end
+  end
   resources :counties
   resources :sub_counties
+resources :events do
+  resources :requests
+end
+
+  
+
+  resources :event_users, only: [:create, :destroy]
   resources :branches do
     collection do
       get :load_counties
@@ -17,6 +30,7 @@ Rails.application.routes.draw do
     collection do
       get :load_counties
       get :load_sub_counties
+      get :load_branches 
     end
     resource :individual_beneficiary, only: [:new, :create, :edit, :update] do
       collection do

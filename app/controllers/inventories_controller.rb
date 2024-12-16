@@ -49,17 +49,17 @@ class InventoriesController < ApplicationController
     end
   end
 
-    def top_donors
-      start_date = params[:start_date].presence || Date.today.beginning_of_month
-      end_date = params[:end_date].presence || Date.today.end_of_month
+  def top_donors
+    start_date = params[:start_date].presence || Date.today.beginning_of_month
+    end_date = params[:end_date].presence || Date.today.end_of_month
 
-      @top_donors = Inventory
-                      .where(collection_date: start_date..end_date)
-                      .select("donor_name, phone_number, COUNT(*) as donation_count, SUM(collection_amount) as total_collected")
-                      .group("donor_name, phone_number")
-                      .order("donation_count DESC")
-                      .limit(10)
-    end
+    @top_donors = Inventory
+      .where(collection_date: start_date..end_date)
+      .select('donor_name, phone_number, COUNT(*) as donation_count, SUM(collection_amount) as total_collected')
+      .group('donor_name, phone_number')
+      .order('donation_count DESC')
+      .limit(10)
+  end
 
   def new
     if @request.inventories.exists?

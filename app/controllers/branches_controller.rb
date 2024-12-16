@@ -3,7 +3,6 @@ class BranchesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_branch, only: %i[show edit update destroy]
   before_action :load_districts, only: %i[new edit create update]
-  before_action :load_counties_for_branch, only: %i[edit create update]
 
   def index
     @branches = Branch.includes(:districts).order(created_at: :desc)

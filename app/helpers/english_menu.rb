@@ -35,15 +35,11 @@ module EnglishMenu
     return invalid_choice unless action_config
 
     case inputs.length
-    when 0
+    when 0 
       enter_name
-    when 1
+    when 1  
       enter_district
-    when 2
-      enter_county
-    when 3
-      enter_sub_county
-    else
+    else 
       handle_extra_steps(inputs, action_config, text, phone_number, session)
     end
   end

@@ -10,4 +10,5 @@ pin "requestDropdown", to: "requestDropdown.js"
 pin "truncate", to: "truncate.js"
 pin "dropdown", to: "dropdown.js"
 pin_all_from "app/javascript/users", under: "users"
+pin "inventoryDonorType", to: "inventoryDonorType.js"
 

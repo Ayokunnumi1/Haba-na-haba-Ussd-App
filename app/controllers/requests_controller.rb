@@ -25,6 +25,7 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @branches = Branch.all
     @districts = District.all
     @counties = County.none
     @users = User.where(role: 'volunteer')

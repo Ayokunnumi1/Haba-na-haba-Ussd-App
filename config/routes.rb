@@ -76,6 +76,15 @@ end
   end
   resources :inventories, only: [:index, :show, :destroy]
 
+  resources :requests do
+    resources :inventories, only: [:new, :create, :edit] do
+      collection do
+        get 'load_counties'
+        get 'load_sub_counties'
+      end
+    end
+  end
+  
   # Conditional root route
   authenticated :user do
     root to: 'users#index', as: :authenticated_root

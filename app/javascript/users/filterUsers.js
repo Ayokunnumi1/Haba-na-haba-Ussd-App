@@ -1,11 +1,13 @@
 document.addEventListener("turbo:load", () => {
   // Role Dropdown toggle functionality
-  const dropDownButton = document.querySelector("#dropDownMenuBtn");
+  const dropDownMenuButton = document.querySelector("#dropDownMenuBtn");
   const dropDownMenu = document.querySelector("#dropDownMenu");
 
-  dropDownButton.addEventListener("click", function () {
-    dropDownMenu.classList.toggle("hidden");
-  });
+  if (dropDownMenuButton && dropDownMenu) {
+    dropDownMenuButton.addEventListener("click", function () {
+      dropDownMenu.classList.toggle("hidden");
+    });
+  }
 
   // Role filtering functionality
   const dropdownItems = document.querySelectorAll("#dropDownItems");

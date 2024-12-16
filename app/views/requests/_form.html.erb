@@ -1,4 +1,4 @@
-<%= form_with(model: (event.present? ? [event, event.requests.build] : request), local: true) do |form| %>
+<%= form_with(model: request, local: true) do |form| %>
   <div class="grid gap-6 mt-4 md:grid-cols-2 p-5">
     <% if event.present? %>
       <%= form.hidden_field :event_id, value: event.id %>
@@ -17,15 +17,7 @@
     </div>
     <div>
       <%= form.label :request_type, class: "block mb-2 text-sm font-medium text-gray-900" %>
-      <%= form.select :request_type,
-      options_for_select([
-        ['Food Request', 'food_request'],
-        ['Donation Request', 'donation_request'],
-        ['Others', 'others']
-      ]),
-      { prompt: 'Select request type' },
-      id: 'request_type',
-      class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+      <%= form.select :request_type, options_for_select([["Food request","food_request"], ["Food donation", "food_donation"], ["Cloth donation","cloth_donation"],["Cash donation","cash_donation"], ["Other donation","other_donation"]]), { prompt: 'select request type' }, id: 'request_type', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
     </div>
     <div>
       <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
@@ -41,7 +33,11 @@
     </div>
     <div>
       <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
-      <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+      <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { id: 'branch-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': 'requests' } %>
+    </div>
+    <div>
+      <%= form.label :is_selected, "Approved?", class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.select :is_selected, [["Yes", true], ["No", false]], { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
     </div>
     <div>
       <%= form.label :user_id, "Assign Volunteer", class: "block mb-2 text-sm font-medium text-gray-900" %>
@@ -55,7 +51,9 @@
       <%= form.submit class: "text-white bg-lightGreen hover:bg-darkGreen focus:ring-4 focus:outline-none focus:ring-lightGreen font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
     </div>
     <div>
-      <%= link_to 'Back', (event.present? ? event_request_path(event) : requests_path), class: 'inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
+      <%= link_to 'Back', requests_path, class: 'inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700' %>
     </div>
   </div>
+  <!-- Add the is_selected dropdown select -->
+</div>
 <% end %>

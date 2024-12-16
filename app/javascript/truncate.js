@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
       '[id^="user-first-name-"]'
     );
     firstNameElements.forEach(function (element) {
-      if (screenWidth <= 360) {
+      if (screenWidth <= 320) {
         truncateText(element, maxLength);
       } else {
         element.textContent = element.getAttribute("data-full-name");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Truncate roles
     const roleElements = document.querySelectorAll('[id^="user-role-"]');
     roleElements.forEach(function (element) {
-      if (screenWidth <= 360) {
+      if (screenWidth <= 320) {
         truncateText(element, maxLength);
       } else {
         element.textContent = element.getAttribute("data-role-full");

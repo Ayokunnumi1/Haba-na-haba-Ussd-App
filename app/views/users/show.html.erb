@@ -22,9 +22,9 @@
   <!-- Social Links -->
   <div class="flex justify-center gap-6 mt-6">
     <% links = [
-    { url: "https://www.whatsapp.com/", icon: "fab fa-whatsapp text-green-500" },
+    { url: "https://wa.me/#{@user.phone_number}", icon: "fab fa-whatsapp text-green-500" },
     { url: "https://zoom.us/signin#/login", icon: "fas fa-video text-blue-500" },
-    { url: "https://www.google.com/intl/en-US/gmail/about/", icon: "fas fa-envelope text-red-500" }
+    { url: "mailto:#{@user.email}", icon: "fas fa-envelope text-red-500" }
     ] %>
     <% links.each do |link| %>
       <a href="<%= link[:url] %>" target="_blank" class="rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150">

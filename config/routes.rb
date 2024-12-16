@@ -83,4 +83,13 @@ Rails.application.routes.draw do
     end
   end
   resources :inventories, only: [:index, :show, :destroy]
+
+  resources :requests do
+    resources :inventories, only: [:new, :create, :edit] do
+      collection do
+        get 'load_counties'
+        get 'load_sub_counties'
+      end
+    end
+  end
 end

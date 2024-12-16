@@ -16,6 +16,7 @@ import "./eventUser";
 import "./eventTab";
 import "./users/filterUsers";
 import "./users/userDropDown";
+import "inventoryDonorType";
 import "./controllers/filter_modal";
 import "./scroll_to_top";
 

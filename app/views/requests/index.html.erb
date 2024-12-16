@@ -1,4 +1,3 @@
-
 <%= render 'requests/cardLayout' %>
 <div class="flex justify-between items-center p-5">
   <div class="block md:hidden">
@@ -159,8 +158,7 @@
       </tr>
     </thead>
     <tbody>
-   
-    <% @requests.each_with_index do |request, index| %>
+      <% @requests.each_with_index do |request, index| %>
         <tr class="bg-white border-b hover:bg-gray-50">
           <!-- Request Name -->
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -183,42 +181,43 @@
             <% if request.user_id.present? %>
               <% case request.is_selected %>
               <% when true %>
-              <span class="font-medium text-lime-500">Approved</span>
+                <span class="font-medium text-lime-500">Approved</span>
               <% when false %>
-              <span class="font-medium text-red-600">Rejected</span>
+                <span class="font-medium text-red-600">Rejected</span>
+              <% else %>
+                <span class="font-medium text-yellow-400">Assigned</span>
+              <% end %>
             <% else %>
-              <span class="font-medium text-yellow-400">Assigned</span>
+              <span class="font-medium text-darkBlue">Not Assigned</span>
             <% end %>
-          <% else %>
-            <span class="font-medium text-darkBlue">Not Assigned</span>
-          <% end %>
-        </td>
-        <!-- Dropdown Menu for Actions -->
-        <td class="px-6 py-4">
-          <div class="relative inline-block text-left">
-            <button type="button" onclick="toggleDropdown(<%= request.id %>)" data-request-type="<%= request.request_type %>" class="rounded-md border border-gray-300 shadow-sm p-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none flex justify-center items-center">
-              Actions
-              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            </button>
-            <div id="dropdown-<%= request.id %>" class="hidden absolute z-10 right-0 <%= 'bottom-full mb-2' if index >= 4 %> w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                <%= link_to 'Details', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                <%= link_to 'Update', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                <%= button_to 'Delete', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
-                <%= link_to 'Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                <%= link_to 'Family Beneficiary', new_request_family_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                <%= link_to 'Organization Beneficiary', new_request_organization_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                <%= link_to 'Add Inventory', new_request_inventory_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+          </td>
+          <!-- Dropdown Menu for Actions -->
+          <td class="px-6 py-4">
+            <div class="relative inline-block text-left">
+              <button type="button" onclick="toggleDropdown(<%= request.id %>)" data-request-type="<%= request.request_type %>" class="rounded-md border border-gray-300 shadow-sm p-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none flex justify-center items-center">
+                Actions
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <div id="dropdown-<%= request.id %>" class="hidden absolute z-10 right-0 <%= 'bottom-full mb-2' if index >= 4 %> w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                  <%= link_to 'Details', request, class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Update', edit_request_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= button_to 'Delete', request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
+                  <%= link_to 'Individual Beneficiary', new_request_individual_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Family Beneficiary', new_request_family_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Organization Beneficiary', new_request_organization_beneficiary_path(request), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>                  
+                  <%= link_to 'Food Donation Form', new_request_inventory_path(request, type: 'food'), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Cash Donation Form', new_request_inventory_path(request, type: 'cash'), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Cloth Donation Form', new_request_inventory_path(request, type: 'cloth'), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to 'Other Items Donation Form', new_request_inventory_path(request, type: 'other_items'), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                </div>
               </div>
             </div>
-
           </td>
         </tr>
-       
       <% end %>
     </tbody>
   </table>
-
 </div>

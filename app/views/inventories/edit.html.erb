@@ -1,3 +1,8 @@
-<h1 class="text-2xl font-bold mb-4">Edit Inventory</h1>
-<%= render 'form', request: @request %>
-<%= link_to 'Back to Requests', requests_path, class: "mt-4 inline-block bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700" %>
+<% if @inventory.errors.any? %>
+  <div id="form-container" class="p-5">
+    <p class="bg-red-100 text-red-800 text-center font-Outfit text-base">Please fill form correctly to add new inventory</p>
+  </div>
+  <% end %>
+  <div id="form-container" class="p-5">
+    <%= render partial: @inventory_partial %>
+  </div>

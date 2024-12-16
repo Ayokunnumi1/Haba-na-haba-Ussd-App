@@ -54,7 +54,6 @@ class BranchesController < ApplicationController
     redirect_to branches_path, alert: handle_destroy_error(e)
   end
 
-
   def load_counties
     district_ids = params[:district_ids].split(',')
     @counties = County.where(district_id: district_ids)

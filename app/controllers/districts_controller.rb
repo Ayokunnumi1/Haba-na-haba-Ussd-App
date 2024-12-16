@@ -18,6 +18,7 @@ class DistrictsController < ApplicationController
     if @district.save
       redirect_to districts_path, notice: 'District, Counties, and SubCounties were successfully created.'
     else
+      flash.now[:alert] = "Error: #{@district.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -30,6 +31,7 @@ class DistrictsController < ApplicationController
     if @district.update(district_params)
       redirect_to district_path(@district), notice: 'District, Counties, and SubCounties were successfully updated.'
     else
+      flash.now[:alert] = "Error: #{@district.errors.full_messages.to_sentence}"
       render :edit, status: :unprocessable_entity
     end
   end

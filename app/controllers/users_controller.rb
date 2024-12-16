@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to users_path, notice: 'user was successfully created.'
     else
-      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      flash.now[:alert] = "Error: #{@user.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
-      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      flash.now[:alert] = "Error: #{@user.errors.full_messages.to_sentence}"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -50,6 +50,9 @@ class UsersController < ApplicationController
     end
     redirect_to users_path
   end
+rescue StandardError => e
+  redirect_to branches_path, alert: handle_destroy_error(e)
+end
 
   private
 
@@ -57,4 +60,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :email, :password,
                                  :password_confirmation, :branch_id, :image, :gender, :location)
   end
-end

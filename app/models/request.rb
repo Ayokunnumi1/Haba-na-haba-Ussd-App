@@ -2,8 +2,8 @@ class Request < ApplicationRecord
   include RequestFilterable
 
   belongs_to :district
-  belongs_to :county
-  belongs_to :sub_county
+  belongs_to :county, optional: true
+  belongs_to :sub_county, optional: true
   belongs_to :branch
   belongs_to :event, optional: true
   belongs_to :user, optional: true

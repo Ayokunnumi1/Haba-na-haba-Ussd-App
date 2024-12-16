@@ -25,7 +25,8 @@ class BranchesController < ApplicationController
     if @branch.save
       redirect_to @branch, notice: 'Branch was successfully created.'
     else
-      render :new, alert: 'Failed to create branch.'
+      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +34,8 @@ class BranchesController < ApplicationController
     if @branch.update(branch_params)
       redirect_to @branch, notice: 'Branch was successfully updated.'
     else
-      render :edit, alert: 'Failed to update branch.'
+      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      render :edit, status: :unprocessable_entity
     end
   end
 

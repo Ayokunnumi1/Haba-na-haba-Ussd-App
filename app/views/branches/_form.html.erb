@@ -1,14 +1,5 @@
 <%= form_with(model: @branch, local: true, class: "space-y-6") do |form| %>
-  <% if @branch.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-      <strong class="font-bold"><%= pluralize(@branch.errors.count, "error") %> prevented this branch from being saved:</strong>
-      <ul class="mt-2">
-        <% @branch.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
   <div>
     <%= form.label :name, 'Branch Name', class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_field :name, class: "mt-1 block w-full rounded-md", placeholder: "Enter branch name", required: true %>

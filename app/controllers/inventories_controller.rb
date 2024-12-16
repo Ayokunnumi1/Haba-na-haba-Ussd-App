@@ -34,7 +34,7 @@ class InventoriesController < ApplicationController
     flash.now[:notice] = "Showing top donors from #{start_date} to #{end_date}."
   end
 
-  def new    
+  def new
     @inventory = @request.inventories.build(
       donor_name: @request.name,
       phone_number: @request.phone_number,

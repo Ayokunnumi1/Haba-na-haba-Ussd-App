@@ -1,4 +1,6 @@
 class IndividualBeneficiariesController < ApplicationController
+  load_and_authorize_resource
+  include ErrorHandler
   before_action :set_request, only: %i[new create edit update]
   before_action :set_individual_beneficiary, only: %i[edit update show destroy]
 
@@ -104,6 +106,11 @@ class IndividualBeneficiariesController < ApplicationController
                       SubCounty.none
                     end
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
+  end
+
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to individual_beneficiaries_path
   end
 
   private

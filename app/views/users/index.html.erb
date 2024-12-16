@@ -3,8 +3,9 @@
   <div class="flex flex-row justify-between items-center font-Outfit">
     <div class="ssm:block mmd:hidden">
       <%= button_to new_user_path, method: :get do %>
-        <%= image_tag("add_btn.png", alt: "add", class: "w-6 h-6") %>
-      <% end %>
+          <div class="w-6 h-6 bg-lightGreen rounded-full flex items-center justify-center">
+            <i class="fas fa-plus text-white"></i>
+          </div>      <% end %>
     </div>
     <p class="ssm:hidden mmd:block font-bold mmd:text-lg">Staffs</p>
     <div class="ssm:hidden mmd:block p-4 bg-lightGreen text-white rounded-xl">
@@ -39,17 +40,21 @@
             </svg>
           </button>
           <!-- Dropdown menu -->
-          <div id="userDropDwnMenu<%= user.id %>" class="hidden absolute right-0 mt-0 w-38 bg-white hover:text-white rounded-md shadow-lg z-10">
+                   <div id="userDropDwnMenu<%= user.id %>" class="hidden absolute right-0 mt-0 w-38 bg-white hover:text-white rounded-md shadow-lg z-10">
             <ul class="py-1 text-sm text-black font-bold font-Outfit">
               <li>
                 <%= link_to 'View', user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-DarkBlue" %>
               </li>
               <li>
-                <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen" %>
+                <% if can? :update, user %>
+                  <%= link_to 'Edit', edit_user_path(user), class: "block px-4 py-2 hover:bg-lightGray text-lightGreen" %>
+                <% end %>
               </li>
               <li>
-                <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray text-red-500" do %>
-                  Delete
+                <% if can? :destroy, user %>
+                  <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "block w-full text-left px-4 py-2 hover:bg-lightGray text-red-500" do %>
+                    Delete
+                  <% end %>
                 <% end %>
               </li>
             </ul>
@@ -76,13 +81,13 @@
               <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.1852 3.70369H3.7037C3.21256 3.70369 2.74154 3.89879 2.39425 4.24608C2.04696 4.59337 1.85185 5.0644 1.85185 5.55554V18.5185C1.85185 19.0096 2.04696 19.4807 2.39425 19.828C2.74154 20.1752 3.21256 20.3704 3.7037 20.3704H16.6667C17.1578 20.3704 17.6288 20.1752 17.9761 19.828C18.3234 19.4807 18.5185 19.0096 18.5185 18.5185V12.037M17.1296 2.3148C17.498 1.94644 17.9976 1.7395 18.5185 1.7395C19.0395 1.7395 19.539 1.94644 19.9074 2.3148C20.2758 2.68315 20.4827 3.18275 20.4827 3.70369C20.4827 4.22462 20.2758 4.72422 19.9074 5.09258L11.1111 13.8889L7.40741 14.8148L8.33333 11.1111L17.1296 2.3148Z" stroke="#6DC13D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            <% end %>
           </div>
           <div>
             <%= button_to user_path(user), method: :delete, data: { confirm: 'Are you sure?' } do %>
               <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.25925 19.4444C6.74999 19.4444 6.31404 19.2631 5.95138 18.9005C5.58873 18.5378 5.4074 18.1018 5.4074 17.5926V5.55555H4.48148V3.7037H9.11111V2.77777H14.6667V3.7037H19.2963V5.55555H18.3704V17.5926C18.3704 18.1018 18.189 18.5378 17.8264 18.9005C17.4637 19.2631 17.0278 19.4444 16.5185 19.4444H7.25925ZM16.5185 5.55555H7.25925V17.5926H16.5185V5.55555ZM9.11111 15.7407H10.963V7.4074H9.11111V15.7407ZM12.8148 15.7407H14.6667V7.4074H12.8148V15.7407Z" fill="#E41414"/>
               </svg>
+               <% end %>
             <% end %>
           </div>
         </li>

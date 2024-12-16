@@ -1,4 +1,5 @@
 class DistrictsController < ApplicationController
+  load_and_authorize_resource
   include ErrorHandler
   before_action :authenticate_user!
   before_action :set_district, only: %i[show edit update destroy]
@@ -42,6 +43,10 @@ class DistrictsController < ApplicationController
     end
   rescue StandardError => e
     redirect_to districts_path, alert: handle_destroy_error(e)
+  end
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to districts_path
   end
 
   private

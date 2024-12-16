@@ -33,6 +33,18 @@
       <p class="font-bold text-lg text-lightGreen">Branch:</p>
       <p><%= @request.branch.name if @request.branch.present? %></p>
     </div>
+    <div class="md:pr-4">
+      <p class="font-bold text-lg text-lightGreen">Approved:</p>
+      <p><%= @request.is_selected ? 'Yes' : 'No' %></p>
+    </div>
+    <div class="md:pl-4">
+      <p class="font-bold text-lg text-lightGreen">Assigned Staff:</p>
+      <% if @request.user.present? %>
+        <p><%= @request.user.first_name %> <%= @request.user.last_name %></p>
+      <% else %>
+        <p>No staff assigned</p>
+      <% end %>
+    </div>
     <div class="mt-4 md:pr-4">
       <% if @request.event.present? %>
         <%= link_to 'Edit', edit_event_request_path(@request.event, @request), class: "bg-lightGreen text-white py-2 px-4 rounded hover:bg-green-800" %>

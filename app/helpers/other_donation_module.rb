@@ -33,7 +33,7 @@ module OtherDonationModule
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
     return 'END No matching district found.' if selected_district.nil?
-    
+
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No branch found for the selected district and county.' if branch.nil?
 

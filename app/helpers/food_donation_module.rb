@@ -11,7 +11,7 @@ module FoodDonationModule
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
     return 'END No matching district found.' unless selected_district
-  
+
 
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No matching district found.' unless selected_district

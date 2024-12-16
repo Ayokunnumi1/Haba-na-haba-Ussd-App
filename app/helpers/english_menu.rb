@@ -2,7 +2,7 @@ module EnglishMenu
   include FoodRequestModule
   include FoodDonationModule
   include OtherDonationModule
-  
+
   MENU_ACTIONS = {
     '1' => {
       module: FoodRequestModule,
@@ -28,20 +28,19 @@ module EnglishMenu
   }.freeze
 
   def self.process_menu(text, phone_number, session)
-
     return welcome_menu if text.blank?
-    
+
     action, *inputs = text.split('*')
     action_config = MENU_ACTIONS[action]
 
     return invalid_choice unless action_config
 
     case inputs.length
-    when 0 
+    when 0
       enter_name
-    when 1  
+    when 1
       enter_district
-    else 
+    else
       handle_extra_steps(inputs, action_config, text, phone_number, session)
     end
   end

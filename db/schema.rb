@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_154504) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -174,19 +174,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_154504) do
     t.bigint "district_id", null: false
     t.bigint "county_id", null: false
     t.bigint "sub_county_id", null: false
-    t.string "village_address"
     t.string "residence_address"
     t.string "phone_number"
-    t.string "parish"
     t.decimal "amount"
-    t.string "head_of_institution"
-    t.string "registration_no"
     t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "collection_amount"
     t.integer "event_id"
+    t.string "cloth_condition"
+    t.string "cloth_name"
+    t.string "cloth_size"
+    t.integer "cloth_quantity"
+    t.string "donation_type"
+    t.integer "food_quantity"
+    t.string "food_type"
+    t.string "place_of_collection"
+    t.decimal "cost_of_food"
+    t.string "cloth_type"
+    t.string "other_items_condition"
+    t.string "other_items_name"
+    t.integer "other_items_quantity"
+    t.string "organization_name"
+    t.string "organization_contact_person"
+    t.string "organization_contact_phone"
+    t.string "family_name"
+    t.integer "family_member_count"
     t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["district_id"], name: "index_inventories_on_district_id"
@@ -237,17 +251,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_154504) do
     t.string "parish"
     t.boolean "is_selected"
     t.bigint "district_id", null: false
-    t.bigint "county_id", null: false
-    t.bigint "sub_county_id", null: false
+    t.bigint "county_id"
+    t.bigint "sub_county_id"
     t.bigint "branch_id", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "event_id"
+    t.integer "amount"
+    t.string "food_type"
+    t.string "food_name"
     t.index ["branch_id"], name: "index_requests_on_branch_id"
-    t.index ["county_id"], name: "index_requests_on_county_id"
     t.index ["district_id"], name: "index_requests_on_district_id"
-    t.index ["sub_county_id"], name: "index_requests_on_sub_county_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 

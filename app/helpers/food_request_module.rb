@@ -9,7 +9,7 @@ module FoodRequestModule
     # Find the district by name
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
     return 'END No matching district found.' unless selected_district
-    
+
     # Find the branch associated with the district
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Default Branch')
     return 'END No branch found for the selected district.' unless branch
@@ -18,7 +18,7 @@ module FoodRequestModule
     new_request = Request.new(
       phone_number:,
       name: request_name,
-      request_type: 'food_request',                                 
+      request_type: 'food_request',
       district_id: selected_district.id,
       county_id: selected_county.id,
       sub_county_id: selected_sub_county.id,

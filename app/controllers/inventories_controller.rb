@@ -50,8 +50,8 @@ class InventoriesController < ApplicationController
   end
 
   def top_donors
-    start_date = params[:start_date].presence && Date.parse(params[:start_date]) rescue nil
-    end_date = params[:end_date].presence && Date.parse(params[:end_date]) rescue nil
+    start_date = params[:start_date].presence && Date.parse(params[:start_date])
+    end_date = params[:end_date].presence && Date.parse(params[:end_date])
 
     start_date ||= 30.days.ago.to_date
     end_date ||= Date.today

@@ -15,8 +15,10 @@ class BranchesController < ApplicationController
     @districts = District.left_joins(:branch_districts)
                        .where(branch_districts: { id: nil })
   end
-
-  def edit; end
+def edit
+  @districts = District.left_joins(:branch_districts)
+                       .where('branch_districts.branch_id IS NULL OR branch_districts.branch_id = ?', @branch.id)
+end
 
   def create
     @branch = Branch.new(branch_params)

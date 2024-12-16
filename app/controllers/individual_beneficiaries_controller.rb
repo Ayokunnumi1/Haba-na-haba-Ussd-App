@@ -64,11 +64,19 @@ class IndividualBeneficiariesController < ApplicationController
       redirect_to individual_beneficiaries_path, notice: 'Individual Beneficiary was successfully updated.'
     else
       @districts = District.all
-        @counties = County.none
-        @sub_counties = SubCounty.none
-        @branches = Branch.all
-        flash.now[:alert] = "Error: #{@individual_beneficiary.errors.full_messages.to_sentence}"
-        render :edit, status: :unprocessable_entity
+      @counties = if @organization_beneficiary.district.present?
+                    County.where(district_id: @organization_beneficiary.district_id)
+                  else
+                    County.none
+                  end
+      @sub_counties = if @organization_beneficiary.county.present?
+                        SubCounty.where(county_id: @organization_beneficiary.county_id)
+                      else
+                        SubCounty.none
+                      end
+      @branches = Branch.all
+      flash.now[:alert] = "Error: #{@individual_beneficiary.errors.full_messages.to_sentence}"
+      render :edit, status: :unprocessable_entity
     end
   end
 

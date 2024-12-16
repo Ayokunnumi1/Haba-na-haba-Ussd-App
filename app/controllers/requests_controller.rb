@@ -42,6 +42,7 @@ class RequestsController < ApplicationController
     @counties = County.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
+    @branches = Branch.none
   end
 
   def edit
@@ -63,11 +64,13 @@ class RequestsController < ApplicationController
       notify_branch_managers(@request, current_user)
       redirect_to @request, notice: 'Request was successfully created.'
     else
+      @users = User.where(role: 'volunteer')
       @districts = District.all
       @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      render :new, alert: 'Failed to create request.' # render :new instead of render :edit
+      flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -82,11 +85,13 @@ class RequestsController < ApplicationController
       notify_request_user(@request, current_user)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
+      @users = User.where(role: 'volunteer')
       @districts = District.all
       @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      render :edit, alert: 'Failed to update request.'
+      flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
+      render :edit, status: :unprocessable_entity
     end
   end
 

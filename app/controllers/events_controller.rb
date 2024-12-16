@@ -2,6 +2,8 @@ class EventsController < ApplicationController
   load_and_authorize_resource
   before_action :authenticate_user!
   before_action :set_event, only: %i[show edit update destroy]
+  before_action :initialize_event, only: %i[new create]
+  before_action :set_form_dependencies, only: %i[new create edit update]
 
   def index
     @events = Event.all
@@ -10,22 +12,17 @@ class EventsController < ApplicationController
     @sub_counties = SubCounty.none
   end
 
-  def new
-    @event = Event.new
-    @users = User.all
-    @districts = District.all
-    @counties = County.none
-    @sub_counties = SubCounty.none
-  end
+  def new; end
 
   def create
-    @event = Event.new(event_params)
+    @event.assign_attributes(event_params)
 
     if @event.save
       allocate_users_to_event(@event, params[:event][:user_ids])
       redirect_to @event, notice: 'Event and users were successfully created.'
     else
-      @users = User.all
+      set_form_dependencies
+      flash.now[:alert] = "Error: #{@event.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -39,23 +36,15 @@ class EventsController < ApplicationController
     @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
 
-  def edit
-    @users = User.all
-    @request = Request.find_by(id: params[:id])
-    @districts = District.all
-    @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
-    @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-  end
+  def edit; end
 
   def update
     if @event.update(event_params)
       allocate_users_to_event(@event, params[:event][:user_ids])
       redirect_to @event, notice: 'Event and users were successfully updated.'
     else
-      @users = User.all
-      @districts = District.all
-      @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
-      @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
+      set_form_dependencies
+      flash.now[:alert] = "Error: #{@event.errors.full_messages.to_sentence}"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -97,8 +86,19 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  def initialize_event
+    @event = Event.new
+  end
+
   def event_params
     params.require(:event).permit(:name, :start_date, :end_date, :start_time, :end_time, :district_id, :county_id, :sub_county_id, user_ids: [])
+  end
+
+  def set_form_dependencies
+    @users = User.all
+    @districts = District.all
+    @counties = @event.district.present? ? County.where(district_id: @event.district_id) : County.none
+    @sub_counties = @event.county.present? ? SubCounty.where(county_id: @event.county_id) : SubCounty.none
   end
 
   # Method to allocate users to the event using the join table (EventUser)

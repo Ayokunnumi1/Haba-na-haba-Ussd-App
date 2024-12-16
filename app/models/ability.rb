@@ -55,7 +55,7 @@ class Ability
 
   def admin_permissions(user)
     can :manage, :all
-    cannot %i[update destroy], User, role: 'admin'
+    cannot %i[create update destroy], User, role: 'admin'
     cannot %i[create update destroy], User, role: 'super_admin'
     can :update, User, id: user.id
   end

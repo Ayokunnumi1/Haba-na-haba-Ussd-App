@@ -1,4 +1,5 @@
 class InventoriesController < ApplicationController
+  load_and_authorize_resource
   include Pagination
   include InventoryLoader
 
@@ -109,6 +110,11 @@ class InventoriesController < ApplicationController
   def set_pagination_params
     @per_page = params[:per_page].to_i
     @page_no = (params[:page] || 1).to_i
+  end
+
+  rescue_from CanCan::AccessDenied do |_|
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to inventories_path
   end
 
   def assign_inventory_partial(type)

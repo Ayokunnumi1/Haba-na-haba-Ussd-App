@@ -91,6 +91,7 @@ GEM
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     builder (3.3.0)
+    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -336,6 +337,7 @@ PLATFORMS
 DEPENDENCIES
   africastalking-ruby
   bootsnap
+  cancancan
   capybara
   debug
   devise

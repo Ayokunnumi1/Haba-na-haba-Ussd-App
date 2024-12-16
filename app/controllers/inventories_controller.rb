@@ -30,7 +30,7 @@ class InventoriesController < ApplicationController
       donation_type: params[:type]
     )
     assign_inventory_partial(params[:type])
-    load_location_data    
+    load_location_data
   end
 
   def create

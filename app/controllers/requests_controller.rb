@@ -153,7 +153,7 @@ class RequestsController < ApplicationController
     Notification.create(
       user: user,
       notifiable: request,
-      message: 'Your request has been updated.'
+      message: 'You are assigned to a new request.'
     )
   end
 end

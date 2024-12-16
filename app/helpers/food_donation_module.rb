@@ -4,24 +4,17 @@ module FoodDonationModule
     input_parts = text.split('*')
     request_name = input_parts[1]
     district_name = input_parts[2]
-    county_name = input_parts[3]
-    sub_county_name = input_parts[4]
+    food_type = input_parts[3]
+    food_name = input_parts[4]
+    donation_amount = input_parts[5]
 
     # Locate the district and branch
-    selected_district = District.search_by_name(district_name).first
-    selected_county = selected_district.counties.search_by_name(county_name).first
-    selected_sub_county = selected_county.sub_counties.search_by_name(sub_county_name).first
+    selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
+    return 'END No matching district found.' unless selected_district
+  
 
-    return 'END No matching district found.' if selected_district.nil?
-    return 'END No matching county found.' if selected_county.nil?
-    return 'END No matching sub county found.' if selected_sub_county.nil?
-
-    puts "Selected district #{selected_district}"
-    puts "Selected District: ID=#{selected_district.id}, Name=#{selected_district.name}"
-
-    branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id })
-
-    return 'END No matching district found.' if branch.nil?
+    branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
+    return 'END No matching district found.' unless selected_district
 
     # Create donation request
     Request.create(

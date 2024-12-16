@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout 'home', only: [:index]
+  layout 'home'
 
   def index
     @request = Request.new

@@ -49,14 +49,26 @@ class InventoriesController < ApplicationController
     end
   end
 
+    def top_donors
+      start_date = params[:start_date].presence || Date.today.beginning_of_month
+      end_date = params[:end_date].presence || Date.today.end_of_month
+
+      @top_donors = Inventory
+                      .where(collection_date: start_date..end_date)
+                      .select("donor_name, phone_number, COUNT(*) as donation_count, SUM(collection_amount) as total_collected")
+                      .group("donor_name, phone_number")
+                      .order("donation_count DESC")
+                      .limit(10)
+    end
+
   def new
     if @request.inventories.exists?
       redirect_to inventories_path, alert: 'Inventory already exists for this request.'
     else
       @inventory = @request.inventories.build
       @districts = District.all
-      @counties = County.none
-      @sub_counties = SubCounty.none
+      @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
+      @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
     end
   end
 

@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_group_by, only: :index
   before_action :set_counts, only: :index
   before_action :set_dashboard_data, only: :index
@@ -35,7 +36,7 @@ class DashboardController < ApplicationController
 
   def build_guidelines
     [
-      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg',
+      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false, user_id: nil).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg',
         link: '#' },
       { title: 'Approved Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons2.svg',
         link: '#' },

@@ -44,7 +44,7 @@
             </ul>
           </div>
           <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-            <form id="group_by_form" class="flex items-center space-x-2" action="<%= authenticated_root_path %>" method="get" data-turbo-frame="_charts">
+            <form id="group_by_form" class="flex items-center space-x-2" action="<%= dashboard_path %>" method="get" data-turbo-frame="_charts">
               <label for="group_by" class="text-sm font-medium text-gray-700 dark:text-gray-300">Group By:</label>
               <select id="group_by" class="rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-lightGreen focus:border-lightGreen dark:bg-gray-700 dark:border-gray-600 dark:text-white" name="group_by" onchange="this.form.requestSubmit();">
                 <option value="seconds" <%= 'selected' if params[:group_by] == 'seconds' %>>Seconds</option>

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   root "home#index"
   post "create_request", to: "home#create_request"
   get 'home/index'
+  get 'home/load_counties', to: 'home#load_counties'
+  get 'home/load_sub_counties', to: 'home#load_sub_counties'
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   post  'ussd_request', to: 'requests#ussd'
   get 'top_donors', to: 'inventories#top_donors'

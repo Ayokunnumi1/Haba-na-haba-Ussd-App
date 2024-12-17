@@ -20,7 +20,9 @@ document.addEventListener("turbo:load", function () {
               subCountySelect.appendChild(option);
             });
           })
-          .catch((error) => console.log("Error loading sub-counties: ", error));
+          .catch((error) => {
+            throw new Error(`Error loading sub-counties: ${error.message}`);
+          });
       }
     });
   }

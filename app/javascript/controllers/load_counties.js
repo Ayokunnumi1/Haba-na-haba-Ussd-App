@@ -20,7 +20,9 @@ document.addEventListener("turbo:load", function () {
               countySelect.appendChild(option);
             });
           })
-          .catch((error) => console.log("Error loading counties: ", error));
+          .catch((error) => {
+            throw new Error(`Error loading counties: ${error.message}`);
+          });
       }
     });
   }

@@ -66,6 +66,6 @@ class Ability
 
   def guest_permissions
     can :create, Request
-    cannot :manage, all
+    cannot :manage, :all
   end
 end

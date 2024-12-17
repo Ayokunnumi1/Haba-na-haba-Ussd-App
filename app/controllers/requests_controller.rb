@@ -42,14 +42,13 @@ class RequestsController < ApplicationController
     @counties = County.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
-    @branches = Branch.none
   end
 
   def edit
     @request = Request.find(params[:id])
     @event = Event.find_by(id: params[:event_id])
     @districts = District.all
-    @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
+    @branches = Branch.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
     @users = User.where(role: 'volunteer')

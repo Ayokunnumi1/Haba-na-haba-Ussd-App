@@ -47,7 +47,7 @@
           <!-- Request Type Filter -->
           <div>
             <%= f.label :request_type, "Request Type", class: "block text-sm font-medium text-gray-700" %>
-            <%= f.select :request_type, options_for_select([["Food Request", "food_request"], ["Donation Request", "donation_request"], ["Others", "others"]]), { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <%= f.select :request_type, options_for_select(["Food Request","Food donation", "Other Donations"]), { include_blank: "Select" }, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
           </div>
           <!-- Location Filters -->
           <div>
@@ -117,7 +117,7 @@
         </th>
         <th scope="col" class="px-6 py-3">
           <span class="flex items-center gap-2">
-            Address
+            Branch Assigned
             <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14 5.16675H2C1.72667 5.16675 1.5 4.94008 1.5 4.66675C1.5 4.39341 1.72667 4.16675 2 4.16675H14C14.2733 4.16675 14.5 4.39341 14.5 4.66675C14.5 4.94008 14.2733 5.16675 14 5.16675Z" fill="#00092E"/>
               <path d="M12 8.5H4C3.72667 8.5 3.5 8.27333 3.5 8C3.5 7.72667 3.72667 7.5 4 7.5H12C12.2733 7.5 12.5 7.72667 12.5 8C12.5 8.27333 12.2733 8.5 12 8.5Z" fill="#00092E"/>
@@ -168,9 +168,9 @@
           <td class="px-6 py-4">
             <%= request.phone_number %>
           </td>
-          <!-- Address -->
+          <!-- Branch Assigned -->
           <td class="px-6 py-4">
-            <%= request.residence_address %>
+            <%= request.branch.name if request.branch.present? %>
           </td>
           <!-- Request Type -->
           <td class="px-6 py-4">

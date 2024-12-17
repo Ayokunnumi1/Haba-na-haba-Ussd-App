@@ -12,7 +12,7 @@ module EnglishMenu
       module: FoodDonationModule,
       process_method: :process_request,
       extra_steps: [
-        "What are you donating:\n1. Fresh Food\n2. Dry Food",
+        "Choose type of food:\n1. Fresh Food\n2. Dry Food",
         'Enter food name',
         'Enter the donation amount (kgs)'
       ]
@@ -40,10 +40,6 @@ module EnglishMenu
       enter_name
     when 1
       enter_district
-    when 2
-      enter_county
-    when 3
-      enter_sub_county
     else
       handle_extra_steps(inputs, action_config, text, phone_number, session)
     end
@@ -70,14 +66,6 @@ module EnglishMenu
 
   def self.enter_district
     'CON Enter your District'
-  end
-
-  def self.enter_sub_county
-    'CON Enter your Sub-County'
-  end
-
-  def self.enter_county
-    'CON Enter your County'
   end
 
   def self.invalid_choice

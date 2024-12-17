@@ -105,15 +105,15 @@
           </div>
           <div class="flex flex-col">
             <%= f.label :district_id, "District", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: params[:district_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
+            <%= f.collection_select :district_id, @districts, :id, :name, { prompt: "Select District", selected: params[:district_id] }, { id:'district-select', class: 'district-select form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
           </div>
           <div class="flex flex-col">
             <%= f.label :county_id, "County", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: params[:county_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
+            <%= f.collection_select :county_id, @counties, :id, :name, { include_blank: "Select County", selected: params[:county_id] }, { id:'county-select', class: 'county-select form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
           </div>
           <div class="flex flex-col">
             <%= f.label :sub_county_id, "Sub County", class: "font-semibold text-gray-700 mb-2" %>
-            <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: params[:sub_county_id] }, { class: 'form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
+            <%= f.collection_select :sub_county_id, @sub_counties, :id, :name, { include_blank: "Select Sub County", selected: params[:sub_county_id] }, { id:'sub-county-select', class: 'sub-county-select form-select mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500' } %>
           </div>
           <div class="flex flex-col">
             <%= f.label :branch_id, "Branch", class: "font-semibold text-gray-700 mb-2" %>

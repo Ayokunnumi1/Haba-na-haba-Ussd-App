@@ -75,8 +75,6 @@ class RequestsController < ApplicationController
   end
 
   def update
-   
-
     if @request.update(request_params)
       notify_branch_managers(@request, current_user)
       notify_request_user(@request, current_user)

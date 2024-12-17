@@ -60,7 +60,7 @@ class Ability
     can :update, User, id: user.id
   end
 
-  def super_admin_permissions(user)
+  def super_admin_permissions(_user)
     can :manage, :all
   end
 

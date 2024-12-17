@@ -22,7 +22,6 @@ module OtherDonationModule
     donation_type_input = input_parts[3]
     donation_amount = input_parts[4]
 
-
     # Determine the request type based on user input
     request_type = DONATION_TYPE_MAP[donation_type_input]
     return 'END Invalid donation type selected.' if request_type.nil?

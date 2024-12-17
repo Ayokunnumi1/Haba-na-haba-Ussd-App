@@ -22,10 +22,10 @@ class Ability
 
   def volunteer_permissions(user)
     can %i[create update read], Request, user_id: user.id
-    can %i[create update read], Inventory
-    can %i[create update read], IndividualBeneficiary
-    can %i[create update read], FamilyBeneficiary
-    can %i[create update read], OrganizationBeneficiary
+    can :manage, Inventory, branch_id: user.branch_id
+    can :manage, IndividualBeneficiary, branch_id: user.branch_id
+    can :manage, FamilyBeneficiary, branch_id: user.branch_id
+    can :manage, OrganizationBeneficiary, branch_id: user.branch_id
     can :read, User
     can :read, Branch
     can :read, Event

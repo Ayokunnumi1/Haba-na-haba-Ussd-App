@@ -13,6 +13,7 @@ class RequestsController < ApplicationController
     @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
     # Restrict to branch_manager's branch
     @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
+    @requests = @requests.where(user_id: current_user.id) if current_user.role == 'volunteer'
   end
 
   def ussd
@@ -55,9 +56,6 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-    # Restrict branch_id for branch_manager
-    @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
-
     if @request.save
       notify_branch_managers(@request, current_user)
       redirect_to @request, notice: 'Request was successfully created.'

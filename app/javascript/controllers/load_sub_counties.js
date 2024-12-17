@@ -1,6 +1,6 @@
 document.addEventListener("turbo:load", function () {
-  const countySelect = document.getElementById("county-select");
-  const subCountySelect = document.getElementById("sub-county-select");
+  const countySelect = document.querySelector(".county-select");
+  const subCountySelect = document.querySelector(".sub-county-select");
 
   if (countySelect) {
     countySelect.addEventListener("change", function () {

@@ -1,16 +1,6 @@
 <%= form_with(model: [@request, @organization_beneficiary], url: request_organization_beneficiary_path(@request), local: true, class: "space-y-6") do |form| %>
   <section class="p-5">
     <div class="bg-white p-6 rounded-lg shadow-lg">
-      <% if @organization_beneficiary.errors.any? %>
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-          <strong class="font-bold">Oops!</strong> <span class="block">Please fix the following errors:</span>
-          <ul class="list-disc pl-5">
-            <% @organization_beneficiary.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
       <h2 class="text-xl font-bold mb-4 text-gray-900">
         <%= @organization_beneficiary.persisted? ? "Edit Organization Beneficiary" : "Create Organization Beneficiary" %>
       </h2>

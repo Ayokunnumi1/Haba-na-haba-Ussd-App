@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     resources :requests
   end
 
+  resources :notifications, only: [:index]
+
   resources :event_users, only: [:create, :destroy]
   resources :branches do
     collection do

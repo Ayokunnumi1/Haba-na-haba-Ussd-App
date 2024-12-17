@@ -1,6 +1,8 @@
+# rubocop:disable Metrics/ClassLength
 class RequestsController < ApplicationController
   load_and_authorize_resource
   include EnglishMenu
+
   before_action :set_request, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
@@ -24,7 +26,14 @@ class RequestsController < ApplicationController
     render plain: response
   end
 
-  def show; end
+  def show
+    return unless params[:notification_id].present?
+
+    notification = current_user.notifications.find_by(id: params[:notification_id])
+    return unless notification.present? && !notification.read
+
+    notification.update(read: true)
+  end
 
   def new
     @request = Request.new
@@ -33,6 +42,7 @@ class RequestsController < ApplicationController
     @counties = County.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
+    @branches = Branch.none
   end
 
   def edit
@@ -51,13 +61,16 @@ class RequestsController < ApplicationController
     @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
 
     if @request.save
+      notify_branch_managers(@request, current_user)
       redirect_to @request, notice: 'Request was successfully created.'
     else
+      @users = User.where(role: 'volunteer')
       @districts = District.all
       @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      render :new, alert: 'Failed to create request.' # render :new instead of render :edit
+      flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -68,13 +81,17 @@ class RequestsController < ApplicationController
     end
 
     if @request.update(request_params)
+      notify_branch_managers(@request, current_user)
+      notify_request_user(@request, current_user)
       redirect_to @request, notice: 'Request was successfully updated.'
     else
+      @users = User.where(role: 'volunteer')
       @districts = District.all
       @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      render :edit, alert: 'Failed to update request.'
+      flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -152,4 +169,30 @@ class RequestsController < ApplicationController
                                     :county_id, :sub_county_id,
                                     :branch_id, :user_id, :event_id)
   end
+
+  def notify_branch_managers(request, current_user)
+    branch_managers = User.where(role: 'branch_manager', branch_id: request.branch_id)
+      .where.not(id: current_user.id)
+
+    branch_managers.each do |manager|
+      Notification.create(
+        user: manager,
+        notifiable: request,
+        message: 'A new request has been created in your branch.'
+      )
+    end
+  end
+
+  def notify_request_user(request, current_user)
+    return if request.user_id.nil? || request.user_id == current_user.id
+
+    user = User.find(request.user_id)
+
+    Notification.create(
+      user: user,
+      notifiable: request,
+      message: 'You are assigned to a new request.'
+    )
+  end
 end
+# rubocop:enable Metrics/ClassLength

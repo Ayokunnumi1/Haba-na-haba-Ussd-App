@@ -3,7 +3,10 @@ source 'https://rubygems.org'
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem 'activerecord', '~> 7.1.4'
+
 gem 'chartkick', '~> 5.1', '>= 5.1.2'
+
 gem 'rails', '~> 7.1.4'
 
 gem 'image_processing', '~> 1.2'

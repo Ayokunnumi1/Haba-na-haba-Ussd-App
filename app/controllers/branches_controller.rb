@@ -4,7 +4,6 @@ class BranchesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_branch, only: %i[show edit update destroy]
   before_action :load_districts, only: %i[new edit create update]
-  before_action :load_counties_for_branch, only: %i[edit create update]
 
   def index
     @branches = Branch.includes(:districts).order(created_at: :desc)
@@ -14,11 +13,14 @@ class BranchesController < ApplicationController
 
   def new
     @branch = Branch.new
-    @branches = Branch.all
-    @counties = County.none
+    @districts = District.left_joins(:branch_districts)
+      .where(branch_districts: { id: nil })
   end
 
-  def edit; end
+  def edit
+    @districts = District.left_joins(:branch_districts)
+      .where('branch_districts.branch_id IS NULL OR branch_districts.branch_id = ?', @branch.id)
+  end
 
   def create
     @branch = Branch.new(branch_params)
@@ -26,7 +28,10 @@ class BranchesController < ApplicationController
     if @branch.save
       redirect_to @branch, notice: 'Branch was successfully created.'
     else
-      render :new, alert: 'Failed to create branch.'
+      @districts = District.left_joins(:branch_districts)
+        .where(branch_districts: { id: nil })
+      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +39,8 @@ class BranchesController < ApplicationController
     if @branch.update(branch_params)
       redirect_to @branch, notice: 'Branch was successfully updated.'
     else
-      render :edit, alert: 'Failed to update branch.'
+      flash.now[:alert] = "Error: #{@branch.errors.full_messages.to_sentence}"
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -74,9 +80,5 @@ class BranchesController < ApplicationController
 
   def load_districts
     @districts = District.all
-  end
-
-  def load_counties_for_branch
-    @counties = @branch&.districts&.any? ? County.where(district_id: @branch.districts.pluck(:id)) : County.none
   end
 end

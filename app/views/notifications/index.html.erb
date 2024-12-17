@@ -1,0 +1,14 @@
+<div class="mt-4">
+  <h2 class="text-2xl font-semibold mb-2 p-4">Notifications</h2>
+  <div class="space-y-2 p-4">
+    <% @notifications.each do |notification| %>
+      <div class="notification p-4 rounded-lg shadow-md
+                <%= notification.read ? 'bg-white text-gray-500' : 'bg-lightGreen/50 text-darkBlue font-bold' %>
+                hover:bg-gray-200 transition duration-300 ease-in-out">
+        <%= link_to notification.message, notification.target_url,
+                  data: { turbo_frame: '_top' },
+                  class: "block" %>
+      </div>
+    <% end %>
+  </div>
+</div>

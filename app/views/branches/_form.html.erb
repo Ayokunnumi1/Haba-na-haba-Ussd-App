@@ -1,14 +1,5 @@
 <%= form_with(model: @branch, local: true, class: "space-y-6") do |form| %>
-  <% if @branch.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-      <strong class="font-bold"><%= pluralize(@branch.errors.count, "error") %> prevented this branch from being saved:</strong>
-      <ul class="mt-2">
-        <% @branch.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
   <div>
     <%= form.label :name, 'Branch Name', class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_field :name, class: "mt-1 block w-full rounded-md", placeholder: "Enter branch name", required: true %>
@@ -20,8 +11,8 @@
  <!-- Districts Checkbox List -->
 <div>
   <%= form.label :district_ids, 'Select Districts', class: "block text-sm font-medium text-gray-700" %>
-  <div class="mt-2 max-h-40 overflow-y-auto border rounded-md p-4 bg-gray-50 grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-    <% District.all.each do |district| %>
+  <div class="mt-2 max-h-40 overflow-y-auto border rounded-md p-4 bg-gray-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <% @districts.each do |district| %>
       <div class="flex items-center space-x-2">
         <%= check_box_tag "branch[district_ids][]", district.id, @branch.district_ids.include?(district.id), id: "district_#{district.id}" %>
         <%= label_tag "district_#{district.id}", district.name, class: "text-sm text-gray-700" %>

@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :request
   has_many :event_users
   has_many :events, through: :event_users
+  has_many :notifications, dependent: :destroy
   has_one_attached :image
 
   ROLES = %w[super_admin admin branch_manager volunteer].freeze
@@ -20,17 +21,6 @@ class User < ApplicationRecord
   ROLES.each do |role_name|
     define_method "#{role_name.gsub(' ', '_')}?" do
       role == role_name.tr('_', ' ')
-    end
-  end
-
-  def full_gender
-    case gender
-    when 'F'
-      'Female'
-    when 'M'
-      'Male'
-    else
-      'Unknown'
     end
   end
 

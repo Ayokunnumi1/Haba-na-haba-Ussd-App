@@ -184,7 +184,7 @@ GEM
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     mutex_m (0.3.0)
-    net-imap (0.5.1)
+    net-imap (0.5.2)
       date
       net-protocol
     net-pop (0.1.2)
@@ -194,7 +194,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.16.8-arm64-darwin)
+    nokogiri (1.17.2-arm64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.26.3)
@@ -252,10 +252,10 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    rdoc (6.9.0)
+    rdoc (6.9.1)
       psych (>= 4.0.0)
     regexp_parser (2.9.3)
-    reline (0.5.12)
+    reline (0.6.0)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
@@ -371,4 +371,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.5.9
+   2.5.23

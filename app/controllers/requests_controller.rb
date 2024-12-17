@@ -42,14 +42,13 @@ class RequestsController < ApplicationController
     @counties = County.none
     @users = User.where(role: 'volunteer')
     @sub_counties = SubCounty.none
-    @branches = Branch.none
   end
 
   def edit
     @request = Request.find(params[:id])
     @event = Event.find_by(id: params[:event_id])
     @districts = District.all
-    @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
+    @branches = Branch.all
     @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
     @users = User.where(role: 'volunteer')
@@ -66,7 +65,7 @@ class RequestsController < ApplicationController
     else
       @users = User.where(role: 'volunteer')
       @districts = District.all
-      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
+      @branches = Branch.all
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
@@ -82,7 +81,7 @@ class RequestsController < ApplicationController
     else
       @users = User.where(role: 'volunteer')
       @districts = District.all
-      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
+      @branches = Branch.all
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
@@ -105,18 +104,6 @@ class RequestsController < ApplicationController
                   County.none
                 end
     render json: @counties.map { |county| { id: county.id, name: county.name } }
-  end
-
-  def load_branches
-    if params[:district_id].present?
-      branches = Branch.joins(:branch_districts)
-        .where(branch_districts: { district_id: params[:district_id] })
-      render json: branches.map { |branch| { id: branch.id, name: branch.name } }
-    else
-      render json: { error: 'District ID is required' }, status: :bad_request
-    end
-  rescue StandardError => e
-    render json: { error: e.message }, status: :internal_server_error
   end
 
   def load_sub_counties

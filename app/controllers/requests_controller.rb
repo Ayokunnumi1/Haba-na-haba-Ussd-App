@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class RequestsController < ApplicationController
   load_and_authorize_resource
   include EnglishMenu
@@ -14,6 +13,7 @@ class RequestsController < ApplicationController
     @requests = @requests.where(event_id: nil) if params.except(:controller, :action).empty?
     # Restrict to branch_manager's branch
     @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
+    @requests = @requests.where(user_id: current_user.id) if current_user.role == 'volunteer'
   end
 
   def ussd
@@ -56,16 +56,13 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-    # Restrict branch_id for branch_manager
-    @request.branch_id = current_user.branch_id if current_user.role == 'branch_manager'
-
     if @request.save
       notify_branch_managers(@request, current_user)
       redirect_to @request, notice: 'Request was successfully created.'
     else
       @users = User.where(role: 'volunteer')
       @districts = District.all
-      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
+      @branches = Branch.all
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
@@ -74,11 +71,6 @@ class RequestsController < ApplicationController
   end
 
   def update
-    # Prevent branch_manager from updating requests outside their branch
-    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
-      redirect_to requests_path, alert: 'You are not authorized to update this request.' and return
-    end
-
     if @request.update(request_params)
       notify_branch_managers(@request, current_user)
       notify_request_user(@request, current_user)
@@ -86,7 +78,7 @@ class RequestsController < ApplicationController
     else
       @users = User.where(role: 'volunteer')
       @districts = District.all
-      @branches = @request.district.present? ? Branch.joins(:branch_districts).where(branch_districts: { district_id: @request.district_id }) : Branch.none
+      @branches = Branch.all
       @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
       @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
       flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
@@ -95,11 +87,6 @@ class RequestsController < ApplicationController
   end
 
   def destroy
-    # Prevent branch_manager from deleting requests
-    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
-      redirect_to requests_path, alert: 'You are not authorized to delete this request.' and return
-    end
-
     if @request.destroy
       redirect_to requests_url, notice: 'Request was successfully destroyed.'
     else
@@ -114,18 +101,6 @@ class RequestsController < ApplicationController
                   County.none
                 end
     render json: @counties.map { |county| { id: county.id, name: county.name } }
-  end
-
-  def load_branches
-    if params[:district_id].present?
-      branches = Branch.joins(:branch_districts)
-        .where(branch_districts: { district_id: params[:district_id] })
-      render json: branches.map { |branch| { id: branch.id, name: branch.name } }
-    else
-      render json: { error: 'District ID is required' }, status: :bad_request
-    end
-  rescue StandardError => e
-    render json: { error: e.message }, status: :internal_server_error
   end
 
   def load_sub_counties
@@ -194,4 +169,3 @@ class RequestsController < ApplicationController
     )
   end
 end
-# rubocop:enable Metrics/ClassLength

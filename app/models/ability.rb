@@ -12,7 +12,7 @@ class Ability
     when 'admin'
       admin_permissions(user)
     when 'super_admin'
-      super_admin_permissions
+      super_admin_permissions(user)
     else
       guest_permissions
     end
@@ -22,10 +22,10 @@ class Ability
 
   def volunteer_permissions(user)
     can %i[create update read], Request, user_id: user.id
-    can %i[create update read], Inventory
-    can %i[create update read], IndividualBeneficiary
-    can %i[create update read], FamilyBeneficiary
-    can %i[create update read], OrganizationBeneficiary
+    can :manage, Inventory, branch_id: user.branch_id
+    can :manage, IndividualBeneficiary, branch_id: user.branch_id
+    can :manage, FamilyBeneficiary, branch_id: user.branch_id
+    can :manage, OrganizationBeneficiary, branch_id: user.branch_id
     can :read, User
     can :read, Branch
     can :read, Event
@@ -60,11 +60,12 @@ class Ability
     can :update, User, id: user.id
   end
 
-  def super_admin_permissions
+  def super_admin_permissions(_user)
     can :manage, :all
   end
 
   def guest_permissions
+    can :create, Request
     cannot :manage, :all
   end
 end

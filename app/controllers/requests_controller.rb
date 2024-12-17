@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class RequestsController < ApplicationController
   load_and_authorize_resource
   include EnglishMenu
@@ -172,4 +171,3 @@ class RequestsController < ApplicationController
     )
   end
 end
-# rubocop:enable Metrics/ClassLength

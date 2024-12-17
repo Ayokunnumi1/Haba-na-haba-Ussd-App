@@ -38,7 +38,6 @@ class HomeController < ApplicationController
     render json: @sub_counties.map { |sub_county| { id: sub_county.id, name: sub_county.name } }
   end
 
-
   private
 
   def request_params

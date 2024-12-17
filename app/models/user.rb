@@ -17,6 +17,7 @@ class User < ApplicationRecord
                        confirmation: { message: 'Password confirmation does not match' },
                        length: { within: 6..128, message: 'Password must be between 6 and 128 characters long' },
                        if: :password_required?
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'only allows valid emails' }
 
   ROLES.each do |role_name|
     define_method "#{role_name.gsub(' ', '_')}?" do

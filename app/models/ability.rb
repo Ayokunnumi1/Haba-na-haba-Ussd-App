@@ -12,7 +12,7 @@ class Ability
     when 'admin'
       admin_permissions(user)
     when 'super_admin'
-      super_admin_permissions
+      super_admin_permissions(user)
     else
       guest_permissions
     end
@@ -60,7 +60,7 @@ class Ability
     can :update, User, id: user.id
   end
 
-  def super_admin_permissions
+  def super_admin_permissions(user)
     can :manage, :all
   end
 

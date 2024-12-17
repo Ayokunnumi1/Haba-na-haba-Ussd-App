@@ -75,10 +75,7 @@ class RequestsController < ApplicationController
   end
 
   def update
-    # Prevent branch_manager from updating requests outside their branch
-    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
-      redirect_to requests_path, alert: 'You are not authorized to update this request.' and return
-    end
+   
 
     if @request.update(request_params)
       notify_branch_managers(@request, current_user)
@@ -96,11 +93,6 @@ class RequestsController < ApplicationController
   end
 
   def destroy
-    # Prevent branch_manager from deleting requests
-    unless @request.branch_id == current_user.branch_id || current_user.admin? || current_user.super_admin?
-      redirect_to requests_path, alert: 'You are not authorized to delete this request.' and return
-    end
-
     if @request.destroy
       redirect_to requests_url, notice: 'Request was successfully destroyed.'
     else

@@ -182,6 +182,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_094414) do
     t.datetime "updated_at", null: false
     t.bigint "branch_id"
     t.decimal "collection_amount"
+    t.integer "event_id"
     t.string "cloth_condition"
     t.string "cloth_name"
     t.string "cloth_size"
@@ -200,36 +201,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_094414) do
     t.string "organization_contact_phone"
     t.string "family_name"
     t.integer "family_member_count"
-    t.integer "event_id"
     t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["district_id"], name: "index_inventories_on_district_id"
     t.index ["request_id"], name: "index_inventories_on_request_id"
     t.index ["sub_county_id"], name: "index_inventories_on_sub_county_id"
-  end
-
-  create_table "noticed_events", force: :cascade do |t|
-    t.string "type"
-    t.string "record_type"
-    t.bigint "record_id"
-    t.jsonb "params"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "notifications_count"
-    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
-  end
-
-  create_table "noticed_notifications", force: :cascade do |t|
-    t.string "type"
-    t.bigint "event_id", null: false
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.datetime "read_at", precision: nil
-    t.datetime "seen_at", precision: nil
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
-    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
   create_table "notifications", force: :cascade do |t|

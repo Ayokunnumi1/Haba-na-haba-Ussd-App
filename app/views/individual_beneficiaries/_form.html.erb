@@ -1,89 +1,83 @@
 <%= form_with(model: [@request, @individual_beneficiary], url: request_individual_beneficiary_path(@request), local: true, class: "space-y-6") do |form| %>
-<section class="p-5">
-  <div class="bg-white p-6 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4 text-gray-900">
+  <section class="p-5">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-xl font-bold mb-4 text-gray-900">
         <%= @individual_beneficiary.persisted? ? "Edit Individual Beneficiary" : "Create Individual Beneficiary" %>
       </h2>
-
-    <div class="grid gap-6 mt-4 md:grid-cols-2 p-5">
-      <div>
-        <%= form.label :name, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "John" %>
-      </div>
-
-      <div>
-        <%= form.label :age, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.number_field :age, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "25" %>
-      </div>
-      <div>
-  <%= form.label :gender, class: "block mb-2 text-sm font-medium text-gray-900" %>
-  <%= form.select :gender, ['Male', 'Female'], { prompt: 'Select Gender' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
-</div>
-<div>
-        <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "123-45-678" %>
-      </div>
-      <div>
-        <%= form.label :fathers_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :fathers_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Father's Name" %>
-      </div>
-      <div>
-        <%= form.label :mothers_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :mothers_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Mother's Name" %>
-      </div>
-      
-      <div>
-        <%= form.label :residence_address, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :residence_address, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Buziga Hill PO BOX 16562" %>
-      </div>
-      <div>
-        <%= form.label :village, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :village, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Village" %>
-      </div>
-      <div>
-        <%= form.label :parish, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Parish" %>
-      </div>
+      <div class="grid gap-6 mt-4 md:grid-cols-2 p-5">
         <div>
-        <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
+          <%= form.label :name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "John" %>
+        </div>
+        <div>
+          <%= form.label :age, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :age, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "25" %>
+        </div>
+        <div>
+          <%= form.label :gender, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.select :gender, ['Male', 'Female'], { prompt: 'Select Gender' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
+        </div>
+        <div>
+          <%= form.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "123-45-678" %>
+        </div>
+        <div>
+          <%= form.label :fathers_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :fathers_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Father's Name" %>
+        </div>
+        <div>
+          <%= form.label :mothers_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :mothers_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Mother's Name" %>
+        </div>
+        <div>
+          <%= form.label :residence_address, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :residence_address, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Buziga Hill PO BOX 16562" %>
+        </div>
+        <div>
+          <%= form.label :village, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :village, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Village" %>
+        </div>
+        <div>
+          <%= form.label :parish, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Parish" %>
+        </div>
+        <div>
+          <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: 'district-select', class: "district-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
+        </div>
+        <div>
+          <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "county-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
+        </div>
+        <div>
+          <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "sub-county-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+        </div>
+        <div>
+          <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+        </div>
+        <div>
+          <%= form.label :provided_food, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.number_field :provided_food, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "0" %>
+        </div>
+        <div>
+          <%= form.label :case_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_field :case_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Name" %>
+        </div>
+        <div>
+          <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
+          <%= form.text_area :case_description, rows: 4, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Describe the case" %>
+        </div>
       </div>
-      <div>
-        <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: 'county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", 'data-context-path': "requests/#{@individual_beneficiary.request_id}/individual_beneficiary" } %>
-      </div>
-      
-      <div>
-        <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.collection_select :sub_county_id, @sub_counties, :id, :name, { prompt: 'Select a sub-county' }, { id: 'sub-county-select', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
-      </div>
-
-      <div>
-        <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.collection_select :branch_id, @branches, :id, :name, { prompt: 'Select a branch' }, { class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
-      </div>
-
-      <div>
-        <%= form.label :provided_food, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.number_field :provided_food, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "0" %>
-      </div>
-      <div>
-        <%= form.label :case_name, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_field :case_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Case Name" %>
-      </div>
-      <div>
-        <%= form.label :case_description, class: "block mb-2 text-sm font-medium text-gray-900" %>
-        <%= form.text_area :case_description, rows: 4, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Describe the case" %>
+      <div class="actions grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 px-6">
+        <div>
+          <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        </div>
+        <div>
+          <%= link_to 'Back to Beneficiaries', individual_beneficiaries_path, class: "w-full block py-2 px-4 bg-darkBlue text-white font-Outfit rounded-md text-center hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        </div>
       </div>
     </div>
-    <div class="actions grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 px-6">
-  <div>
-    <%= form.submit "Submit", class: "w-full py-2 px-4 bg-lightGreen text-white font-Outfit rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-  </div>
-  <div>
-    <%= link_to 'Back to Beneficiaries', individual_beneficiaries_path, class: "w-full block py-2 px-4 bg-darkBlue text-white font-Outfit rounded-md text-center hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-  </div>
-</div>
-  </div>
   </section>
 <% end %>

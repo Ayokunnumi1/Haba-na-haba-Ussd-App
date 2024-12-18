@@ -29,10 +29,9 @@ module FoodDonationModule
     message = "Thank you for your donation we are reaching out to you shortly. Proceed to branch #{branch.name} in #{selected_district.name}"
     SmsHelper.send_sms(phone_number, message)
 
-    if request.save(validate: true)
-      return "END #{message}"
-    else
+    return "END #{message}" if request.save(validate: true)
+
+
     'END Your request was not processed. Please try again'
-    end
   end
 end

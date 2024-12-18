@@ -28,10 +28,9 @@ module FoodRequestModule
 
     SmsHelper.send_sms(phone_number, message)
 
-    if new_request.save(validate: true)
-      return "END #{message}"
-    else
-      return 'END There was an issue processing your request. Please try again later.'
-    end
+    return "END #{message}" if new_request.save(validate: true)
+
+
+    'END There was an issue processing your request. Please try again later.'
   end
 end

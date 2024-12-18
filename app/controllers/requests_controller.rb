@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :ussd
   include EnglishMenu
 
   before_action :set_request, only: %i[show edit update destroy]
@@ -22,7 +22,7 @@ class RequestsController < ApplicationController
 
     @request = Request.all
 
-    response = process_ussd(text, phone_number)
+    response = process_ussd(text, phone_number, session)
     render plain: response
   end
 
@@ -129,7 +129,7 @@ class RequestsController < ApplicationController
 
   private
 
-  def process_ussd(text, phone_number)
+  def process_ussd(text, phone_number, session)
     EnglishMenu.process_menu(text, phone_number, session)
   end
 

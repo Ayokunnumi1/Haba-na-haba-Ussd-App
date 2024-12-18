@@ -31,7 +31,6 @@ module FoodDonationModule
 
     return "END #{message}" if request.save(validate: true)
 
-
     'END Your request was not processed. Please try again'
   end
 end

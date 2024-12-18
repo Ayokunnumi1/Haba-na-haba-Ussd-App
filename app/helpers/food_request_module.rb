@@ -25,11 +25,9 @@ module FoodRequestModule
 
     message = "We are processing your request and will contact you shortly. Proceed to the branch #{branch.name} in #{selected_district.name} District."
 
-
     SmsHelper.send_sms(phone_number, message)
 
     return "END #{message}" if new_request.save(validate: true)
-
 
     'END There was an issue processing your request. Please try again later.'
   end

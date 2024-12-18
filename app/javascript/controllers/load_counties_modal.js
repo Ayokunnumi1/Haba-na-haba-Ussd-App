@@ -15,13 +15,15 @@ function initializeDependentSelects() {
         fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
           .then((res) => res.json())
           .then((counties) => {
-            countySelect.innerHTML = "<option value=''>Select County</option>";
+            countySelect.innerHTML = "<option value=''>Select County</option>"; // Clear previous options
 
             counties.forEach((county) => {
-              const option = document.createElement("option");
-              option.value = county.id;
-              option.textContent = county.name;
-              countySelect.appendChild(option);
+              if (!countySelect.querySelector(`option[value="${county.id}"]`)) { // Avoid duplicates
+                const option = document.createElement("option");
+                option.value = county.id;
+                option.textContent = county.name;
+                countySelect.appendChild(option);
+              }
             });
 
             // Pre-select the county if applicable
@@ -44,13 +46,15 @@ function initializeDependentSelects() {
         fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
           .then((res) => res.json())
           .then((subCounties) => {
-            subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>";
+            subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>"; // Clear previous options
 
             subCounties.forEach((subCounty) => {
-              const option = document.createElement("option");
-              option.value = subCounty.id;
-              option.textContent = subCounty.name;
-              subCountySelect.appendChild(option);
+              if (!subCountySelect.querySelector(`option[value="${subCounty.id}"]`)) { // Avoid duplicates
+                const option = document.createElement("option");
+                option.value = subCounty.id;
+                option.textContent = subCounty.name;
+                subCountySelect.appendChild(option);
+              }
             });
 
             // Pre-select the sub-county if applicable
@@ -77,10 +81,12 @@ function initializeDependentSelects() {
           .then((res) => res.json())
           .then((counties) => {
             counties.forEach((county) => {
-              const option = document.createElement("option");
-              option.value = county.id;
-              option.textContent = county.name;
-              countySelect.appendChild(option);
+              if (!countySelect.querySelector(`option[value="${county.id}"]`)) { // Avoid duplicates
+                const option = document.createElement("option");
+                option.value = county.id;
+                option.textContent = county.name;
+                countySelect.appendChild(option);
+              }
             });
           })
           .catch((error) => console.log("Error loading counties: ", error));
@@ -99,10 +105,12 @@ function initializeDependentSelects() {
             .then((response) => response.json())
             .then((subCounties) => {
               subCounties.forEach((subCounty) => {
-                const option = document.createElement("option");
-                option.value = subCounty.id;
-                option.text = subCounty.name;
-                subCountySelect.appendChild(option);
+                if (!subCountySelect.querySelector(`option[value="${subCounty.id}"]`)) { // Avoid duplicates
+                  const option = document.createElement("option");
+                  option.value = subCounty.id;
+                  option.text = subCounty.name;
+                  subCountySelect.appendChild(option);
+                }
               });
             })
             .catch((error) => console.log("Error loading sub-counties: ", error));

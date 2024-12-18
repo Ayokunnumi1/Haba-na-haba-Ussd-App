@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
   private
 
   def set_group_by
-    allowed_groupings = %w[seconds day week month]
+    allowed_groupings = %w[day week month]
     @group_by = params[:group_by].in?(allowed_groupings) ? params[:group_by] : 'week'
   end
 
@@ -27,7 +27,7 @@ class DashboardController < ApplicationController
 
   def set_dashboard_data
     @guidelines = build_guidelines
-    @donations_by_district = Inventory.joins(:district).group('districts.name').sum(:amount)
+    @donations_by_district = Inventory.joins(:district).group('districts.name').count
     @inventory_trends = Inventory.group(:donor_type).send("group_by_#{@group_by}", :created_at).count
     @events_per_week = Event.joins(:event_users).send("group_by_#{@group_by}", :created_at).distinct.count(:id)
     @users_per_week = EventUser.send("group_by_#{@group_by}", :created_at).distinct.count(:user_id)

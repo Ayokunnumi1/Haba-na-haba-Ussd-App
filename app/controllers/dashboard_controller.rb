@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
   private
 
   def set_group_by
-    allowed_groupings = %w[day week month]
+    allowed_groupings = %w[seconds day week month]
     @group_by = params[:group_by].in?(allowed_groupings) ? params[:group_by] : 'week'
   end
 
@@ -36,7 +36,7 @@ class DashboardController < ApplicationController
 
   def build_guidelines
     [
-      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false, user_id: nil).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg',
+      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg',
         link: '#' },
       { title: 'Approved Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons2.svg',
         link: '#' },

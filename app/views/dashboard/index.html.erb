@@ -48,8 +48,7 @@
               <form id="group_by_form" class="flex items-center space-x-2" action="<%= dashboard_path %>" method="get" data-turbo-frame="_charts">
                 <label for="group_by" class="text-sm font-medium text-gray-700 dark:text-gray-300">Group By:</label>
                 <select id="group_by" class="rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-lightGreen focus:border-lightGreen dark:bg-gray-700 dark:border-gray-600 dark:text-white" name="group_by" onchange="this.form.requestSubmit();">
-                  <option value="seconds" <%= 'selected' if params[:group_by] == 'seconds' %>>Seconds</option>
-                            <option value="day" <%= 'selected' if params[:group_by] == 'day' %>>Day</option>
+                  <option value="day" <%= 'selected' if params[:group_by] == 'day' %>>Day</option>
                             <option value="week" <%= 'selected' if params[:group_by] == 'week' %>>Week</option>
                             <option value="month" <%= 'selected' if params[:group_by] == 'month' %>>Month</option>
                           </select>
@@ -92,7 +91,7 @@
                   </a>
                 </div>
                 <div id="beneficiary-ratio" class="md:w-3/4">
-                  <div class="flex flex-col p-8 justify-center">
+                  <div class="flex flex-col px-8 justify-center">
                     <div class="bg-gray-200 rounded-xl p-8">
                       <%= pie_chart @beneficiary_data, donut: true, title: "Beneficiary Type Ratio", colors: ["#FF5733", "#33FF57", "#3357FF"] %>
                     </div>

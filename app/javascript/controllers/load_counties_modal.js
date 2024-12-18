@@ -5,7 +5,8 @@ document.addEventListener("turbo:load", function () {
     const uuid = districtSelect.dataset.uuid;
     const countySelect = document.querySelector(`#county-select-${uuid}`);
     const subCountySelect = document.querySelector(`#sub-county-select-${uuid}`);
-    
+    const contextPath = districtSelect.dataset.contextPath || "";
+
     districtSelect.addEventListener("change", function () {
       const districtId = districtSelect.value;
 
@@ -15,7 +16,7 @@ document.addEventListener("turbo:load", function () {
 
       if (districtId) {
         // Fetch counties
-        fetch(`/home/load_counties?district_id=${districtId}`)
+        fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
           .then((res) => res.json())
           .then((data) => {
             data.forEach((county) => {
@@ -37,7 +38,7 @@ document.addEventListener("turbo:load", function () {
         subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>";
 
         if (countyId) {
-          fetch(`/home/load_sub_counties?county_id=${countyId}`)
+          fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
             .then((response) => response.json())
             .then((data) => {
               data.forEach((subCounty) => {

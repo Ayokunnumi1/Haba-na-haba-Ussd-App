@@ -21,6 +21,7 @@ class EventsController < ApplicationController
       allocate_users_to_event(@event, params[:event][:user_ids])
       redirect_to @event, notice: 'Event and users were successfully created.'
     else
+      Rails.logger.error @event.errors.full_messages.to_sentence
       set_form_dependencies
       flash.now[:alert] = "Error: #{@event.errors.full_messages.to_sentence}"
       render :new, status: :unprocessable_entity

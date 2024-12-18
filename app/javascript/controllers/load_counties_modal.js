@@ -1,12 +1,41 @@
-document.addEventListener("turbo:load", function () {
+function initializeDependentSelects() {
   const districtSelects = document.querySelectorAll("[id^='district-select-']");
-  
+
   districtSelects.forEach((districtSelect) => {
     const uuid = districtSelect.dataset.uuid;
     const countySelect = document.querySelector(`#county-select-${uuid}`);
     const subCountySelect = document.querySelector(`#sub-county-select-${uuid}`);
     const contextPath = districtSelect.dataset.contextPath || "";
 
+    // Preload counties and sub-counties if a district is already selected
+    const preloadData = () => {
+      const districtId = districtSelect.value;
+
+      if (districtId) {
+        fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
+          .then((res) => res.json())
+          .then((data) => {
+            countySelect.innerHTML = "<option value=''>Select County</option>";
+
+            data.forEach((county) => {
+              const option = document.createElement("option");
+              option.value = county.id;
+              option.textContent = county.name;
+              countySelect.appendChild(option);
+            });
+
+            // Pre-select the county if applicable
+            const selectedCountyId = countySelect.dataset.selected;
+            if (selectedCountyId) {
+              countySelect.value = selectedCountyId;
+              countySelect.dispatchEvent(new Event("change"));
+            }
+          })
+          .catch((error) => console.log("Error loading counties: ", error));
+      }
+    };
+
+    // Add change event listener for district select
     districtSelect.addEventListener("change", function () {
       const districtId = districtSelect.value;
 
@@ -30,7 +59,7 @@ document.addEventListener("turbo:load", function () {
       }
     });
 
-    // Handling sub-county loading based on county select
+    // Add change event listener for county select
     if (countySelect) {
       countySelect.addEventListener("change", function () {
         const countyId = countySelect.value;
@@ -52,5 +81,12 @@ document.addEventListener("turbo:load", function () {
         }
       });
     }
+
+    // Preload data for selected district and county on page load
+    preloadData();
   });
-});
+}
+
+// Reinitialize when Turbo renders
+document.addEventListener("turbo:load", initializeDependentSelects);
+document.addEventListener("turbo:render", initializeDependentSelects);

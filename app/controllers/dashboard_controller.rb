@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource except: :index
   before_action :set_group_by, only: :index
   before_action :set_counts, only: :index
   before_action :set_dashboard_data, only: :index

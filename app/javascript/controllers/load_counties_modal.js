@@ -14,10 +14,10 @@ function initializeDependentSelects() {
       if (districtId) {
         fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
           .then((res) => res.json())
-          .then((data) => {
+          .then((counties) => {
             countySelect.innerHTML = "<option value=''>Select County</option>";
 
-            data.forEach((county) => {
+            counties.forEach((county) => {
               const option = document.createElement("option");
               option.value = county.id;
               option.textContent = county.name;
@@ -29,9 +29,37 @@ function initializeDependentSelects() {
             if (selectedCountyId) {
               countySelect.value = selectedCountyId;
               countySelect.dispatchEvent(new Event("change"));
+
+              // Preload sub-counties if a county is already selected
+              preloadSubCounty(selectedCountyId);
             }
           })
           .catch((error) => console.log("Error loading counties: ", error));
+      }
+    };
+
+    // Preload sub-counties if a county is already selected
+    const preloadSubCounty = (countyId) => {
+      if (countyId) {
+        fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
+          .then((res) => res.json())
+          .then((subCounties) => {
+            subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>";
+
+            subCounties.forEach((subCounty) => {
+              const option = document.createElement("option");
+              option.value = subCounty.id;
+              option.textContent = subCounty.name;
+              subCountySelect.appendChild(option);
+            });
+
+            // Pre-select the sub-county if applicable
+            const selectedSubCountyId = subCountySelect.dataset.selected;
+            if (selectedSubCountyId) {
+              subCountySelect.value = selectedSubCountyId;
+            }
+          })
+          .catch((error) => console.log("Error loading sub-counties: ", error));
       }
     };
 
@@ -47,8 +75,8 @@ function initializeDependentSelects() {
         // Fetch counties
         fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
           .then((res) => res.json())
-          .then((data) => {
-            data.forEach((county) => {
+          .then((counties) => {
+            counties.forEach((county) => {
               const option = document.createElement("option");
               option.value = county.id;
               option.textContent = county.name;
@@ -69,8 +97,8 @@ function initializeDependentSelects() {
         if (countyId) {
           fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
             .then((response) => response.json())
-            .then((data) => {
-              data.forEach((subCounty) => {
+            .then((subCounties) => {
+              subCounties.forEach((subCounty) => {
                 const option = document.createElement("option");
                 option.value = subCounty.id;
                 option.text = subCounty.name;
@@ -82,7 +110,7 @@ function initializeDependentSelects() {
       });
     }
 
-    // Preload data for selected district and county on page load
+    // Preload data for selected district, county, and sub-county on page load
     preloadData();
   });
 }

@@ -36,7 +36,9 @@ function initializeDependentSelects() {
               preloadSubCounty(selectedCountyId);
             }
           })
-          .catch((error) => console.log("Error loading counties: ", error));
+          .catch((error) => {
+            throw new Error(`Error loading counties for district ${districtId}: ${error.message}`);
+          });
       }
     };
 
@@ -63,8 +65,10 @@ function initializeDependentSelects() {
               subCountySelect.value = selectedSubCountyId;
             }
           })
-          .catch((error) => console.log("Error loading sub-counties: ", error));
-      }
+          .catch((error) => {
+            throw new Error(`Error loading sub-counties for county ${countyId}: ${error.message}`);
+          });
+        }
     };
 
     // Add change event listener for district select
@@ -89,8 +93,10 @@ function initializeDependentSelects() {
               }
             });
           })
-          .catch((error) => console.log("Error loading counties: ", error));
-      }
+          .catch((error) => {
+            throw new Error(`Error loading counties for district ${districtId}: ${error.message}`);
+          });
+        }
     });
 
     // Add change event listener for county select
@@ -113,7 +119,9 @@ function initializeDependentSelects() {
                 }
               });
             })
-            .catch((error) => console.log("Error loading sub-counties: ", error));
+            .catch((error) => {
+              throw new Error(`Error loading sub-counties for county ${countyId}: ${error.message}`);
+            });
         }
       });
     }

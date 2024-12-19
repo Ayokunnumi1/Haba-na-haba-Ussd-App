@@ -82,6 +82,7 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     africastalking-ruby (2.2.1)
       httparty (>= 0.21.0)
+    asset_ram (1.0.0)
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -337,6 +338,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 7.1.4)
   africastalking-ruby
+  asset_ram
   bootsnap
   cancancan
   capybara

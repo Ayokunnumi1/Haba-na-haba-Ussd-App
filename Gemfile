@@ -104,3 +104,5 @@ gem 'pg_search'
 
 # Rails sass compiler
 gem 'sassc-rails', '>= 2.1'
+#Assets optimizer
+gem 'asset_ram'

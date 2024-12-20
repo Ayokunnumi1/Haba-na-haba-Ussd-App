@@ -141,7 +141,7 @@ class RequestsController < ApplicationController
     params.require(:request).permit(:name, :phone_number, :request_type,
                                     :residence_address, :is_selected, :district_id,
                                     :county_id, :sub_county_id,
-                                    :branch_id, :user_id, :event_id)
+                                    :branch_id, :user_id, :event_id, :village, :parish)
   end
 
   def notify_branch_managers(request, current_user)

@@ -1,12 +1,9 @@
-document.addEventListener("turbo:load", function () {
+function initializeCountySubCountyListeners() {
   const countySelect = document.querySelector(".county-select");
   const subCountySelect = document.querySelector(".sub-county-select");
 
   if (countySelect) {
-    countySelect.addEventListener("change", function () {
-      const countyId = countySelect.value;
-      const contextPath = countySelect.dataset.contextPath || "";
-
+    function fetchSubCounties(countyId, contextPath) {
       subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>";
 
       if (countyId) {
@@ -21,9 +18,17 @@ document.addEventListener("turbo:load", function () {
             });
           })
           .catch((error) => {
-            throw new Error(`Error loading sub-counties: ${error.message}`);
+            console.error(`Error loading sub-counties: ${error.message}`);
           });
       }
+    }
+
+    countySelect.addEventListener("change", function () {
+      const countyId = countySelect.value;
+      const contextPath = countySelect.dataset.contextPath || "";
+      fetchSubCounties(countyId, contextPath);
     });
   }
-});
+}
+
+document.addEventListener("turbo:render", initializeCountySubCountyListeners);

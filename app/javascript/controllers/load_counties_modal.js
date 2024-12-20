@@ -1,11 +1,77 @@
-document.addEventListener("turbo:load", function () {
+function initializeDependentSelects() {
   const districtSelects = document.querySelectorAll("[id^='district-select-']");
-  
+
   districtSelects.forEach((districtSelect) => {
     const uuid = districtSelect.dataset.uuid;
     const countySelect = document.querySelector(`#county-select-${uuid}`);
     const subCountySelect = document.querySelector(`#sub-county-select-${uuid}`);
-    
+    const contextPath = districtSelect.dataset.contextPath || "";
+
+    // Preload counties and sub-counties if a district is already selected
+    const preloadData = () => {
+      const districtId = districtSelect.value;
+
+      if (districtId) {
+        fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
+          .then((res) => res.json())
+          .then((counties) => {
+            countySelect.innerHTML = "<option value=''>Select County</option>"; // Clear previous options
+
+            counties.forEach((county) => {
+              if (!countySelect.querySelector(`option[value="${county.id}"]`)) { // Avoid duplicates
+                const option = document.createElement("option");
+                option.value = county.id;
+                option.textContent = county.name;
+                countySelect.appendChild(option);
+              }
+            });
+
+            // Pre-select the county if applicable
+            const selectedCountyId = countySelect.dataset.selected;
+            if (selectedCountyId) {
+              countySelect.value = selectedCountyId;
+              countySelect.dispatchEvent(new Event("change"));
+
+              // Preload sub-counties if a county is already selected
+              preloadSubCounty(selectedCountyId);
+            }
+          })
+          .catch((error) => {
+            throw new Error(`Error loading counties for district ${districtId}: ${error.message}`);
+          });
+      }
+    };
+
+    // Preload sub-counties if a county is already selected
+    const preloadSubCounty = (countyId) => {
+      if (countyId) {
+        fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
+          .then((res) => res.json())
+          .then((subCounties) => {
+            subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>"; // Clear previous options
+
+            subCounties.forEach((subCounty) => {
+              if (!subCountySelect.querySelector(`option[value="${subCounty.id}"]`)) { // Avoid duplicates
+                const option = document.createElement("option");
+                option.value = subCounty.id;
+                option.textContent = subCounty.name;
+                subCountySelect.appendChild(option);
+              }
+            });
+
+            // Pre-select the sub-county if applicable
+            const selectedSubCountyId = subCountySelect.dataset.selected;
+            if (selectedSubCountyId) {
+              subCountySelect.value = selectedSubCountyId;
+            }
+          })
+          .catch((error) => {
+            throw new Error(`Error loading sub-counties for county ${countyId}: ${error.message}`);
+          });
+        }
+    };
+
+    // Add change event listener for district select
     districtSelect.addEventListener("change", function () {
       const districtId = districtSelect.value;
 
@@ -15,21 +81,25 @@ document.addEventListener("turbo:load", function () {
 
       if (districtId) {
         // Fetch counties
-        fetch(`/home/load_counties?district_id=${districtId}`)
+        fetch(`/${contextPath}/load_counties?district_id=${districtId}`)
           .then((res) => res.json())
-          .then((data) => {
-            data.forEach((county) => {
-              const option = document.createElement("option");
-              option.value = county.id;
-              option.textContent = county.name;
-              countySelect.appendChild(option);
+          .then((counties) => {
+            counties.forEach((county) => {
+              if (!countySelect.querySelector(`option[value="${county.id}"]`)) { // Avoid duplicates
+                const option = document.createElement("option");
+                option.value = county.id;
+                option.textContent = county.name;
+                countySelect.appendChild(option);
+              }
             });
           })
-          .catch((error) => console.log("Error loading counties: ", error));
-      }
+          .catch((error) => {
+            throw new Error(`Error loading counties for district ${districtId}: ${error.message}`);
+          });
+        }
     });
 
-    // Handling sub-county loading based on county select
+    // Add change event listener for county select
     if (countySelect) {
       countySelect.addEventListener("change", function () {
         const countyId = countySelect.value;
@@ -37,19 +107,30 @@ document.addEventListener("turbo:load", function () {
         subCountySelect.innerHTML = "<option value=''>Select Sub-County</option>";
 
         if (countyId) {
-          fetch(`/home/load_sub_counties?county_id=${countyId}`)
+          fetch(`/${contextPath}/load_sub_counties?county_id=${countyId}`)
             .then((response) => response.json())
-            .then((data) => {
-              data.forEach((subCounty) => {
-                const option = document.createElement("option");
-                option.value = subCounty.id;
-                option.text = subCounty.name;
-                subCountySelect.appendChild(option);
+            .then((subCounties) => {
+              subCounties.forEach((subCounty) => {
+                if (!subCountySelect.querySelector(`option[value="${subCounty.id}"]`)) { // Avoid duplicates
+                  const option = document.createElement("option");
+                  option.value = subCounty.id;
+                  option.text = subCounty.name;
+                  subCountySelect.appendChild(option);
+                }
               });
             })
-            .catch((error) => console.log("Error loading sub-counties: ", error));
+            .catch((error) => {
+              throw new Error(`Error loading sub-counties for county ${countyId}: ${error.message}`);
+            });
         }
       });
     }
+
+    // Preload data for selected district, county, and sub-county on page load
+    preloadData();
   });
-});
+}
+
+// Reinitialize when Turbo renders
+document.addEventListener("turbo:load", initializeDependentSelects);
+document.addEventListener("turbo:render", initializeDependentSelects);

@@ -28,23 +28,17 @@ sub_counties = 100.times.map do
 end
 puts "Seeded #{sub_counties.count} sub-counties."
 
-# Seed Branches
+# Seed Branches with District Associations
 branches = 100.times.map do
-  Branch.create!(
+  branch_district_ids = districts.sample(rand(1..5)) # Each branch is associated with 1 to 5 districts
+  branch = Branch.create!(
     name: "#{Faker::Address.unique.city} Branch",
-    phone_number: Faker::PhoneNumber.cell_phone_in_e164
+    phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+    district_ids: branch_district_ids.map(&:id) # Ensure districts are associated
   )
+  branch
 end
-puts "Seeded #{branches.count} branches."
-
-# Associate Branches with Districts (BranchDistrict join table)
-branch_district_data = 100.times.map do
-  BranchDistrict.find_or_create_by!(
-    branch: branches.sample,
-    district: districts.sample
-  )
-end
-puts "Seeded #{branch_district_data.count} branch-district associations."
+puts "Seeded #{branches.count} branches with district associations."
 
 # Seed Users
 roles = ["super_admin", "admin", "branch_manager", "volunteer"]
@@ -56,7 +50,7 @@ users = 100.times.map do
     role: roles.sample,
     email: Faker::Internet.unique.email,
     password: 'password',
-    gender: Faker::Gender.binary_type, # Updated for consistency
+    gender: Faker::Gender.binary_type,
     location: Faker::Address.unique.city,
     branch: branches.sample
   )
@@ -64,7 +58,7 @@ end
 puts "Seeded #{users.count} users."
 
 # Seed Requests
-request_types = ["Food Request","Food donation", "Other donations"]
+request_types = ["Food Request", "Food donation", "Other donations"]
 requests = 100.times.map do
   Request.create!(
     name: Faker::Name.name,
@@ -87,7 +81,7 @@ puts "Seeded #{requests.count} requests."
 donor_types = ["individual_donor", "family_donor", "organization_donor"]
 donation_types = ["food", "cash", "cloth", "other_items"]
 food_types = ["fresh_food", "dry_food", "others"]
-# Create inventories
+
 100.times do
   donation_type = donation_types.sample
   inventory_attributes = {
@@ -98,7 +92,7 @@ food_types = ["fresh_food", "dry_food", "others"]
     county: counties.sample,
     sub_county: sub_counties.sample,
     residence_address: Faker::Address.street_address,
-    phone_number: Faker::PhoneNumber.phone_number,
+    phone_number: Faker::PhoneNumber.cell_phone_in_e164,
     request: requests.sample,
     branch: branches.sample,
     place_of_collection: Faker::Address.community
@@ -114,13 +108,13 @@ food_types = ["fresh_food", "dry_food", "others"]
       food_type: food_types.sample,
       cost_of_food: Faker::Commerce.price(range: 1..100.0)
     )
-    when "cash"
+  when "cash"
     inventory_attributes.merge!(
       donation_type: "cash",
       amount: Faker::Commerce.price(range: 1..1000.0),
       collection_amount: Faker::Commerce.price(range: 1..1000.0)
     )
-    when "cloth"
+  when "cloth"
     inventory_attributes.merge!(
       donation_type: "cloth",
       cloth_condition: ["new", "good_condition", "worn"].sample,
@@ -129,16 +123,16 @@ food_types = ["fresh_food", "dry_food", "others"]
       cloth_quantity: Faker::Number.between(from: 1, to: 50),
       cloth_type: ["Male", "Female", "Others"].sample
     )
-    when "other_items"
+  when "other_items"
     inventory_attributes.merge!(
       donation_type: "other_items",
       other_items_condition: ["new", "good_condition", "worn"].sample,
       other_items_name: Faker::Commerce.product_name,
       other_items_quantity: Faker::Number.between(from: 1, to: 50)
     )
-    end
-    Inventory.create!(inventory_attributes)
-  end 
+  end
+  Inventory.create!(inventory_attributes)
+end
 
 puts "Seeded #{Inventory.count} inventories."
 

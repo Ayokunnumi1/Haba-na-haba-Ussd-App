@@ -58,7 +58,7 @@ class OrganizationBeneficiariesController < ApplicationController
                     else
                       SubCounty.none
                     end
-      @branches = Branch.all
+    @branches = Branch.all
   end
 
   def update

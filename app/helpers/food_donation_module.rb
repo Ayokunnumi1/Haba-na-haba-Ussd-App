@@ -15,7 +15,7 @@ module FoodDonationModule
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No matching district found.' unless selected_district
 
-    Request.create(
+    request = Request.create(
       phone_number:,
       name: request_name,
       request_type: 'food_donation',
@@ -28,6 +28,9 @@ module FoodDonationModule
 
     message = "Thank you for your donation we are reaching out to you shortly. Proceed to branch #{branch.name} in #{selected_district.name}"
     SmsHelper.send_sms(phone_number, message)
-    'END Thank you for your donation we are reaching out to you shortly'
+
+    return "END #{message}" if request.save(validate: true)
+
+    'END Your request was not processed. Please try again'
   end
 end

@@ -16,6 +16,14 @@
       <%= form.text_field :residence_address, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Buziga Hill PO BOX 16562" %>
     </div>
     <div>
+      <%= form.label :village, class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.text_field :village, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Village" %>
+    </div>
+    <div>
+      <%= form.label :parish, class: "block mb-2 text-sm font-medium text-gray-900" %>
+      <%= form.text_field :parish, value: @request.parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Parish" %>
+    </div>
+    <div>
       <%= form.label :request_type, class: "block mb-2 text-sm font-medium text-gray-900" %>
       <%= form.select :request_type, options_for_select([["Food request","food_request"], ["Food donation", "food_donation"], ["Cloth donation","cloth_donation"],["Cash donation","cash_donation"], ["Other donation","other_donation"]]), { prompt: 'select request type' }, id: 'request_type', class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
     </div>

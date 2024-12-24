@@ -47,7 +47,7 @@ module EnglishMenu
 
   def self.handle_extra_steps(inputs, action_config, text, phone_number, session)
     extra_steps = action_config[:extra_steps]
-    step_index = inputs.length - 4
+    step_index = inputs.length - 2
 
     if extra_steps && step_index < extra_steps.length
       "CON #{extra_steps[step_index]}"

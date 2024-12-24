@@ -23,6 +23,7 @@ class OrganizationBeneficiariesController < ApplicationController
       @districts = District.all
       @counties = County.none
       @sub_counties = SubCounty.none
+      @branches = Branch.all
     end
   end
 
@@ -57,6 +58,7 @@ class OrganizationBeneficiariesController < ApplicationController
                     else
                       SubCounty.none
                     end
+    @branches = Branch.all
   end
 
   def update
@@ -74,6 +76,7 @@ class OrganizationBeneficiariesController < ApplicationController
                       else
                         SubCounty.none
                       end
+      @branches = Branch.all
 
       flash.now[:alert] = "Error: #{@organization_beneficiary.errors.full_messages.to_sentence}"
       render :edit, status: :unprocessable_entity

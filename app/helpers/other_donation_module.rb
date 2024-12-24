@@ -46,7 +46,12 @@ module OtherDonationModule
     )
 
     message = "Thank you for your #{donation_type_human_readable} donation. We are reaching out to you shortly. Proceed to branch #{branch.name} in #{selected_district.name}."
-    SmsHelper.send_sms(phone_number, message)
+    sms_send(phone_number, message)
+
     'END Thank you for your donation. We are processing your request and will call you shortly.'
+  end
+
+  def self.sms_send(phone_number, message)
+    SmsHelper.send_sms(phone_number, message)
   end
 end

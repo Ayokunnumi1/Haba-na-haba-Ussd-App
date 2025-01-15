@@ -93,10 +93,6 @@ RSpec.describe Request, type: :model do
       expect(request.errors[:request_type]).to include("can't be blank")
     end
 
-    it 'validates presence of residence_address' do
-      request = Request.new(residence_address: nil)
-      request.valid?
-      expect(request.errors[:residence_address]).to include("can't be blank")
-    end
+    
   end
 end

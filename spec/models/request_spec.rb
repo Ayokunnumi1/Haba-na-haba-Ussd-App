@@ -92,7 +92,5 @@ RSpec.describe Request, type: :model do
       request.valid?
       expect(request.errors[:request_type]).to include("can't be blank")
     end
-
-    
   end
 end

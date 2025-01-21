@@ -1,13 +1,18 @@
 self.addEventListener('install', function(event) {
-  // The promise that skipWaiting() returns can be safely ignored.
   self.skipWaiting();
-  console.log('Installed', event);
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => client.postMessage('Service worker installed'));
+  });
 });
 
 self.addEventListener('activate', function(event) {
-  console.log('Activated', event);
-}   );
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => client.postMessage('Service worker activated'));
+  });
+});
 
-self.addEventListener('fetch', function(event) {        
-  console.log('Fetched', event);
-}           );  
+self.addEventListener('fetch', function(event) {
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => client.postMessage(`Fetching: ${event.request.url}`));
+  });
+});

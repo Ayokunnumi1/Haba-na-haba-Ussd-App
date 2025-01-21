@@ -1,9 +1,9 @@
 {
-    "short_name": "MDN",
-    "name": "MDN Web Docs",
+    "short_name": "HNH",
+    "name": "Haba Na Haba",
     "icons": [
       {
-        "src": "/gift.svg",
+        "src": "/icon-192.png",
         "sizes": "192x192",
         "type": "image/png"
       }

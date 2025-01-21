@@ -43,18 +43,20 @@ if ("serviceWorker" in navigator) {
           document.querySelector("#kind").textContent = "active";
         }
         if (serviceWorker) {
-          // logState(serviceWorker.state);
           serviceWorker.addEventListener("statechange", (e) => {
-            // logState(e.target.state);
+            console.log("Service worker state changed to:", e.target.state);
           });
         }
       })
       .catch((error) => {
-        // Something went wrong during registration. The service-worker.js file
-        // might be unavailable or contain a syntax error.
+        console.error("Service worker registration failed:", error);
       });
-  } else {
-    // The current browser doesn't support service workers.
-    // Perhaps it is too old or we are not in a Secure Context.
-  }
   
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      const message = event.data;
+      // Handle the message from the service worker
+      alert(message); // Replace this with your desired way of handling messages
+    });
+  } else {
+    console.warn("Service workers are not supported in this browser.");
+  }

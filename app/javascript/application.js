@@ -25,38 +25,36 @@ import "./users/userDropDown";
 import "inventoryDonorType";
 import "./controllers/filter_modal";
 import "./scroll_to_top";
+
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/service-worker.js", {
-        scope: "./",
-      })
-      .then((registration) => {
-        let serviceWorker;
-        if (registration.installing) {
-          serviceWorker = registration.installing;
-          document.querySelector("#kind").textContent = "installing";
-        } else if (registration.waiting) {
-          serviceWorker = registration.waiting;
-          document.querySelector("#kind").textContent = "waiting";
-        } else if (registration.active) {
-          serviceWorker = registration.active;
-          document.querySelector("#kind").textContent = "active";
-        }
-        if (serviceWorker) {
-          serviceWorker.addEventListener("statechange", (e) => {
-            console.log("Service worker state changed to:", e.target.state);
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Service worker registration failed:", error);
-      });
-  
-    navigator.serviceWorker.addEventListener('message', (event) => {
-      const message = event.data;
-      // Handle the message from the service worker
-      alert(message); // Replace this with your desired way of handling messages
+  navigator.serviceWorker
+    .register("/service-worker.js", {
+      scope: "./",
+    })
+    .then((registration) => {
+      let serviceWorker;
+      if (registration.installing) {
+        serviceWorker = registration.installing;
+        console.log("Service worker installing");
+        document.querySelector("#kind").textContent = "installing";
+      } else if (registration.waiting) {
+        serviceWorker = registration.waiting;
+        console.log("Service worker installed");
+        document.querySelector("#kind").textContent = "waiting";
+      } else if (registration.active) {
+        serviceWorker = registration.active;
+        console.log("Service worker active");
+        document.querySelector("#kind").textContent = "active";
+      }
+      if (serviceWorker) {
+        serviceWorker.addEventListener("statechange", (e) => {
+          console.log("Service worker state changed to:", e.target.state);
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Service worker registration failed:", error);
     });
-  } else {
-    console.warn("Service workers are not supported in this browser.");
-  }
+} else {
+  console.warn("Service workers are not supported in this browser.");
+}

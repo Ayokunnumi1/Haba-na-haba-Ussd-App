@@ -1,18 +1,11 @@
-self.addEventListener('install', function(event) {
-  self.skipWaiting();
-  self.clients.matchAll().then(clients => {
-    clients.forEach(client => client.postMessage('Service worker installed'));
-  });
+self.addEventListener('install', (event) => {
+  // Perform install steps
 });
 
-self.addEventListener('activate', function(event) {
-  self.clients.matchAll().then(clients => {
-    clients.forEach(client => client.postMessage('Service worker activated'));
-  });
+self.addEventListener('activate', (event) => {
+  // Perform activate steps
 });
 
-self.addEventListener('fetch', function(event) {
-  self.clients.matchAll().then(clients => {
-    clients.forEach(client => client.postMessage(`Fetching: ${event.request.url}`));
-  });
+self.addEventListener('fetch', (event) => {
+  // Perform fetch steps
 });

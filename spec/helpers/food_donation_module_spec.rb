@@ -19,7 +19,6 @@ RSpec.describe FoodDonationModule, type: :module do
     Branch.create!(name: 'Haba na Haba Branch', phone_number: '1234567842', district_ids: [default_district.id])
   end
 
-
   describe '.process_request' do
     context 'when all parameters are valid' do
       it 'creates a request and sends an SMS' do
@@ -48,7 +47,6 @@ RSpec.describe FoodDonationModule, type: :module do
       it 'returns an error message' do
         allow(District).to receive(:search_by_name).with('InvalidDistrict').and_return([])
 
-
         response = described_class.process_request('1*Food Donation*InvalidDistrict*Grains*Rice*50', phone_number, nil)
         expect(response).to eq('END No matching district found.')
       end
@@ -58,7 +56,6 @@ RSpec.describe FoodDonationModule, type: :module do
       it 'uses the default branch' do
         wakiso = District.create!(name: 'Wakiso')
         Branch.create!(name: 'Haba na Haba Branch', phone_number: '31232213', district_ids: [wakiso.id])
-
 
         allow(SmsHelper).to receive(:send_sms)
 

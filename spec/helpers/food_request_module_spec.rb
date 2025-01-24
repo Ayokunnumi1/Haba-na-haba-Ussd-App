@@ -16,7 +16,6 @@ RSpec.describe FoodRequestModule, type: :helpers do
   let(:phone_number) { '256789123456' }
 
 
-
   describe '.process_request' do
     context 'when a valid district and branch are found' do
       it 'creates a new food request and sends an SMS' do
@@ -30,7 +29,6 @@ RSpec.describe FoodRequestModule, type: :helpers do
 
         request = Request.find_by(phone_number: phone_number)
         puts "#{request}. request by number"
-
 
         expect(request).not_to be_nil
         expect(request.name).to eq('RequestName')

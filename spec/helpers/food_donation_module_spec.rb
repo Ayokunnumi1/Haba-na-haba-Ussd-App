@@ -2,13 +2,22 @@ require 'rails_helper'
 
 RSpec.describe FoodDonationModule, type: :module do
   let(:phone_number) { '256700123456' }
-  let(:session) {()}
   let(:valid_text) { '1*Food Donation*Kampala*Grains*Rice*50' }
-  let(:district) do District.create(name: 'Kampala' ) end
-  let(:district_test) do District.create(name: 'Wakiso' ) end
-  let(:default_district) do District.create!(name: 'Default District') end
-  let(:branch) do Branch.create(name: 'Kampala Branch', phone_number: '123454433', district_ids: [district.id]) end
-  let(:default_branch) do Branch.create!(name: 'Haba na Haba Branch', phone_number: '1234567842', district_ids: [default_district.id]) end
+  let(:district) do
+    District.create(name: 'Kampala')
+  end
+  let(:district_test) do
+    District.create(name: 'Wakiso')
+  end
+  let(:default_district) do
+    District.create!(name: 'Default District')
+  end
+  let(:branch) do
+    Branch.create(name: 'Kampala Branch', phone_number: '123454433', district_ids: [district.id])
+  end
+  let(:default_branch) do
+    Branch.create!(name: 'Haba na Haba Branch', phone_number: '1234567842', district_ids: [default_district.id])
+  end
 
 
   describe '.process_request' do
@@ -18,8 +27,8 @@ RSpec.describe FoodDonationModule, type: :module do
         valid_text = '1*Food Donation*Kampala*Grains*Rice*50'
         puts "#{district} district"
         puts "#{branch} branch"
-  
-        response = described_class.process_request(valid_text, phone_number, session)
+
+        response = described_class.process_request(valid_text, phone_number, nil)
 
         request = Request.find_by(phone_number: phone_number)
 
@@ -52,7 +61,7 @@ RSpec.describe FoodDonationModule, type: :module do
 
 
         allow(SmsHelper).to receive(:send_sms)
-    
+
         invalid_text = '1*requestName*Wakiso*Grains*Rice*50'
 
         response = described_class.process_request(invalid_text, phone_number, nil)
@@ -67,7 +76,7 @@ RSpec.describe FoodDonationModule, type: :module do
         kampala = District.create!(name: 'Kampala')
         Branch.create!(name: 'Haba na Haba Branch', phone_number: '31232213', district_ids: [kampala.id])
 
-        requestValidation = allow_any_instance_of(Request).to receive(:save).and_return(false)
+        allow_any_instance_of(Request).to receive(:save).and_return(false)
 
         response = described_class.process_request(valid_text, phone_number, nil)
 

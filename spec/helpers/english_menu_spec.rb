@@ -59,7 +59,7 @@ RSpec.describe EnglishMenu do
   describe '.handle_extra_steps' do
     it 'prompts the next step if within extra steps' do
       action_config = EnglishMenu::MENU_ACTIONS['2']
-      inputs = ['John', 'Nairobi']
+      inputs = %w[John Nairobi]
       expect(described_class.handle_extra_steps(inputs, action_config, '2*John*Nairobi', phone_number, session)).to eq(
         "CON Choose type of food:\n1. Fresh Food\n2. Dry Food"
       )
@@ -67,7 +67,7 @@ RSpec.describe EnglishMenu do
 
     it 'calls the module method if all extra steps are completed' do
       action_config = EnglishMenu::MENU_ACTIONS['2']
-      inputs = ['John', 'Nairobi', '1', 'Rice', '5']
+      inputs = %w[John Nairobi 1 Rice 5]
       allow(FoodDonationModule).to receive(:process_request).and_return('Donation processed')
       expect(described_class.handle_extra_steps(inputs, action_config, '2*John*Nairobi*1*Rice*5', phone_number, session)).to eq(
         'Donation processed'
@@ -101,4 +101,3 @@ RSpec.describe EnglishMenu do
     end
   end
 end
- 

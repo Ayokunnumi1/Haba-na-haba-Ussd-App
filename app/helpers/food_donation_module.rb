@@ -1,5 +1,18 @@
 module FoodDonationModule
   extend SmsHelper
+
+  # Determine the request type based on user input
+  FOOD_DONATION_TYPE_MAP = {
+    '1' => 'Fresh Food',
+    '2' => 'Dry Food'
+  }.freeze
+
+  # Map the donation type input to human-readable values
+  FOOD_DONATION_TYPE_HUMAN_READABLE_MAP = {
+    '1' => 'Fresh Food',
+    '2' => 'Dry Food'
+  }.freeze
+
   def self.process_request(text, phone_number, _session)
     input_parts = text.split('*')
     request_name = input_parts[1]
@@ -7,6 +20,11 @@ module FoodDonationModule
     food_type = input_parts[3]
     food_name = input_parts[4]
     donation_amount = input_parts[5]
+
+    request_type = FOOD_DONATION_TYPE_MAP[donation_type_input]
+    return 'END Invalid donation type selected.' if request_type.nil?
+
+    donation_type_human_readable = FOOD_DONATION_TYPE_HUMAN_READABLE_MAP[donation_type_input]
 
     # Locate the district and branch
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
@@ -20,8 +38,8 @@ module FoodDonationModule
       name: request_name,
       request_type: 'food_donation',
       amount: donation_amount,
-      food_type:,
-      food_name:,
+      food_type: ,
+      food_name: ,
       district_id: selected_district.id,
       branch_id: branch.id
     )

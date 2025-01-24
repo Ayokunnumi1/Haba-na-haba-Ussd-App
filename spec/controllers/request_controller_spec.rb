@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-def create_user(role, branch_id = nil, phone_number,  location, gender, first_name, last_name )
+def create_user(role, gender, first_name, last_name, branch_id = nil)
   User.create! do |user|
     user.email = "#{role}@example.com"
     user.password = 'password123'
@@ -9,8 +9,8 @@ def create_user(role, branch_id = nil, phone_number,  location, gender, first_na
     user.role = role
     user.branch_id = branch_id
     user.gender = gender
-    user.location = location
-    user.phone_number = phone_number
+    user.location = 'Kampala'
+    user.phone_number = '12345678'
   end
 end
 
@@ -30,8 +30,8 @@ end
 
 RSpec.describe RequestsController, type: :controller do
   let(:branch) { Branch.create!(name: 'Test Branch', phone_number: '123456787', district_ids: [district.id]) }
-  let(:manager) { create_user('branch_manager', branch.id, '12345678', 'Kampala', 'male',  'Test',  'User' ) }
-  let(:volunteer) { create_user('volunteer', branch.id, '12345678', 'Kampala', 'female',  'Test',  'User' ) }
+  let(:manager) { create_user('branch_manager', 'male', 'Test', 'User', branch.id) }
+  let(:volunteer) { create_user('volunteer', 'female', 'Test', 'User', branch.id) }
   let(:district) { District.create!(name: 'Test District') }
   let(:county) { County.create!(name: 'Test County', district_id: district.id) }
   let(:sub_county) { SubCounty.create!(name: 'Test SubCounty', county_id: county.id) }

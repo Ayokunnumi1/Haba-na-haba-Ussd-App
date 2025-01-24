@@ -13,7 +13,7 @@ module FoodDonationModule
     return 'END No matching district found.' unless selected_district
 
     branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
-    return 'END No matching district found.' unless selected_district
+    return 'END No matching branch found.' unless selected_district
 
     request = Request.create(
       phone_number:,

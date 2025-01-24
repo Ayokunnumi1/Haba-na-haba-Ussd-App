@@ -15,7 +15,6 @@ RSpec.describe FoodRequestModule, type: :helpers do
   end
   let(:phone_number) { '256789123456' }
 
-
   describe '.process_request' do
     context 'when a valid district and branch are found' do
       it 'creates a new food request and sends an SMS' do

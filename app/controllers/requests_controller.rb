@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  before_action :convert_food_type, only: [:create, :update]
   load_and_authorize_resource except: :ussd
   include EnglishMenu
 
@@ -128,6 +129,21 @@ class RequestsController < ApplicationController
   end
 
   private
+
+  def convert_food_type
+    Rails.logger.debug "Original food_type: #{params[:request][:food_type]}"
+    if params[:request][:food_type].present?
+      params[:request][:food_type] = case params[:request][:food_type]
+                                     when '1'
+                                       'Fresh Food'
+                                     when '2'
+                                       'Dry Food'
+                                     else
+                                       params[:request][:food_type]
+                                     end
+    end
+    Rails.logger.debug "Converted food_type: #{params[:request][:food_type]}"
+  end
 
   def process_ussd(text, phone_number, session)
     EnglishMenu.process_menu(text, phone_number, session)

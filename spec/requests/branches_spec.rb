@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Districts", type: :request do
+RSpec.describe "Branches", type: :request do
 
   before(:each) do
     @user = User.create!(
@@ -21,9 +21,11 @@ RSpec.describe "Districts", type: :request do
     )
 
     @district = District.create!(name: 'District 1')
-
+    @district2 = District.create!(name: 'District 2')
+    @branch = Branch.create!(name: 'Kampala Branch', phone_number: '0123456789', district_ids: [@district.id])
+    
     sign_in @user
-    get '/districts'
+    get '/branches'
   end
 
   describe 'GET /index' do
@@ -36,58 +38,58 @@ RSpec.describe "Districts", type: :request do
     end
 
     it 'should include the placeholder' do
-      expect(response.body).to include('District 1')
+      expect(response.body).to include('Kampala Branch')
     end
   end
 
   describe 'GET /show' do
     it 'should be response successful' do
-      get district_path(@district) 
+      get branch_path(@branch) 
       expect(response).to have_http_status(:ok)
     end
 
     it 'should render the show template' do
-      get district_path(@district)
+      get branch_path(@branch)
       expect(response).to render_template(:show)
     end
 
-    it 'should include the district name' do
-      get district_path(@district)
-      expect(response.body).to include('District 1')
+    it 'should include the branch name' do
+      get branch_path(@branch)
+      expect(response.body).to include('Kampala Branch')
     end
   end
 
   describe 'GET /new' do
     it 'should be response successfull' do
-      get new_district_path
+      get new_branch_path
       expect(response).to have_http_status(:ok)
     end
 
     it 'should render the new file' do
-      get new_district_path
+      get new_branch_path
       expect(response).to render_template(:new)
     end
 
     it 'should include the placeholder' do
-      get new_district_path
-      expect(response.body).to include('District')
+      get new_branch_path
+      expect(response.body).to include('Branch')
     end
   end
 
   describe 'POST /create' do
-    it 'should create a new district' do
-      post districts_path,
-           params: { district: { name: "District 2" } }
+    it 'should create a new branch' do
+      post branches_path,
+           params: { branch: { name: "branch 2", phone_number: '0121212121211', district_ids: [@district2.id] } }
       expect(response).to have_http_status(:found)
-      redirect_to(districts_path)
+      redirect_to(branches_path)
       follow_redirect!
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('District, Counties, and SubCounties were successfully created.')
+      expect(response.body).to include('Branch was successfully created.')
     end
 
     it 'should render new template on invalid data' do
-      post districts_path,
-           params: { district: { name: '' } }
+      post branches_path,
+           params: { branch: { name: '' } }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response).to render_template(:new)
       expect(flash.now[:alert]).to match(/Error: /)
@@ -96,43 +98,42 @@ RSpec.describe "Districts", type: :request do
 
   describe 'GET /edit' do
     it 'should be response successful' do
-      get edit_district_path(@district)
+      get edit_branch_path(@branch)
       expect(response).to have_http_status(:ok)
     end
 
     it 'should render the edit template' do
-      get edit_district_path(@district)
+      get edit_branch_path(@branch)
       expect(response).to render_template(:edit)
     end
 
     it 'should include the form fields' do
-      get edit_district_path(@district)
-      expect(response.body).to include('District')
-      expect(response.body).to include('County')
+      get edit_branch_path(@branch)
+      expect(response.body).to include('Branch')
     end
   end
 
   describe 'PATCH /update' do
     context 'with valid parameters' do
-      it 'should update the district and redirect to the district show page with a notice' do
-        patch district_path(@district),
-              params: { district: { name: 'District 4' } }
-        @district.reload
-        expect(@district.name).to eq('District 4')
+      it 'should update the branch and redirect to the branch show page with a notice' do
+        patch branch_path(@branch),
+              params: { branch: { name: 'branch 4' } }
+        @branch.reload
+        expect(@branch.name).to eq('branch 4')
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(district_path(@district))
+        expect(response).to redirect_to(branch_path(@branch))
         follow_redirect!
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('District, Counties, and SubCounties were successfully updated.')
+        expect(response.body).to include('Branch was successfully updated.')
       end
     end
 
     context 'with invalid parameters' do
-      it 'should not update the district and render the edit template with an alert' do
-        patch district_path(@district),
-              params: { district: { name: '' } }
-        @district.reload
-        expect(@district.name).not_to eq('')
+      it 'should not update the branch and render the edit template with an alert' do
+        patch branch_path(@branch),
+              params: { branch: { name: '' } }
+        @branch.reload
+        expect(@branch.name).not_to eq('')
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
         expect(flash.now[:alert]).to match(/Error: /)
@@ -142,31 +143,31 @@ RSpec.describe "Districts", type: :request do
 
   describe 'DELETE /destroy' do
     context 'when deletion is successful' do
-      it 'deletes the district and redirects to the index page with a success notice' do
+      it 'deletes the branch and redirects to the index page with a success notice' do
         expect {
-          delete district_path(@district)
-        }.to change(District, :count).by(-1)
+          delete branch_path(@branch)
+        }.to change(Branch, :count).by(-1)
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(districts_path)
+        expect(response).to redirect_to(branches_path)
         follow_redirect!
-        expect(response.body).to include('District was successfully deleted.')
+        expect(response.body).to include('Branch deleted successfully.')
       end
     end
 
     context 'when deletion is unsuccessful' do
       before do
-        allow_any_instance_of(District).to receive(:destroy).and_return(false)
-        allow_any_instance_of(District).to receive_message_chain(:errors, :full_messages).and_return(['Deletion failed due to dependencies.'])
+        allow_any_instance_of(Branch).to receive(:destroy).and_return(false)
+        allow_any_instance_of(Branch).to receive_message_chain(:errors, :full_messages).and_return(['Deletion failed due to dependencies.'])
       end
 
-      it 'does not delete the district and redirects to the index page with an error alert' do
+      it 'does not delete the branch and redirects to the index page with an error alert' do
         expect {
-          delete district_path(@district)
-        }.not_to change(District, :count)
+          delete branch_path(@branch)
+        }.not_to change(Branch, :count)
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(districts_path)
+        expect(response).to redirect_to(branches_path)
         follow_redirect!
         expect(response.body).to include('Deletion failed due to dependencies.')
       end

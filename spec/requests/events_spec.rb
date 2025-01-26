@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Events", type: :request do
+RSpec.describe 'Events', type: :request do
   before(:each) do
     @user = User.create!(
       first_name: 'becky',
@@ -62,7 +62,7 @@ RSpec.describe "Events", type: :request do
   end
 
   describe 'POST /create' do
-        context 'with invalid parameters' do
+    context 'with invalid parameters' do
       it 'does not create a new event and renders the new template' do
         invalid_params = {
           event: {
@@ -72,9 +72,9 @@ RSpec.describe "Events", type: :request do
           }
         }
 
-        expect {
+        expect do
           post events_path, params: invalid_params
-        }.not_to change(Event, :count)
+        end.not_to change(Event, :count)
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:new)
@@ -111,9 +111,9 @@ RSpec.describe "Events", type: :request do
 
   describe 'DELETE /destroy' do
     it 'deletes the event and redirects to the index page' do
-      expect {
+      expect do
         delete event_path(@event)
-      }.to change(Event, :count).by(-1)
+      end.to change(Event, :count).by(-1)
 
       expect(response).to redirect_to(events_path)
       follow_redirect!

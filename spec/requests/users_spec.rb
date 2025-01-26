@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :request do
-
+RSpec.describe 'Users', type: :request do
   before(:each) do
     @user = User.create!(
       first_name: 'becky',
@@ -13,7 +12,7 @@ RSpec.describe "Users", type: :request do
       gender: 'female',
       location: 'admin address'
     )
-    
+
     @user.image.attach(
       io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'image.jpg')),
       filename: 'image.jpg',
@@ -40,7 +39,7 @@ RSpec.describe "Users", type: :request do
 
   describe 'GET /show' do
     it 'should be response successful' do
-      get user_path(@user) 
+      get user_path(@user)
       expect(response).to have_http_status(:ok)
     end
 
@@ -75,7 +74,8 @@ RSpec.describe "Users", type: :request do
   describe 'POST /create' do
     it 'should create a new user' do
       post users_path,
-           params: { user: { first_name: 'Bushra', last_name: 'khan', email: 'bushra@gmail.com', password: 'Abcdxyz123', password_confirmation: 'Abcdxyz123', phone_number: '01245145285', role: 'volunteer', gender: 'female', location: 'volunteer address'  } }
+           params: { user: { first_name: 'Bushra', last_name: 'khan', email: 'bushra@gmail.com', password: 'Abcdxyz123', password_confirmation: 'Abcdxyz123', phone_number: '01245145285',
+                             role: 'volunteer', gender: 'female', location: 'volunteer address' } }
       expect(response).to have_http_status(:found)
       redirect_to(users_path)
       follow_redirect!
@@ -85,7 +85,8 @@ RSpec.describe "Users", type: :request do
 
     it 'should render new template on invalid data' do
       post users_path,
-           params: { user: { first_name: '', last_name: 'khan', email: '', password: '', password_confirmation: '', phone_number: '', role: 'volunteer', gender: 'female', location: 'volunteer address'  } }
+           params: { user: { first_name: '', last_name: 'khan', email: '', password: '', password_confirmation: '', phone_number: '', role: 'volunteer', gender: 'female',
+                             location: 'volunteer address' } }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response).to render_template(:new)
       expect(flash.now[:alert]).to match(/Error: /)

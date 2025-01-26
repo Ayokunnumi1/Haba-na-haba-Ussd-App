@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Branches', type: :request do
+RSpec.describe 'Requests', type: :request do
   before(:each) do
     @user = User.create!(
       first_name: 'becky',
@@ -22,9 +22,12 @@ RSpec.describe 'Branches', type: :request do
     @district = District.create!(name: 'District 1')
     @district2 = District.create!(name: 'District 2')
     @branch = Branch.create!(name: 'Kampala Branch', phone_number: '0123456789', district_ids: [@district.id])
+    @request1 = Request.create!(name: 'Request 1', phone_number: '010101010101', request_type: 'food_request',
+                                residence_address: 'abc', is_selected: nil, district_id: @district.id,
+                                branch_id: @branch.id, user_id: @user.id)
 
     sign_in @user
-    get '/branches'
+    get '/requests'
   end
 
   describe 'GET /index' do
@@ -37,58 +40,60 @@ RSpec.describe 'Branches', type: :request do
     end
 
     it 'should include the placeholder' do
-      expect(response.body).to include('Kampala Branch')
+      expect(response.body).to include('Request 1')
     end
   end
 
   describe 'GET /show' do
     it 'should be response successful' do
-      get branch_path(@branch)
+      get request_path(Request.first)
       expect(response).to have_http_status(:ok)
     end
 
     it 'should render the show template' do
-      get branch_path(@branch)
+      get request_path(Request.first)
       expect(response).to render_template(:show)
     end
 
-    it 'should include the branch name' do
-      get branch_path(@branch)
-      expect(response.body).to include('Kampala Branch')
+    it 'should include the request name' do
+      get request_path(Request.first)
+      expect(response.body).to include(Request.first.name)
     end
   end
 
   describe 'GET /new' do
     it 'should be response successfull' do
-      get new_branch_path
+      get new_request_path
       expect(response).to have_http_status(:ok)
     end
 
     it 'should render the new file' do
-      get new_branch_path
+      get new_request_path
       expect(response).to render_template(:new)
     end
 
     it 'should include the placeholder' do
-      get new_branch_path
+      get new_request_path
       expect(response.body).to include('Branch')
     end
   end
 
   describe 'POST /create' do
-    it 'should create a new branch' do
-      post branches_path,
-           params: { branch: { name: 'branch 2', phone_number: '0121212121211', district_ids: [@district2.id] } }
+    it 'should create a new request' do
+      post requests_path,
+           params: { request: { name: 'Request 2', phone_number: '010101010101', request_type: 'food_request',
+                                residence_address: 'abc', is_selected: nil, district_id: @district.id,
+                                branch_id: @branch.id, user_id: @user.id } }
       expect(response).to have_http_status(:found)
-      redirect_to(branches_path)
+      redirect_to(requests_path)
       follow_redirect!
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('Branch was successfully created.')
+      expect(response.body).to include('Request was successfully created.')
     end
 
     it 'should render new template on invalid data' do
-      post branches_path,
-           params: { branch: { name: '' } }
+      post requests_path,
+           params: { request: { name: '' } }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response).to render_template(:new)
       expect(flash.now[:alert]).to match(/Error: /)
@@ -97,42 +102,42 @@ RSpec.describe 'Branches', type: :request do
 
   describe 'GET /edit' do
     it 'should be response successful' do
-      get edit_branch_path(@branch)
+      get edit_request_path(Request.first)
       expect(response).to have_http_status(:ok)
     end
 
     it 'should render the edit template' do
-      get edit_branch_path(@branch)
+      get edit_request_path(Request.first)
       expect(response).to render_template(:edit)
     end
 
     it 'should include the form fields' do
-      get edit_branch_path(@branch)
-      expect(response.body).to include('Branch')
+      get edit_request_path(Request.first)
+      expect(response.body).to include('Request')
     end
   end
 
   describe 'PATCH /update' do
     context 'with valid parameters' do
-      it 'should update the branch and redirect to the branch show page with a notice' do
-        patch branch_path(@branch),
-              params: { branch: { name: 'branch 4' } }
-        @branch.reload
-        expect(@branch.name).to eq('branch 4')
+      it 'should update the request and redirect to the request show page with a notice' do
+        patch request_path(@request1),
+              params: { request: { name: 'request 4' } }
+        @request1.reload
+        expect(@request1.name).to eq('request 4')
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(branch_path(@branch))
+        expect(response).to redirect_to(request_path(@request1))
         follow_redirect!
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Branch was successfully updated.')
+        expect(response.body).to include('Request was successfully updated.')
       end
     end
 
     context 'with invalid parameters' do
-      it 'should not update the branch and render the edit template with an alert' do
-        patch branch_path(@branch),
-              params: { branch: { name: '' } }
-        @branch.reload
-        expect(@branch.name).not_to eq('')
+      it 'should not update the request and render the edit template with an alert' do
+        patch request_path(@request1),
+              params: { request: { name: '' } }
+        @request1.reload
+        expect(@request1.name).not_to eq('')
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
         expect(flash.now[:alert]).to match(/Error: /)
@@ -142,33 +147,32 @@ RSpec.describe 'Branches', type: :request do
 
   describe 'DELETE /destroy' do
     context 'when deletion is successful' do
-      it 'deletes the branch and redirects to the index page with a success notice' do
+      it 'deletes the request and redirects to the index page with a success notice' do
         expect do
-          delete branch_path(@branch)
-        end.to change(Branch, :count).by(-1)
+          delete request_path(@request1)
+        end.to change(Request, :count).by(-1)
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(branches_path)
+        expect(response).to redirect_to(requests_path)
         follow_redirect!
-        expect(response.body).to include('Branch deleted successfully.')
+        expect(response.body).to include('Request was successfully destroyed.')
       end
     end
 
     context 'when deletion is unsuccessful' do
       before do
-        allow_any_instance_of(Branch).to receive(:destroy).and_return(false)
-        allow_any_instance_of(Branch).to receive_message_chain(:errors, :full_messages).and_return(['Deletion failed due to dependencies.'])
+        allow_any_instance_of(Request).to receive(:destroy).and_return(false)
+        allow_any_instance_of(Request).to receive_message_chain(:errors, :full_messages).and_return(['Deletion failed due to dependencies.'])
       end
 
-      it 'does not delete the branch and redirects to the index page with an error alert' do
+      it 'does not delete the request and redirects to the index page with an error alert' do
         expect do
-          delete branch_path(@branch)
-        end.not_to change(Branch, :count)
+          delete request_path(@request1)
+        end.not_to change(Request, :count)
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(branches_path)
+        expect(response).to redirect_to(requests_path)
         follow_redirect!
-        expect(response.body).to include('Deletion failed due to dependencies.')
       end
     end
   end

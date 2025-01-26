@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Districts", type: :request do
-
+RSpec.describe 'Districts', type: :request do
   before(:each) do
     @user = User.create!(
       first_name: 'becky',
@@ -13,7 +12,7 @@ RSpec.describe "Districts", type: :request do
       gender: 'female',
       location: 'admin address'
     )
-    
+
     @user.image.attach(
       io: File.open(Rails.root.join('spec', 'fixtures', 'files', 'image.jpg')),
       filename: 'image.jpg',
@@ -42,7 +41,7 @@ RSpec.describe "Districts", type: :request do
 
   describe 'GET /show' do
     it 'should be response successful' do
-      get district_path(@district) 
+      get district_path(@district)
       expect(response).to have_http_status(:ok)
     end
 
@@ -77,7 +76,7 @@ RSpec.describe "Districts", type: :request do
   describe 'POST /create' do
     it 'should create a new district' do
       post districts_path,
-           params: { district: { name: "District 2" } }
+           params: { district: { name: 'District 2' } }
       expect(response).to have_http_status(:found)
       redirect_to(districts_path)
       follow_redirect!
@@ -143,9 +142,9 @@ RSpec.describe "Districts", type: :request do
   describe 'DELETE /destroy' do
     context 'when deletion is successful' do
       it 'deletes the district and redirects to the index page with a success notice' do
-        expect {
+        expect do
           delete district_path(@district)
-        }.to change(District, :count).by(-1)
+        end.to change(District, :count).by(-1)
 
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to(districts_path)
@@ -161,9 +160,9 @@ RSpec.describe "Districts", type: :request do
       end
 
       it 'does not delete the district and redirects to the index page with an error alert' do
-        expect {
+        expect do
           delete district_path(@district)
-        }.not_to change(District, :count)
+        end.not_to change(District, :count)
 
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to(districts_path)

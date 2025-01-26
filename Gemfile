@@ -114,4 +114,4 @@ gem 'sassc-rails'
 gem 'asset_ram'
 
 # pin to tailwindcss version 3.4.13
-gem "tailwindcss-ruby", "3.4.13"
+gem 'tailwindcss-ruby', '3.4.13'

@@ -25,36 +25,30 @@ import "./users/userDropDown";
 import "inventoryDonorType";
 import "./controllers/filter_modal";
 import "./scroll_to_top";
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("/service-worker.js", {
-      scope: "./",
-    })
+    .register("/service-worker.js", { scope: "./" })
     .then((registration) => {
       let serviceWorker;
       if (registration.installing) {
         serviceWorker = registration.installing;
-        console.log("Service worker installing");
         document.querySelector("#kind").textContent = "installing";
       } else if (registration.waiting) {
         serviceWorker = registration.waiting;
-        console.log("Service worker installed");
         document.querySelector("#kind").textContent = "waiting";
       } else if (registration.active) {
         serviceWorker = registration.active;
-        console.log("Service worker active");
         document.querySelector("#kind").textContent = "active";
       }
+
+      // Listen for state changes in the service worker
       if (serviceWorker) {
         serviceWorker.addEventListener("statechange", (e) => {
-          console.log("Service worker state changed to:", e.target.state);
+          document.querySelector("#kind").textContent = e.target.state;
         });
       }
     })
-    .catch((error) => {
-      console.error("Service worker registration failed:", error);
+    .catch(() => {
+      // Handle registration failure silently
     });
-} else {
-  console.warn("Service workers are not supported in this browser.");
 }

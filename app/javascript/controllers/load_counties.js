@@ -1,12 +1,9 @@
-document.addEventListener("turbo:load", function () {
+function initializeDistrictCountyListeners() {
   const districtSelect = document.querySelector(".district-select");
   const countySelect = document.querySelector(".county-select");
 
   if (districtSelect) {
-    districtSelect.addEventListener("change", function () {
-      const districtId = districtSelect.value;
-      const contextPath = districtSelect.dataset.contextPath || "";
-
+    function fetchCounties(districtId, contextPath) {
       countySelect.innerHTML = "<option value=''>Select County</option>";
 
       if (districtId) {
@@ -21,9 +18,23 @@ document.addEventListener("turbo:load", function () {
             });
           })
           .catch((error) => {
-            throw new Error(`Error loading counties: ${error.message}`);
+            console.error(`Error loading counties: ${error.message}`);
           });
       }
+    }
+
+    districtSelect.addEventListener("change", function () {
+      const districtId = districtSelect.value;
+      const contextPath = districtSelect.dataset.contextPath || "";
+      fetchCounties(districtId, contextPath);
     });
+
+    const initialDistrictId = districtSelect.value;
+    if (initialDistrictId && !countySelect.value) {
+      const contextPath = districtSelect.dataset.contextPath || "";
+      fetchCounties(initialDistrictId, contextPath);
+    }
   }
-});
+}
+
+document.addEventListener("turbo:render", initializeDistrictCountyListeners);

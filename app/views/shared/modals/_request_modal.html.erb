@@ -38,18 +38,19 @@
                 <%= form.label :request_type, class: "block mb-2 text-sm font-medium text-gray-900" %>
                 <%= form.select :request_type, options_for_select([["Food Request", "food_request"]]), { prompt: 'Select request type' }, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" %>
               </div>
+
               <% uuid = SecureRandom.uuid %>
               <div>
-                <%= form.label :district_id, "District", class: "block mb-2 text-sm font-medium text-gray-900" %>
-                <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: "district-select-#{uuid}", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", data: { uuid: uuid, context_path: "requests" } } %>
+                <%= form.label :district_id, "District",class: "block mb-2 text-sm font-medium text-gray-900" %>
+                <%= form.collection_select :district_id, @districts, :id, :name, { prompt: 'Select a district' }, { id: "district-select-#{uuid}", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", data: { uuid: uuid, context_path: "home" } } %>
               </div>
               <div>
                 <%= form.label :county_id, "County", class: "block mb-2 text-sm font-medium text-gray-900" %>
-                <%= form.collection_select :county_id, @counties, :id, :name, { prompt: 'Select a county' }, { id: "county-select-#{uuid}", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", data: { context_path: "requests" } } %>
+                <%= form.collection_select :county_id, [], :id, :name, { prompt: 'Select a county' }, { id: "county-select-#{uuid}",class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
               </div>
               <div>
                 <%= form.label :sub_county_id, "Sub-County", class: "block mb-2 text-sm font-medium text-gray-900" %>
-                <%= form.collection_select :sub_county_id, [], :id, :name, { prompt: 'Select a sub-county' }, { id: "sub-county-select-#{uuid}", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
+                <%= form.collection_select :sub_county_id, [], :id, :name, { prompt: 'Select a sub-county' }, { id: "sub-county-select-#{uuid}",class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5" } %>
               </div>
               <div>
                 <%= form.label :branch_id, "Branch", class: "block mb-2 text-sm font-medium text-gray-900" %>

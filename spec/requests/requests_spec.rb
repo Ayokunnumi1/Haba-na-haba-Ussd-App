@@ -33,7 +33,6 @@ RSpec.describe 'Requests', type: :request do
     get '/requests'
   end
 
-
   describe 'GET /index' do
     it 'should be response successful' do
       expect(response).to have_http_status(:ok)
@@ -161,7 +160,6 @@ RSpec.describe 'Requests', type: :request do
     end
   end
 
-
   describe 'GET /load_counties' do
     it 'returns counties when district_id is provided' do
       get load_counties_requests_path, params: { district_id: @district.id }
@@ -199,7 +197,6 @@ RSpec.describe 'Requests', type: :request do
       expect(json_response).to eq([])
     end
   end
-
 
   describe 'DELETE /destroy' do
     context 'when deletion is successful' do

@@ -21,6 +21,9 @@ RSpec.describe 'Requests', type: :request do
 
     @district = District.create!(name: 'District 1')
     @district2 = District.create!(name: 'District 2')
+    @county = County.create!(name: 'County 1', district_id: @district.id)
+    @county2 = County.create!(name: 'County 2', district_id: @district2.id)
+    @sub_county = SubCounty.create!(name: 'Sub County 1', county_id: @county.id)
     @branch = Branch.create!(name: 'Kampala Branch', phone_number: '0123456789', district_ids: [@district.id])
     @request1 = Request.create!(name: 'Request 1', phone_number: '010101010101', request_type: 'food_request',
                                 residence_address: 'abc', is_selected: nil, district_id: @district.id,
@@ -29,6 +32,7 @@ RSpec.describe 'Requests', type: :request do
     sign_in @user
     get '/requests'
   end
+
 
   describe 'GET /index' do
     it 'should be response successful' do
@@ -41,6 +45,18 @@ RSpec.describe 'Requests', type: :request do
 
     it 'should include the placeholder' do
       expect(response.body).to include('Request 1')
+    end
+  end
+
+  describe 'USSD /ussd_request' do
+    it 'should send a plain response' do
+      expect(response.content_type).to eq('text/html; charset=utf-8')
+    end
+
+    it 'calls the process_ussd method' do
+      allow(EnglishMenu).to receive(:process_menu).and_return('Welcome to Haba na Haba')
+      post ussd_request_path, params: { phone_number: '123456789', text: '1' }
+      expect(response.body).to eq('Welcome to Haba na Haba')
     end
   end
 
@@ -144,6 +160,46 @@ RSpec.describe 'Requests', type: :request do
       end
     end
   end
+
+
+  describe 'GET /load_counties' do
+    it 'returns counties when district_id is provided' do
+      get load_counties_requests_path, params: { district_id: @district.id }
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response).to be_an(Array)
+      expect(json_response.first['name']).to eq('County 1')
+    end
+
+    it 'returns an empty array when no district_id is provided' do
+      get load_counties_requests_path
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response).to eq([])
+    end
+  end
+
+  describe 'GET /load_sub_counties' do
+    it 'returns sub_counties when county_id is provided' do
+      get load_sub_counties_requests_path, params: { county_id: @county.id }
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response).to be_an(Array)
+      expect(json_response.first['name']).to eq('Sub County 1')
+    end
+
+    it 'returns an empty array when no county_id is provided' do
+      get load_sub_counties_requests_path
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response).to eq([])
+    end
+  end
+
 
   describe 'DELETE /destroy' do
     context 'when deletion is successful' do

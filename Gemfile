@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.3.6'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'activerecord', '~> 7.1.4'
@@ -61,15 +61,13 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
 
-  # Rspec for testing
-  gem 'rspec-rails'
-
   # This gem helps to test the controller
   gem 'rails-controller-testing'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'rspec-rails', '~> 6.0'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -85,6 +83,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 # Environment variable

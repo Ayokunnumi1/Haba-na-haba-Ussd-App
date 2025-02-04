@@ -4,9 +4,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
-# Uncomment the line below in case you have `--require rails_helper` in the `.rspec` file
-# that will avoid rails generators crashing because migrations haven't been run yet
-# return unless Rails.env.test?
+
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -50,14 +48,14 @@ RSpec.configure do |config|
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
-  # RSpec Rails uses metadata to mix in different behaviours to your tests,
-  # for example enabling you to call `get` and `post` in request specs. e.g.:
-  #
-  #     RSpec.describe UsersController, type: :request do
   #       # ...
   #     end
   #
   # The different available types are documented in the features, such as in
+
+  # https://rspec.info/features/6-0/rspec-rails
+  config.infer_spec_type_from_file_location!
+
   # https://rspec.info/features/7-0/rspec-rails
   #
   # You can also this infer these behaviours automatically by location, e.g.
@@ -71,6 +69,13 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  Shoulda::Matchers.configure do |shoulda_config|
+    shoulda_config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
 
   # Added devise sign_in method for testing
   config.include Devise::Test::IntegrationHelpers, type: :request

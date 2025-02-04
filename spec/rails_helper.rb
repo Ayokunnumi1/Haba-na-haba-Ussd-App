@@ -4,6 +4,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
+
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -35,6 +36,12 @@ RSpec.configure do |config|
     Rails.root.join('spec/fixtures')
   ]
 
+
+  config.before(:each, type: :request) do
+    allow(AssetRam::Helper).to receive(:cache).and_yield
+  end
+
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -43,29 +50,38 @@ RSpec.configure do |config|
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, type: :controller do
+
   #       # ...
   #     end
   #
   # The different available types are documented in the features, such as in
+
   # https://rspec.info/features/6-0/rspec-rails
   config.infer_spec_type_from_file_location!
+
+  # https://rspec.info/features/7-0/rspec-rails
+  #
+  # You can also this infer these behaviours automatically by location, e.g.
+  # /spec/models would pull in the same behaviour as `type: :model` but this
+  # behaviour is considered legacy and will be removed in a future version.
+  #
+  # To enable this behaviour uncomment the line below.
+  # config.infer_spec_type_from_file_location!
+
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
   Shoulda::Matchers.configure do |shoulda_config|
     shoulda_config.integrate do |with|
       with.test_framework :rspec
       with.library :rails
     end
   end
+
+  # Added devise sign_in method for testing
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
 end

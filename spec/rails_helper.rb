@@ -36,11 +36,9 @@ RSpec.configure do |config|
     Rails.root.join('spec/fixtures')
   ]
 
-
   config.before(:each, type: :request) do
     allow(AssetRam::Helper).to receive(:cache).and_yield
   end
-
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -49,7 +47,6 @@ RSpec.configure do |config|
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
-
 
   #       # ...
   #     end
@@ -68,7 +65,6 @@ RSpec.configure do |config|
   # To enable this behaviour uncomment the line below.
   # config.infer_spec_type_from_file_location!
 
-
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
@@ -83,5 +79,4 @@ RSpec.configure do |config|
 
   # Added devise sign_in method for testing
   config.include Devise::Test::IntegrationHelpers, type: :request
-
 end

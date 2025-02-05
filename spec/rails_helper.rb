@@ -5,6 +5,12 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
+require 'devise'
+
+# Uncomment the line below in case you have `--require rails_helper` in the `.rspec` file
+# that will avoid rails generators crashing because migrations haven't been run yet
+# return unless Rails.env.test?
+
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -21,6 +27,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
+
 # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
@@ -39,11 +46,22 @@ RSpec.configure do |config|
   config.before(:each, type: :request) do
     allow(AssetRam::Helper).to receive(:cache).and_yield
   end
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  # You can uncomment this line to turn off ActiveRecord support entirely.
+  # config.use_active_record = false
+
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explicitly tag your specs with their type, e.g.:
+  #
+  #     RSpec.describe UsersController, type: :controller do
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -76,7 +94,6 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
-
   # Added devise sign_in method for testing
   config.include Devise::Test::IntegrationHelpers, type: :request
 end

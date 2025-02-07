@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
@@ -45,14 +45,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
   end
 
   create_table "branch_districts", force: :cascade do |t|
-    t.bigint "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "district_id"
-    t.index ["branch_id"], name: "index_branch_districts_on_branch_id"
+    t.uuid "branch_id"
   end
 
-  create_table "branches", force: :cascade do |t|
+  create_table "branches", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
     t.datetime "created_at", null: false
@@ -125,11 +124,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "branch_id"
     t.decimal "provided_food"
     t.integer "event_id"
     t.uuid "district_id"
-    t.index ["branch_id"], name: "index_family_beneficiaries_on_branch_id"
+    t.uuid "branch_id"
     t.index ["county_id"], name: "index_family_beneficiaries_on_county_id"
     t.index ["request_id"], name: "index_family_beneficiaries_on_request_id"
     t.index ["sub_county_id"], name: "index_family_beneficiaries_on_sub_county_id"
@@ -153,11 +151,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "branch_id"
     t.decimal "provided_food"
     t.integer "event_id"
     t.uuid "district_id"
-    t.index ["branch_id"], name: "index_individual_beneficiaries_on_branch_id"
+    t.uuid "branch_id"
     t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
     t.index ["request_id"], name: "index_individual_beneficiaries_on_request_id"
     t.index ["sub_county_id"], name: "index_individual_beneficiaries_on_sub_county_id"
@@ -177,7 +174,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "branch_id"
     t.decimal "collection_amount"
     t.integer "event_id"
     t.string "cloth_condition"
@@ -199,7 +195,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.string "family_name"
     t.integer "family_member_count"
     t.uuid "district_id"
-    t.index ["branch_id"], name: "index_inventories_on_branch_id"
+    t.uuid "branch_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
     t.index ["request_id"], name: "index_inventories_on_request_id"
     t.index ["sub_county_id"], name: "index_inventories_on_sub_county_id"
@@ -240,11 +236,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "branch_id"
     t.decimal "provided_food"
     t.integer "event_id"
     t.uuid "district_id"
-    t.index ["branch_id"], name: "index_organization_beneficiaries_on_branch_id"
+    t.uuid "branch_id"
     t.index ["county_id"], name: "index_organization_beneficiaries_on_county_id"
     t.index ["request_id"], name: "index_organization_beneficiaries_on_request_id"
     t.index ["sub_county_id"], name: "index_organization_beneficiaries_on_sub_county_id"
@@ -260,7 +255,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.boolean "is_selected"
     t.bigint "county_id"
     t.bigint "sub_county_id"
-    t.bigint "branch_id", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -269,7 +263,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.string "food_type"
     t.string "food_name"
     t.uuid "district_id"
-    t.index ["branch_id"], name: "index_requests_on_branch_id"
+    t.uuid "branch_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -288,7 +282,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.string "last_name"
     t.string "phone_number"
     t.string "role"
-    t.bigint "branch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
@@ -298,14 +291,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
     t.datetime "remember_created_at"
     t.string "gender"
     t.string "location"
-    t.index ["branch_id"], name: "index_users_on_branch_id"
+    t.uuid "branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "branch_districts", "branches"
+  add_foreign_key "branch_districts", "branches", primary_key: "uuid"
   add_foreign_key "branch_districts", "districts", primary_key: "uuid"
   add_foreign_key "counties", "districts", primary_key: "uuid"
   add_foreign_key "event_users", "events"
@@ -313,32 +306,32 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_062251) do
   add_foreign_key "events", "counties"
   add_foreign_key "events", "districts", primary_key: "uuid"
   add_foreign_key "events", "sub_counties"
-  add_foreign_key "family_beneficiaries", "branches"
+  add_foreign_key "family_beneficiaries", "branches", primary_key: "uuid"
   add_foreign_key "family_beneficiaries", "counties"
   add_foreign_key "family_beneficiaries", "districts", primary_key: "uuid"
   add_foreign_key "family_beneficiaries", "requests"
   add_foreign_key "family_beneficiaries", "sub_counties"
-  add_foreign_key "individual_beneficiaries", "branches"
+  add_foreign_key "individual_beneficiaries", "branches", primary_key: "uuid"
   add_foreign_key "individual_beneficiaries", "counties"
   add_foreign_key "individual_beneficiaries", "districts", primary_key: "uuid"
   add_foreign_key "individual_beneficiaries", "requests"
   add_foreign_key "individual_beneficiaries", "sub_counties"
-  add_foreign_key "inventories", "branches"
+  add_foreign_key "inventories", "branches", primary_key: "uuid"
   add_foreign_key "inventories", "counties"
   add_foreign_key "inventories", "districts", primary_key: "uuid"
   add_foreign_key "inventories", "requests"
   add_foreign_key "inventories", "sub_counties"
   add_foreign_key "notifications", "users"
-  add_foreign_key "organization_beneficiaries", "branches"
+  add_foreign_key "organization_beneficiaries", "branches", primary_key: "uuid"
   add_foreign_key "organization_beneficiaries", "counties"
   add_foreign_key "organization_beneficiaries", "districts", primary_key: "uuid"
   add_foreign_key "organization_beneficiaries", "requests"
   add_foreign_key "organization_beneficiaries", "sub_counties"
-  add_foreign_key "requests", "branches"
+  add_foreign_key "requests", "branches", primary_key: "uuid"
   add_foreign_key "requests", "counties"
   add_foreign_key "requests", "districts", primary_key: "uuid"
   add_foreign_key "requests", "sub_counties"
   add_foreign_key "requests", "users"
   add_foreign_key "sub_counties", "counties"
-  add_foreign_key "users", "branches"
+  add_foreign_key "users", "branches", primary_key: "uuid"
 end

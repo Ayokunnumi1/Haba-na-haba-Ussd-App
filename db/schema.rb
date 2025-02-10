@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -75,12 +76,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
   end
 
   create_table "event_users", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["event_id"], name: "index_event_users_on_event_id"
-    t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -209,15 +209,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "notifiable_type", null: false
     t.bigint "notifiable_id", null: false
     t.string "message"
     t.boolean "read", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
-    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "organization_beneficiaries", force: :cascade do |t|
@@ -266,16 +265,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
     t.bigint "county_id"
     t.bigint "sub_county_id"
     t.bigint "branch_id", null: false
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "event_id"
     t.integer "amount"
     t.string "food_type"
     t.string "food_name"
+    t.uuid "user_id"
     t.index ["branch_id"], name: "index_requests_on_branch_id"
     t.index ["district_id"], name: "index_requests_on_district_id"
-    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "sub_counties", force: :cascade do |t|
@@ -286,7 +284,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
     t.index ["county_id"], name: "index_sub_counties_on_county_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
@@ -303,6 +301,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_16_144650) do
     t.string "location"
     t.index ["branch_id"], name: "index_users_on_branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "index_users_on_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

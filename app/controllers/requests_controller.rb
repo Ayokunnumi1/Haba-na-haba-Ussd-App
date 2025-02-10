@@ -3,6 +3,7 @@ class RequestsController < ApplicationController
   include EnglishMenu
 
   before_action :set_request, only: %i[show edit update destroy]
+  before_action :set_cards_data, only: :index
   skip_before_action :verify_authenticity_token, only: [:ussd]
 
   def index
@@ -16,8 +17,20 @@ class RequestsController < ApplicationController
     @requests = @requests.where(user_id: current_user.id) if current_user.role == 'volunteer'
   end
 
+  def set_cards_data
+    @request_count = Request.all.count
+    @not_assigned_request =  Request.where.not(user_id: nil).count
+    @approved_request = Request.where(is_selected: true).count
+    @rejected_request = Request.where(is_selected: false).count
+
+    @food_request_count   = Request.where(request_type: 'food_request').count
+    @food_donation_count  = Request.where(request_type: 'food_donation').count
+    @cash_donation_count  = Request.where(request_type: 'cash_donation').count
+    @cloth_donation_count = Request.where(request_type: 'cloth_donation').count
+    @other_donation_count = Request.where(request_type: 'other_donation').count
+  end
+
   def ussd
-    phone_number = params[:phoneNumber]
     text = params[:text]
 
     @request = Request.all

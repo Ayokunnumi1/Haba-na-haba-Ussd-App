@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
@@ -261,10 +261,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
     t.string "food_name"
     t.uuid "district_id"
     t.uuid "branch_id"
-    t.index ["user_id"], name: "index_requests_on_user_id"
     t.uuid "user_id"
-    t.index ["branch_id"], name: "index_requests_on_branch_id"
-    t.index ["district_id"], name: "index_requests_on_district_id"
   end
 
   create_table "sub_counties", force: :cascade do |t|

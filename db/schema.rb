@@ -75,12 +75,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
   end
 
   create_table "event_users", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["event_id"], name: "index_event_users_on_event_id"
-    t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -202,15 +201,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "notifiable_type", null: false
     t.bigint "notifiable_id", null: false
     t.string "message"
     t.boolean "read", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
-    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "organization_beneficiaries", force: :cascade do |t|
@@ -255,7 +253,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
     t.boolean "is_selected"
     t.bigint "county_id"
     t.bigint "sub_county_id"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "event_id"
@@ -265,6 +262,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
     t.uuid "district_id"
     t.uuid "branch_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
+    t.uuid "user_id"
+    t.index ["branch_id"], name: "index_requests_on_branch_id"
+    t.index ["district_id"], name: "index_requests_on_district_id"
   end
 
   create_table "sub_counties", force: :cascade do |t|
@@ -277,7 +277,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
     t.index ["uuid"], name: "index_sub_counties_on_uuid", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
@@ -293,6 +293,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_07_085027) do
     t.string "location"
     t.uuid "branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "index_users_on_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

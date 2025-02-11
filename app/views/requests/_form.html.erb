@@ -21,7 +21,7 @@
     </div>
     <div>
       <%= form.label :parish, class: "block mb-2 text-sm font-medium text-gray-900" %>
-      <%= form.text_field :parish, value: @request.parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Parish" %>
+      <%= form.text_field :parish, value: @request&.parish, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lightGreen focus:border-lightGreen block w-full p-2.5", placeholder: "Your Parish" %>
     </div>
     <div>
       <%= form.label :request_type, class: "block mb-2 text-sm font-medium text-gray-900" %>

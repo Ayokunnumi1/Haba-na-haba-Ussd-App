@@ -1,73 +1,68 @@
-const toggleDropdown = (requestId) => {
+const toggleDropdown = (requestId, event) => {
   const requestDropDown = document.getElementById(`dropdown-${requestId}`);
 
-  const button = document.querySelector(
-    `button[onclick="toggleDropdown(${requestId})"]`
-  );
+  if (!requestDropDown) {
+    console.error(`Dropdown with ID dropdown-${requestId} not found.`);
+    return;
+  }
 
+  const button = event.currentTarget; // Gets the clicked button element
   const requestType = button.getAttribute("data-request-type");
 
-  if (requestDropDown) {
-    requestDropDown.classList.toggle("hidden");
+  // Toggle the dropdown visibility
+  requestDropDown.classList.toggle("hidden");
 
-    const links = requestDropDown.querySelectorAll("a, form");
+  const links = requestDropDown.querySelectorAll("a, form");
 
-    links.forEach((link) => {
-      if (requestType === "food_request") {
-        // Hide specific links for food_request
-        if (
-          link.href &&
-          (link.href.includes("inventories/new?type=food") ||
-            link.href.includes("inventories/new?type=cash") ||
-            link.href.includes("inventories/new?type=cloth") ||
-            link.href.includes("inventories/new?type=other_items"))
-        ) {
-          link.style.display = "none";
-        } else {
-          link.style.display = "block";
-        }
-      } else if (
-        requestType === "food_donation" ||
-        requestType === "cash_donation" ||
-        requestType === "cloth_donation" ||
-        requestType === "other_donation"
+  links.forEach((link) => {
+    if (requestType === "food_request") {
+      if (
+        link.href &&
+        (link.href.includes("inventories/new?type=food") ||
+          link.href.includes("inventories/new?type=cash") ||
+          link.href.includes("inventories/new?type=cloth") ||
+          link.href.includes("inventories/new?type=other_items"))
       ) {
-        // Hide specific links for donation_request and others
-        if (
-          link.href &&
-          (link.href.includes("individual_beneficiary") ||
-            link.href.includes("family_beneficiary") ||
-            link.href.includes("organization_beneficiary"))
-        ) {
-          link.style.display = "none";
-        } else {
-          link.style.display = "block";
-        }
+        link.style.display = "none";
       } else {
-        // Show all links for other request types
         link.style.display = "block";
       }
-    });
-
-    // Add event listener to hide dropdown when clicking outside
-    const handleClickOutside = (event) => {
+    } else if (
+      requestType === "food_donation" ||
+      requestType === "cash_donation" ||
+      requestType === "cloth_donation" ||
+      requestType === "other_donation"
+    ) {
       if (
-        !requestDropDown.contains(event.target) &&
-        !button.contains(event.target)
+        link.href &&
+        (link.href.includes("individual_beneficiary") ||
+          link.href.includes("family_beneficiary") ||
+          link.href.includes("organization_beneficiary"))
       ) {
-        requestDropDown.classList.add("hidden");
-        document.removeEventListener("click", handleClickOutside);
+        link.style.display = "none";
+      } else {
+        link.style.display = "block";
       }
-    };
+    } else {
+      link.style.display = "block";
+    }
+  });
 
-    // Add the event listener only once
-    setTimeout(() => {
-      document.addEventListener("click", handleClickOutside);
-    }, 0);
-  } else {
-    console.error(`Dropdown with ID dropdown-${requestId} not found.`);
-  }
+  // Close dropdown when clicking outside
+  const handleClickOutside = (event) => {
+    if (
+      !requestDropDown.contains(event.target) &&
+      !button.contains(event.target)
+    ) {
+      requestDropDown.classList.add("hidden");
+      document.removeEventListener("click", handleClickOutside);
+    }
+  };
+
+  setTimeout(() => {
+    document.addEventListener("click", handleClickOutside);
+  }, 0);
 };
 
-// Make the function available globally
+// Ensure the function is globally accessible
 window.toggleDropdown = toggleDropdown;

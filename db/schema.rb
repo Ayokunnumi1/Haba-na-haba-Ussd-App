@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_12_040022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.index ["sub_county_id"], name: "index_events_on_sub_county_id"
   end
 
-  create_table "family_beneficiaries", force: :cascade do |t|
+  create_table "family_beneficiaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "family_members"
     t.integer "male"
     t.integer "female"
@@ -120,19 +120,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.integer "number_of_meals_school"
     t.text "basic_FEH"
     t.text "basic_FES"
-    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "provided_food"
     t.integer "event_id"
     t.uuid "district_id"
     t.uuid "branch_id"
+    t.uuid "request_id"
     t.index ["county_id"], name: "index_family_beneficiaries_on_county_id"
-    t.index ["request_id"], name: "index_family_beneficiaries_on_request_id"
+    t.index ["id"], name: "index_family_beneficiaries_on_id", unique: true
     t.index ["sub_county_id"], name: "index_family_beneficiaries_on_sub_county_id"
   end
 
-  create_table "individual_beneficiaries", force: :cascade do |t|
+  create_table "individual_beneficiaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.integer "age"
     t.string "gender"
@@ -147,19 +147,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.string "sur_name"
     t.bigint "county_id", null: false
     t.bigint "sub_county_id", null: false
-    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "provided_food"
     t.integer "event_id"
     t.uuid "district_id"
     t.uuid "branch_id"
+    t.uuid "request_id"
     t.index ["county_id"], name: "index_individual_beneficiaries_on_county_id"
-    t.index ["request_id"], name: "index_individual_beneficiaries_on_request_id"
+    t.index ["id"], name: "index_individual_beneficiaries_on_id", unique: true
     t.index ["sub_county_id"], name: "index_individual_beneficiaries_on_sub_county_id"
   end
 
-  create_table "inventories", force: :cascade do |t|
+  create_table "inventories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "donor_name"
     t.string "donor_type"
     t.date "collection_date"
@@ -170,7 +170,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.string "residence_address"
     t.string "phone_number"
     t.decimal "amount"
-    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "collection_amount"
@@ -195,8 +194,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.integer "family_member_count"
     t.uuid "district_id"
     t.uuid "branch_id"
+    t.uuid "request_id"
     t.index ["county_id"], name: "index_inventories_on_county_id"
-    t.index ["request_id"], name: "index_inventories_on_request_id"
+    t.index ["id"], name: "index_inventories_on_id", unique: true
     t.index ["sub_county_id"], name: "index_inventories_on_sub_county_id"
   end
 
@@ -211,7 +211,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
   end
 
-  create_table "organization_beneficiaries", force: :cascade do |t|
+  create_table "organization_beneficiaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "organization_name"
     t.integer "male"
     t.integer "female"
@@ -231,19 +231,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.text "head_of_institution"
     t.integer "number_of_meals_home"
     t.text "basic_FEH"
-    t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "provided_food"
     t.integer "event_id"
     t.uuid "district_id"
     t.uuid "branch_id"
+    t.uuid "request_id"
     t.index ["county_id"], name: "index_organization_beneficiaries_on_county_id"
-    t.index ["request_id"], name: "index_organization_beneficiaries_on_request_id"
+    t.index ["id"], name: "index_organization_beneficiaries_on_id", unique: true
     t.index ["sub_county_id"], name: "index_organization_beneficiaries_on_sub_county_id"
   end
 
-  create_table "requests", force: :cascade do |t|
+  create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
     t.string "request_type"
@@ -262,6 +262,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_132223) do
     t.uuid "district_id"
     t.uuid "branch_id"
     t.uuid "user_id"
+    t.index ["id"], name: "index_requests_on_id", unique: true
   end
 
   create_table "sub_counties", force: :cascade do |t|

@@ -1,0 +1,92 @@
+class ChangePrimaryKeyToUuidForRequests < ActiveRecord::Migration[7.1]
+  def up
+    # Ensure the pgcrypto extension is enabled.
+    enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
+
+    # Add a new UUID column to requests.
+    add_column :requests, :new_id, :uuid, default: -> { "gen_random_uuid()" }, null: false
+
+    add_index :requests, :new_id, unique: true
+
+    # Populate new_id for any existing records.
+    execute "UPDATE requests SET new_id = gen_random_uuid() WHERE new_id IS NULL"
+
+    # For each table that references requests, add a new temporary UUID column.
+    add_column :family_beneficiaries, :request_uuid, :uuid
+    add_column :individual_beneficiaries, :request_uuid, :uuid
+    add_column :inventories, :request_uuid, :uuid
+    add_column :organization_beneficiaries, :request_uuid, :uuid
+
+    # Populate the new UUID columns by joining with requests.
+    execute <<-SQL.squish
+      UPDATE family_beneficiaries
+      SET request_uuid = requests.new_id
+      FROM requests
+      WHERE family_beneficiaries.request_id = requests.id
+    SQL
+
+    execute <<-SQL.squish
+      UPDATE individual_beneficiaries
+      SET request_uuid = requests.new_id
+      FROM requests
+      WHERE individual_beneficiaries.request_id = requests.id
+    SQL
+
+    execute <<-SQL.squish
+      UPDATE inventories
+      SET request_uuid = requests.new_id
+      FROM requests
+      WHERE inventories.request_id = requests.id
+    SQL
+
+    execute <<-SQL.squish
+      UPDATE organization_beneficiaries
+      SET request_uuid = requests.new_id
+      FROM requests
+      WHERE organization_beneficiaries.request_id = requests.id
+    SQL
+
+    # Remove the old foreign key constraints.
+    remove_foreign_key :family_beneficiaries, :requests
+    remove_foreign_key :individual_beneficiaries, :requests
+    remove_foreign_key :inventories, :requests
+    remove_foreign_key :organization_beneficiaries, :requests
+
+    # Remove the old integer foreign key columns and rename the temporary columns.
+    remove_column :family_beneficiaries, :request_id
+    remove_column :individual_beneficiaries, :request_id
+    remove_column :inventories, :request_id
+    remove_column :organization_beneficiaries, :request_id
+
+    rename_column :family_beneficiaries, :request_uuid, :request_id
+    rename_column :individual_beneficiaries, :request_uuid, :request_id
+    rename_column :inventories, :request_uuid, :request_id
+    rename_column :organization_beneficiaries, :request_uuid, :request_id
+
+    # Change the type of the new foreign key columns to UUID (if not already).
+    change_column :family_beneficiaries, :request_id, :uuid
+    change_column :individual_beneficiaries, :request_id, :uuid
+    change_column :inventories, :request_id, :uuid
+    change_column :organization_beneficiaries, :request_id, :uuid
+
+    # Add new foreign key constraints referencing requests(new_id).
+    add_foreign_key :family_beneficiaries, :requests, column: :request_id, primary_key: "new_id"
+    add_foreign_key :individual_beneficiaries, :requests, column: :request_id, primary_key: "new_id"
+    add_foreign_key :inventories, :requests, column: :request_id, primary_key: "new_id"
+    add_foreign_key :organization_beneficiaries, :requests, column: :request_id, primary_key: "new_id"
+
+    # Change the primary key on requests:
+    # Drop the current primary key constraint.
+    execute("ALTER TABLE requests DROP CONSTRAINT requests_pkey")
+    # Add a new primary key constraint using the new UUID column.
+    execute("ALTER TABLE requests ADD PRIMARY KEY (new_id)")
+
+    # Remove the old integer id column and rename new_id to id.
+    remove_column :requests, :id
+    rename_column :requests, :new_id, :id
+  end
+
+  def down
+    raise ActiveRecord::IrreversibleMigration, "Converting from UUID back to integer is not supported."
+  end
+end

@@ -65,11 +65,11 @@
                         <i class="fa-solid fa-chevron-down"></i>
                       </div>
                     </button>
-                    <div id="dropdown-<%= district.id %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
-                      <%= link_to 'View', district, class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
-                      <%= link_to 'Edit', edit_district_path(district), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
-                      <%= button_to 'Delete', district, method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-12 py-2 text-red-600 hover:bg-gray-100 text-center' %>
-                    </div>
+                 <div id="dropdown-<%= district.uuid %>" class="absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10 hidden overflow-hidden font-Outfit font-semibold">
+                   <%= link_to 'View', district_path(district.uuid), class: 'block px-4 py-2 text-lightGreen hover:bg-gray-100' %>
+                   <%= link_to 'Edit', edit_district_path(district.uuid), class: 'block px-4 py-2 text-darkBlue hover:bg-gray-100' %>
+                   <%= button_to 'Delete', district_path(district.uuid), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-12 py-2 text-red-600 hover:bg-gray-100 text-center' %>
+                 </div>
                   </div>
                 </td>
               </tr>

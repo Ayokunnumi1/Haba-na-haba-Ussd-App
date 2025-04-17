@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_17_162117) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
@@ -75,14 +76,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
   end
 
   create_table "event_users", force: :cascade do |t|
-    t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id"
-    t.index ["event_id"], name: "index_event_users_on_event_id"
+    t.uuid "event_id"
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
     t.time "end_time"
     t.uuid "district_id"
     t.index ["county_id"], name: "index_events_on_county_id"
+    t.index ["id"], name: "index_events_on_id", unique: true
     t.index ["sub_county_id"], name: "index_events_on_sub_county_id"
   end
 

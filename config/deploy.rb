@@ -12,7 +12,7 @@ set :branch, "feature/deployment"
 set :deploy_to, "/home/deployhnh/#{fetch(:application)}"
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
-
+set :bundle_jobs, 1
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
@@ -37,3 +37,16 @@ set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+namespace :deploy do
+  desc "Install gems with reduced memory usage"
+  task :install_gems do
+    on roles(:app) do
+      within release_path do
+        execute :bundle, "install --jobs 1 --without development test"
+      end
+    end
+  end
+end
+
+# Hook into deployment process
+after "deploy:updated", "deploy:install_gems"

@@ -5,7 +5,7 @@ set :application, "haba_na_haba_ussd_app"
 set :repo_url, "https://github.com/Ayokunnumi1/Haba-na-haba-Ussd-App"
 
 # Default branch is :master
-set :branch, "deployment"
+set :branch, "feature/deployment"
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/var/www/my_app_name"

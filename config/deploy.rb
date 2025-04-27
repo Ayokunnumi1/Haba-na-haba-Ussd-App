@@ -50,3 +50,6 @@ end
 
 # Hook into deployment process
 after "deploy:updated", "deploy:install_gems"
+
+set :bundle_bins, fetch(:bundle_bins, []).push('rake', 'rails')
+set :bundle_version, '2.6.3'  # Use a version that works with your app

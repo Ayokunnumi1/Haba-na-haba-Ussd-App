@@ -39,3 +39,6 @@ Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 
 set :rbenv_type, :user
 set :rbenv_ruby, '3.2.2'
+set :rbenv_path, '$HOME/.rbenv'
+set :bundle_binstubs, nil
+set :assets_roles, [:web, :app]

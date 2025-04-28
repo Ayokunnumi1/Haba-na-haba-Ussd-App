@@ -50,6 +50,21 @@ namespace :deploy do
   end
 end
 
+# Add these lines to install Node.js packages during deployment
+namespace :deploy do
+  desc 'Install npm packages'
+  task :npm_install do
+    on roles(:app) do
+      within release_path do
+        execute :npm, 'install'
+      end
+    end
+  end
+end
+
+# Run npm install before asset precompilation
+before 'deploy:assets:precompile', 'deploy:npm_install'
+
 # Hook into deployment process
 after "deploy:updated", "deploy:install_gems"
 

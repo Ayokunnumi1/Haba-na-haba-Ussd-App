@@ -21,15 +21,38 @@ class ChangePrimaryKeyToUuidForDistricts < ActiveRecord::Migration[7.1]
     add_column :requests, :new_district_id, :uuid
 
     # Update temporary UUID columns with corresponding UUIDs
-    execute <<-SQL
-      UPDATE branch_districts SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = branch_districts.district_id);
-      UPDATE counties SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = counties.district_id);
-      UPDATE events SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = events.district_id);
-      UPDATE family_beneficiaries SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = family_beneficiaries.district_id);
-      UPDATE individual_beneficiaries SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = individual_beneficiaries.district_id);
-      UPDATE inventories SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = inventories.district_id);
-      UPDATE organization_beneficiaries SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = organization_beneficiaries.district_id);
-      UPDATE requests SET new_district_id = (SELECT uuid FROM districts WHERE districts.id = requests.district_id);
+    execute(<<~SQL)
+      UPDATE branch_districts SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = branch_districts.district_id;
+      
+      UPDATE counties SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = counties.district_id;
+      
+      UPDATE events SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = events.district_id;
+      
+      UPDATE family_beneficiaries SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = family_beneficiaries.district_id;
+      
+      UPDATE individual_beneficiaries SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = individual_beneficiaries.district_id;
+      
+      UPDATE inventories SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = inventories.district_id;
+      
+      UPDATE organization_beneficiaries SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = organization_beneficiaries.district_id;
+      
+      UPDATE requests SET new_district_id = CAST(CONCAT('00000000-0000-0000-0000-', LPAD(TO_HEX(districts.id), 12, '0')) AS uuid)
+      FROM districts
+      WHERE districts.id = requests.district_id;
     SQL
 
     # Remove old foreign key columns

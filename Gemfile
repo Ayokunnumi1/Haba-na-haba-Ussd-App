@@ -124,3 +124,6 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-passenger'
 gem 'capistrano-rbenv'
+gem 'ostruct'
+# gem 'passenger', require: 'phusion_passenger/rack_handler'
+gem 'passenger', require: false, group: :production

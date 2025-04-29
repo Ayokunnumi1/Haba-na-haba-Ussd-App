@@ -1,5 +1,3 @@
-require_relative '../lib/phusion_passenger_patch'
-
 require_relative "boot"
 
 require "rails/all"

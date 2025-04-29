@@ -1,9 +1,9 @@
 module RequestCardData
   extend ActiveSupport::Concern
 
-#   included do
-#     before_action :load_request_card_data, only: [:index]
-#   end
+  #   included do
+  #     before_action :load_request_card_data, only: [:index]
+  #   end
 
   def load_request_card_data
     @total_requests = Request.count
@@ -21,5 +21,4 @@ module RequestCardData
     @cloth_requests = Request.where(request_type: 'cloth_donation').count
     @other_requests = Request.where.not(request_type: 'other_donation').count
   end
-
 end

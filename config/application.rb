@@ -1,4 +1,6 @@
-require_relative '../lib/phusion_passenger_patch'
+if Rails.env.development? && RUBY_PLATFORM =~ /mswin|mingw|cygwin/
+  require_relative '../lib/phusion_passenger_patch'
+end
 
 require_relative "boot"
 

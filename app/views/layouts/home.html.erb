@@ -8,6 +8,7 @@
     <%= AssetRam::Helper.cache {stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"} %>
     <%= AssetRam::Helper.cache {stylesheet_link_tag "application", "data-turbo-track": "reload"} %>
     <%= AssetRam::Helper.cache {javascript_importmap_tags} %>
+    <%= javascript_include_tag "home", "data-turbo-track": "reload" %>
     <link rel="manifest" href="/manifest.json" />
   </head>
   <body>

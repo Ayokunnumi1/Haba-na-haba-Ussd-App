@@ -64,11 +64,11 @@ module.exports = {
         30: "30px",
       },
       backgroundImage: {
-        "users-image": "url('/assets/images/users-image.svg')",
-        "users-show": "url('/assets/images/users-show.svg')",
-        "login-bg": "url('/assets/images/Shape.svg')",
-        "custom-image": "url('/assets/images/african-kid.png')",
-        "community-image": "url('/assets/images/community.png')",
+        "users-image": "url('/assets/users-image.svg')",
+        "users-show": "url('/assets/users-show.svg')",
+        "login-bg": "url('/assets/Shape.svg')",
+        "custom-image": "url('/assets/african-kid.png')",
+        "community-image": "url('/assets/community.png')",
       },
       screens: {
         ssm: "200px",

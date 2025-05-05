@@ -8,6 +8,13 @@ module.exports = {
     "./app/views/**/*.{erb,haml,html,slim}",
     "./node_modules/flowbite/**/*.js",
   ],
+  safelist: [
+    "bg-custom-image",
+    "bg-users-image",
+    "bg-users-show",
+    "bg-login-bg",
+    "bg-community-image",
+  ],
   theme: {
     extend: {
       fontSize: {

@@ -4,6 +4,9 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.assets.css_compressor = nil
+  #Md Mahadi Hasan
+  config.assets.js_compressor = nil
+
   
   # Code is not reloaded between requests.
   config.enable_reloading = false

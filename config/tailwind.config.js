@@ -75,7 +75,7 @@ module.exports = {
         "users-show": "url('/assets/users-show.svg')",
         "login-bg": "url('/assets/Shape.svg')",
         "custom-image": "url('/assets/kid.png')",
-        "community-image": "url('/assets/community.png')",
+        "community-image": "url('~@images/community.png')",
       },
       screens: {
         ssm: "200px",

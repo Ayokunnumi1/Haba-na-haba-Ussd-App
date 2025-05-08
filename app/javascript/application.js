@@ -1,7 +1,6 @@
 import "@hotwired/turbo-rails";
 import "controllers";
 import "./modal";
-import "./controllers";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
 import "./controllers/load_counties_modal";
@@ -22,6 +21,7 @@ import "./eventTab";
 import "inventoryDonorType";
 import "./scroll_to_top";
 import { initFlowbite } from "flowbite";
+
 document.addEventListener("turbo:load", function () {
   initFlowbite(); // Now properly imported
 });

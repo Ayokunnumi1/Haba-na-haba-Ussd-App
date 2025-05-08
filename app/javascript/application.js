@@ -1,5 +1,6 @@
 import "@hotwired/turbo-rails";
 import "controllers";
+import "flowbite";
 import "./modal";
 import "./controllers/load_counties";
 import "./controllers/load_sub_counties";
@@ -20,10 +21,17 @@ import "./eventUser";
 import "./eventTab";
 import "inventoryDonorType";
 import "./scroll_to_top";
-import { initFlowbite } from "flowbite";
 
-document.addEventListener("turbo:load", function () {
-  initFlowbite(); // Now properly imported
+// And add this for proper initialization with Turbo
+document.addEventListener("turbo:load", function() {
+  // Use window.initFlowbite if it's attached to window
+  if (typeof window.initFlowbite === 'function') {
+    window.initFlowbite();
+  } 
+  // Or try looking for Flowbite global if available
+  else if (typeof Flowbite !== 'undefined' && typeof Flowbite.init === 'function') {
+    Flowbite.init();
+  }
 });
 
 if ("serviceWorker" in navigator) {
@@ -31,21 +39,22 @@ if ("serviceWorker" in navigator) {
     .register("/service-worker.js", { scope: "./" })
     .then((registration) => {
       let serviceWorker;
+      const kindElement = document.querySelector("#kind");
+      
       if (registration.installing) {
         serviceWorker = registration.installing;
-        document.querySelector("#kind").textContent = "installing";
+        if (kindElement) kindElement.textContent = "installing";
       } else if (registration.waiting) {
         serviceWorker = registration.waiting;
-        document.querySelector("#kind").textContent = "waiting";
+        if (kindElement) kindElement.textContent = "waiting";
       } else if (registration.active) {
         serviceWorker = registration.active;
-        document.querySelector("#kind").textContent = "active";
+        if (kindElement) kindElement.textContent = "active";
       }
 
-      // Listen for state changes in the service worker
-      if (serviceWorker) {
+      if (serviceWorker && kindElement) {
         serviceWorker.addEventListener("statechange", (e) => {
-          document.querySelector("#kind").textContent = e.target.state;
+          kindElement.textContent = e.target.state;
         });
       }
     })

@@ -1,6 +1,5 @@
 import "@hotwired/turbo-rails";
 import "controllers";
-import "flowbite";
 import "./modal";
 import "./controllers";
 import "./controllers/load_counties";
@@ -22,9 +21,9 @@ import "./eventUser";
 import "./eventTab";
 import "inventoryDonorType";
 import "./scroll_to_top";
-document.addEventListener('turbo:load', function() {
-  // Re-initialize Flowbite components after Turbo navigation
-  initFlowbite();
+import { initFlowbite } from "flowbite";
+document.addEventListener("turbo:load", function () {
+  initFlowbite(); // Now properly imported
 });
 
 if ("serviceWorker" in navigator) {

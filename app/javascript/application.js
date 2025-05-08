@@ -1,27 +1,28 @@
 import "@hotwired/turbo-rails";
 import "controllers";
 import "flowbite";
-import "./modal";
-import "./controllers/load_counties";
-import "./controllers/load_sub_counties";
-import "./controllers/load_counties_modal";
+import "modal";  // Remove the ./
+import "controllers/load_counties";  // Remove the ./
+import "controllers/load_sub_counties";  // Remove the ./
+import "controllers/load_counties_modal";  // Remove the ./
 import "requestDropdown";
-import "./controllers/toggleFilter";
-import "./dropdown";
-import "./nested_forms";
-import "./district";
+import "controllers/toggleFilter";  // Remove the ./
+import "dropdown";  // Remove the ./
+import "nested_forms";  // Remove the ./
+import "district";  // Remove the ./
 import "truncate";
 import "chartkick";
 import "Chart.bundle";
-import "./users/filterUsers";
-import "./users/userDropDown";
-import "./controllers/filter_modal";
-import "./dashboard";
-import "./eventUser";
-import "./eventTab";
+import "users/filterUsers";  // Remove the ./
+import "users/userDropDown";  // Remove the ./
+import "controllers/filter_modal";  // Remove the ./
+import "dashboard";  // Remove the ./
+import "eventUser";  // Remove the ./
+import "eventTab";  // Remove the ./
 import "inventoryDonorType";
-import "./scroll_to_top";
+import "scroll_to_top";  // Remove the ./
 
+// The rest remains the same
 // And add this for proper initialization with Turbo
 document.addEventListener("turbo:load", function() {
   // Use window.initFlowbite if it's attached to window

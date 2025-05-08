@@ -1,17 +1,25 @@
-# Pin npm packages by running ./bin/importmap
-
-pin "application"
-pin "@hotwired/turbo-rails", to: "turbo.min.js"
-pin "@hotwired/stimulus", to: "stimulus.min.js"
-pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
-pin_all_from "app/javascript/controllers", under: "controllers"
-pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.turbo.min.js"
-pin "requestDropdown", to: "requestDropdown.js"
-pin "truncate", to: "truncate.js"
-pin "dropdown", to: "dropdown.js"
-pin "chartkick", to: "chartkick.js"
-pin "Chart.bundle", to: "Chart.bundle.js"
-pin_all_from "app/javascript/users", under: "users"
-pin "dashboard", to: "dashboard.js"
-pin "inventoryDonorType", to: "inventoryDonorType.js"
-
+pin "application", preload: true
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
+pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "controllers", preload: true
+pin "flowbite"
+pin "modal"
+pin "controllers/load_counties"
+pin "controllers/load_sub_counties"
+pin "controllers/load_counties_modal"
+pin "requestDropdown"
+pin "controllers/toggleFilter"
+pin "dropdown"
+pin "nested_forms"
+pin "district"
+pin "truncate"
+pin "chartkick"
+pin "Chart.bundle"
+pin "users/filterUsers"
+pin "users/userDropDown"
+pin "controllers/filter_modal"
+pin "dashboard"
+pin "eventUser"
+pin "eventTab"
+pin "inventoryDonorType"
+pin "scroll_to_top"

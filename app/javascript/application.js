@@ -20,11 +20,13 @@ import "./controllers/filter_modal";
 import "./dashboard";
 import "./eventUser";
 import "./eventTab";
-import "./users/filterUsers";
-import "./users/userDropDown";
 import "inventoryDonorType";
-import "./controllers/filter_modal";
 import "./scroll_to_top";
+document.addEventListener('turbo:load', function() {
+  // Re-initialize Flowbite components after Turbo navigation
+  initFlowbite();
+});
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/service-worker.js", { scope: "./" })

@@ -1,7 +1,6 @@
-function toggleModal(modalId) {
+document.addEventListener("turbo:load", function () {
+  window.toggleModal = function(modalId) {
     const modal = document.getElementById(modalId);
-    modal.classList.toggle('hidden');
-  }
-  
-  window.toggleModal = toggleModal;
-  
+    if (modal) modal.classList.toggle("hidden");
+  };
+});

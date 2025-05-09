@@ -1,26 +1,26 @@
 import "@hotwired/turbo-rails";
 import "controllers";
 import "flowbite";
-import "./modal";
-import "./controllers/load_counties";
-import "./controllers/load_sub_counties";
-import "./controllers/load_counties_modal";
-import "requestDropdown";
-import "./controllers/toggleFilter";
-import "./dropdown";
-import "./nested_forms";
-import "./district";
-import "truncate";
-import "chartkick";
-import "Chart.bundle";
-import "./users/filterUsers";
-import "./users/userDropDown";
-import "./controllers/filter_modal";
-import "./dashboard";
-import "./eventUser";
-import "./eventTab";
-import "inventoryDonorType";
-import "./scroll_to_top";
+import "./modal.js";
+import "./controllers/load_counties.js";
+import "./controllers/load_sub_counties.js";
+import "./controllers/load_counties_modal.js";
+import "requestDropdown.js";
+import "./controllers/toggleFilter.js";
+import "./dropdown.js";
+import "./nested_forms.js";
+import "./district.js";
+import "truncate.js";
+import "chartkick.js";
+import "Chart.bundle.js";
+import "./users/filterUsers.js";
+import "./users/userDropDown.js";
+import "./controllers/filter_modal.js";
+import "./dashboard.js";
+import "./eventUser.js";
+import "./eventTab.js";
+import "inventoryDonorType.js";
+import "./scroll_to_top.js";
 
 // And add this for proper initialization with Turbo
 document.addEventListener("turbo:load", function() {

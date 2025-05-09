@@ -34,4 +34,9 @@ Rails.application.config.assets.precompile += %w(
   eventUser.js
   eventTab.js
   scroll_to_top.js
+  requestDropdown.js
+  truncate.js
+  chartkick.js
+  Chart.bundle.js
+  inventoryDonorType.js
 )

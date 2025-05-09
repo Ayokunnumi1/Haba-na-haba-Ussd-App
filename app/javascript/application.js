@@ -5,7 +5,7 @@ import "./modal.js";
 import "./controllers/load_counties.js";
 import "./controllers/load_sub_counties.js";
 import "./controllers/load_counties_modal.js";
-import "requestDropdown.js";
+import "./requestDropdown.js";
 import "./controllers/toggleFilter.js";
 import "./dropdown.js";
 import "./nested_forms.js";

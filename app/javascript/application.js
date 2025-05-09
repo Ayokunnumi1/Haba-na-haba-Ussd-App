@@ -10,16 +10,16 @@ import "./controllers/toggleFilter.js";
 import "./dropdown.js";
 import "./nested_forms.js";
 import "./district.js";
-import "truncate.js";
-import "chartkick.js";
-import "Chart.bundle.js";
+import "./truncate.js";
+import "./chartkick.js";
+import "./Chart.bundle.js";
 import "./users/filterUsers.js";
 import "./users/userDropDown.js";
 import "./controllers/filter_modal.js";
 import "./dashboard.js";
 import "./eventUser.js";
 import "./eventTab.js";
-import "inventoryDonorType.js";
+import "./inventoryDonorType.js";
 import "./scroll_to_top.js";
 
 // And add this for proper initialization with Turbo

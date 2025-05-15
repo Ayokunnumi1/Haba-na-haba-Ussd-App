@@ -5,8 +5,8 @@
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-server "51.20.83.111", user: "deployhnh", roles: %w{app db web}, ssh_options: {
-  keys: %w(~/.ssh/id_rsa),
+server "16.16.5.96", user: "deployhnh", roles: %w{app db web}, ssh_options: {
+  keys: %w(~/.ssh/id_ed25519),
   forward_agent: false,
   auth_methods: %w(publickey)
 }

@@ -1,6 +1,7 @@
 class RequestsController < ApplicationController
   load_and_authorize_resource except: :ussd
   include EnglishMenu
+  include RequestCardData
 
   before_action :set_request, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token, only: [:ussd]
@@ -14,6 +15,8 @@ class RequestsController < ApplicationController
     # Restrict to branch_manager's branch
     @requests = @requests.where(branch_id: current_user.branch_id) if current_user.role == 'branch_manager'
     @requests = @requests.where(user_id: current_user.id) if current_user.role == 'volunteer'
+    load_request_card_data
+    load_request_type_data
   end
 
   def ussd

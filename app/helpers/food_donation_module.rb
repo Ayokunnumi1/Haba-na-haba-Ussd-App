@@ -12,7 +12,7 @@ module FoodDonationModule
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
     return 'END No matching district found.' unless selected_district
 
-    branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
+    branch = Branch.joins(:districts).find_by(districts: { uuid: selected_district.uuid }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No matching branch found.' unless selected_district
 
     request = Request.create(
@@ -22,7 +22,7 @@ module FoodDonationModule
       amount: donation_amount,
       food_type:,
       food_name:,
-      district_id: selected_district.id,
+      district_id: selected_district.uuid,
       branch_id: branch.id
     )
 

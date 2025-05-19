@@ -5,9 +5,27 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= AssetRam::Helper.cache {stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"} %>
-    <%= AssetRam::Helper.cache {stylesheet_link_tag "application", "data-turbo-track": "reload"} %>
-    <%= AssetRam::Helper.cache {javascript_importmap_tags} %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "modal", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "dropdown", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "district", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "nested_forms", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "truncate", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "dashboard", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "requestDropdown", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "scroll_to_top", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "controllers/filter_modal", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "controllers/load_counties", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "controllers/load_sub_counties", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "controllers/load_counties_modal", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "controllers/toggleFilter", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "users/filterUsers", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "users/userDropDown", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "eventUser", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "eventTab", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "inventoryDonorType", "data-turbo-track": "reload" %>
     <link rel="manifest" href="/manifest.json" />
   </head>
   <body>

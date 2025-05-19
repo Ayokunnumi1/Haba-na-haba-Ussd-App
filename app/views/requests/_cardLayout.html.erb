@@ -6,14 +6,26 @@
         <div class="mb-2 sm:mb-4 bg-gradient-to-r from-green-400 to-green-600 p-2 rounded-full">
           <i class="fa-regular fa-folder text-white text-lg sm:text-xl lg:text-2xl"></i>
         </div>
-        <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-lightGray">
+        <div class="flex flex-row flex-wrap gap-4 sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-lightGray">
           <div class="flex flex-col items-start">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total Food</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">350</p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Total</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_requests %></p>
           </div>
           <div class="flex flex-col items-start">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Donated</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">316</p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Pending</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_pending_requests %></p>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Assigned</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_assigned_requests %></p>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Approved</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_approved_requests %></p>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Rejected</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_rejected_requests %></p>
           </div>
         </div>
       </div>
@@ -24,14 +36,22 @@
         <div class="mb-2 sm:mb-4 bg-gradient-to-r from-gray-400 to-gray-600 p-2 rounded-full">
           <i class="fa-solid fa-user-group text-white text-lg sm:text-xl lg:text-2xl"></i>
         </div>
-        <div class="flex flex-col sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-black">
+        <div class="flex flex-row flex-wrap gap-4 sm:flex-row sm:gap-x-4 md:gap-x-6 lg:gap-x-8 w-full text-black">
           <div class="flex flex-col items-start">
-            <p class="text-red-600 text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Low Stock</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">23</p>
+            <p class="text-red-600 text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Food</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @total_requests %></p>
           </div>
           <div class="flex flex-col items-start">
-            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Expired</p>
-            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">3</p>
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Cash</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @cash_requests %></p>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Cloth</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @cloth_requests %></p>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg tracking-wide">Other</p>
+            <p class="pt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"><%= @other_requests %></p>
           </div>
         </div>
       </div>

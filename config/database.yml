@@ -14,17 +14,19 @@
 #
 default: &default
   adapter: postgresql
-  encoding: unicode
-  username: <%= ENV['POSTGRES_USERNAME'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
-  host: localhost
+  encoding: unicode  
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  
 development:
   <<: *default
   database: haba_na_haba_ussd_app_development
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: localhost
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -59,7 +61,9 @@ development:
 test:
   <<: *default
   database: haba_na_haba_ussd_app_test
-
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: localhost
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -82,6 +86,8 @@ test:
 #
 production:
   <<: *default
-  database: haba_na_haba_ussd_app_production
-  username: haba_na_haba_ussd_app
-  password: <%= ENV["HABA_NA_HABA_USSD_APP_DATABASE_PASSWORD"] %>
+  database: hnh-db
+  username: hnh_postgres
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
+  host: hnh-db.cfwoucio4lce.eu-north-1.rds.amazonaws.com
+  port: 5432

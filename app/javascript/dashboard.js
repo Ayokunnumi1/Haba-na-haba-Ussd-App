@@ -1,10 +1,17 @@
 document.addEventListener("turbo:load", () => {
+  const dashboardElement = document.querySelector(".dashboard-selector");
+  if (!dashboardElement) return;
+
   // Dropdown toggle
   const dropdownButton = document.getElementById("tabsDropdownButton");
   const dropdownMenu = document.getElementById("tabsDropdown");
-  dropdownButton.addEventListener("click", () => {
-    dropdownMenu.classList.toggle("hidden");
-  });
+
+  // Add this null check for dropdown elements
+  if (dropdownButton && dropdownMenu) {
+    dropdownButton.addEventListener("click", () => {
+      dropdownMenu.classList.toggle("hidden");
+    });
+  }
 
   // Tab switching
   const tabButtons = document.querySelectorAll("[data-tabs-target]");
@@ -24,11 +31,18 @@ document.addEventListener("turbo:load", () => {
       const target = document.querySelector(
         button.getAttribute("data-tabs-target")
       );
-      target.classList.remove("hidden");
+
+      // Add this null check for target
+      if (target) {
+        target.classList.remove("hidden");
+      }
+
       button.setAttribute("aria-selected", "true");
 
-      // Hide the dropdown
-      dropdownMenu.classList.add("hidden");
+      // Hide the dropdown only if it exists
+      if (dropdownMenu) {
+        dropdownMenu.classList.add("hidden");
+      }
     });
   });
 });

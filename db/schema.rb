@@ -62,16 +62,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.uuid "district_id"
-    t.index ["uuid"], name: "index_counties_on_uuid", unique: true
   end
 
   create_table "districts", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["uuid"], name: "index_districts_on_uuid", unique: true
   end
 
   create_table "event_users", force: :cascade do |t|
@@ -270,9 +267,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
     t.bigint "county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["county_id"], name: "index_sub_counties_on_county_id"
-    t.index ["uuid"], name: "index_sub_counties_on_uuid", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -33,7 +33,7 @@ module OtherDonationModule
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
     return 'END No matching district found.' if selected_district.nil?
 
-    branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
+    branch = Branch.joins(:districts).find_by(districts: { uuid: selected_district.uuid }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No branch found for the selected district and county.' if branch.nil?
 
     Request.create(
@@ -41,7 +41,7 @@ module OtherDonationModule
       name: request_name,
       request_type: request_type,
       amount: donation_amount,
-      district_id: selected_district.id,
+      district_id: selected_district.uuid,
       branch_id: branch.id
     )
 

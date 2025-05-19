@@ -1,3 +1,8 @@
+# Only load Passenger patch on Windows systems
+if RUBY_PLATFORM =~ /mswin|mingw|cygwin/
+  require_relative '../lib/phusion_passenger_patch'
+end
+
 require_relative "boot"
 
 require "rails/all"
@@ -14,7 +19,7 @@ module HabaNaHabaUssdApp
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: %w(assets tasks phusion_passenger_patch))
 
     # Configuration for the application, engines, and railties goes here.
     #

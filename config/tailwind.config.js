@@ -8,6 +8,13 @@ module.exports = {
     "./app/views/**/*.{erb,haml,html,slim}",
     "./node_modules/flowbite/**/*.js",
   ],
+  safelist: [
+    "bg-custom-image",
+    "bg-users-image",
+    "bg-users-show",
+    "bg-login-bg",
+    "bg-community-image",
+  ],
   theme: {
     extend: {
       fontSize: {
@@ -67,8 +74,8 @@ module.exports = {
         "users-image": "url('/assets/users-image.svg')",
         "users-show": "url('/assets/users-show.svg')",
         "login-bg": "url('/assets/Shape.svg')",
-        "custom-image": "url('/assets/african-kid.png')",
-        "community-image": "url('/assets/community.png')",
+        "custom-image": "url('/images/kid.png')",
+        "community-image": "url('@images/community.png')",
       },
       screens: {
         ssm: "200px",

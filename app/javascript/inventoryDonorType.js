@@ -2,6 +2,10 @@ document.addEventListener("turbo:load", function () {
   const donorTypeSelect = document.getElementById("donor-type-select");
   const familyFields = document.getElementById("family-fields");
   const organizationFields = document.getElementById("organization-fields");
+
+  // Exit early if any required elements don't exist
+  if (!donorTypeSelect || !familyFields || !organizationFields) return;
+
   function toggleFields() {
     const selectedType = donorTypeSelect.value;
 
@@ -15,7 +19,7 @@ document.addEventListener("turbo:load", function () {
     }
   }
 
+  // Only call these if we confirmed the elements exist
   toggleFields();
-
   donorTypeSelect.addEventListener("change", toggleFields);
 });

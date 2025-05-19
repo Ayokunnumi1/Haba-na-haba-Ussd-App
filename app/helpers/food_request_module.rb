@@ -10,16 +10,16 @@ module FoodRequestModule
     selected_district = District.search_by_name(district_name).first || District.find_by(name: 'Default District')
     return 'END No matching district found.' unless selected_district
 
-    # Find the branch associated with the district
-    branch = Branch.joins(:districts).find_by(districts: { id: selected_district.id }) || Branch.find_by(name: 'Haba na Haba Branch')
+    # Find the branch associated with the district - CHANGE THIS LINE
+    branch = Branch.joins(:districts).find_by(districts: { uuid: selected_district.uuid }) || Branch.find_by(name: 'Haba na Haba Branch')
     return 'END No branch found for the selected district.' unless branch
 
-    # Create a new request
+    # Create a new request - CHANGE district_id TO district_uuid
     new_request = Request.new(
       phone_number:,
       name: request_name,
       request_type: 'food_request',
-      district_id: selected_district.id,
+      district_id: selected_district.uuid,  # Change this line
       branch_id: branch.id
     )
 

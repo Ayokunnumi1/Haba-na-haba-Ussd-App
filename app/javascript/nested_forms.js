@@ -1,4 +1,3 @@
-// districts.js
 (function () {
   // Store a reference to the handler to ensure proper removal
   let handleAddFields = null;
@@ -15,8 +14,6 @@
       if (e.target.matches(".add_fields")) {
         e.preventDefault();
         e.stopImmediatePropagation(); // Stop all propagation to prevent double triggers
-
-        console.log("Add fields clicked:", e.target); // Debug: Log the clicked element
 
         const link = e.target;
         const association = link.dataset.association;
@@ -44,7 +41,6 @@
 
     // Attach the listener
     document.body.addEventListener("click", handleAddFields);
-    console.log("Add fields listener attached"); // Debug: Confirm listener attachment
   }
 
   // Listen for Turbo events
@@ -55,7 +51,6 @@
   document.addEventListener("turbo:before-cache", () => {
     if (handleAddFields) {
       document.body.removeEventListener("click", handleAddFields);
-      console.log("Add fields listener removed before cache"); // Debug: Confirm removal
     }
   });
 })();

@@ -19,6 +19,6 @@ module RequestCardData
     @food_requests = Request.where(request_type: 'food_request').count
     @cash_requests = Request.where(request_type: 'cash_donation').count
     @cloth_requests = Request.where(request_type: 'cloth_donation').count
-    @other_requests = Request.where.not(request_type: 'other_donation').count
+    @other_requests = Request.where(request_type: 'other_donation').count
   end
 end

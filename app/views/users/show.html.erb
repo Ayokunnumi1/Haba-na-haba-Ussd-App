@@ -20,18 +20,34 @@
     </div>
   </div>
   <!-- Social Links -->
-  <div class="flex justify-center gap-6 mt-6">
-    <% links = [
+<div class="flex justify-center gap-6 mt-6">
+  <% links = [
     { url: "https://wa.me/+256#{@user.phone_number}", icon: "fab fa-whatsapp text-green-500" },
     { url: "https://zoom.us/signin#/login", icon: "fas fa-video text-blue-500" },
-    { url: "mailto:#{@user.email}", icon: "fas fa-envelope text-red-500" }
-    ] %>
-    <% links.each do |link| %>
-      <a href="<%= link[:url] %>" target="_blank" class="rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150">
-        <i class="<%= link[:icon] %> text-xl"></i>
-      </a>
-    <% end %>
-  </div>
+    {
+      url: (@user.email.present? && @user.email.match?(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)) ? (
+        case @user.email.split('@').last.downcase
+        when 'gmail.com'
+          "https://mail.google.com/mail/?view=cm&fs=1&to=#{URI.encode_www_form_component(@user.email)}&su=Message%20from%20Team"
+        when 'outlook.com', 'hotmail.com', 'live.com'
+          "https://outlook.live.com/mail/0/deeplink/compose?to=#{URI.encode_www_form_component(@user.email)}&subject=Message%20from%20Team"
+        when 'yahoo.com'
+          "https://compose.mail.yahoo.com/?to=#{URI.encode_www_form_component(@user.email)}&subj=Message%20from%20Team"
+        when 'aol.com'
+          "https://mail.aol.com/webmail-std/en-us/compose?to=#{URI.encode_www_form_component(@user.email)}&subject=Message%20from%20Team"
+        else
+          "https://mail.google.com/mail/?view=cm&fs=1&to=#{URI.encode_www_form_component(@user.email)}&su=Message%20from%20Team"
+        end
+      ) : "#",
+      icon: "fas fa-envelope text-red-500"
+    }
+  ] %>
+  <% links.each do |link| %>
+    <a href="<%= link[:url] %>" target="_blank" rel="noopener noreferrer" data-turbo="false" class="rounded-full p-3 shadow hover:bg-gray-200 transition ease-in-out duration-150 <%= link[:url] == '#' ? 'cursor-not-allowed opacity-50' : '' %>">
+      <i class="<%= link[:icon] %> text-xl"></i>
+    </a>
+  <% end %>
+</div>
   <!-- User Details -->
   <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6 mt-6">
     <ul class="space-y-4 text-lg font-light">

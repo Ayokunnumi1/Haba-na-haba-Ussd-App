@@ -3,8 +3,8 @@ require 'AfricasTalking'
 module SmsHelper
   def self.send_sms(phone_number, message)
     # Use the initialized AT SMS servic
-    user_name = "sandbox"
-    api_key = "atsk_7024daf0e35e181bf604049c4671ac1db5b4ca52af5287a1de914cb48f994ebfc78fd165"
+    user_name = ENV['AFRICASTALKING_USERNAME'] || "sandbox"
+    api_key = ENV['AFRICASTALKING_API_KEY']
     puts "#{api_key}, #{user_name} credentials"
     @at = AfricasTalking::Initialize.new(user_name, api_key)
     sms = @at.sms

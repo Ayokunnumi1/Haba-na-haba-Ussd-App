@@ -13,25 +13,25 @@ module InventoryLoader
   end
 
   def load_inventory_stock_alert
-    @inventory_stock_alert = Inventory.includes(:request).low_stock
+    @inventory_stock_alert = inventory_base_query.includes(:request).low_stock
   end
 
   def calculate_weekly_food_inventory
     start_of_week = Time.current.beginning_of_week
     end_of_week = Time.current.end_of_week
-    Inventory.where(donation_type: 'food', created_at: start_of_week..end_of_week).count
+    inventory_base_query.where(donation_type: 'food', created_at: start_of_week..end_of_week).count
   end
 
   def calculate_weekly_cash_inventory
     start_of_week = Time.current.beginning_of_week
     end_of_week = Time.current.end_of_week
-    Inventory.where(donation_type: 'cash', created_at: start_of_week..end_of_week).sum(:collection_amount)
+    inventory_base_query.where(donation_type: 'cash', created_at: start_of_week..end_of_week).sum(:collection_amount)
   end
 
   def calculate_weekly_cloth_inventory
     start_of_week = Time.current.beginning_of_week
     end_of_week = Time.current.end_of_week
-    Inventory.where(donation_type: 'cloth', created_at: start_of_week..end_of_week).count
+    inventory_base_query.where(donation_type: 'cloth', created_at: start_of_week..end_of_week).count
   end
 
   def load_inventory_list
@@ -43,7 +43,7 @@ module InventoryLoader
   end
 
   def load_all_inventories
-    Inventory.includes(:request)
+    inventory_base_query.includes(:request)
       .apply_filters(params).order(created_at: :desc)
       .by_donation_type(params[:donation_type])
       .by_donor_type(params[:donor_type])
@@ -55,7 +55,7 @@ module InventoryLoader
   end
 
   def load_paginated_inventories
-    Inventory.includes(:request)
+    inventory_base_query.includes(:request)
       .apply_filters(params).order(created_at: :desc)
       .by_donation_type(params[:donation_type])
       .by_donor_type(params[:donor_type])
@@ -69,14 +69,14 @@ module InventoryLoader
   end
 
   def calculate_counts
-    @total_inventory_count = Inventory.count
+    @total_inventory_count = inventory_base_query.count
     @weekly_food_inventory_count = calculate_weekly_food_inventory
     @weekly_cash_inventory_count = calculate_weekly_cash_inventory
     @weekly_cloth_inventory_count = calculate_weekly_cloth_inventory
   end
 
   def load_filters
-    @total_pages = @per_page.zero? ? 1 : (Inventory.count.to_f / @per_page).ceil
+    @total_pages = @per_page.zero? ? 1 : (inventory_base_query.count.to_f / @per_page).ceil
     @min_collection_amount = @inventories.minimum(:collection_amount) || 0
     @max_collection_amount = @inventories.maximum(:collection_amount) || 1500
 
@@ -92,5 +92,18 @@ module InventoryLoader
     @counties = @inventory.district.present? ? County.where(district_id: @inventory.district_id) : County.none
     @sub_counties = @inventory.county.present? ? SubCounty.where(county_id: @inventory.county_id) : SubCounty.none
     @branches = Branch.all
+  end
+
+  private
+
+  def inventory_base_query
+    case current_user.role
+    when 'super_admin', 'admin'
+      Inventory.all
+    when 'branch_manager', 'volunteer'
+      Inventory.where(branch_id: current_user.branch_id)
+    else
+      Inventory.none # Fallback for unauthorized or guest users
+    end
   end
 end

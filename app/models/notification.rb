@@ -7,7 +7,7 @@ class Notification < ApplicationRecord
   def target_url
     case notifiable_type
     when 'Request'
-      Rails.application.routes.url_helpers.request_path(notifiable_id, notification_id: id)
+      Rails.application.routes.url_helpers.request_path(notifiable, notification_id: id)
     else
       '#'
     end

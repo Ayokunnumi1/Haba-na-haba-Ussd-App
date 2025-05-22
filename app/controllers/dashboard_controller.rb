@@ -36,14 +36,73 @@ class DashboardController < ApplicationController
   end
 
   def build_guidelines
+    # Base query for Requests based on user role
+    request_base_query = case current_user.role
+                        when 'super_admin', 'admin'
+                          Request.all
+                        when 'branch_manager'
+                          Request.where(branch_id: current_user.branch_id)
+                        when 'volunteer'
+                          Request.where(user_id: current_user.id, branch_id: current_user.branch_id)
+                        else
+                          Request.none # Fallback for unauthorized or guest users
+                        end
+
+    # Base query for Inventories based on user role
+    inventory_base_query = case current_user.role
+                          when 'super_admin', 'admin'
+                            Inventory.all
+                          when 'branch_manager', 'volunteer'
+                            Inventory.where(branch_id: current_user.branch_id)
+                          else
+                            Inventory.none # Fallback for unauthorized or guest users
+                          end
+
+    # Base query for Events based on user role
+    event_base_query = case current_user.role
+                      when 'super_admin', 'admin'
+                        Event.all
+                      when 'branch_manager'
+                        Event.joins(:district).where(districts: { uuid: BranchDistrict.where(branch_id: current_user.branch_id).select(:district_id) })
+                      when 'volunteer'
+                        Event.joins(:event_users).where(event_users: { user_id: current_user.id })
+                      else
+                        Event.none # Fallback for unauthorized or guest users
+                      end
+
     [
-      { title: 'Pending Request', color: '#E0E9FF', units: 'Request', count: Request.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons1.svg',
-        link: '#' },
-      { title: 'Approved Request', color: '#E4FFE0', units: 'Request', count: Request.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons2.svg',
-        link: '#' },
-      { title: 'Low Stock Alert', color: '#FFE0E0', units: 'Price', count: Inventory.where.not(donor_type: 'cash').group_by_week(:created_at).count.values.last || 'N/A',
-        icon: 'LoanIcons3.svg', link: '#' },
-      { title: 'Food Events', color: '#FFFCE0', units: 'Event', count: Event.group_by_week(:created_at).count.values.last || 'N/A', icon: 'LoanIcons4.svg', link: '#' }
+      {
+        title: 'Pending Request',
+        color: '#E0E9FF',
+        units: 'Request',
+        count: request_base_query.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A',
+        icon: 'LoanIcons1.svg',
+        link: '#'
+      },
+      {
+        title: 'Approved Request',
+        color: '#E4FFE0',
+        units: 'Request',
+        count: request_base_query.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A',
+        icon: 'LoanIcons2.svg',
+        link: '#'
+      },
+      {
+        title: 'Low Stock Alert',
+        color: '#FFE0E0',
+        units: 'Price',
+        count: inventory_base_query.where.not(donor_type: 'cash').group_by_week(:created_at).count.values.last || 'N/A',
+        icon: 'LoanIcons3.svg',
+        link: '#'
+      },
+      {
+        title: 'Food Events',
+        color: '#FFFCE0',
+        units: 'Event',
+        count: event_base_query.group_by_week(:created_at).count.values.last || 'N/A',
+        icon: 'LoanIcons4.svg',
+        link: '#'
+      }
     ]
   end
 

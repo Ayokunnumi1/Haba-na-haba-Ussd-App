@@ -75,7 +75,7 @@ class DashboardController < ApplicationController
         title: 'Pending Request',
         color: '#E0E9FF',
         units: 'Request',
-        count: request_base_query.where(is_selected: false).group_by_week(:created_at).count.values.last || 'N/A',
+        count: request_base_query.where(is_selected: false).group_by_week(:created_at).count.values.last || '0',
         icon: 'LoanIcons1.svg',
         link: '#'
       },
@@ -83,7 +83,7 @@ class DashboardController < ApplicationController
         title: 'Approved Request',
         color: '#E4FFE0',
         units: 'Request',
-        count: request_base_query.where(is_selected: true).group_by_week(:created_at).count.values.last || 'N/A',
+        count: request_base_query.where(is_selected: true).group_by_week(:created_at).count.values.last || '0',
         icon: 'LoanIcons2.svg',
         link: '#'
       },
@@ -91,7 +91,7 @@ class DashboardController < ApplicationController
         title: 'Low Stock Alert',
         color: '#FFE0E0',
         units: 'Price',
-        count: inventory_base_query.where.not(donor_type: 'cash').group_by_week(:created_at).count.values.last || 'N/A',
+        count: inventory_base_query.where.not(donor_type: 'cash').group_by_week(:created_at).count.values.last || '0',
         icon: 'LoanIcons3.svg',
         link: '#'
       },
@@ -99,7 +99,7 @@ class DashboardController < ApplicationController
         title: 'Food Events',
         color: '#FFFCE0',
         units: 'Event',
-        count: event_base_query.group_by_week(:created_at).count.values.last || 'N/A',
+        count: event_base_query.group_by_week(:created_at).count.values.last || '0',
         icon: 'LoanIcons4.svg',
         link: '#'
       }

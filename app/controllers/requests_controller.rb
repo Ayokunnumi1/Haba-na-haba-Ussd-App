@@ -56,22 +56,24 @@ class RequestsController < ApplicationController
     @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
     @users = User.where(role: 'volunteer')
   end
-
-  def create
-    @request = Request.new(request_params)
-    if @request.save
-      notify_branch_managers(@request, current_user)
-      redirect_to @request, notice: 'Request was successfully created.'
-    else
-      @users = User.where(role: 'volunteer')
-      @districts = District.all
-      @branches = Branch.all
-      @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
-      @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
-      flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
-      render :new, status: :unprocessable_entity
-    end
+  
+def create
+  @request = Request.new(request_params)
+  if @request.save
+    notify_branch_managers(@request, current_user)
+    redirect_to @request, notice: 'Request was successfully created.'
+  else
+    @users = User.where(role: 'volunteer')
+    @districts = District.all
+    @branches = Branch.all
+    @counties = @request.district.present? ? County.where(district_id: @request.district_id) : County.none
+    @sub_counties = @request.county.present? ? SubCounty.where(county_id: @request.county_id) : SubCounty.none
+    @request.county_id = nil unless @request.county.present?
+    @request.sub_county_id = nil unless @request.sub_county.present?
+    flash.now[:alert] = "Error: #{@request.errors.full_messages.to_sentence}"
+    render :new, status: :unprocessable_entity
   end
+end
 
   def update
     if @request.update(request_params)

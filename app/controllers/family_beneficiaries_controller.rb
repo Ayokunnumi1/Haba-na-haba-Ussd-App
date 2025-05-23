@@ -3,15 +3,23 @@ class FamilyBeneficiariesController < ApplicationController
   before_action :set_request, only: %i[new create edit update]
   before_action :set_family_beneficiary, only: %i[edit update show destroy]
 
-  def index
+ def index
     @districts = District.all
     @counties = County.none
     @sub_counties = SubCounty.none
     @branches = Branch.all
-    @family_beneficiaries = FamilyBeneficiary.includes(:event).all
-    @family_beneficiaries = FamilyBeneficiary.includes(:request).apply_filters(params)
-  end
 
+    # Base query for family beneficiaries
+    @family_beneficiaries = FamilyBeneficiary.includes(:event, :request)
+
+    # Apply branch filtering for branch_manager and volunteer roles
+    if current_user.role.in?(['branch_manager', 'volunteer']) && current_user.branch_id.present?
+      @family_beneficiaries = @family_beneficiaries.where(branch_id: current_user.branch_id)
+    end
+
+    # Apply any additional filters from params
+    @family_beneficiaries = @family_beneficiaries.apply_filters(params)
+  end
   def show; end
 
   def new

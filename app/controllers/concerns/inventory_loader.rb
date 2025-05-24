@@ -34,18 +34,13 @@ module InventoryLoader
     inventory_base_query.where(donation_type: 'cloth', created_at: start_of_week..end_of_week).count
   end
 
- def load_inventory_list
-  begin
+  def load_inventory_list
     @inventories = if @per_page.zero?
-                    load_all_inventories
-                  else
-                    load_paginated_inventories
-                  end
-  rescue => e
-    Rails.logger.error("Error loading inventories: #{e.message}")
-    @inventories = Inventory.none # Fallback to empty collection
+                     load_all_inventories
+                   else
+                     load_paginated_inventories
+                   end
   end
-end
 
   def load_all_inventories
     inventory_base_query.includes(:request)

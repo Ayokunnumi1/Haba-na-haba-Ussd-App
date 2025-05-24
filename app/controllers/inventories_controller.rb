@@ -7,11 +7,32 @@ class InventoriesController < ApplicationController
 
   before_action :set_inventory, only: %i[edit update show destroy]
 
-  def index
-    set_pagination_params
-    load_inventories
-    calculate_counts
-    load_filters
+    def index
+    begin
+      set_pagination_params
+      load_inventories
+      calculate_counts
+      load_filters
+    rescue => e
+      # Log the error
+      Rails.logger.error("Error in inventories#index: #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n"))
+      
+      # Initialize default values for the view
+      @inventories = Inventory.none
+      @total_inventory_count = 0
+      @weekly_food_inventory_count = 0
+      @weekly_cash_inventory_count = 0
+      @weekly_cloth_inventory_count = 0
+      @total_pages = 1
+      @districts = District.all
+      @counties = County.all
+      @branches = Branch.all
+      @sub_counties = SubCounty.all
+      
+      # Flash an error message
+      flash.now[:alert] = "An error occurred loading inventories. The issue has been logged."
+    end
   end
 
   def show

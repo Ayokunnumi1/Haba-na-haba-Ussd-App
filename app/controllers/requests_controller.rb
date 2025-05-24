@@ -30,12 +30,12 @@ class RequestsController < ApplicationController
   end
 
   def show
-    return unless params[:notification_id].present?
+    @request = Request.find(params[:id])
 
-    notification = current_user.notifications.find_by(id: params[:notification_id])
-    return unless notification.present? && !notification.read
-
-    notification.update(read: true)
+    if params[:notification_id].present?
+      notification = current_user.notifications.find_by(id: params[:notification_id])
+      notification.update(read: true) if notification.present? && !notification.read
+    end
   end
 
   def new

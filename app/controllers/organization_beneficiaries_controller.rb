@@ -4,14 +4,24 @@ class OrganizationBeneficiariesController < ApplicationController
   before_action :set_request, only: %i[new create edit update]
   before_action :set_organization_beneficiary, only: %i[edit update show destroy]
 
+ 
   def index
-    @districts = District.all
-    @counties = County.none
-    @sub_counties = SubCounty.none
-    @branches = Branch.all
-    @organization_beneficiaries = OrganizationBeneficiary.includes(:event).all
-    @organization_beneficiaries = OrganizationBeneficiary.includes(:request).apply_filters(params)
+  @districts = District.all
+  @counties = County.none
+  @sub_counties = SubCounty.none
+  @branches = Branch.all
+
+  # Base query for organization beneficiaries
+  @organization_beneficiaries = OrganizationBeneficiary.includes(:event, :request)
+
+  # Apply branch filtering for branch_manager and volunteer roles
+  if current_user.role.in?(['branch_manager', 'volunteer']) && current_user.branch_id.present?
+    @organization_beneficiaries = @organization_beneficiaries.where(branch_id: current_user.branch_id)
   end
+
+  # Apply any additional filters from params
+  @organization_beneficiaries = @organization_beneficiaries.apply_filters(params)
+end
 
   def show; end
 

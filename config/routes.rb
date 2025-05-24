@@ -62,7 +62,7 @@ Rails.application.routes.draw do
         get :load_sub_counties, to: 'organization_beneficiaries#load_sub_counties'
       end
     end
-    resources :inventories, only: [:new, :create, :edit, :update] do
+    resources :inventories do
       collection do
         get :load_counties, to: 'inventories#load_counties'
         get :load_sub_counties, to: 'inventories#load_sub_counties'
@@ -87,14 +87,12 @@ Rails.application.routes.draw do
       get :load_sub_counties
     end
   end
-  resources :inventories, only: [:index, :show, :destroy]
-
-  resources :requests do
-    resources :inventories, only: [:index, :show, :destroy, :edit, :update] do
-      collection do
-        get 'load_counties'
-        get 'load_sub_counties'
-      end
+  resources :inventories, only: [:index, :show, :destroy, :edit, :update, :new, :create] do
+    collection do
+      get :load_counties
+      get :load_sub_counties
     end
   end
+  
+  # Removed duplicate nested route block
 end

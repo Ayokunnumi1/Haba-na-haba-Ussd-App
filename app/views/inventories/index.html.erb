@@ -236,7 +236,11 @@
               <div id="dropdown-<%= inventory.id %>" class="hidden absolute z-10 right-0 <%= 'bottom-full mb-2' if index >= 4 %> w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                   <%= link_to 'Details', inventory_path(inventory), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
-                  <%= link_to 'Update', edit_request_inventory_path(inventory.request, inventory), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                 <% if inventory.request.present? %>
+                    <%= link_to 'Update', edit_request_inventory_path(inventory.request, inventory), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <% else %>
+                    <%= link_to 'Update', edit_inventory_path(inventory), class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <% end %>                  
                   <%= button_to 'Delete', inventory_path(inventory), method: :delete, data: { confirm: 'Are you sure?' }, class: 'block px-4 py-2 text-sm text-red-600 hover:bg-gray-100' %>
                 </div>
               </div>

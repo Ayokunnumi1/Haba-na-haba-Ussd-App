@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_22_152336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
@@ -62,13 +62,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.uuid "district_id"
+    t.index ["uuid"], name: "index_counties_on_uuid", unique: true
   end
 
   create_table "districts", primary_key: "uuid", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_districts_on_uuid", unique: true
   end
 
   create_table "event_users", force: :cascade do |t|
@@ -199,13 +202,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
 
   create_table "notifications", force: :cascade do |t|
     t.string "notifiable_type", null: false
-    t.bigint "notifiable_id", null: false
     t.string "message"
     t.boolean "read", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id"
-    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.uuid "notifiable_id"
   end
 
   create_table "organization_beneficiaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -267,7 +269,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_13_050607) do
     t.bigint "county_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["county_id"], name: "index_sub_counties_on_county_id"
+    t.index ["uuid"], name: "index_sub_counties_on_uuid", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

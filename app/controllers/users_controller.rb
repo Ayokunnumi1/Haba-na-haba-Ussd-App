@@ -37,22 +37,18 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-  
+
     if current_user.admin? && user_params[:role] == 'super_admin'
       flash[:alert] = 'Admins cannot update users to the role of super_admin.'
       redirect_to users_path and return
     end
-  
+
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
       flash.now[:alert] = "Error: #{@user.errors.full_messages.to_sentence}"
       render :edit, status: :unprocessable_entity
     end
-  rescue StandardError => e
-    Rails.logger.error "User update failed: #{e.message}"
-    flash[:alert] = "Failed to update user: #{e.message}"
-    redirect_to edit_user_path(@user)
   end
 
   def destroy
@@ -69,15 +65,13 @@ class UsersController < ApplicationController
     redirect_to users_path, alert: handle_destroy_error(e)
   end
 
-  # MOVE THIS OUTSIDE THE METHOD - AT CLASS LEVEL
   rescue_from CanCan::AccessDenied do |_|
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to users_path
   end
-
-  # rescue StandardError => e
-  #   redirect_to branches_path, alert: handle_destroy_error(e)
-  # end
+rescue StandardError => e
+  redirect_to branches_path, alert: handle_destroy_error(e)
+end
 
   private
 

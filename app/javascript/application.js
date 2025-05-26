@@ -8,7 +8,6 @@ import "./requestDropdown.js";
 import "./controllers/toggleFilter.js";
 import "./dropdown.js";
 import "./nested_forms.js";
-import "./district.js";
 import "./truncate.js";
 import "./chartkick.js";
 import "./Chart.bundle.js";

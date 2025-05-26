@@ -12,7 +12,12 @@ class EventsController < ApplicationController
     @sub_counties = SubCounty.none
   end
 
-  def new; end
+def new
+  @event = Event.new
+  @districts = District.all
+  @users = User.all
+  # Don't set @counties or @sub_counties initially
+end
 
   def create
     @event.assign_attributes(event_params)
@@ -36,7 +41,20 @@ class EventsController < ApplicationController
     @requests = @event.requests.includes(:district, :county, :sub_county, :branch)
   end
 
-  def edit; end
+  def edit
+  @districts = District.all
+  @users = User.all
+  
+  # If editing an existing event with a district, load its counties
+  if @event.district_id
+    @counties = County.where(district_id: @event.district_id)
+  end
+  
+  # If editing an event with a county, load its sub-counties
+  if @event.county_id
+    @sub_counties = SubCounty.where(county_id: @event.county_id)
+  end
+end
 
   def update
     if @event.update(event_params)

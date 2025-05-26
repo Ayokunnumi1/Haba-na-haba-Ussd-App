@@ -125,7 +125,6 @@ function fetchSubCounties(countyId, contextPath) {
     
     // Mark as initialized
     listenersInitialized = true;
-    console.log("District/County/SubCounty listeners initialized");
   }
 }
 
